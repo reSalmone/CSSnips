@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSSnip</title>
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body>
+    <div class="actions-menu">
+        <button class="action-button" id="action-reset">Reset file</button>
+        <button class="action-button">Save as draft</button>
+        <button class="action-button" id="action-post">Post in library</button>
+    </div>
+    <div class="rest">
+        <input type="checkbox" class="sidebar-checkbox" id="sbcb" hidden>
+        <div class="navigation-menu">
+            <div id="sidebar" class="sidebar" onmouseenter="openNav()" onmouseleave="closeNav()">
+                <div class="sidebar-header">
+                    <img src="assets/menu.png" class="sidebar-header-icon">
+                    <span class="sidebar-title">Titolo</span>
+                </div>
+                <div class="sidebar-buttons">
+                    <div class="upper-buttons">
+                        <button class="sbutton" onclick="location.href=''" type="button">
+                            <img src="assets/home.png" class="icon">
+                            <span>Home</span>
+                        </button>
+                        <hr>
+                        <button class="sbutton">
+                            <img src="assets/user.png" class="icon">
+                            <span>About me</span>
+                        </button>
+                        <button class="sbutton" onclick="location.href='login.html'" type="button">
+                            <img src="assets/lock.png" class="icon">
+                            <span>Account</span>
+                        </button>
+                        <div class="dropdown">
+                            <input type="checkbox" id="dropdown-toggle1" class="dropdown-toggle"
+                                onchange="expandDropdownConent(this)">
+                            <label for="dropdown-toggle1" class="sbutton label-sbutton">
+                                <img src="assets/layer.png" class="icon">
+                                <span>Dropdown</span>
+                                <img src="assets/down-arrow.png" class="icon dropdown-icon">
+                            </label>
+                            <div class="dropdown-content">
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>Dropdown 1</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>Dropdown 2</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>Dropdown 3</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="sbutton">
+                            <img src="assets/email.png" class="icon">
+                            <span>Roba random</span>
+                        </button>
+                        <hr>
+                        <div class="dropdown">
+                            <input type="checkbox" id="dropdown-toggle2" class="dropdown-toggle"
+                                onchange="expandDropdownConent(this)">
+                            <label for="dropdown-toggle2" class="sbutton label-sbutton">
+                                <img src="assets/checklist.png" class="icon">
+                                <span>Checklist</span>
+                                <img src="assets/down-arrow.png" class="icon dropdown-icon">
+                            </label>
+                            <div class="dropdown-content">
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>1</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>2</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>3</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>4</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>5</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>6</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>7</span>
+                                </button>
+                                <button class="dropdown-sbutton sbutton">
+                                    <span>8</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lower-buttons">
+                        <button class="sbutton">
+                            <img src="assets/settings.png" class="icon">
+                            <span>Settings</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="sidebar-footer">
+                    <img src="assets/salmone3.svg" class="sidebar-footer-icon">
+                    <span class="footer-text">Made by <i>reSalmone</i></span>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="snippet-page">
+                <div class="snippet-container">
+                    <iframe id="output" class="output-container">
+
+                    </iframe>
+                    <div class="code-container">
+                        <div class="code-buttons">
+                            <div class="lang-buttons-container">
+                                <button class="lang-button" id="html-button" onclick="switchLang('html')">HTML</button>
+                                <button class="lang-button" id="css-button" onclick="switchLang('css')">CSS</button>
+                                <button class="lang-button" id="js-button" onclick="switchLang('js')">JS</button>
+                            </div>
+                        </div>
+                        <div class="code-div">
+                            <button class="copy-button" onclick="copyToClipboard();">
+                                <img src="copy.png" class="copy-icon">
+                                <span id="copy-span">Copy</span>
+                            </button>
+                            <div class="line-numbers" id="line-numbers">
+                                <div>1</div>
+                            </div>
+                            <textarea class="input-area" id="html-area" oninput="updateLines(this); displayCode()"
+                                onscroll="syncScroll(this);" spellcheck="false" placeholder="Html code"></textarea>
+                            <textarea class="input-area" id="css-area" oninput="updateLines(this); displayCode();"
+                                onscroll="syncScroll(this);" spellcheck="false" placeholder="Css code"></textarea>
+                            <textarea class="input-area" id="js-area" oninput="updateLines(this); displayCode();"
+                                onscroll="syncScroll(this);" spellcheck="false"
+                                placeholder="JavaScript code"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function openNav() {
+        let sbcb = document.getElementById("sbcb");
+        sbcb.checked = true;
+    }
+    function closeNav() {
+        let sbcb = document.getElementById("sbcb");
+        sbcb.checked = false;
+    }
+    function expandDropdownConent(checkbox) {
+        let dropdown = checkbox.nextElementSibling.nextElementSibling;
+        if (checkbox.checked) {
+            dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        } else {
+            dropdown.style.maxHeight = 0 + "px";
+        }
+    }
+</script>
+<script>
+    var currentLang = "html";
+    function copyToClipboard() {
+        const areas = {
+            html: document.getElementById('html-area'),
+            css: document.getElementById('css-area'),
+            js: document.getElementById('js-area')
+        };
+
+        navigator.clipboard.writeText(areas[currentLang].value);
+
+        let copySpan = document.getElementById("copy-span");
+        if (copySpan.innerText === "Copy") {
+            copySpan.innerText = "Copied";
+            setTimeout(function () {
+                copySpan.innerText = "Copy";
+            }, 1000);
+        }
+    }
+
+    function displayCode() {
+        const html = document.getElementById('html-area').value;
+        const css = document.getElementById('css-area').value;
+        const js = document.getElementById('js-area').value;
+
+        const completeDocument = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <link rel="stylesheet" href="NoveoSans-Book/style.css">
+              <style>
+                * {
+                    font-family: "Noveo Sans";
+                }
+                body {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    margin: 0;
+                }
+                ${css}
+              </style>
+            </head>
+            <body>
+              ${html}
+              <script>
+                ${js}
+              <\/script>
+            </body>
+            </html>
+        `;
+
+        let output = document.getElementById("output");
+        output.srcdoc = completeDocument;
+    }
+
+    const lineNumbers = document.getElementById('line-numbers');
+
+    function updateLines(area) {
+        const lines = area.value.split('\n').length;
+        lineNumbers.innerHTML = '';
+        for (let i = 1; i <= lines; i++) {
+            const line = document.createElement('div');
+            line.textContent = i;
+            lineNumbers.appendChild(line);
+        }
+    }
+
+    function syncScroll(area) {
+        lineNumbers.scrollTop = area.scrollTop;
+    }
+
+    function switchLang(lang) {
+        currentLang = lang;
+        const areas = {
+            html: document.getElementById('html-area'),
+            css: document.getElementById('css-area'),
+            js: document.getElementById('js-area')
+        };
+
+        const buttons = {
+            html: document.getElementById('html-button'),
+            css: document.getElementById('css-button'),
+            js: document.getElementById('js-button')
+        };
+
+        Object.keys(areas).forEach(type => {
+            areas[type].style.display = 'none';
+            buttons[type].classList.remove('active');
+        });
+
+        if (areas[lang] && buttons[lang]) {
+            areas[lang].style.display = 'block';
+            buttons[lang].classList.add('active');
+            updateLines(areas[lang]);
+            syncScroll(areas[lang]);
+        }
+    }
+    switchLang("html");
+</script>
+
+</html>

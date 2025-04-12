@@ -1,0 +1,258 @@
+@import './navigation-bar.css';
+
+* {
+    font-family: "Noveo Sans";
+}
+
+body {
+    margin: 0;
+}
+
+.rest {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 90px
+}
+
+#content {
+    left: calc(var(--sidebar-closed-width));
+    background-color: red;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.snippet-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.snippet-container {
+    display: flex;
+    width: 90%;
+    height: 70%;
+    border-radius: 10px;
+    flex-direction: row;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.output-container {
+    width: 50%;
+    height: 100%;
+    background-color: #ccc;
+    outline: 0;
+    border: 0;
+}
+
+.code-container {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.code-buttons {
+    background-color: #222;
+    height: 10%;
+    padding-top: 10px;
+    justify-items: center;
+}
+
+.lang-buttons-container {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    overflow: hidden;
+}
+
+.lang-buttons-container .lang-button {
+    background-color: #333;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    color: #ccc;
+    font-size: 12px;
+    transition: .1s;
+}
+
+.lang-buttons-container .lang-button:hover {
+    background-color: #393939;
+}
+
+.lang-buttons-container .lang-button.active {
+    background-color: #444;
+}
+
+.code-div {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: monospace;
+    position: relative;
+}
+
+.code-div .copy-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: #333;
+    outline: 0;
+    border: 0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    color: #ccc;
+    padding: 10px;
+}
+
+.code-div .copy-button:hover {
+    background-color: #555;
+}
+
+.code-div .copy-button:active {
+    background-color: #666;
+}
+
+.copy-button .copy-icon {
+    align-self: center;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+    user-select: none;
+}
+
+.copy-button span {
+    padding-left: 20px;
+}
+
+.line-numbers {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #444;
+    width: 5%;
+    color: #888;
+    text-align: right;
+    user-select: none;
+    padding-right: 10px;
+    overflow: hidden;
+}
+
+.line-numbers div {
+    font-size: 14px;
+}
+
+.input-area {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    background-color: #444;
+    border: 0;
+    resize: none;
+    width: 100%;
+    font-family: monospace;
+    font-size: 14px;
+    outline: none;
+    overflow-y: scroll;
+    color: #ccc
+}
+
+.input-area::-webkit-scrollbar {
+    width: 10px;
+}
+
+.input-area::-webkit-scrollbar-thumb {
+    background: #666;
+    /*border-radius: 50px;*/
+}
+
+.input-area::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+.input-area::-webkit-scrollbar-thumb:active {
+    background: #888;
+}
+
+.actions-menu {
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 50px;
+    background-color: #222;
+    overflow: hidden;
+    gap: 20px;
+    padding: 20px;
+    left: 0;
+    top: 0;
+    right: 0;
+}
+
+.actions-menu .action-button {
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #fff;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.actions-menu .action-button:hover {
+    background-color: #333;
+}
+
+.actions-menu .action-button:active {
+    background-color: #444;
+}
+
+.actions-menu #action-reset {
+    background: #fea195;
+    color: #181818;
+    border: 3px solid #fea195;
+    box-shadow: 0 0 0 #fea195;
+    transition: all 0.3s ease-in-out;
+}
+.actions-menu #action-reset:hover {
+    background: transparent;
+    color: #fea195;
+    box-shadow: 0 0 25px #fea195;
+}
+
+.actions-menu #action-post {
+    background: #cf95fe;
+    color: #181818;
+    border: 3px solid #cf95fe;
+    box-shadow: 0 0 0 #cf95fe;
+    transition: all 0.3s ease-in-out;
+}
+.actions-menu #action-post:hover {
+    background: transparent;
+    color: #cf95fe;
+    box-shadow: 0 0 25px #cf95fe;
+}

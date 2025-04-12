@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Noveo Sans';
+    src: local('Noveo Sans Book'), local('Noveo-Sans-Book'),
+        url('NoveoSans-Book.woff2') format('woff2'),
+        url('NoveoSans-Book.woff') format('woff'),
+        url('NoveoSans-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }

@@ -2,6 +2,8 @@
 
 * {
     font-family: "Noveo Sans";
+    --color1: #222;
+    --color1: #222;
 }
 
 body {
@@ -70,7 +72,8 @@ body {
     background-color: #222;
     height: 10%;
     padding-top: 10px;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .lang-buttons-container {

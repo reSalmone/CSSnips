@@ -1,7 +1,7 @@
 const canvas = document.getElementById("first-container-canvas");
 const context = canvas.getContext("2d");
 
-var numberOfCurves = 10;
+var numberOfCurves = 5;
 var curveColor = getComputedStyle(canvas.parentElement).backgroundColor;
 var curves = [];
 

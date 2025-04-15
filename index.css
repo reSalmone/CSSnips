@@ -9,7 +9,7 @@ body {
 }
 
 .first-container {
-    height: 300px;
+    height: 500px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -20,6 +20,7 @@ body {
 }
 
 .title-container {
+    margin-top: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;

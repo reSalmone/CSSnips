@@ -16,7 +16,7 @@ for (let i = 0; i < numberOfCurves; i++) {
         offset: Math.random() * 500,
         speed: Math.random() + 0.5,
         direction: Math.random() < 0.5 ? 1 : -1,
-        y: (canvas.height / numberOfCurves) * (numberOfCurves - i - 1),
+        y: (canvas.height / numberOfCurves) * (numberOfCurves - i - 1) + (canvas.height / numberOfCurves) / 2,
         frequency: Math.round(canvas.width / 400), //how many waves there are
         amplitude: Math.random() * canvas.height / numberOfCurves, //how high they reach
     });
@@ -51,7 +51,9 @@ function animate() {
 
         context.lineTo(canvas.width, 0);
         context.lineTo(0, 0);
-        context.fillStyle = setAlpha(getComputedStyle(canvas.parentElement).backgroundColor, 3 / numberOfCurves);
+        color = getComputedStyle(canvas.parentElement).backgroundColor;
+        alpha = curves.indexOf(c) === numberOfCurves - 1 ? 1 : 3 / (numberOfCurves + 2);
+        context.fillStyle = setAlpha(color, alpha);
         context.fill();
     });
 

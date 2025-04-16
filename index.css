@@ -6,6 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    text-align: center;
 }
 
 .first-container {
@@ -28,7 +29,6 @@ body {
 }
 
 .title {
-    text-align: center;
     color: #efffe1;
     font-size: 100px;
     margin: 0;
@@ -36,7 +36,6 @@ body {
 }
 
 .subtitle {
-    text-align: center;
     color: #efffe1;
     font-size: 30px;
     margin: 0;
@@ -91,13 +90,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #8B1E3F;
+    background: #F07167;
     gap: 100px;
     overflow: hidden;
 }
 
 .secondary-title {
-    text-align: center;
     color: #efffe1;
     font-size: 70px;
     margin: 0;
@@ -105,7 +103,6 @@ body {
 }
 
 .secondary-subtitle {
-    text-align: center;
     color: #efffe1;
     font-size: 30px;
     margin: 0;
@@ -121,6 +118,7 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     box-shadow: inset 0 0 10px 20px rgba(0, 0, 0, .1);
+    overflow: hidden;
 }
 
 .slideshow {
@@ -144,6 +142,7 @@ body {
 
 .activec {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

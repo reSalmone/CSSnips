@@ -295,11 +295,11 @@ body {
     background: var(--color6-placeholder);
     color: #181818;
     border: 3px solid var(--color6);
-    box-shadow: 0 0 0 var(--color6);;
+    box-shadow: 0 0 0 var(--color6);
     transition: all 0.3s ease-in-out;
 }
 .snippet-action-bar #action-post:hover {
     background: transparent;
-    color: var(--color6);;
-    box-shadow: 0 0 25px var(--color6);;
+    color: var(--color6);
+    box-shadow: 0 0 25px var(--color6);
 }

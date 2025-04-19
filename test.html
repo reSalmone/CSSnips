@@ -11,12 +11,8 @@
 </head>
 
 <body>
-    <div class="actions-menu">
-        <button class="action-button" id="action-reset">Reset file</button>
-        <button class="action-button">Save as draft</button>
-        <button class="action-button" id="action-post">Post in library</button>
-    </div>
-    <div class="rest">
+    <div class="actions-menu"></div>
+    <div id="rest">
         <input type="checkbox" class="sidebar-checkbox" id="sbcb" hidden>
         <div class="navigation-menu">
             <div id="sidebar" class="sidebar" onmouseenter="openNav()" onmouseleave="closeNav()">
@@ -115,6 +111,13 @@
         </div>
         <div id="content">
             <div class="snippet-page">
+                <div class="snippet-action-bar">
+                    <div class="action-buttons-container">
+                        <button class="action-button" id="action-reset">Reset file</button>
+                        <button class="action-button">Save as draft</button>
+                        <button class="action-button" id="action-post">Post in library</button>
+                    </div>
+                </div>
                 <div class="snippet-container">
                     <iframe id="output" class="output-container">
 
@@ -136,11 +139,13 @@
                                 <div>1</div>
                             </div>
                             <textarea class="input-area" id="html-area" oninput="updateLines(this); displayCode()"
-                                onscroll="syncScroll(this);" spellcheck="false" placeholder="Html code"></textarea>
+                                onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
+                                placeholder="Html code"></textarea>
                             <textarea class="input-area" id="css-area" oninput="updateLines(this); displayCode();"
-                                onscroll="syncScroll(this);" spellcheck="false" placeholder="Css code"></textarea>
+                                onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
+                                placeholder="Css code"></textarea>
                             <textarea class="input-area" id="js-area" oninput="updateLines(this); displayCode();"
-                                onscroll="syncScroll(this);" spellcheck="false"
+                                onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
                                 placeholder="JavaScript code"></textarea>
                         </div>
                     </div>
@@ -153,10 +158,14 @@
     function openNav() {
         let sbcb = document.getElementById("sbcb");
         sbcb.checked = true;
+        let content = document.getElementById("content");
+        content.classList.add('darkened');
     }
     function closeNav() {
         let sbcb = document.getElementById("sbcb");
         sbcb.checked = false;
+        let content = document.getElementById("content");
+        content.classList.remove('darkened');
     }
     function expandDropdownConent(checkbox) {
         let dropdown = checkbox.nextElementSibling.nextElementSibling;
@@ -196,7 +205,7 @@
             <!DOCTYPE html>
             <html>
             <head>
-              <link rel="stylesheet" href="NoveoSans-Book/style.css">
+              <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
               <style>
                 * {
                     font-family: "Noveo Sans";
@@ -222,6 +231,18 @@
 
         let output = document.getElementById("output");
         output.srcdoc = completeDocument;
+    }
+
+    function insertTab(e, textArea) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+
+            textArea.value = textArea.value.substring(0, start) + '\t' + textArea.value.substring(end);
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+        }
     }
 
     const lineNumbers = document.getElementById('line-numbers');

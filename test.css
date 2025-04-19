@@ -8,8 +8,10 @@
 
     --color2: #1D7874;
     --color2-bright: color-mix(in srgb, var(--color2) 95%, white);
+    --color2-brighter: color-mix(in srgb, var(--color2) 90%, white);
 
-    --color3: #F28118;
+    /*inutile pe adesso - se se trova uno bello usa il 3 come colori del blocco codice e cazzi*/
+    --color3: #f0a056; /*5C0029*/
     --color3-bright: color-mix(in srgb, var(--color3) 90%, white);
     --color3-brighter: color-mix(in srgb, var(--color3) 80%, white);
 
@@ -17,6 +19,8 @@
     --color4-placeholder: color-mix(in srgb, var(--color4) 50%, transparent);
 
     --color5: #F07167;
+    --color5-bright: color-mix(in srgb, var(--color5) 90%, white);
+    --color5-brighter: color-mix(in srgb, var(--color5) 80%, white);
     --color5-placeholder: color-mix(in srgb, var(--color5) 75%, transparent);
 
     --color6: #68ee89;
@@ -32,14 +36,12 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    height: 50px;
-    background-color: var(--color1-dark);
-    overflow: hidden;
-    gap: 20px;
-    padding: 20px;
+    height: 90px;
+    background: var(--color1-dark);
     left: 0;
     top: 0;
     right: 0;
+    z-index: 10;
 }
 
 #rest {
@@ -124,7 +126,7 @@ body {
 }
 
 .lang-buttons-container .lang-button {
-    background-color: var(--color3-brighter);
+    background-color: var(--color5-brighter);
     width: 100%;
     outline: 0;
     border: 0;
@@ -134,11 +136,11 @@ body {
 }
 
 .lang-buttons-container .lang-button:hover {
-    background-color: var(--color3-bright);
+    background-color: var(--color5-bright);
 }
 
 .lang-buttons-container .lang-button.active {
-    background-color: var(--color3);
+    background-color: var(--color5);
 }
 
 .code-div {
@@ -155,7 +157,7 @@ body {
     position: absolute;
     top: 10px;
     right: 20px;
-    background-color: var(--color3-brighter);
+    background-color: var(--color5-brighter);
     outline: 0;
     border: 0;
     border-radius: 4px;
@@ -166,11 +168,11 @@ body {
 }
 
 .code-div .copy-button:hover {
-    background-color: var(--color3-bright);
+    background-color: var(--color5-bright);
 }
 
 .code-div .copy-button:active {
-    background-color: var(--color3);
+    background-color: var(--color5);
 }
 
 .copy-button .copy-icon {
@@ -190,7 +192,7 @@ body {
 .line-numbers {
     padding-top: 20px;
     padding-bottom: 20px;
-    background: var(--color3);
+    background: var(--color5);
     width: 5%;
     color: var(--color4);
     text-align: right;
@@ -207,7 +209,7 @@ body {
     padding-top: 20px;
     padding-left: 10px;
     padding-bottom: 20px;
-    background-color: var(--color3);
+    background-color: var(--color5);
     border: 0;
     resize: none;
     width: 100%;
@@ -227,16 +229,16 @@ body {
 }
 
 .input-area::-webkit-scrollbar-thumb {
-    background: #666;
+    background: var(--color2);
     /*border-radius: 50px;*/
 }
 
 .input-area::-webkit-scrollbar-thumb:hover {
-    background: #777;
+    background: var(--color2-bright);
 }
 
 .input-area::-webkit-scrollbar-thumb:active {
-    background: #888;
+    background: var(--color2-brighter);
 }
 
 .snippet-action-bar {
@@ -261,7 +263,7 @@ body {
     outline: 0;
     border: 0;
     border-radius: 5px;
-    background: transparent;
+    background: var(--color1-bright);
     color: var(--color4);
     font-size: 16px;
     padding-left: 30px;
@@ -271,35 +273,35 @@ body {
 }
 
 .snippet-action-bar .action-button:hover {
-    background-color: #333;
+    background-color: var(--color1);
 }
 
 .snippet-action-bar .action-button:active {
-    background-color: #444;
+    background-color: var(--color1-dark);
 }
 
 .snippet-action-bar #action-reset {
-    background: var(--color5-placeholder);
+    background: var(--color5);
     color: var(--color1);
     border: 3px solid var(--color5);
     box-shadow: 0 0 0 var(--color5);
     transition: all 0.3s ease-in-out;
 }
 .snippet-action-bar #action-reset:hover {
-    background: transparent;
+    background: var(--color1);
     color: var(--color5);
     box-shadow: 0 0 25px var(--color5);
 }
 
 .snippet-action-bar #action-post {
-    background: var(--color6-placeholder);
-    color: #181818;
+    background: var(--color6);
+    color: var(--color1);
     border: 3px solid var(--color6);
     box-shadow: 0 0 0 var(--color6);
     transition: all 0.3s ease-in-out;
 }
 .snippet-action-bar #action-post:hover {
-    background: transparent;
+    background: var(--color1);
     color: var(--color6);
     box-shadow: 0 0 25px var(--color6);
 }

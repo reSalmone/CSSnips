@@ -277,25 +277,25 @@ body {
 .snippet-action-bar #action-reset {
     background: #fea195;
     color: #181818;
-    border: 3px solid #fea195;
-    box-shadow: 0 0 0 #fea195;
+    border: 3px solid #F07167;
+    box-shadow: 0 0 0 #F07167;
     transition: all 0.3s ease-in-out;
 }
 .snippet-action-bar #action-reset:hover {
     background: transparent;
-    color: #fea195;
-    box-shadow: 0 0 25px #fea195;
+    color: #F07167;
+    box-shadow: 0 0 25px #F07167;
 }
 
 .snippet-action-bar #action-post {
     background: #cf95fe;
     color: #181818;
-    border: 3px solid #cf95fe;
-    box-shadow: 0 0 0 #cf95fe;
+    border: 3px solid #bdd2ac;
+    box-shadow: 0 0 0 #bdd2ac;
     transition: all 0.3s ease-in-out;
 }
 .snippet-action-bar #action-post:hover {
     background: transparent;
-    color: #cf95fe;
-    box-shadow: 0 0 25px #cf95fe;
+    color: #bdd2ac;
+    box-shadow: 0 0 25px #bdd2ac;
 }

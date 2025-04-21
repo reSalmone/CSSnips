@@ -1,3 +1,5 @@
+@import './test.css';
+
 * {
     font-family: "Noveo Sans";
 }
@@ -10,18 +12,17 @@ body {
 }
 
 .first-container {
-    height: 500px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #071E22;
+    background: var(--color1);
     position: relative; /*this is so that the canvas can be absolute*/
+    padding-top: 5%;
 }
 
 .title-container {
-    margin-top: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,48 +30,66 @@ body {
 }
 
 .title {
-    color: #efffe1;
+    color: var(--color4);
     font-size: 100px;
     margin: 0;
     font-weight: bold;
 }
 
 .subtitle {
-    color: #efffe1;
+    color: var(--color4);
     font-size: 30px;
     margin: 0;
+}
+
+.scroll-arrow {
+    width: 5em;
+    height: 5em;
+    pointer-events: none;
+    user-select: none;
+    filter: brightness(0) invert(1);
+    align-self: center;
+    rotate: 180deg;
+    margin: 10%;
+    animation: scroll-arrow 3s ease infinite;
+}
+
+@keyframes scroll-arrow {
+    0% { transform: translateY(10px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(10px); }
 }
 
 #first-container-canvas {
     position: absolute;
     left: 0;
-    bottom: -200px; /*make it stick out of the parent*/
-    height: 200px;
+    bottom: -40%; /*make it stick out of the parent*/
+    height: 40%;
     width: 100%;
 }
 
 .second-container {
-    height: 1200px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #1D7874;
+    background: var(--color2);
+    gap: 5vh;
+    padding-top: 15%;
+    padding-bottom: 10%;
 }
 
 .code-container {
-    height: 600px;
+    height: 60vh;
     width: 80%;
     display: flex;
     flex-direction: row;
     border-radius: 20px;
-    margin-top: 300px;
     overflow: hidden;
-    top:0;
 }
 
 .preview-box {
-    background: #efffe1;
+    background: var(--color4);
     width: 60%;
     height: 100%;
     outline: 0;
@@ -78,46 +97,45 @@ body {
 }
 
 .code-box {
-    background: #071E22;
+    background: var(--color1);
     height: 100%;
     width: 40%;
 }
 
 .third-container {
-    height: 1000px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #F07167;
+    background: var(--color5);
     gap: 100px;
-    overflow: hidden;
+    padding-top: 10%;
+    padding-bottom: 10%;
 }
 
 .secondary-title {
-    color: #efffe1;
+    color: var(--color4);
     font-size: 70px;
     margin: 0;
     font-weight: bold;
 }
 
 .secondary-subtitle {
-    color: #efffe1;
+    color: var(--color4);
     font-size: 30px;
     margin: 0;
 }
 
 .slideshow-container {
     width: 80%;
-    height: 50%;
-    background: #1D7874;
+    height: 50vh;
+    background: var(--color2);
     border-radius: 20px;
-    border: 5px solid #efffe1;
+    border: 5px solid var(--color4);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    box-shadow: inset 0 0 10px 20px rgba(0, 0, 0, .1);
     overflow: hidden;
 }
 
@@ -126,22 +144,22 @@ body {
     width: 200%;
     height: 40%;
     background: rgba(0, 0, 0, .1);
-    border: 3px solid rgba(0, 0, 0, .1);
 }
 
 .fourth-container {
-    height: 1000px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #071E22;
+    background: var(--color1);
     gap: 100px;
     overflow: hidden;
+    padding-top: 10%;
+    padding-bottom: 10%;
 }
 
 .activec {
-    height: 100%;
+    height: 75vh;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -158,7 +176,7 @@ body {
 }
 
 .activec-box-title {
-    color: #efffe1;
+    color: var(--color4);
     font-size: 40px;
     margin: 0;
 }
@@ -166,7 +184,7 @@ body {
 .activec-box {
     width: 70%;
     height: 80%;
-    background: #efffe1;
+    background: var(--color4);
     overflow: hidden;
     border-radius: 20px;
     display: flex;
@@ -176,7 +194,6 @@ body {
 }
 
 .activec-arrow {
-    position: absolute;
     width: 50px;
     height: 50px;
     pointer-events: none;

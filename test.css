@@ -164,7 +164,7 @@ body {
     display: flex;
     align-items: center;
     color: var(--color4);
-    padding: 10px;
+    padding: 1%;
 }
 
 .code-div .copy-button:hover {
@@ -225,6 +225,7 @@ body {
 }
 
 .input-area::-webkit-scrollbar {
+    background: var(--color5-bright);
     width: 10px;
 }
 
@@ -257,6 +258,8 @@ body {
     flex-direction: row;
     gap: 10px;
     margin: 10px;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .snippet-action-bar .action-button {
@@ -266,10 +269,11 @@ body {
     background: var(--color1-bright);
     color: var(--color4);
     font-size: 16px;
-    padding-left: 30px;
-    padding-right: 30px;
+    width: 10%;
     text-align: center;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .snippet-action-bar .action-button:hover {
@@ -290,7 +294,7 @@ body {
 .snippet-action-bar #action-reset:hover {
     background: var(--color1);
     color: var(--color5);
-    box-shadow: 0 0 25px var(--color5);
+    box-shadow: 0 0 20px var(--color5);
 }
 
 .snippet-action-bar #action-post {
@@ -303,5 +307,5 @@ body {
 .snippet-action-bar #action-post:hover {
     background: var(--color1);
     color: var(--color6);
-    box-shadow: 0 0 25px var(--color6);
+    box-shadow: 0 0 20px var(--color6);
 }

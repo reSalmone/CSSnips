@@ -266,7 +266,7 @@ body {
     outline: 0;
     border: 0;
     border-radius: 5px;
-    background: var(--color1-bright);
+    background: transparent;
     color: var(--color4);
     font-size: 16px;
     width: 10%;
@@ -277,11 +277,11 @@ body {
 }
 
 .snippet-action-bar .action-button:hover {
-    background-color: var(--color1);
+    background: var(--color2-bright);
 }
 
 .snippet-action-bar .action-button:active {
-    background-color: var(--color1-dark);
+    background: var(--color2-brighter);
 }
 
 .snippet-action-bar #action-reset {
@@ -296,6 +296,9 @@ body {
     color: var(--color5);
     box-shadow: 0 0 20px var(--color5);
 }
+.snippet-action-bar #action-reset:active {
+    background: var(--color1-bright);
+}
 
 .snippet-action-bar #action-post {
     background: var(--color6);
@@ -308,4 +311,7 @@ body {
     background: var(--color1);
     color: var(--color6);
     box-shadow: 0 0 20px var(--color6);
+}
+.snippet-action-bar #action-post:active {
+    background: var(--color1-bright);
 }

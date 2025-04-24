@@ -11,14 +11,15 @@
     --color2-brighter: color-mix(in srgb, var(--color2) 90%, white);
 
     /*inutile pe adesso - se se trova uno bello usa il 3 come colori del blocco codice e cazzi*/
-    --color3: #f0a056; /*5C0029*/
+    --color3: #3d3d3d; /*5C0029*/
     --color3-bright: color-mix(in srgb, var(--color3) 90%, white);
     --color3-brighter: color-mix(in srgb, var(--color3) 80%, white);
+    --color3-darker: color-mix(in srgb, var(--color3)90%, black);
 
     --color4: #efffe1;
     --color4-placeholder: color-mix(in srgb, var(--color4) 50%, transparent);
 
-    --color5: #F07167;
+    --color5: #F07167; /*#F07167*/
     --color5-bright: color-mix(in srgb, var(--color5) 90%, white);
     --color5-brighter: color-mix(in srgb, var(--color5) 80%, white);
     --color5-placeholder: color-mix(in srgb, var(--color5) 75%, transparent);
@@ -126,7 +127,7 @@ body {
 }
 
 .lang-buttons-container .lang-button {
-    background-color: var(--color5-brighter);
+    background-color: var(--color3-brighter);
     width: 100%;
     outline: 0;
     border: 0;
@@ -136,11 +137,11 @@ body {
 }
 
 .lang-buttons-container .lang-button:hover {
-    background-color: var(--color5-bright);
+    background-color: var(--color3-bright);
 }
 
 .lang-buttons-container .lang-button.active {
-    background-color: var(--color5);
+    background-color: var(--color3);
 }
 
 .code-div {
@@ -153,29 +154,29 @@ body {
     position: relative;
 }
 
-.code-div .copy-button {
+.code-buttons .copy-button {
     position: absolute;
-    top: 10px;
     right: 20px;
-    background-color: var(--color5-brighter);
+    top:14px;
+    background-color: var(--color3-bright);
     outline: 0;
     border: 0;
     border-radius: 4px;
     display: flex;
     align-items: center;
     color: var(--color4);
-    padding: 1%;
+    padding: 0.5%;
 }
 
-.code-div .copy-button:hover {
-    background-color: var(--color5-bright);
+.code-buttons .copy-button:hover {
+    background-color: var(--color3);
 }
 
-.code-div .copy-button:active {
-    background-color: var(--color5);
+.code-buttons .copy-button:active {
+    background-color: var(--color3-darker);
 }
 
-.copy-button .copy-icon {
+.code-buttons .copy-icon {
     align-self: center;
     width: 16px;
     height: 16px;
@@ -185,14 +186,14 @@ body {
     user-select: none;
 }
 
-.copy-button span {
-    padding-left: 20px;
+.code-buttons .copy-button span {
+    padding-left: 10px;
 }
 
 .line-numbers {
     padding-top: 20px;
     padding-bottom: 20px;
-    background: var(--color5);
+    background: var(--color3-darker);
     width: 5%;
     color: var(--color4);
     text-align: right;
@@ -209,7 +210,7 @@ body {
     padding-top: 20px;
     padding-left: 10px;
     padding-bottom: 20px;
-    background-color: var(--color5);
+    background-color: var(--color3);
     border: 0;
     resize: none;
     width: 100%;
@@ -225,7 +226,7 @@ body {
 }
 
 .input-area::-webkit-scrollbar {
-    background: var(--color5-bright);
+    background: var(--color3-bright);
     width: 10px;
 }
 

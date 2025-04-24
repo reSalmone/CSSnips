@@ -26,23 +26,12 @@
 
     --color6: #68ee89;
     --color6-placeholder: color-mix(in srgb, var(--color6) 75%, transparent);
+
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
-}
-
-.actions-menu {
-    position: sticky;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    height: 90px;
-    background: var(--color1-dark);
-    left: 0;
-    top: 0;
-    right: 0;
-    z-index: 10;
 }
 
 #rest {

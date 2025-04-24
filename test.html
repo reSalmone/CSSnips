@@ -4,14 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSSnip</title>
+    <title>CSSnip - Create</title>
     <link rel="stylesheet" href="test.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
     <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="navbar.css">
 </head>
 
 <body>
-    <div class="actions-menu">
+    <div class="navbar">
+        <div class="left-navbar">
+            <a href="index.html" class="navbar-title">CSSnips</a>
+            <div class="nbutton-div">
+                <button class="nbutton" type="button">
+                    <span>Explore</span>
+                    <img src="assets/search.png" class="nicon">
+                </button>
+                <button class="nbutton" type="button">
+                    <span>Challenges</span>
+                    <img src="assets/target.png" class="nicon">
+                </button>
+            </div>
+        </div>
+        <div class="right-navbar">
+            <button class="navbar-login-button">
+                <span>Login</span>
+                <img src="assets/user.png" class="login-icon">
+            </button>
+        </div>
     </div>
     <div id="rest">
         <input type="checkbox" class="sidebar-checkbox" id="sbcb" hidden>
@@ -158,4 +178,5 @@
 </body>
 <script src="assets/scripts/sidebar.js"></script>
 <script src="assets/scripts/code-box.js"></script>
+
 </html>

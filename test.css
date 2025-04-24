@@ -143,29 +143,29 @@ body {
     position: relative;
 }
 
-.code-buttons .copy-button {
+.code-div .copy-button {
     position: absolute;
     right: 20px;
     top:14px;
-    background-color: var(--color3-bright);
+    background-color: var(--color3-brighter);
     outline: 0;
-    border: 0;
+    border: 2px var(--color3-brighter);
     border-radius: 4px;
     display: flex;
     align-items: center;
     color: var(--color4);
-    padding: 0.5%;
+    padding: 1%;
 }
 
-.code-buttons .copy-button:hover {
-    background-color: var(--color3);
+.code-div .copy-button:hover {
+    background-color: var(--color3-bright);
 }
 
-.code-buttons .copy-button:active {
+.code-div .copy-button:active {
     background-color: var(--color3-darker);
 }
 
-.code-buttons .copy-icon {
+.code-div .copy-icon {
     align-self: center;
     width: 16px;
     height: 16px;
@@ -175,7 +175,7 @@ body {
     user-select: none;
 }
 
-.code-buttons .copy-button span {
+.code-div .copy-button span {
     padding-left: 10px;
 }
 
@@ -242,6 +242,72 @@ body {
     flex-direction: row;
     justify-content: flex-end;
 }
+
+/* DARK MODE */ 
+.toggle-switch {
+    position: relative;
+    width: 50px; /* 100px * 0.5 */
+    height: 25px; /* 50px * 0.5 */
+    --light: #d8dbe0;
+    --dark: #28292c;
+    --link: rgb(27, 129, 112);
+    --link-hover: rgb(24, 94, 82);
+  }
+  
+  .switch-label {
+    position: absolute;
+    width: 100%;
+    height: 25px;
+    background-color: var(--dark);
+    border-radius: 12.5px; /* 25px * 0.5 */
+    cursor: pointer;
+    border: 1.5px solid var(--dark); /* 3px * 0.5 */
+  }
+  
+  .checkbox {
+    position: absolute;
+    display: none;
+  }
+  
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12.5px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .checkbox:checked ~ .slider {
+    background-color: var(--light);
+  }
+  
+  .slider::before {
+    content: "";
+    position: absolute;
+    top: 5px; /* 10px * 0.5 */
+    left: 5px; /* 10px * 0.5 */
+    width: 12.5px; /* 25px * 0.5 */
+    height: 12.5px;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 6px -2px 0px 0px var(--light); /* scaled */
+    box-shadow: inset 6px -2px 0px 0px var(--light);
+    background-color: var(--dark);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .checkbox:checked ~ .slider::before {
+    -webkit-transform: translateX(25px); /* 50px * 0.5 */
+    -ms-transform: translateX(25px);
+    transform: translateX(25px);
+    background-color: var(--dark);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  
+
+/* /DARK MODE */ 
 
 .snippet-action-bar .action-buttons-container {
     display: flex;

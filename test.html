@@ -20,7 +20,7 @@
                     <span>Explore</span>
                     <img src="assets/search.png" class="nicon">
                 </button>
-                <button class="nbutton" type="button">
+                <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
                     <span>Challenges</span>
                     <img src="assets/target.png" class="nicon">
                 </button>
@@ -134,10 +134,16 @@
             <div class="snippet-page">
                 <div class="snippet-action-bar">
                     <div class="action-buttons-container">
+                        <div class="toggle-switch">
+                            <label class="switch-label">
+                              <input type="checkbox" class="checkbox">
+                              <span class="slider"></span>
+                            </label>
+                        </div> 
                         <button class="action-button" id="action-reset">Reset file</button>
                         <button class="action-button">Save as draft</button>
                         <button class="action-button" id="action-post">Post in library</button>
-                    </div>
+                    </div> 
                 </div>
                 <div class="snippet-container">
                     <iframe id="output" class="output-container">
@@ -150,12 +156,12 @@
                                 <button class="lang-button" id="css-button" onclick="switchLang('css')">CSS</button>
                                 <button class="lang-button" id="js-button" onclick="switchLang('js')">JS</button>
                             </div>
+                        </div>
+                        <div class="code-div">
                             <button class="copy-button" onclick="copyToClipboard();">
                                 <img src="copy.png" class="copy-icon">
                                 <span id="copy-span">Copy</span>
                             </button>
-                        </div>
-                        <div class="code-div">
                             
                             <div class="line-numbers" id="line-numbers">
                                 <div>1</div>

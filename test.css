@@ -14,7 +14,7 @@
     --color3: #3d3d3d; /*5C0029*/
     --color3-bright: color-mix(in srgb, var(--color3) 90%, white);
     --color3-brighter: color-mix(in srgb, var(--color3) 80%, white);
-    --color3-darker: color-mix(in srgb, var(--color3)90%, black);
+    --color3-darker: color-mix(in srgb, var(--color3) 90%, black);
 
     --color4: #efffe1;
     --color4-placeholder: color-mix(in srgb, var(--color4) 50%, transparent);

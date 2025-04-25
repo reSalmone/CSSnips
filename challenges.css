@@ -52,23 +52,110 @@
     align-self: center;
     width: 100px;
     height: 100px;
-    pointer-events: none;
-    user-select: none;
-    filter: brightness(0) saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
-    ;
+    filter: brightness(0) saturate(100%) invert(90%) sepia(3%) 
+            saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
+}
+.nicon-trophy {
+    align-self: center;
+    width: 150px;
+    height: 150px;
+    filter: saturate(100%) invert(90%) sepia(3%) 
+            saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
+}
+.nicon-target {
+    align-self: center;
+    width: 30%;
+    height: 60%;
+    padding-right: 10%;
+    
+    
 }
 
+.contest-box{
+    background: var(--color2);
+    width: 95%;
+    border-radius: 20px;
+    margin-top: 5%;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
 
-.active-box {
+}
+.contest-info-box{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.contest-title{
+    color: var(--color4);
+    font-size: 60px;
+    padding: 2%;
+    font-weight: bold;
+}
+.contest-subinfo-box{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+}
+
+.contest-subtitle{
+    color: var(--color4);
+    font-size: 25px;
+    padding-left: 3%;
+    font-weight: bold;
+    flex: 0 0 calc(100% / 2.5 - 1rem);
+
+}
+
+.challenge-container {
+    background: var(--color5);
+    width: 95%;
+    border-radius: 20px;
+    margin-top: 5%;
+    display:flex;
+    flex-direction: row;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
+    
+}
+.carosello {
+    width: 100%;
+    padding: 20px;
+    gap: 20px;
+    display:flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.active-challenge-box {
     background: var(--color4);
     overflow: hidden;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 200px;
+    flex: 0 0 calc(100% / 3 - 1rem);
+    min-width: calc(100% / 3 - 1rem);
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 
-.challenge-container{
-    display: flex;
-
+.scroll-button {
+    position: absolute;
+    overflow:hidden;
+    border-radius: 20px;
+    background-color: color-mix(in srgb, black 20%,transparent);
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 5rem;
+    align-self: center;
+    z-index: 1;
+    border: 4px black;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
+}
+.left{
+    left:3%;
+  
+}
+.right{
+    right:3%;
 }

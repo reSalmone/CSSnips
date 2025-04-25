@@ -17,22 +17,23 @@
         <div class="left-navbar">
             <a href="index.html" class="navbar-title">CSSnips</a>
             <div class="nbutton-div">
-                <button class="nbutton" type="button">
+                <button class="nbutton" onclick="location.href='explorer.html'" type="button">
                     <span>Explore</span>
                     <img src="assets/search.png" class="nicon">
                 </button>
                 <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
                     <span>Challenges</span>
                     <img src="assets/target.png" class="nicon">
-
                 </button>
             </div>
         </div>
         <div class="right-navbar">
-            <button class="navbar-login-button">
-                <span>Login</span>
-                <img src="assets/user.png" class="login-icon">
-            </button>
+            <div class="nbutton-div">
+                <button class="nbutton" type="button">
+                    <span>Login</span>
+                    <img src="assets/user.png" class="nicon">
+                </button>
+            </div>
         </div>
     </div>
     <div id="rest">
@@ -46,11 +47,33 @@
             </div>
 
         </div>
-        <div class="challenge-container">
-            <div class="active-box">
+        <div class="contest-box">
+            <div class="contest-info-box>">
+                <div class="contest-title">Challenge of the Month</div>
+                <div class="contest-subinfo-box">
+                    <div class="contest-subtitle">Try to replicate on the Editor this button 
+                        and win the contest getting voted by the CssComunity</div>
+                    <img src="assets/trophy.png" class="nicon-trophy">
+                </div>
                 
             </div>
-
+            <img src="assets/pixel_botton.png" class="nicon-target">
+        </div>
+        <div class="challenge-container">
+            <button class="scroll-button left">☚</button>
+            <div class="carosello">
+                <div class="active-challenge-box">
+                </div>
+                <div class="active-challenge-box">
+                </div>
+                <div class="active-challenge-box">
+                </div>
+                <div class="active-challenge-box">
+                </div>
+                <div class="active-challenge-box">
+                </div>   
+            </div>
+            <button class="scroll-button right">☞</button>
         </div>
     </div>
 

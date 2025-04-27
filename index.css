@@ -4,10 +4,9 @@
     font-family: "Noveo Sans";
 }
 
-body {
+#rest {
     display: flex;
     flex-direction: column;
-    margin: 0;
     text-align: center;
 }
 
@@ -18,8 +17,7 @@ body {
     align-items: center;
     justify-content: center;
     background: var(--color1);
-    position: relative;
-    /*this is so that the canvas can be absolute*/
+    position: relative; /*this is so that the canvas can be absolute*/
     padding-top: 5%;
 }
 
@@ -89,20 +87,21 @@ body {
     padding-bottom: 10%;
 }
 
-.code-container {
-    height: 60vh;
-    width: 80%;
+.snippet {
     display: flex;
     flex-direction: row;
+    width: 80%;
     border-radius: 20px;
     overflow: hidden;
     animation: none;
-}
-.code-container:has(.code-container-title:hover) {
-    animation: select-creator 1s ease infinite;
+    height: 60vh;
 }
 
-@keyframes select-creator{
+.snippet:has(.snippet-title:hover) {
+    animation: select-creator 1s ease;
+}
+
+@keyframes select-creator {
     0% {
         transform: rotate(0deg);
     }
@@ -110,12 +109,15 @@ body {
     25% {
         transform: rotate(1deg);
     }
+
     50% {
         transform: rotate(-1deg);
     }
+
     75% {
         transform: rotate(1deg);
     }
+
     100% {
         transform: rotate(0deg);
     }
@@ -132,14 +134,15 @@ body {
     align-items: center;
 }
 
-.code-container-title {
-    color: var(--color1);
+.snippet-title {
+    color: var(--color2);
     font-size: 30px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
 }
-.code-container-title:hover {
+
+.snippet-title:hover {
     font-size: 40px;
 }
 

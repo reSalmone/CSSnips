@@ -3,7 +3,7 @@ const context = canvas.getContext("2d");
 
 var numberOfCurves = 5;
 var curveColor = getComputedStyle(canvas.parentElement).backgroundColor;
-var curves = [];
+var particles = [];
 
 function resizeCanvas() {
     canvas.width = canvas.parentElement.clientWidth;

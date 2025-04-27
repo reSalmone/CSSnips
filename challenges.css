@@ -1,5 +1,4 @@
 @import './test.css';
-@import './navbar.css';
 
 #rest {
     display: flex;
@@ -14,7 +13,6 @@
     flex-direction: column;
     justify-content: center;
     background: var(--color1);
-    /*this is so that the canvas can be absolute*/
     padding-top: 5%;
     gap: 30px;
 }
@@ -36,7 +34,7 @@
 .subtitle-container {
     display: flex;
     flex-direction: column;
-    align-items:center;
+    align-items: center;
     justify-content: center;
 }
 
@@ -51,30 +49,29 @@
     align-self: center;
     width: 100px;
     height: 100px;
-    filter: brightness(0) saturate(100%) invert(90%) sepia(3%) 
-            saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
+    filter: brightness(0) saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
 }
+
 .nicon-trophy {
     align-self: center;
     width: 130px;
     height: 130px;
-    filter: saturate(100%) invert(90%) sepia(3%) 
-            saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
+    filter: saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
     padding: 0.5rem;
 }
 
 .data .range {
     position: relative;
-    background-color:var(--color4);
+    background-color: var(--color4);
     width: 100%;
     height: 0.75rem;
     border-radius: 0.25rem;
     display: flex;
     align-self: center;
 
-  }
-  
-  .data .range .fill {
+}
+
+.data .range .fill {
     position: absolute;
     top: 0;
     left: 0;
@@ -82,7 +79,7 @@
     width: 76%;
     height: 100%;
     border-radius: 0.25rem;
-  }
+}
 
 .nicon-target {
     align-self: center;
@@ -90,66 +87,67 @@
     height: 50%;
     margin-right: 100px;
     overflow: hidden;
-    
-    
+
+
 }
 
-.contest-box{
+.contest-box {
     background: var(--color2);
     width: 95%;
     border-radius: 20px;
     margin-top: 5%;
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
-
-}
-.contest-info-box{
-    width:100%;
-    display:flex;
-    flex-direction:column;
+    overflow: hidden;
 }
 
-.contest-title{
+.contest-info-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contest-title {
     color: var(--color4);
     font-size: 60px;
     font-weight: bold;
     padding: 1.5rem;
 }
-.contest-subinfo-box{
-    width:100%;
-    display:flex;
-    flex-direction:row;
+
+.contest-subinfo-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
     padding: 1.5rem;
 }
 
-.contest-subtitle{
-    color: color-mix(in srgb, var(--color3) 75%,black);
+.contest-subtitle {
+    color: color-mix(in srgb, var(--color3) 75%, black);
     font-size: 25px;
     padding-left: 3%;
     font-weight: bold;
-    flex: 0 0 calc(100% / 2.5 - 1rem);
     padding: 0.5rem;
-
 }
 
 .challenge-container {
-    background: var(--color5);
+    background: var(--color2);
     width: 95%;
     border-radius: 20px;
     margin-top: 5%;
-    display:flex;
+    display: flex;
     flex-direction: row;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
-    
+    margin-bottom: 100px;
 }
+
 .carosello {
     width: 100%;
     padding: 20px;
     gap: 20px;
-    display:flex;
+    display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
 }
@@ -174,50 +172,43 @@
     font-weight: bold;
     padding: 1rem;
 }
-.background-active-challenge-box{
+
+.background-active-challenge-box {
     width: 100%;
     height: 400%;
     border-radius: 20px;
-    
-
 }
-.contest-background-target{
+
+.contest-background-target {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
     display: flex;
     justify-content: center;
-    --s: 100px; /* control the size */
+    --s: 100px;
+    /* control the size */
     --c1: var(--color2);
-    --c2: var(--color3);
+    --c2: var(--color1);
 
     --_g: var(--c2) 4% 14%, var(--c1) 14% 24%, var(--c2) 22% 34%,
-    var(--c1) 34% 44%, var(--c2) 44% 56%, var(--c1) 56% 66%, var(--c2) 66% 76%,
-    var(--c1) 76% 86%, var(--c2) 86% 96%;
-    background: radial-gradient(
-        100% 100% at 100% 0,
-        var(--c1) 4%,
-        var(--_g),
-        #0008 96%,
-        #0000
-        ),
-    radial-gradient(
-        100% 100% at 0 100%,
-        #0000,
-        #0008 4%,
-        var(--_g),
-        var(--c1) 96%
-      )
-    var(--c1);
+        var(--c1) 34% 44%, var(--c2) 44% 56%, var(--c1) 56% 66%, var(--c2) 66% 76%,
+        var(--c1) 76% 86%, var(--c2) 86% 96%;
+    background: radial-gradient(100% 100% at 100% 0,
+            var(--c1) 4%,
+            var(--_g),
+            #0008 96%,
+            #0000),
+        radial-gradient(100% 100% at 0 100%,
+            #0000,
+            #0008 4%,
+            var(--_g),
+            var(--c1) 96%) var(--c1);
     background-size: var(--s) var(--s);
 
 }
 
 .scroll-button {
     position: absolute;
-    overflow:hidden;
     border-radius: 20px;
-    background-color: color-mix(in srgb, white 30%,transparent);
     padding: 1rem;
     cursor: pointer;
     font-size: 5rem;
@@ -226,10 +217,12 @@
     border: 4px black;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
 }
-.left{
-    left:3%;
-  
+
+.left {
+    left: 3%;
+
 }
-.right{
-    right:3%;
+
+.right {
+    right: 3%;
 }

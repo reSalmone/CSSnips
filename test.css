@@ -34,26 +34,14 @@ body {
     margin: 0;
 }
 
-#rest {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    top: 90px;
-}
-
 #content {
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
+    position: relative;
     transition: .3s;
     display: flex;
     align-items: center;
-    overflow: hidden;
     background-color: var(--color1);
     padding-left: var(--sidebar-closed-width);
+    height: calc(100vh - 90px);
 }
 .darkened {
     filter: brightness(0.2);

@@ -1,7 +1,6 @@
 @import './test.css';
 
 :root {
-    --sidebar-margin: 0px;
     --sidebar-closed-width: 60px;
     --sidebar-open-width: 250px;
     --sidebar-background-color: var(--color2);
@@ -19,12 +18,12 @@
 .navigation-menu {
     display: flex;
     align-items: center;
-    height: 100%;
+    height: calc(100% - 90px); /*100% - navbar height*/
+    position: absolute;
 }
 
 .sidebar {
-    margin: var(--sidebar-margin);
-    height: calc(90% - var(--sidebar-margin) * 2);
+    height: 90%;
     width: 60px;
     left: 0;
     overflow-x: hidden;

@@ -6,60 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnips - Home</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
 </head>
 
 <body>
-    <div class="first-container">
-        <div class="title-container">
-            <span class="title">CSSnips</span>
-            <span class="subtitle">Free open source snippet library to<br>easily create and share HTML/CSS code
-                instantly</span>
-            <img src="assets/up-arrow.png" class="scroll-arrow">
-        </div>
-        <canvas id="first-container-canvas"></canvas>
-    </div>
-    <div class="second-container">
-        <div class="title-container">
-            <span class="secondary-title">Try out our new code editor</span>
-        </div>
-        <div href="test.html" class="code-container">
-            <div class="preview-box">
-                <a href="test.html" class="code-container-title">Click to start creating</a>
-            </div>
-            <div class="code-box">
-                
+    <div class="navbar">
+        <div class="left-navbar">
+            <a href="index.html" class="navbar-title">CSSnips</a>
+            <div class="nbutton-div">
+                <button class="nbutton" onclick="location.href='explorer.html'" type="button">
+                    <span>Explore</span>
+                    <img src="assets/search.png" class="nicon">
+                </button>
+                <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
+                    <span>Challenges</span>
+                    <img src="assets/target.png" class="nicon">
+                </button>
             </div>
         </div>
-    </div>
-    <div class="third-container">
-        <div class="title-container">
-            <span class="secondary-title">Explore hundreds of open-source elements</span>
-            <span class="secondary-subtitle">Search through them with our tag system</span>
-        </div>
-        <div class="slideshow-container">
-            <div class="slideshow"></div>
-            <div class="slideshow"></div>
+        <div class="right-navbar">
+            <div class="nbutton-div">
+                <button class="nbutton" type="button">
+                    <span>Login</span>
+                    <img src="assets/user.png" class="nicon">
+                </button>
+            </div>
         </div>
     </div>
-    <div class="fourth-container">
-        <div class="title-container">
-            <span class="secondary-title">UI challenges</span>
-            <span class="secondary-subtitle">Participate / vote in challenging UI prompts</span>
+    <div id="rest">
+        <div class="first-container">
+            <div class="title-container">
+                <span class="title">CSSnips</span>
+                <span class="subtitle">Free open source snippet library to<br>easily create and share HTML/CSS code
+                    instantly</span>
+                <img src="assets/up-arrow.png" class="scroll-arrow">
+            </div>
+            <canvas id="first-container-canvas"></canvas>
         </div>
-        <div class="activec">
-            <div class="activec-container">
-                <span class="activec-box-title">Active challenge</span>
-                <div class="activec-box">
-                    <span class="activec-image"></span>
-                    <span class="activec-title"></span>
+        <div class="second-container">
+            <div class="title-container">
+                <span class="secondary-title">Try out our new code editor</span>
+            </div>
+            <div class="snippet">
+                <div class="preview-box">
+                    <a href="test.html" class="snippet-title">Click to start creating</a>
+                </div>
+                <div class="code-box">
+
                 </div>
             </div>
-            <img src="assets/up-arrow.png" class="activec-arrow">
-            <div class="activec-container">
-                <span class="activec-box-title">Active challenge submissions</span>
-                <div class="activec-box">
+        </div>
+        <div class="third-container">
+            <div class="title-container">
+                <span class="secondary-title">Explore hundreds of open-source elements</span>
+                <span class="secondary-subtitle">Search through them with our tag system</span>
+            </div>
+            <div class="slideshow-container">
+                <div class="slideshow"></div>
+                <div class="slideshow"></div>
+            </div>
+        </div>
+        <div class="fourth-container">
+            <div class="title-container">
+                <span class="secondary-title">UI challenges</span>
+                <span class="secondary-subtitle">Participate / vote in challenging UI prompts</span>
+            </div>
+            <div class="activec">
+                <div class="activec-container">
+                    <span class="activec-box-title">Active challenge</span>
+                    <div class="activec-box">
+                        <span class="activec-image"></span>
+                        <span class="activec-title"></span>
+                    </div>
+                </div>
+                <img src="assets/up-arrow.png" class="activec-arrow">
+                <div class="activec-container">
+                    <span class="activec-box-title">Active challenge submissions</span>
+                    <div class="activec-box">
 
+                    </div>
                 </div>
             </div>
         </div>

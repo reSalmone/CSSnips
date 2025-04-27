@@ -11,7 +11,7 @@
     --color2-brighter: color-mix(in srgb, var(--color2) 90%, white);
 
     /*inutile pe adesso - se se trova uno bello usa il 3 come colori del blocco codice e cazzi*/
-    --color3: #3d3d3d; /*5C0029*/
+    --color3: #632340; /*5C0029 lilla - #3d3d3d grigio*/ 
     --color3-bright: color-mix(in srgb, var(--color3) 90%, white);
     --color3-brighter: color-mix(in srgb, var(--color3) 80%, white);
     --color3-darker: color-mix(in srgb, var(--color3) 90%, black);
@@ -303,6 +303,7 @@ body {
     gap: 10px;
     margin: 10px;
     justify-content: flex-end;
+    align-items: center;
     width: 100%;
 }
 
@@ -318,6 +319,7 @@ body {
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
+    height: 100%;
 }
 
 .snippet-action-bar .action-button:hover {

@@ -1,3 +1,11 @@
+<!--SE STAI VEDENDO QUESTO CODICE SUL BROWSER SIGNIFICA CHE NON HAI APERTO IL SERVER LOCALHOST CON CUI VEDERLO:
+1: scarica l'estenzione vscode 'PHP server'
+2: tasto destro in index.php (nel codice)
+3: clicca PHP Server: serve project
+ora dovrebbe funge <3
+-->
+
+
 <?php
     //qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
     session_start();

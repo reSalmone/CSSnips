@@ -16,7 +16,7 @@ function submitLoginForm(form) {
         error = true;
     }
     if (error) {
-        //shakeElement(document.getElementById("page"), 500);
+        shakeElement(document.getElementById("login-page"), 500);
     }
     return !error;
 }
@@ -29,6 +29,14 @@ function hideError(element) {
         errorBox.style.maxHeight = 0 + "px";
         errorBox.style.opacity = "0";
     }
+}
+
+function resetError(...elements) {
+    elements.forEach(element => {
+        if (element instanceof HTMLInputElement) {
+            hideError(element);
+        }
+    });
 }
 
 function showError(element, errorText) {
@@ -54,21 +62,35 @@ function showPassword(icon) {
     var input = icon.parentElement.querySelectorAll(".form-input");
     input.forEach(i => {
         if (i.type === "password") {
-        i.type = "text";
-        icon.src="assets/unlock.png";
-    } else {
-        i.type = "password";
-        icon.src="assets/lock.png";
-    }
+            i.type = "text";
+            icon.src = "assets/unlock.png";
+        } else {
+            i.type = "password";
+            icon.src = "assets/lock.png";
+        }
     });
 }
 function openLogin() {
-    document.getElementById('signup-page').style.display = 'none';
-    document.getElementById('login-page').style.display = 'block';
+    resetErrorForAllForms();
+    document.getElementById('signup-center-div').style.display = 'none';
+    document.getElementById('login-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(50%)';
 }
 
 function closeLogin() {
-    document.getElementById('login-page').style.display = 'none';
+    resetErrorForAllForms();
+    document.getElementById('login-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function resetErrorForAllForms() {
+    forms = document.getElementsByClassName("form-form");
+    Array.from(forms).forEach(form => {
+        resetError(...form.elements);
+    });
+}
+
+function showLoginServerError() {
+    let errorBox = document.getElementById("login-server-error");
+    errorBox.style.display = "block";
 }

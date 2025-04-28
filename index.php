@@ -1,3 +1,8 @@
+<?php
+    //qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,11 +39,9 @@
         <div class="right-navbar">
             <div class="nbutton-div">
                 <?php 
-                    /* qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
-                    se trova in questa sessione un username settato significa che l'utente ha già una sessione attiva e vede logout,
+                    /*se trova in questa sessione un username settato significa che l'utente ha già una sessione attiva e vede logout,
                     se no gli fa vedere il bottone login che runna openLogin() che è una funzione che sta nel file login.js che mostra
                     il blocco con id #page da display: none; a display: block;*/
-                    session_start();
                     if (isset($_SESSION['username'])) {
                         echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php\";'>
                                 <span>Logout (" . $_SESSION['username'] . ")</span>
@@ -46,16 +49,33 @@
                     } else {
                         echo '<button class="nbutton" type="button" onclick="openLogin();">
                                 <span>Login</span>
-                                <img src="assets/user.png" class="nicon">
+                            </button>';
+                        echo '<button class="nbutton" type="button" onclick="openSignup();">
+                                <span>Signup</span>
                             </button>';
                     }
                 ?>
             </div>
         </div>
     </div>
+    <div class="center-div" id="login-center-div">
     <div class="form-page" id="login-page">
         <p class="form-title">Login</p>
-        <form action="login.php" class="form-form" name="signUpForm" onsubmit="return submitLoginForm(this)" novalidate>
+        <div class="form-server-error-container" id="login-server-error">
+            <?php
+                if (isset($_SESSION['login_error'])) {
+                    echo "<span>" . $_SESSION['login_error'] . "</span>";
+                    echo "<script>
+                        window.addEventListener('load', function() {
+                            openLogin();
+                            showLoginServerError();
+                        });
+                    </script>";
+                    unset($_SESSION['login_error']);
+                }
+            ?>
+        </div>
+        <form action="login.php" method="POST" class="form-form" onsubmit="return submitLoginForm(this);" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username or email" name="username" spellcheck="false">
@@ -88,9 +108,25 @@
         </form>
         <p class="form-switch-form">Don't have an account? <span onclick="openSignup();">Signup</span></p>
     </div>
+    </div>
+    <div class="center-div" id="signup-center-div">
     <div class="form-page" id="signup-page">
         <p class="form-title">Sign up</p>
-        <form action="signup.php" class="form-form" name="signUpForm" onsubmit="return submitSignupForm(this)" novalidate>
+        <div class="form-server-error-container" id="signup-server-error">
+            <?php
+                if (isset($_SESSION['signup_error'])) {
+                    echo "<span>" . $_SESSION['signup_error'] . "</span>";
+                    echo "<script>
+                        window.addEventListener('load', function() {
+                            openSignup();
+                            showSignupServerError();
+                        });
+                    </script>";
+                    unset($_SESSION['signup_error']);
+                }
+            ?>
+        </div>
+        <form action="signup.php" method="POST" class="form-form" onsubmit="return submitSignupForm(this);" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false">
@@ -130,6 +166,7 @@
             <input type="submit" class="form-button" value="Sign up">
         </form>
         <p class="form-switch-form">Already have an account? <span onclick="openLogin();">Login</span></p>
+    </div>
     </div>
     <div id="rest" onclick="closeLogin(); closeSignup();">
         <div class="first-container">

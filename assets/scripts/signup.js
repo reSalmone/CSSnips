@@ -51,7 +51,7 @@ function submitSignupForm(form) {
         error = true;
     }
     if (error) {
-        //shakeElement(document.getElementById("page"), 500);
+        shakeElement(document.getElementById("signup-page"), 500);
     }
     return !error;
 }
@@ -67,12 +67,19 @@ function isValidUsername(username) {
 }
 
 function openSignup() {
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('signup-page').style.display = 'block';
+    resetErrorForAllForms();
+    document.getElementById('login-center-div').style.display = 'none';
+    document.getElementById('signup-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(50%)';
 }
 
 function closeSignup() {
-    document.getElementById('signup-page').style.display = 'none';
+    resetErrorForAllForms();
+    document.getElementById('signup-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function showSignupServerError() {
+    let errorBox = document.getElementById("signup-server-error");
+    errorBox.style.display = "block";
 }

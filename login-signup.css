@@ -1,13 +1,21 @@
-* {
-    font-family: "Noveo Sans";
-}
+@import './test.css';
+
 ::selection {
     background: #6871f1;
 }
 
-.form-page {
+.center-div {
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    position: fixed;
+    display: none;
+    z-index: 2;
     margin: auto;
     width: 20%;
+}
+
+.form-page {
     backdrop-filter: blur(10px);
     box-shadow: #00000059 0px 5px 15px;
     border-radius: 10px;
@@ -15,13 +23,6 @@
     padding-left: 40px;
     padding-right: 40px;
     padding-bottom: 20px;
-    overflow: hidden;
-    position: fixed;
-    display: none;
-    z-index: 2;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
 }
 
 @media (min-width: 768px) and (max-width: 1300px) {
@@ -172,6 +173,18 @@
     filter: invert(18%) sepia(100%) saturate(7487%) hue-rotate(358deg);
     opacity: 0.6;
     user-select: none;
+}
+
+.form-server-error-container {
+    display: none;
+    border-radius: 10px;
+    width: 100%;
+    background-color: rgba(255, 0, 0, 0.3);
+    border: 2px solid rgba(255, 0, 0, 0.6);
+    margin: 40px 0;
+    padding: 12px 15px;
+    color: var(--color5);
+    text-overflow: ellipsis;
 }
 
 @keyframes shake {

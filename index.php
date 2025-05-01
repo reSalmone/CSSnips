@@ -30,7 +30,7 @@ ora dovrebbe funge <3
         <div class="left-navbar">
             <a href="index.php" class="navbar-title">CSSnips</a>
             <div class="nbutton-div">
-                <button class="nbutton" onclick="location.href='explorer.html'" type="button">
+                <button class="nbutton" onclick="location.href='explorer.php'" type="button">
                     <span>Explore</span>
                     <img src="assets/search.png" class="nicon">
                 </button>
@@ -38,7 +38,7 @@ ora dovrebbe funge <3
                     <span>Challenges</span>
                     <img src="assets/target.png" class="nicon">
                 </button>
-                <button class="nbutton" onclick="location.href = 'test.html'" type="button">
+                <button class="nbutton" onclick="location.href = 'creator.php'" type="button">
                     <span>Create</span>
                     <img src="assets/add.png" class="nicon">
                 </button>
@@ -51,14 +51,14 @@ ora dovrebbe funge <3
                     se no gli fa vedere il bottone login che runna openLogin() che è una funzione che sta nel file login.js che mostra
                     il blocco con id #page da display: none; a display: block;*/
                     if (isset($_SESSION['username'])) {
-                        echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php\";'>
+                        echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=index.php\";'>
                                 <span>Logout (" . $_SESSION['username'] . ")</span>
                             </button>";
                     } else {
-                        echo '<button class="nbutton" type="button" onclick="openLogin();">
+                        echo '<button class="nbutton" type="button" onclick="openLogin(event);">
                                 <span>Login</span>
                             </button>';
-                        echo '<button class="nbutton" type="button" onclick="openSignup();">
+                        echo '<button class="nbutton" type="button" onclick="openSignup(event);">
                                 <span>Signup</span>
                             </button>';
                     }
@@ -75,7 +75,7 @@ ora dovrebbe funge <3
                     echo "<span>" . $_SESSION['login_error'] . "</span>";
                     echo "<script>
                         window.addEventListener('load', function() {
-                            openLogin();
+                            openLogin(event);
                             showLoginServerError();
                         });
                     </script>";
@@ -83,7 +83,7 @@ ora dovrebbe funge <3
                 }
             ?>
         </div>
-        <form action="login.php" method="POST" class="form-form" onsubmit="return submitLoginForm(this);" novalidate>
+        <form action="login.php?redirect=index.php" method="POST" class="form-form" onsubmit="return submitLoginForm(this);" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username or email" name="username" spellcheck="false">
@@ -114,7 +114,7 @@ ora dovrebbe funge <3
             </div>
             <input type="submit" class="form-button" value="Login">
         </form>
-        <p class="form-switch-form">Don't have an account? <span onclick="openSignup();">Signup</span></p>
+        <p class="form-switch-form">Don't have an account? <span onclick="openSignup(event);">Signup</span></p>
     </div>
     </div>
     <div class="center-div" id="signup-center-div">
@@ -126,7 +126,7 @@ ora dovrebbe funge <3
                     echo "<span>" . $_SESSION['signup_error'] . "</span>";
                     echo "<script>
                         window.addEventListener('load', function() {
-                            openSignup();
+                            openSignup(event);
                             showSignupServerError();
                         });
                     </script>";
@@ -134,7 +134,7 @@ ora dovrebbe funge <3
                 }
             ?>
         </div>
-        <form action="signup.php" method="POST" class="form-form" onsubmit="return submitSignupForm(this);" novalidate>
+        <form action="signup.php?redirect=index.php" method="POST" class="form-form" onsubmit="return submitSignupForm(this);" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false">
@@ -173,7 +173,7 @@ ora dovrebbe funge <3
             </div>
             <input type="submit" class="form-button" value="Sign up">
         </form>
-        <p class="form-switch-form">Already have an account? <span onclick="openLogin();">Login</span></p>
+        <p class="form-switch-form">Already have an account? <span onclick="openLogin(event);">Login</span></p>
     </div>
     </div>
     <div id="rest" onclick="closeLogin(); closeSignup();">
@@ -192,7 +192,7 @@ ora dovrebbe funge <3
             </div>
             <div class="snippet">
                 <div class="preview-box">
-                    <a href="test.html" class="snippet-title">Click to start creating</a>
+                    <a href="creator.php" class="snippet-title">Click to start creating</a>
                 </div>
                 <div class="code-box">
 

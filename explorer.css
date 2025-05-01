@@ -1,4 +1,4 @@
-@import './test.css';
+@import './creator.css';
 
 #rest {
     display: flex;
@@ -27,16 +27,23 @@
     text-align: center;
 }
 
+.search-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+
 .search-bar {
     display: flex;
     flex-direction: row;
     width: 80%;
     height: 100px;
     position: relative;
-    margin-top: 5%;
     align-items: center;
 }
-.search-bar .input {
+.search-bar .search-input {
     width: 100%;
     height: 70px;
     border-radius: 50px;
@@ -49,8 +56,9 @@
     color: var(--color4);
     font-size: 24px;
     padding-left: 40px;
+    padding-right: 100px;
 }
-.search-bar .input::placeholder {
+.search-bar .search-input::placeholder {
     color: var(--color4-placeholder);
 }
 .search-bar .search-icon {
@@ -58,40 +66,53 @@
     right: 40px;
     width: 24px;
     height: 24px;
-    pointer-events: none;
+    cursor: pointer;
     filter: brightness(0) invert(1);
     user-select: none;
 }
 
-.search-output {
+.search-output-div {
     width: 90%;
     background: var(--color2);
     border-radius: 11px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 20px;
-    gap: 20px;
+    padding: 0 20px;
     margin-top: 10%;
     margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
 }
 
-.search-output .output {
+.search-results {
+    color: var(--color4);
+    font-size: 30px;
+}
+
+.search-output {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+.search-output .output-snip {
     height: 400px;
 }
 
-.search-output .preview {
+.search-output .output-preview {
     background: var(--color4);
     border-radius: 10px;
     width: 100%;
     height: 90%;
+    border: 0;
 }
 
 .search-output .info {
-    color: var(--color1);
     height: 10%;
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     padding-left: 1%;
     color: var(--color4);

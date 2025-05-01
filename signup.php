@@ -1,5 +1,6 @@
 <?php
 session_start();
+$redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     signUpError("Wrong request method.");
@@ -12,8 +13,8 @@ $password = $_POST['password'] ?? '';
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or signUpError("Connection to database refused");
 if ($dbcon) { //se la connessione è correttamente stabilita
-    $q1 = "select * from users where username = $1";
-    $q2 = "select * from users where email = $1";
+    $q1 = "SELECT * from users where username = $1";
+    $q2 = "SELECT * from users where email = $1";
 
     $resultUsername = pg_query_params($dbcon, $q1, array($username));
     $tupleUsername = pg_fetch_array($resultUsername, null, PGSQL_ASSOC);
@@ -36,13 +37,14 @@ if ($dbcon) { //se la connessione è correttamente stabilita
 
     $_SESSION['username'] = $username;
     session_regenerate_id();
-    header('Location: index.php');
+    header('Location: $redirect');
     exit();
 }
 
 function signUpError($error) {
+    global $redirect;
     $_SESSION['signup_error'] = "$error";
-    header("Location: index.php");
+    header('Location: ' . $redirect);
     exit();
 }
 ?>

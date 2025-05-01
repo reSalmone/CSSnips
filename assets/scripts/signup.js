@@ -66,7 +66,8 @@ function isValidUsername(username) {
     return /^[A-Za-z0-9]{3,16}$/.test(username);
 }
 
-function openSignup() {
+function openSignup(event) {
+    event.stopPropagation();
     resetErrorForAllForms();
     document.getElementById('login-center-div').style.display = 'none';
     document.getElementById('signup-center-div').style.display = 'block';

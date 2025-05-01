@@ -70,14 +70,15 @@ function showPassword(icon) {
         }
     });
 }
-function openLogin() {
+function openLogin(event) {
+    event.stopPropagation();
     resetErrorForAllForms();
     document.getElementById('signup-center-div').style.display = 'none';
     document.getElementById('login-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(50%)';
 }
 
-function closeLogin() {
+function closeLogin(event) {
     resetErrorForAllForms();
     document.getElementById('login-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';

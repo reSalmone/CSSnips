@@ -109,3 +109,81 @@ function switchLang(lang) {
     }
 }
 switchLang("html");
+
+const tags = [];
+
+document.getElementById("tags-input").addEventListener("keydown", function (event) {
+    if (event.key === " " || event.key == "Enter") {
+        event.preventDefault();
+        addTag();
+    }
+});
+
+function addTag() {
+    const input = document.getElementById("tags-input");
+    const tag = capitalizeProper(input.value.trim());
+    if (tag !== "" && !tags.includes(tag)) {
+        tags.push(tag);
+        renderTags();
+        input.value = "";
+    } else {
+        input.value = "";
+    }
+    input.focus;
+}
+
+function removeTag(index) {
+    tags.splice(index, 1);
+    renderTags();
+}
+
+function renderTags() {
+    const tagList = document.getElementById("tags-list");
+    tagList.innerHTML = "";
+    tags.forEach((tag, index) => {
+        const el = document.createElement("div");
+        el.className = "tags-tag";
+        el.innerText = tag;
+        el.onclick = () => removeTag(index);
+        tagList.appendChild(el);
+    });
+}
+
+
+
+function capitalizeProper(str) {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+let elementType = "button";
+
+const dropdownDiv = document.querySelector('.type-dropdown-div');
+const dropdownContent = document.querySelector('.type-dropdown-container');
+
+dropdownDiv.addEventListener('click', function () {
+    dropdownContent.style.display = 'block';
+});
+
+dropdownDiv.addEventListener('mouseleave', function () {
+    dropdownContent.style.display = 'none';
+});
+
+function setElementType(button) {
+    elementType = button.innerText.toLowerCase();
+    updateCurrentTypeButton();
+    dropdownContent.style.display = 'none';
+}
+
+function updateCurrentTypeButton() {
+    let currentTypeButton = document.getElementById("current-type");
+    currentTypeButton.innerText = "Type: " + elementType;
+}
+updateCurrentTypeButton();
+
+
+
+
+
+function openPost() {
+}

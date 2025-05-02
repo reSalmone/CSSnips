@@ -1,8 +1,8 @@
 <?php
-//qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
 session_start();
 
-function splitFileContent($content) {
+function splitFileContent($content)
+{
     preg_match('/<style>(.*?)<\/style>/s', $content, $matchesCss);
     preg_match('/<body>(.*?)<script>/s', $content, $matchesHtml);
     preg_match('/<script>(.*?)<\/script>/s', $content, $matchesJs);
@@ -13,6 +13,16 @@ function splitFileContent($content) {
 
     return [$html, $css, $js];
 }
+$name = $_GET['name'] ?? '';
+$filePath = __DIR__ . "\\snippets\\" . basename($name);
+$content = null;
+list($html, $css, $js) = null;
+$found = false;
+if (file_exists($filePath)) {
+    $found = true;
+    $content = file_get_contents($filePath);
+    list($html, $css, $js) = splitFileContent($content);
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,12 +31,12 @@ function splitFileContent($content) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSSnips - Explorer</title>
-    <link rel="stylesheet" href="explorer.css">
+    <title>CSSnip - Create</title>
+    <link rel="stylesheet" href="snippet.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="login-signup.css">
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
-    <link rel="stylesheet" href="navbar.css">
 </head>
 
 <body>
@@ -83,7 +93,7 @@ function splitFileContent($content) {
                 }
                 ?>
             </div>
-            <form action="login.php?redirect=explorer.php" method="POST" class="form-form"
+            <form action="login.php?redirect=creator.php" method="POST" class="form-form"
                 onsubmit="return submitLoginForm(this);" novalidate>
                 <div class="form-input-and-error-container">
                     <div class="form-input-container">
@@ -138,7 +148,7 @@ function splitFileContent($content) {
                 }
                 ?>
             </div>
-            <form action="signup.php?redirect=explorer.php" method="POST" class="form-form"
+            <form action="signup.php?redirect=creator.php" method="POST" class="form-form"
                 onsubmit="return submitSignupForm(this);" novalidate>
                 <div class="form-input-and-error-container">
                     <div class="form-input-container">
@@ -186,92 +196,97 @@ function splitFileContent($content) {
             <p class="form-switch-form">Already have an account? <span onclick="openLogin(event);">Login</span></p>
         </div>
     </div>
-
-
-
-
+    <div class="center-div" id="post-center-div">
+        <div class="post-page">
+            <div class="post-title-container">
+                <span class="post-title">Snippet preview</span>
+                <span class="post-subtitle">Confirm before submitting the post request</span>
+            </div>
+            <iframe id="post-preview"></iframe>
+            <div class="post-info">
+                <div class="post-name-container">
+                    <div class="post-name-title-container">
+                        <span class="post-name-title">Snippet's name</span>
+                        <span class="post-name-subtitle">Add a name to the snippet to save it as unique key</span>
+                    </div>
+                    <div class="post-name-input-container">
+                        <input type="text" class="post-name-input" id="post-name" spellcheck="false">
+                        <img src="assets/search.png" class="post-name-icon">
+                    </div>
+                </div>
+                <span id="post-type"></span>
+                <div class="post-description-container">
+                    <span class="post-description-title">Description</span>
+                    <span id="post-description-content"></span>
+                </div>
+                <div class="post-tags-container">
+                    <span class="post-tags-title">Snippet's tags</span>
+                    <div id="post-tags-list"></div>
+                </div>
+            </div>
+            <div class="post-actions">
+                <button class="post-action-button" onclick="closePost();">Cancel</button>
+                <button class="post-action-button" onclick="postSnippet();">Post</button>
+            </div>
+        </div>
+    </div>
 
     <div id="rest" onclick="closeLogin(); closeSignup();">
-        <div class="title-container">
-            <span class="title">Explorer</span>
-            <span class="subtitle">Search for the perfect snippet to include in your project</span>
-        </div>
-        <form action="explorer.php" method="GET" class="search-form" id="search-form">
-            <div class="search-bar">
-                <input placeholder="Search for elements / tags / usernames" type="search" class="search-input"
-                    name="search" spellcheck="false" <?php
-                    if (isset($_GET['search'])) {
-                        echo 'value="' . $_GET['search'] . '"';
-                    }
-                    ?>>
-                <img src="assets/search.png" class="search-icon"
-                    onclick="document.getElementById('search-form').submit();">
-            </div>
-        </form>
-        <div class="search-output-div">
-            <?php
-            $search = $_GET['search'] ?? '';
-            $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
-            if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                $q1 = "SELECT * FROM snips";
-                $result = pg_query($dbcon, $q1);
-                if ($search != '') {
-                    $q1 = "SELECT *,
-                        CASE
-                            WHEN EXISTS (
-                                SELECT 1 FROM unnest(tags) AS tag
-                                WHERE tag ILIKE $1
-                            ) THEN 3
-                            WHEN element_type ILIKE $1 THEN 2
-                            WHEN creator ILIKE $1 THEN 1
-                            ELSE 0
-                        END AS relevance
-                        FROM snips
-                        WHERE EXISTS (
-                            SELECT 1 FROM unnest(tags) AS tag
-                            WHERE tag ILIKE $1
-                        )
-                        OR element_type ILIKE $1
-                        OR creator ILIKE $1
-                        ORDER BY relevance DESC;";
-                    $result = pg_query_params($dbcon, $q1, array($search));
-                }
-                echo '<p class="search-results">' . pg_num_rows($result) . ' results</p>';
-                if (pg_num_rows($result) > 0) {
-                    echo '<div class="search-output">';
-                    while ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                        $fileLocation = $tuple['file_location'];
-                        $fileContent = file_get_contents(__DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
-
-                        list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-
-                        echo '<div class="output-snip">';
-                        echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
-                        echo '<span>View code</span>';
-                        echo '</div>';
-                        echo '<iframe id="output-snip-frame-' . $tuple['id'] . '" class="output-preview"></iframe>';
-                        echo '<script>
-                            window.addEventListener("load", function() {
-                                assignIFrame("output-snip-frame-' . $tuple['id'] . '", "' . $html . '", "' . $css . '", "' . htmlspecialchars($js) . '");
-                            });
-                        </script>';
-                        echo '<div class="info">';
-                        echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
-                        echo '<p>' . htmlspecialchars($tuple['views']) . ' views</p>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
+        <div class="snippet-page">
+            <div class="snippet-container">
+                <?php
+                if ($found) {
+                    echo '<div id="output" class="output-container">' . file_get_contents($filePath) . '</div>';
+                } else {
+                    echo '<div id="output" class="output-container">';
+                    echo '<span class="snippet-not-found">Snippet not found</span>';
                     echo '</div>';
                 }
-            } else {
-                echo '<p>Error connecting to databse</p>';
-            }
-            ?>
+                ?>
+                <div class="code-container">
+                    <div class="code-buttons">
+                        <div class="lang-buttons-container">
+                            <button class="lang-button" id="html-button" onclick="switchLang('html')">HTML</button>
+                            <button class="lang-button" id="css-button" onclick="switchLang('css')">CSS</button>
+                            <button class="lang-button" id="js-button" onclick="switchLang('js')">JS</button>
+                        </div>
+                    </div>
+                    <div class="code-div">
+                        <button class="copy-button" onclick="copyToClipboard();">
+                            <img src="copy.png" class="copy-icon">
+                            <span id="copy-span">Copy</span>
+                        </button>
+                        <div class="line-numbers" id="line-numbers">
+                        </div>
+                        <span class="input-area" id="html-area" onscroll="syncScroll(this);">
+                            <?php
+                            if ($found) {
+                                echo '<pre style="margin:0;">' . htmlspecialchars($html) . '</pre>';
+                            }
+                            ?>
+                        </span>
+                        <span class="input-area" id="css-area" onscroll="syncScroll(this);">
+                            <?php
+                            if ($found) {
+                                echo '<pre style="margin:0;">' . htmlspecialchars($css) . '</pre>';
+                            }
+                            ?>
+                        </span>
+                        <span class="input-area" id="js-area" onscroll="syncScroll(this);">
+                            <?php
+                            if ($found) {
+                                echo '<pre style="margin:0;">' . htmlspecialchars($js) . '</pre>';
+                            }
+                            ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
+<script src="assets/scripts/snippet.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
-<script src="assets/scripts/explorer.js"></script>
 
 </html>

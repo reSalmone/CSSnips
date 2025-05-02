@@ -18,44 +18,40 @@ session_start();
 </head>
 
 <body>
-<div class="navbar">
+    <div class="navbar">
         <div class="left-navbar">
             <a href="index.php" class="navbar-title">CSSnips</a>
-            <div class="nbutton-div">
-                <button class="nbutton" onclick="location.href='explorer.php'" type="button">
-                    <span>Explore</span>
-                    <img src="assets/search.png" class="nicon">
-                </button>
-                <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
-                    <span>Challenges</span>
-                    <img src="assets/target.png" class="nicon">
-                </button>
-                <button class="nbutton" onclick="location.href = 'creator.php'" type="button">
-                    <span>Create</span>
-                    <img src="assets/add.png" class="nicon">
-                </button>
-            </div>
+            <button class="nbutton" onclick="location.href='explorer.php'" type="button">
+                <span>Explore</span>
+                <img src="assets/search.png" class="nicon">
+            </button>
+            <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
+                <span>Challenges</span>
+                <img src="assets/target.png" class="nicon">
+            </button>
+            <button class="nbutton" onclick="location.href = 'creator.php'" type="button">
+                <span>Create</span>
+                <img src="assets/add.png" class="nicon">
+            </button>
         </div>
         <div class="right-navbar">
-            <div class="nbutton-div">
-                <?php
-                /*se trova in questa sessione un username settato significa che l'utente ha già una sessione attiva e vede logout,
-                se no gli fa vedere il bottone login che runna openLogin() che è una funzione che sta nel file login.js che mostra
-                il blocco con id #page da display: none; a display: block;*/
-                if (isset($_SESSION['username'])) {
-                    echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=creator.php\";'>
+            <?php
+            /*se trova in questa sessione un username settato significa che l'utente ha già una sessione attiva e vede logout,
+            se no gli fa vedere il bottone login che runna openLogin() che è una funzione che sta nel file login.js che mostra
+            il blocco con id #page da display: none; a display: block;*/
+            if (isset($_SESSION['username'])) {
+                echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=creator.php\";'>
                                 <span>Logout (" . $_SESSION['username'] . ")</span>
                             </button>";
-                } else {
-                    echo '<button class="nbutton" type="button" onclick="openLogin(event);">
+            } else {
+                echo '<button class="nbutton" type="button" onclick="openLogin(event);">
                                 <span>Login</span>
                             </button>';
-                    echo '<button class="nbutton" type="button" onclick="openSignup(event);">
+                echo '<button class="nbutton" type="button" onclick="openSignup(event);">
                                 <span>Signup</span>
                             </button>';
-                }
-                ?>
-            </div>
+            }
+            ?>
         </div>
     </div>
     <div class="center-div" id="login-center-div">
@@ -178,12 +174,42 @@ session_start();
             <p class="form-switch-form">Already have an account? <span onclick="openLogin(event);">Login</span></p>
         </div>
     </div>
+    <div class="center-div" id="post-center-div">
+        <div class="post-page">
+            <div class="post-title-container">
+                <span class="post-title">Snippet preview</span>
+                <span class="post-subtitle">Confirm before submitting the post request</span>
+            </div>
+            <iframe id="post-preview"></iframe>
+            <div class="post-info">
+                <div class="post-name-container">
+                    <div class="post-name-title-container">
+                        <span class="post-name-title">Snippet's name</span>
+                        <span class="post-name-subtitle">Add a name to the snippet to save it as unique key</span>
+                    </div>
+                    <div class="post-name-input-container">
+                        <input type="text" class="post-name-input" id="post-name" spellcheck="false">
+                        <img src="assets/search.png" class="post-name-icon">
+                    </div>
+                </div>
+                <span id="post-type"></span>
+                <div class="post-description-container">
+                    <span class="post-description-title">Description</span>
+                    <span id="post-description-content"></span>
+                </div>
+                <div class="post-tags-container">
+                    <span class="post-tags-title">Snippet's tags</span>
+                    <div id="post-tags-list"></div>
+                </div>
+            </div>
+            <div class="post-actions">
+                <button class="post-action-button" onclick="closePost();">Cancel</button>
+                <button class="post-action-button" onclick="postSnippet();">Post</button>
+            </div>
+        </div>
+    </div>
 
-
-
-
-
-    <div id="rest" onclick="closeLogin(); closeSignup();">
+    <div id="rest" onclick="closeLogin(); closeSignup(); closePost();">
         <div class="snippet-page">
             <div class="snippet-action-bar">
                 <div class="left-action-buttons">
@@ -208,9 +234,10 @@ session_start();
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <button class="action-button" id="action-reset">Reset snippet</button>
-                    <button class="action-button" onclick="openLogin();">Save as draft</button>
+                    <button class="action-button" id="action-reset" onclick="resetSnippet();">Reset snippet</button>
                     <?php
+                    $action = isset($_SESSION['username']) ? "saveDraft(event);" : "openLogin(event);";
+                    echo '<button class="action-button" type="button" onclick="' . $action . '">Save draft</button>';
                     $action = isset($_SESSION['username']) ? "openPost(event);" : "openLogin(event);";
                     echo '<button class="action-button" type="button" onclick="' . $action . '">Post snippet</button>';
                     ?>
@@ -259,7 +286,8 @@ session_start();
                         <span class="tags-subtitle">You are free to add up to 10 tags</span>
                     </div>
                     <div class="tags-input-container">
-                        <input type="text" class="tags-input" id="tags-input" placeholder="Add a tag..." />
+                        <input type="text" class="tags-input" id="tags-input" placeholder="Add a tag..."
+                            spellcheck="false">
                         <button class="tags-add" onclick="addTag()">Add tag</button>
                     </div>
                     <span class="tags-subtitle">Current tags:</span>
@@ -273,4 +301,5 @@ session_start();
 <script src="assets/scripts/creator.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
+
 </html>

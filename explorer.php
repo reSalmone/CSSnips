@@ -264,8 +264,14 @@ function splitFileContent($content)
                                 });
                             </script>';
                         echo '<div class="info">';
+                        echo '<div class="info-creator">';
+                        echo '<div class="info-pfp"></div>';
                         echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
-                        echo '<p>' . htmlspecialchars($tuple['views']) . ' views</p>';
+                        echo '</div>';
+                        echo '<div class="info-views">';
+                        echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
+                        echo '<p class="info-subtext"> views</p>';
+                        echo '</div>';
                         echo '</div>';
                         echo '</div>';
                     }

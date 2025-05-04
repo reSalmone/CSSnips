@@ -186,6 +186,7 @@ session_start();
                     <div class="post-name-title-container">
                         <span class="post-name-title">Snippet's name</span>
                         <span class="post-name-subtitle">Add a name to the snippet to save it as unique key</span>
+                        <span class="post-name-subtitle" style="font-style: italic; color: var(--color4-placeholder);">IMPORTANTE - Finché non avrò creato un sistema di certificazione fai attenzione a NON ripetere i nomi</span>
                     </div>
                     <div class="post-name-input-container">
                         <input type="text" class="post-name-input" id="post-name" spellcheck="false">

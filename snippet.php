@@ -35,7 +35,7 @@ $tags = null;
 $id = null;
 
 $found = false;
-if (file_exists(filename: $filePath)) {
+if (isset($_GET['name']) && file_exists(filename: $filePath)) {
     $found = true;
     $content = file_get_contents($filePath);
     list($html, $css, $js) = splitFileContent($content);
@@ -304,21 +304,12 @@ if (file_exists(filename: $filePath)) {
                         </button>
                         <div class="line-numbers" id="line-numbers">
                         </div>
-                        <?php
-                        if ($found) {
-                            echo '<pre style="margin:0" class="input-area" id="html-area" onscroll="syncScroll(this);">' . htmlspecialchars($html) . '</pre>';
-                        }
-                        ?>
-                        <?php
-                        if ($found) {
-                            echo '<pre style="margin:0" class="input-area" id="css-area" onscroll="syncScroll(this);">' . htmlspecialchars($css) . '</pre>';
-                        }
-                        ?>
-                        <?php
-                        if ($found) {
-                            echo '<pre style="margin:0" class="input-area" id="js-area" onscroll="syncScroll(this);">' . htmlspecialchars($js) . '</pre>';
-                        }
-                        ?>
+                        <pre style="margin:0" class="input-area" id="html-area"
+                            onscroll="syncScroll(this);"><?php echo htmlspecialchars($html) ?></pre>
+                        <pre style="margin:0" class="input-area" id="css-area"
+                            onscroll="syncScroll(this);"><?php echo htmlspecialchars($css) ?></pre>
+                        <pre style="margin:0" class="input-area" id="js-area"
+                            onscroll="syncScroll(this);"><?php echo htmlspecialchars($js) ?></pre>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,11 @@
 var currentLang = "html";
-function copyToClipboard() {
-    const areas = {
-        html: document.getElementById('html-area'),
-        css: document.getElementById('css-area'),
-        js: document.getElementById('js-area')
-    };
+const areas = {
+    html: document.getElementById('html-area'),
+    css: document.getElementById('css-area'),
+    js: document.getElementById('js-area')
+};
 
+function copyToClipboard() {
     navigator.clipboard.writeText(areas[currentLang].value);
 
     let copySpan = document.getElementById("copy-span");
@@ -84,11 +84,6 @@ function syncScroll(area) {
 
 function switchLang(lang) {
     currentLang = lang;
-    const areas = {
-        html: document.getElementById('html-area'),
-        css: document.getElementById('css-area'),
-        js: document.getElementById('js-area')
-    };
 
     const buttons = {
         html: document.getElementById('html-button'),

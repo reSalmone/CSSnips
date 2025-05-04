@@ -217,7 +217,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 .data-left, .data-right {

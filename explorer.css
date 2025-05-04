@@ -125,9 +125,34 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-left: 1%;
     color: var(--color4);
     font-size: 20px;
+}
+
+.info-views {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
+
+.info-subtext {
+    font-size: 20px;
+    font-style: italic;
+    color: var(--color4-placeholder);
+}
+
+.info-creator {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.info-pfp {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background: var(--color4);
 }
 
 .output-snip-opener {

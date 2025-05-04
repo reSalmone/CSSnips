@@ -1,10 +1,11 @@
 var currentLang = "html";
+const areas = {
+    html: document.getElementById('html-area'),
+    css: document.getElementById('css-area'),
+    js: document.getElementById('js-area')
+};
+
 function copyToClipboard() {
-    const areas = {
-        html: document.getElementById('html-area'),
-        css: document.getElementById('css-area'),
-        js: document.getElementById('js-area')
-    };
 
     navigator.clipboard.writeText(areas[currentLang].innerHTML);
 
@@ -18,25 +19,17 @@ function copyToClipboard() {
 }
 
 const lineNumbers = document.getElementById('line-numbers');
-
 function updateLines() {
-    const areas = {
-        html: document.getElementById('html-area'),
-        css: document.getElementById('css-area'),
-        js: document.getElementById('js-area')
-    };
+    const activeArea = areas[currentLang];
+    const lines = activeArea.innerText.split('\n').length;
 
-    Object.keys(areas).forEach(type => {
-        const lines = areas[type].textContent.split(/<div>|<br>/i).length;
-        lineNumbers.textContent = '';
-        for (let i = 1; i <= lines; i++) {
-            const line = document.createElement('div');
-            line.textContent = i;
-            lineNumbers.appendChild(line);
-        }
-    });
+    lineNumbers.innerHTML = '';
+    for (let i = 1; i <= lines; i++) {
+        const line = document.createElement('div');
+        line.textContent = i;
+        lineNumbers.appendChild(line);
+    }
 }
-updateLines();
 
 function syncScroll(area) {
     lineNumbers.scrollTop = area.scrollTop;
@@ -44,11 +37,6 @@ function syncScroll(area) {
 
 function switchLang(lang) {
     currentLang = lang;
-    const areas = {
-        html: document.getElementById('html-area'),
-        css: document.getElementById('css-area'),
-        js: document.getElementById('js-area')
-    };
 
     const buttons = {
         html: document.getElementById('html-button'),
@@ -64,11 +52,12 @@ function switchLang(lang) {
     if (areas[lang] && buttons[lang]) {
         areas[lang].style.display = 'block';
         buttons[lang].classList.add('active');
-        updateLines(areas[lang]);
+        updateLines();
         syncScroll(areas[lang]);
     }
 }
 switchLang("html");
+updateLines();
 
 function assignIFrame(iframeID, html, css, js) {
     html = html != null ? html : ""
@@ -90,6 +79,7 @@ function assignIFrame(iframeID, html, css, js) {
                     height: 100vh;
                     margin: 0;
                     border: 0;
+                    outline: 0;
                 }
                 ${css}
               </style>

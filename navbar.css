@@ -1,4 +1,4 @@
-@import './creator.css';
+@import './data.css';
 
 #rest {
     min-height: calc(100vh - 90px);

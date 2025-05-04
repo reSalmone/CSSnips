@@ -2,7 +2,8 @@
 //qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
 session_start();
 
-function splitFileContent($content) {
+function splitFileContent($content)
+{
     preg_match('/<style>(.*?)<\/style>/s', $content, $matchesCss);
     preg_match('/<body>(.*?)<script>/s', $content, $matchesHtml);
     preg_match('/<script>(.*?)<\/script>/s', $content, $matchesJs);
@@ -52,7 +53,7 @@ function splitFileContent($content) {
             se no gli fa vedere il bottone login che runna openLogin() che è una funzione che sta nel file login.js che mostra
             il blocco con id #page da display: none; a display: block;*/
             if (isset($_SESSION['username'])) {
-                echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=creator.php\";'>
+                echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=explorer.php\";'>
                                 <span>Logout (" . $_SESSION['username'] . ")</span>
                             </button>";
             } else {
@@ -242,19 +243,26 @@ function splitFileContent($content) {
                     while ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                         $fileLocation = $tuple['file_location'];
                         $fileContent = file_get_contents(__DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
-
+            
                         list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-
+            
                         echo '<div class="output-snip">';
                         echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
                         echo '<span>View code</span>';
                         echo '</div>';
                         echo '<iframe id="output-snip-frame-' . $tuple['id'] . '" class="output-preview"></iframe>';
+                        /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
+                        and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
+                        echo '<script id="snippet-data-' . $tuple['id'] . '" type="application/json">';
+                        echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+                        echo '</script>';
+
                         echo '<script>
-                            window.addEventListener("load", function() {
-                                assignIFrame("output-snip-frame-' . $tuple['id'] . '", "' . $html . '", "' . $css . '", "' . htmlspecialchars($js) . '");
-                            });
-                        </script>';
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . '").textContent);
+                                    assignIFrame("output-snip-frame-' . $tuple['id'] . '", data.html, data.css, data.js);
+                                });
+                            </script>';
                         echo '<div class="info">';
                         echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
                         echo '<p>' . htmlspecialchars($tuple['views']) . ' views</p>';

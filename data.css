@@ -1,0 +1,34 @@
+* {
+    font-family: "Noveo Sans";
+    --color1: #071E22;
+    --color1-bright: color-mix(in srgb, var(--color1) 95%, white);
+    --color1-brighter: color-mix(in srgb, var(--color1) 90%, white);
+    --color1-dark: color-mix(in srgb, var(--color1) 80%, black);
+
+    --color2: #1D7874;
+    --color2-bright: color-mix(in srgb, var(--color2) 95%, white);
+    --color2-brighter: color-mix(in srgb, var(--color2) 90%, white);
+    --color2-darker: color-mix(in srgb, var(--color2) 80%, black);
+
+    /*inutile pe adesso - se se trova uno bello usa il 3 come colori del blocco codice e cazzi*/
+    --color3: #071E22;
+    /* #5C0029 violetto dark - #3d3d3d grigio - #632340 violetto */
+    --color3-bright: color-mix(in srgb, var(--color3) 90%, white);
+    --color3-brighter: color-mix(in srgb, var(--color3) 80%, white);
+    --color3-darker: color-mix(in srgb, var(--color3) 90%, black);
+
+    --color4: #efffe1;
+    --color4-placeholder: color-mix(in srgb, var(--color4) 50%, transparent);
+
+    --color5: #F07167;
+    /*#F07167*/
+    --color5-bright: color-mix(in srgb, var(--color5) 90%, white);
+    --color5-brighter: color-mix(in srgb, var(--color5) 80%, white);
+    --color5-placeholder: color-mix(in srgb, var(--color5) 75%, transparent);
+
+    --color6: #68ee89;
+    --color6-placeholder: color-mix(in srgb, var(--color6) 75%, transparent);
+
+    box-sizing: border-box;
+    margin: 0;
+}

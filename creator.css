@@ -1,39 +1,4 @@
-* {
-    font-family: "Noveo Sans";
-    --color1: #071E22;
-    --color1-bright: color-mix(in srgb, var(--color1) 95%, white);
-    --color1-brighter: color-mix(in srgb, var(--color1) 90%, white);
-    --color1-dark: color-mix(in srgb, var(--color1) 80%, black);
-
-    --color2: #1D7874;
-    --color2-bright: color-mix(in srgb, var(--color2) 95%, white);
-    --color2-brighter: color-mix(in srgb, var(--color2) 90%, white);
-
-    /*inutile pe adesso - se se trova uno bello usa il 3 come colori del blocco codice e cazzi*/
-    --color3: #071E22;
-    /* #5C0029 violetto dark - #3d3d3d grigio - #632340 violetto */
-    --color3-bright: color-mix(in srgb, var(--color3) 90%, white);
-    --color3-brighter: color-mix(in srgb, var(--color3) 80%, white);
-    --color3-darker: color-mix(in srgb, var(--color3) 90%, black);
-
-    --color4: #efffe1;
-    --color4-placeholder: color-mix(in srgb, var(--color4) 50%, transparent);
-
-    --color5: #F07167;
-    /*#F07167*/
-    --color5-bright: color-mix(in srgb, var(--color5) 90%, white);
-    --color5-brighter: color-mix(in srgb, var(--color5) 80%, white);
-    --color5-placeholder: color-mix(in srgb, var(--color5) 75%, transparent);
-
-    --color6: #68ee89;
-    --color6-placeholder: color-mix(in srgb, var(--color6) 75%, transparent);
-
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-}
+@import './data.css';
 
 #rest {
     display: flex;
@@ -193,7 +158,7 @@ body {
     font-family: monospace !important;
     font-size: 14px;
     outline: none;
-    overflow-y: scroll;
+    overflow: scroll;
     color: var(--color4);
 }
 
@@ -204,11 +169,12 @@ body {
 .input-area::-webkit-scrollbar {
     background: var(--color1);
     width: 10px;
+    height: 10px;
 }
 
 .input-area::-webkit-scrollbar-thumb {
     background: var(--color2-brighter);
-    /*border-radius: 50px;*/
+    border-radius: 50px;
 }
 
 .input-area::-webkit-scrollbar-thumb:hover {
@@ -217,6 +183,9 @@ body {
 
 .input-area::-webkit-scrollbar-thumb:active {
     background: var(--color2-brighter);
+}
+.input-area::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 .snippet-action-bar {
@@ -381,7 +350,7 @@ body {
     min-height: 15vh;
     font-family: monospace !important;
     font-size: 14px;
-    overflow-y: auto;
+    overflow: auto;
     color: var(--color4);
     outline: none;
     border: none;
@@ -389,11 +358,15 @@ body {
 
 .description-area::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 .description-area::-webkit-scrollbar-thumb {
     background: var(--color4);
     border-radius: 10px;
+}
+.description-area::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 .description-area::placeholder {

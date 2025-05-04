@@ -13,15 +13,51 @@ function splitFileContent($content)
 
     return [$html, $css, $js];
 }
+
+function capitalizeProper($str)
+{
+    if (empty($str))
+        return $str;
+    return strtoupper($str[0]) . strtolower(substr($str, 1));
+}
+
 $name = $_GET['name'] ?? '';
 $filePath = __DIR__ . "\\snippets\\" . basename($name);
+
 $content = null;
 list($html, $css, $js) = null;
+$creator = null;
+$views = null;
+$description = null;
+$date = null;
+$type = null;
+$tags = null;
+$id = null;
+
 $found = false;
-if (file_exists($filePath)) {
+if (file_exists(filename: $filePath)) {
     $found = true;
     $content = file_get_contents($filePath);
     list($html, $css, $js) = splitFileContent($content);
+
+    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
+    if ($dbcon != -1) { //se la connessione è correttamente stabilita
+        //update views
+        $q2 = "UPDATE snips SET views = views + 1 WHERE file_location = $1;";
+        $data = pg_query_params($dbcon, $q2, array($name));
+
+        $q1 = "SELECT * from snips where file_location = $1";
+        $result = pg_query_params($dbcon, $q1, array($name));
+        if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+            $creator = $tuple['creator'];
+            $views = $tuple['views'];
+            $description = $tuple['description'];
+            $type = $tuple['element_type'];
+            $tags = explode(',', trim($tuple['tags'], '{}'));
+            $date = date('d-m-Y', strtotime($tuple['created_at']));
+            $id = $tuple['id'];
+        }
+    }
 }
 ?>
 
@@ -31,7 +67,7 @@ if (file_exists($filePath)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSSnip - Create</title>
+    <title>CSSnip - View snip</title>
     <link rel="stylesheet" href="snippet.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
     <link rel="stylesheet" href="navbar.css">
@@ -236,13 +272,23 @@ if (file_exists($filePath)) {
             <div class="snippet-container">
                 <?php
                 if ($found) {
-                    echo '<div id="output" class="output-container">' . file_get_contents($filePath) . '</div>';
+                    echo '<iframe id="output" class="output-container"></iframe>';
                 } else {
                     echo '<div id="output" class="output-container">';
                     echo '<span class="snippet-not-found">Snippet not found</span>';
                     echo '</div>';
                 }
                 ?>
+                <script id="snippet-data" type="application/json">
+                    <?= json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>
+                </script>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const data = JSON.parse(document.getElementById("snippet-data").textContent);
+                        assignIFrame("output", data.html, data.css, data.js);
+                    });
+                </script>
                 <div class="code-container">
                     <div class="code-buttons">
                         <div class="lang-buttons-container">
@@ -258,30 +304,56 @@ if (file_exists($filePath)) {
                         </button>
                         <div class="line-numbers" id="line-numbers">
                         </div>
-                        <span class="input-area" id="html-area" onscroll="syncScroll(this);">
-                            <?php
-                            if ($found) {
-                                echo '<pre style="margin:0;">' . htmlspecialchars($html) . '</pre>';
-                            }
-                            ?>
-                        </span>
-                        <span class="input-area" id="css-area" onscroll="syncScroll(this);">
-                            <?php
-                            if ($found) {
-                                echo '<pre style="margin:0;">' . htmlspecialchars($css) . '</pre>';
-                            }
-                            ?>
-                        </span>
-                        <span class="input-area" id="js-area" onscroll="syncScroll(this);">
-                            <?php
-                            if ($found) {
-                                echo '<pre style="margin:0;">' . htmlspecialchars($js) . '</pre>';
-                            }
-                            ?>
-                        </span>
+                        <?php
+                        if ($found) {
+                            echo '<pre style="margin:0" class="input-area" id="html-area" onscroll="syncScroll(this);">' . htmlspecialchars($html) . '</pre>';
+                        }
+                        ?>
+                        <?php
+                        if ($found) {
+                            echo '<pre style="margin:0" class="input-area" id="css-area" onscroll="syncScroll(this);">' . htmlspecialchars($css) . '</pre>';
+                        }
+                        ?>
+                        <?php
+                        if ($found) {
+                            echo '<pre style="margin:0" class="input-area" id="js-area" onscroll="syncScroll(this);">' . htmlspecialchars($js) . '</pre>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
+            <?php
+            if ($found) { ?>
+                <div class="data-container">
+                    <div class="data-left">
+                        <div class="data-user">
+                            <span class="data-subtext"><?php echo capitalizeProper($type) . ' by '; ?></span>
+                            <div class="data-pfp"></div>
+                            <span class="data-text"><?php echo $creator; ?></span>
+                        </div>
+                    </div>
+                    <div class="data-right">
+                        <div class="data-views">
+                            <span class="data-subtext">Views: </span>
+                            <span class="data-text"><?php echo $views; ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-container">
+                    <div class="description-container">
+                        <span class="description-title">Snippet's description</span>
+                        <span class="description-content"><?php echo $description; ?></span>
+                    </div>
+                    <div class="tags-container">
+                        <span class="tags-title">Tags</span>
+                        <div id="tags-list">
+                            <?php foreach ($tags as $tag): ?>
+                                <div class="tags-tag"><?= htmlspecialchars($tag) ?></div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </body>

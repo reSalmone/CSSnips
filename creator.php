@@ -210,7 +210,7 @@ session_start();
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup();">
+    <div id="rest" onclick="closeLogin(); closeSignup(); closePost();">
         <div class="snippet-page">
             <div class="snippet-action-bar">
                 <div class="left-action-buttons">
@@ -264,13 +264,13 @@ session_start();
                         <div class="line-numbers" id="line-numbers">
                             <div>1</div>
                         </div>
-                        <textarea class="input-area" id="html-area" oninput="updateLines(this); displayCode()"
+                        <textarea class="input-area" id="html-area" oninput="updateLines(this); displayCode(); saveInLocalStorage();"
                             onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
                             placeholder="Html code"></textarea>
-                        <textarea class="input-area" id="css-area" oninput="updateLines(this); displayCode();"
+                        <textarea class="input-area" id="css-area" oninput="updateLines(this); displayCode(); saveInLocalStorage();"
                             onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
                             placeholder="Css code"></textarea>
-                        <textarea class="input-area" id="js-area" oninput="updateLines(this); displayCode();"
+                        <textarea class="input-area" id="js-area" oninput="updateLines(this); displayCode(); saveInLocalStorage();"
                             onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
                             placeholder="JavaScript code"></textarea>
                     </div>
@@ -279,7 +279,7 @@ session_start();
             <div class="info-container">
                 <div class="description-container">
                     <span class="description-title">Add a description</span>
-                    <textarea class="description-area" id="description-area">This is my new element</textarea>
+                    <textarea class="description-area" id="description-area" oninput="saveInLocalStorage();">This is my new element</textarea>
                 </div>
                 <div class="tags-container">
                     <div class="tags-title-container">

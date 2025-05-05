@@ -7,14 +7,16 @@ add snippets to index.php
 add tags to index.php
 
 add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
-    - load the snippet in creator.php (maybe this can be used to fix the data loss on login/signup)
+    /- load the snippet in creator.php (maybe this can be used to fix the data loss on login/signup)
     - you gotta check that the snippet creator coincides with the username (duh)
 
 snippet comment section
-snippet rating section
+/snippet rating section
 snippet report section
 
 add a site-wide footer div
+make the login/signup/navbar load programmatically
+make likes and views show better in the explorer
 
 
 //ROBA DA FARE EMA

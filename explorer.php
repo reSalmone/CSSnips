@@ -214,7 +214,7 @@ function splitFileContent($content)
             $search = $_GET['search'] ?? '';
             $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
             if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                $q1 = "SELECT * FROM snips";
+                $q1 = "SELECT * FROM snips ORDER BY likes DESC, views DESC";
                 $result = pg_query($dbcon, $q1);
                 if ($search != '') {
                     $q1 = "SELECT *,
@@ -234,7 +234,7 @@ function splitFileContent($content)
                         )
                         OR element_type ILIKE $1
                         OR creator ILIKE $1
-                        ORDER BY relevance DESC;";
+                        ORDER BY relevance DESC, likes DESC, views DESC;";
                     $result = pg_query_params($dbcon, $q1, array($search));
                 }
                 echo '<p class="search-results">' . pg_num_rows($result) . ' results</p>';

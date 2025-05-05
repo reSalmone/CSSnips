@@ -97,6 +97,52 @@ function assignIFrame(iframeID, html, css, js) {
     output.srcdoc = completeDocument;
 }
 
-function likeSnippet() {
-    
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const heart = document.getElementById('data-like-checkbox')
+    if (heart) {
+        heart.addEventListener('click', function () {
+            const snippet = heart.getAttribute('data-snippet');
+
+            fetch('like.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `snippet=${encodeURIComponent(snippet)}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('data-liked-value').innerText = data.value;
+                    } else {
+                        alert(data.error);
+                    }
+                });
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const heart = document.getElementById('data-save-checkbox');
+    if (heart) {
+        heart.addEventListener('click', function () {
+            const snippet = heart.getAttribute('data-snippet');
+
+            fetch('save.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `snippet=${encodeURIComponent(snippet)}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('data-saved-value').innerText = data.value;
+                    } else {
+                        alert(data.error);
+                    }
+                });
+        });
+    }
+});

@@ -18,7 +18,10 @@ function submitLoginForm(form) {
     if (error) {
         shakeElement(document.getElementById("login-page"), 500);
     }
-    return !error;
+    if (error) {
+        return false;
+    }
+    return true;
 }
 
 function hideError(element) {

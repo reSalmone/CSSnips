@@ -22,6 +22,11 @@ function capitalizeProper($str)
 }
 
 $name = $_GET['name'] ?? '';
+
+$redirect = 'snippet.php';
+if ($name != '') {
+    $redirect = $redirect .'?name=' . $name;
+}
 $filePath = __DIR__ . "\\snippets\\" . basename($name);
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 
@@ -102,7 +107,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
             se no gli fa vedere il bottone login che runna openLogin() che è una funzione che sta nel file login.js che mostra
             il blocco con id #page da display: none; a display: block;*/
             if (isset($_SESSION['username'])) {
-                echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=creator.php\";'>
+                echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=$redirect\";'>
                                 <span>Logout (" . $_SESSION['username'] . ")</span>
                             </button>";
             } else {
@@ -133,7 +138,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                 }
                 ?>
             </div>
-            <form action="login.php?redirect=creator.php" method="POST" class="form-form"
+            <form action="login.php?redirect=<?php echo $redirect ?>" method="POST" class="form-form"
                 onsubmit="return submitLoginForm(this);" novalidate>
                 <div class="form-input-and-error-container">
                     <div class="form-input-container">
@@ -188,7 +193,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                 }
                 ?>
             </div>
-            <form action="signup.php?redirect=creator.php" method="POST" class="form-form"
+            <form action="signup.php?redirect=<?php echo $redirect ?>" method="POST" class="form-form"
                 onsubmit="return submitSignupForm(this);" novalidate>
                 <div class="form-input-and-error-container">
                     <div class="form-input-container">
@@ -317,8 +322,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     </div>
                 </div>
             </div>
-            <?php
-            if ($found) { ?>
+            <?php if ($found): ?>
                 <div class="data-container">
                     <div class="data-left">
                         <div class="data-user">
@@ -329,29 +333,58 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     </div>
                     <div class="data-right">
                         <div class="data-likes">
-                            <?php
+                            <label class='data-like-save-container'>
+                                <?php
                                 if (isset($_SESSION['username'])) {
                                     if ($dbcon != -1) {
                                         $q1 = "SELECT * from users where username = $1";
                                         $result = pg_query_params($dbcon, $q1, array($_SESSION['username']));
                                         if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                                            $likedSnippets = explode(',', trim($tuple['likedSnippets'], '{}'));
-                                            if (in_array($name, $likedSnippets)) {
-                                                echo '<img src="assets/heart.png" class="data-icon data-liked">';
-                                            } else {
-                                                echo '<img src="assets/heart.png" class="data-icon">';
-                                            }
+                                            $likedSnippets = explode(',', trim($tuple['likedsnippets'], '{}'));
+                                            $checkedAttribute = in_array($name, $likedSnippets) ? 'checked' : '';
+                                            echo "<input $checkedAttribute type='checkbox' data-snippet='$name' id='data-like-checkbox'>";
                                         }
                                     }
+                                } else {
+                                    echo "<input type='checkbox' onclick='event.preventDefault(); event.stopPropagation(); openLogin(event);'>";
                                 }
-                            
-                            ?>
-                            <img src="assets/heart.png" class="data-icon" id="like-icon">
-                            <span class="data-text"><?php echo $likes; ?></span>
+                                ?>
+                                <div class='data-like-checkmark'>
+                                    <svg viewBox='0 0 256 256'>
+                                        <path
+                                            d='M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z'
+                                            stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <span class="data-text" id="data-liked-value"><?php echo $likes; ?></span>
                         </div>
                         <div class="data-saved">
-                            <img src="assets/save.png" class="data-icon" id="save-icon" onclick="">
-                            <span class="data-text"><?php echo $saved; ?></span>
+                            <label class='data-like-save-container'>
+                                <?php
+                                if (isset($_SESSION['username'])) {
+                                    if ($dbcon != -1) {
+                                        $q1 = "SELECT * from users where username = $1";
+                                        $result = pg_query_params($dbcon, $q1, array($_SESSION['username']));
+                                        if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                            $savedSnippets = explode(',', trim($tuple['savedsnippets'], '{}'));
+                                            $checkedAttribute = in_array($name, $savedSnippets) ? 'checked' : '';
+                                            echo "<input $checkedAttribute type='checkbox' data-snippet='$name' id='data-save-checkbox'>";
+                                        }
+                                    }
+                                } else {
+                                    echo "<input type='checkbox' onclick='event.preventDefault(); event.stopPropagation(); openLogin(event);'>";
+                                }
+                                ?>
+                                <div class='data-save-checkmark'>
+                                    <svg viewBox='0 0 256 256'>
+                                        <path
+                                            d='M198.2 51v172.8a6.4 6.4 90 01-10.4 4.9984L127.8 180.7984l-60 48A6.4 6.4 90 0157.4 223.8V51a25.6 25.6 90 0125.6-25.6h89.6a25.6 25.6 90 0125.6 25.6z'
+                                            stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                    </svg>
+                                </div>
+                            </label>
+                            <span class="data-text" id="data-saved-value"><?php echo $saved; ?></span>
                         </div>
                         <div class="data-views">
                             <img src="assets/view.png" class="data-icon">
@@ -361,7 +394,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                 </div>
                 <div class="info-container">
                     <div class="description-container">
-                        <span class="description-title">Snippet's description</span>
+                        <span class="description-title">Description</span>
                         <span class="description-content"><?php echo $description; ?></span>
                     </div>
                     <div class="tags-container">
@@ -373,7 +406,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php endif; ?>
         </div>
     </div>
 </body>

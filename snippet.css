@@ -184,6 +184,7 @@
 .input-area::-webkit-scrollbar-thumb:active {
     background: var(--color2-brighter);
 }
+
 .input-area::-webkit-scrollbar-corner {
     background: transparent;
 }
@@ -220,7 +221,8 @@
     padding: 0 10px;
 }
 
-.data-left, .data-right {
+.data-left,
+.data-right {
     display: flex;
     flex-direction: row;
     gap: 30px;
@@ -251,11 +253,84 @@
     color: var(--color4-placeholder);
 }
 
-.data-views, .data-likes, .data-saved {
+.data-views,
+.data-likes,
+.data-saved {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+.data-like-save-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.data-like-save-container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    transition: 100ms;
+}
+
+.data-like-checkmark, .data-save-checkmark {
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    transition: 100ms;
+    animation: dislike_effect 400ms ease;
+}
+
+.data-like-save-container input:checked~.data-like-checkmark path {
+    fill: #FF5353;
+    stroke-width: 0;
+}
+.data-like-save-container input:checked~.data-save-checkmark path {
+    fill: var(--color4);
+    stroke-width: 0;
+}
+
+.data-like-save-container input:checked~.data-like-checkmark, .data-like-save-container input:checked~.data-save-checkmark {
+    animation: like_effect 400ms ease;
+}
+
+.data-like-save-container:hover {
+    transform: scale(1.1);
+}
+
+@keyframes like_effect {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes dislike_effect {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .data-icon {
@@ -263,6 +338,7 @@
     width: 20px;
     height: 20px;
     filter: brightness(0) invert(1);
+    transition: all 2s;
 }
 
 .info-container {
@@ -310,6 +386,7 @@
     background: var(--color4);
     border-radius: 10px;
 }
+
 .description-content::-webkit-scrollbar-corner {
     background: transparent;
 }

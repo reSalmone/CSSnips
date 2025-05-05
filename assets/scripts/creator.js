@@ -103,9 +103,8 @@ function switchLang(lang) {
         syncScroll(areas[lang]);
     }
 }
-switchLang("html");
 
-const tags = [];
+let tags = [];
 
 document.getElementById("tags-input").addEventListener("keydown", function (event) {
     if (event.key === " " || event.key == "Enter") {
@@ -127,6 +126,7 @@ function addTag() {
         }
     }
     input.focus;
+    saveInLocalStorage();
 }
 
 function removeTag(index) {
@@ -176,8 +176,8 @@ function setElementType(button, event) {
 function updateCurrentTypeButton() {
     let currentTypeButton = document.getElementById("current-type");
     currentTypeButton.innerText = "Type: " + elementType;
+    saveInLocalStorage();
 }
-updateCurrentTypeButton();
 
 
 
@@ -235,6 +235,7 @@ function resetSnippet() {
     });
 
     displayCode();
+    localStorage.clear();
 }
 function saveDraft() {
 }
@@ -277,7 +278,53 @@ function postSnippet() {
         .then(text => {
             console.log("Server response:", text);
             if (text == "Received file content ;)") {
+                localStorage.clear();
                 location.href = "snippet.php?name=" + postname;
             }
         });
 }
+
+function saveInLocalStorage() {
+    const html = document.getElementById("html-area").value;
+    const css = document.getElementById("css-area").value;
+    const js = document.getElementById("js-area").value;
+    
+    const description = document.getElementById("description-area").value;
+
+    //save all of the current data in localstorage (client side)
+    localStorage.setItem("unsaved-html", html);
+    localStorage.setItem("unsaved-css", css);
+    localStorage.setItem("unsaved-js", js);
+
+    localStorage.setItem("unsaved-type", elementType);
+    localStorage.setItem("unsaved-description", description);
+    localStorage.setItem("unsaved-tags", tags);
+}
+
+function restoreLocalStorage() {
+    Object.keys(areas).forEach(type => {
+        const savedCode = localStorage.getItem("unsaved-" + type);
+        if (savedCode) {
+            areas[type].value = savedCode;
+        }
+        updateLines(areas[type]);
+    });
+    displayCode();
+
+    localType = localStorage.getItem("unsaved-type");
+    localDescription = localStorage.getItem("unsaved-description");
+    localTags = localStorage.getItem("unsaved-tags");
+    if (localType) {
+        elementType = localType;
+    }
+    if (localDescription) {
+        document.getElementById("description-area").value = localDescription;
+    }
+    if (localTags) {
+        tags = localTags.split(',');
+    }
+}
+restoreLocalStorage();
+switchLang("html");
+updateCurrentTypeButton();
+renderTags();

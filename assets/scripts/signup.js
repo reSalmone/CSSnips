@@ -53,7 +53,10 @@ function submitSignupForm(form) {
     if (error) {
         shakeElement(document.getElementById("signup-page"), 500);
     }
-    return !error;
+    if (error) {
+        return false;
+    }
+    return true;
 }
 
 function isValidEmail(email) {

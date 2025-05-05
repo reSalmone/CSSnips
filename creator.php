@@ -174,7 +174,7 @@ session_start();
             <p class="form-switch-form">Already have an account? <span onclick="openLogin(event);">Login</span></p>
         </div>
     </div>
-    <div class="center-div" id="post-center-div">
+    <div class="center-div post-center-div" id="post-center-div">
         <div class="post-page">
             <div class="post-title-container">
                 <span class="post-title">Snippet preview</span>

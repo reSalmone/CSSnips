@@ -218,12 +218,12 @@ session_start();
                         <button class="action-button" id="current-type"></button>
                         <div class="type-dropdown-container">
                             <div class="type-dropdown-content">
-                                <button class="type-dropdown-button" onclick="setElementType(this);">Button</button>
-                                <button class="type-dropdown-button" onclick="setElementType(this);">Switch</button>
-                                <button class="type-dropdown-button" onclick="setElementType(this);">Input</button>
-                                <button class="type-dropdown-button" onclick="setElementType(this);">Form</button>
-                                <button class="type-dropdown-button" onclick="setElementType(this);">Card</button>
-                                <button class="type-dropdown-button" onclick="setElementType(this);">Loader</button>
+                                <button class="type-dropdown-button" onclick="setElementType(this, event);">Button</button>
+                                <button class="type-dropdown-button" onclick="setElementType(this, event);">Switch</button>
+                                <button class="type-dropdown-button" onclick="setElementType(this, event);">Input</button>
+                                <button class="type-dropdown-button" onclick="setElementType(this, event);">Form</button>
+                                <button class="type-dropdown-button" onclick="setElementType(this, event);">Card</button>
+                                <button class="type-dropdown-button" onclick="setElementType(this, event);">Loader</button>
                             </div>
                         </div>
                     </div>

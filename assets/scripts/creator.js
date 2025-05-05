@@ -166,8 +166,9 @@ dropdownDiv.addEventListener('mouseleave', function () {
     dropdownContent.style.display = 'none';
 });
 
-function setElementType(button) {
+function setElementType(button, event) {
     elementType = button.innerText.toLowerCase();
+    event.stopPropagation();
     updateCurrentTypeButton();
     dropdownContent.style.display = 'none';
 }

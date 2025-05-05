@@ -20,9 +20,10 @@
     box-shadow: #00000059 0px 5px 15px;
     border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 @media (min-width: 768px) and (max-width: 1300px) {
@@ -31,9 +32,15 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 425px) and (max-width: 768px) {
     .center-div {
         width: 50% !important;
+    }
+}
+
+@media (max-width: 425px) {
+    .center-div {
+        width: 80% !important;
     }
 }
 

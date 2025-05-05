@@ -210,7 +210,7 @@ session_start();
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closePost();">
+    <div id="rest" onclick="closeLogin(); closeSignup();">
         <div class="snippet-page">
             <div class="snippet-action-bar">
                 <div class="left-action-buttons">

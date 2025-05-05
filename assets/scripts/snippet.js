@@ -96,3 +96,7 @@ function assignIFrame(iframeID, html, css, js) {
     let output = document.getElementById(iframeID);
     output.srcdoc = completeDocument;
 }
+
+function likeSnippet() {
+    
+}

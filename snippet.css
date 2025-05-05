@@ -223,7 +223,7 @@
 .data-left, .data-right {
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    gap: 30px;
 }
 
 .data-user {
@@ -251,11 +251,18 @@
     color: var(--color4-placeholder);
 }
 
-.data-views {
+.data-views, .data-likes, .data-saved {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+.data-icon {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
 }
 
 .info-container {

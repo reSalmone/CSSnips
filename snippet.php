@@ -23,11 +23,14 @@ function capitalizeProper($str)
 
 $name = $_GET['name'] ?? '';
 $filePath = __DIR__ . "\\snippets\\" . basename($name);
+$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 
 $content = null;
 list($html, $css, $js) = null;
 $creator = null;
 $views = null;
+$likes = null;
+$saved = null;
 $description = null;
 $date = null;
 $type = null;
@@ -40,7 +43,6 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
     $content = file_get_contents($filePath);
     list($html, $css, $js) = splitFileContent($content);
 
-    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
     if ($dbcon != -1) { //se la connessione è correttamente stabilita
         //update views
         $q2 = "UPDATE snips SET views = views + 1 WHERE file_location = $1;";
@@ -51,6 +53,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
         if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
             $creator = $tuple['creator'];
             $views = $tuple['views'];
+            $likes = $tuple['likes'];
+            $saved = $tuple['saved'];
             $description = $tuple['description'];
             $type = $tuple['element_type'];
             $tags = explode(',', trim($tuple['tags'], '{}'));
@@ -324,8 +328,33 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                         </div>
                     </div>
                     <div class="data-right">
+                        <div class="data-likes">
+                            <?php
+                                if (isset($_SESSION['username'])) {
+                                    if ($dbcon != -1) {
+                                        $q1 = "SELECT * from users where username = $1";
+                                        $result = pg_query_params($dbcon, $q1, array($_SESSION['username']));
+                                        if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                            $likedSnippets = explode(',', trim($tuple['likedSnippets'], '{}'));
+                                            if (in_array($name, $likedSnippets)) {
+                                                echo '<img src="assets/heart.png" class="data-icon data-liked">';
+                                            } else {
+                                                echo '<img src="assets/heart.png" class="data-icon">';
+                                            }
+                                        }
+                                    }
+                                }
+                            
+                            ?>
+                            <img src="assets/heart.png" class="data-icon" id="like-icon">
+                            <span class="data-text"><?php echo $likes; ?></span>
+                        </div>
+                        <div class="data-saved">
+                            <img src="assets/save.png" class="data-icon" id="save-icon" onclick="">
+                            <span class="data-text"><?php echo $saved; ?></span>
+                        </div>
                         <div class="data-views">
-                            <span class="data-subtext">Views: </span>
+                            <img src="assets/view.png" class="data-icon">
                             <span class="data-text"><?php echo $views; ?></span>
                         </div>
                     </div>

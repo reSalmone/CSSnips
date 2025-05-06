@@ -48,7 +48,7 @@ ora dovrebbe funge <3
             se no gli fa vedere il bottone login che runna openLogin() che è una funzione che sta nel file login.js che mostra
             il blocco con id #page da display: none; a display: block;*/
             if (isset($_SESSION['username'])) {
-                echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=creator.php\";'>
+                echo "<button class='nbutton' type='button' onclick='location.href=\"logout.php?redirect=index.php\";'>
                                 <span>Logout (" . $_SESSION['username'] . ")</span>
                             </button>";
             } else {

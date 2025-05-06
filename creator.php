@@ -23,6 +23,10 @@ $name = null;
 $foundClone = false;
 $foundVariation = false;
 $foundSessionVariation = false;
+if (isset($_SESSION['variation'])) {
+    $foundSessionVariation = true;
+    $name = $_SESSION['variation'];
+}
 if (isset($_GET['clone'])) {
     $name = $_GET['clone'];
     $foundClone = true;
@@ -31,10 +35,6 @@ if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
     $foundVariation = true;
     $_SESSION['variation'] = $name;
-}
-if (isset($_SESSION['variation'])) {
-    $foundSessionVariation = true;
-    $name = $_SESSION['variation'];
 }
 
 list($html, $css, $js) = null;

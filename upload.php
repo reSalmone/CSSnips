@@ -49,6 +49,7 @@ if (isset($_FILES['postFile'])) {
 
         $path = __DIR__ . "\\snippets\\" . $name;
         file_put_contents($path, $content);
+        unset($_SESSION['variation']);
         echo json_encode(['success' => true]);
         exit();
     }

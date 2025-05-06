@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+<head><style>.nbutton {
+	background: #550000;
+	padding: 10px 20px;
+	font-size: 20px;
+	color: #fff;
+	outline: 0;
+	border: 5px solid #aa0000;
+    border-radius: 10px;
+}
+.nbutton:hover {
+	background: #660000;
+}
+.nbutton:active{
+	background: #770000;
+}</style></head>
+<body><button class=nbutton>Click me</button><script></script></body>
+</html>

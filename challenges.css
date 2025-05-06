@@ -102,6 +102,13 @@
     justify-content: center;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     overflow: hidden;
+    transition: background-color .1s;
+    cursor: pointer;
+}
+.contest-box:hover{
+    background-color: color-mix(in srgb, var(--color2) 90%, black);
+    transform: translateY(4px);
+    transition:transform .2s;
 }
 
 .contest-info-box {
@@ -163,6 +170,14 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    transition: background-color .1s;
+    cursor: pointer;
+}
+
+.active-challenge-box:hover{
+    background-color: color-mix(in srgb, var(--color4) 85%, black);
+    transform: translateY(4px);
+    transition:transform .2s;
 }
 
 .title-active-challenge-box {

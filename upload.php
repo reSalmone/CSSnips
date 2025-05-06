@@ -15,22 +15,20 @@ if (isset($_FILES['postFile'])) {
     $tmpName = $_FILES['postFile']['tmp_name'];
     $content = file_get_contents($tmpName);
 
-    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
+    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or postError('Error connecting to databse');;
     if ($dbcon) {
         $q1 = "SELECT * from snips where file_location = $1";
 
         $resultFileName = pg_query_params($dbcon, $q1, array($name));
         $tupleFileName = pg_fetch_array($resultFileName, null, PGSQL_ASSOC);
         if ($tupleFileName) {
-            echo json_encode(['success' => false, 'error' => 'That name already exists']);
-            exit;
+            postError('That name already exists');
         }
 
         $q2 = "insert into snips (creator, description, element_type, tags, file_location) values ($1, $2, $3, $4, $5)";
         $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
         if (!$data) {
-            echo json_encode(['success' => false, 'error' => 'Error during post registration']);
-            exit();
+            postError('Error during post registration');
         }
 
         $path = __DIR__ . "\\snippets\\" . $name;
@@ -39,7 +37,11 @@ if (isset($_FILES['postFile'])) {
         exit();
     }
 } else {
-    echo json_encode(['success' => false, 'error' => 'File not found']);
+    postError('File not found');
+}
+
+function postError($error) {
+    echo json_encode(['success' => false, 'error' => $error]);
     exit;
 }
 ?>

@@ -30,7 +30,6 @@ if ($name != '') {
 $filePath = __DIR__ . "\\snippets\\" . basename($name);
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 
-$content = null;
 list($html, $css, $js) = null;
 $creator = null;
 $views = null;
@@ -215,6 +214,11 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                 <div class="tags-tag"><?= htmlspecialchars($tag) ?></div>
                             <?php endforeach; ?>
                         </div>
+                    </div>
+                </div>
+                <div class="creator-container">
+                    <div>
+
                     </div>
                 </div>
             <?php endif; ?>

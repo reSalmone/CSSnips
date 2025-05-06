@@ -1,6 +1,46 @@
 <?php
 session_start();
 $redirect = 'creator.php';
+
+function splitFileContent($content)
+{
+    preg_match('/<style>(.*?)<\/style>/s', $content, $matchesCss);
+    preg_match('/<body>(.*?)<script>/s', $content, $matchesHtml);
+    preg_match('/<script>(.*?)<\/script>/s', $content, $matchesJs);
+
+    $css = isset($matchesCss[1]) ? trim($matchesCss[1]) : '';
+    $html = isset($matchesHtml[1]) ? trim($matchesHtml[1]) : '';
+    $js = isset($matchesJs[1]) ? trim($matchesJs[1]) : '';
+
+    return [$html, $css, $js];
+}
+
+$name = $_GET['clone'] ?? '';
+
+list($html, $css, $js) = null;
+$creator = null;
+$type = null;
+
+$found = false;
+if ($name != '') {
+    $filePath = __DIR__ . "\\snippets\\" . basename($name);
+    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
+    if (file_exists(filename: $filePath)) {
+        $found = true;
+        $content = file_get_contents($filePath);
+        list($html, $css, $js) = splitFileContent($content);
+
+        if ($dbcon) {
+            $q1 = "SELECT * from snips where file_location = $1";
+            $result = pg_query_params($dbcon, $q1, array($name));
+            if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                $creator = $tuple['creator'];
+                $type = $tuple['element_type'];
+            }
+        }
+        echo '<script>localStorage.clear();</script>';
+    }
+}
 ?>
 
 
@@ -36,16 +76,19 @@ $redirect = 'creator.php';
                         <span class="post-name-subtitle">Add a name to the snippet to save it as unique key</span>
                     </div>
                     <div class="post-name-input-container">
-                        <input type="text" class="post-name-input" id="post-name" spellcheck="false" oninput="checkNameAvailability();">
+                        <input type="text" class="post-name-input" id="post-name" spellcheck="false"
+                            oninput="checkNameAvailability();">
                         <div class='post-name-check-checkmark' id="post-name-check-success">
                             <svg viewBox='0 0 256 256'>
-                                <path d='M51.2 140.8 102.4 192 204.8 64' stroke-width='20px' fill='none' stroke-linecap='round'>
+                                <path d='M51.2 140.8 102.4 192 204.8 64' stroke-width='20px' fill='none'
+                                    stroke-linecap='round'>
                                 </path>
                             </svg>
                         </div>
                         <div class='post-name-check-checkmark' id="post-name-check-failure">
                             <svg viewBox='0 0 256 256'>
-                                <path d='M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8' stroke-width='20px' fill='none' stroke-linecap='round'>
+                                <path d='M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8' stroke-width='20px' fill='none'
+                                    stroke-linecap='round'>
                                 </path>
                             </svg>
                         </div>
@@ -115,9 +158,9 @@ $redirect = 'creator.php';
                 <div class="code-container">
                     <div class="code-buttons">
                         <div class="lang-buttons-container">
-                            <button class="lang-button" id="html-button" onclick="switchLang('html')">HTML</button>
-                            <button class="lang-button" id="css-button" onclick="switchLang('css')">CSS</button>
-                            <button class="lang-button" id="js-button" onclick="switchLang('js')">JS</button>
+                            <button class="lang-button" id="html-button" onclick="switchLang('html')">Html</button>
+                            <button class="lang-button" id="css-button" onclick="switchLang('css')">Css</button>
+                            <button class="lang-button" id="js-button" onclick="switchLang('js')">Js</button>
                         </div>
                     </div>
                     <div class="code-div">
@@ -131,15 +174,33 @@ $redirect = 'creator.php';
                         <textarea class="input-area" id="html-area"
                             oninput="updateLines(this); displayCode(); saveInLocalStorage();"
                             onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
-                            placeholder="Html code"></textarea>
+                            placeholder="Html code"><?php
+                            if ($found) {
+                                echo htmlspecialchars($html);
+                            } else {
+                                echo 'Css';
+                            }
+                            ?></textarea>
                         <textarea class="input-area" id="css-area"
                             oninput="updateLines(this); displayCode(); saveInLocalStorage();"
                             onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
-                            placeholder="Css code"></textarea>
+                            placeholder="Css code"><?php
+                            if ($found) {
+                                echo htmlspecialchars($css);
+                            } else {
+                                echo 'Css';
+                            }
+                            ?></textarea>
                         <textarea class="input-area" id="js-area"
                             oninput="updateLines(this); displayCode(); saveInLocalStorage();"
                             onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
-                            placeholder="JavaScript code"></textarea>
+                            placeholder="JavaScript code"><?php
+                            if ($found) {
+                                echo htmlspecialchars($js);
+                            } else {
+                                echo 'Css';
+                            }
+                            ?></textarea>
                     </div>
                 </div>
             </div>

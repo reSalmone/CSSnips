@@ -112,20 +112,6 @@ session_start();
     <div class="center-div" id="signup-center-div">
         <div class="form-page" id="signup-page">
             <p class="form-title">Sign up</p>
-            <div class="form-server-error-container" id="signup-server-error">
-                <?php
-                if (isset($_SESSION['signup_error'])) {
-                    echo "<span>" . $_SESSION['signup_error'] . "</span>";
-                    echo "<script>
-                        window.addEventListener('load', function() {
-                            openSignup(event);
-                            showSignupServerError();
-                        });
-                    </script>";
-                    unset($_SESSION['signup_error']);
-                }
-                ?>
-            </div>
             <form action="signup.php?redirect=creator.php" method="POST" class="form-form"
                 onsubmit="return submitSignupForm(this);" novalidate>
                 <div class="form-input-and-error-container">
@@ -181,6 +167,7 @@ session_start();
                 <span class="post-subtitle">Confirm before submitting the post request</span>
             </div>
             <iframe id="post-preview"></iframe>
+            <div class="post-server-error-container" id="post-server-error"></div>
             <div class="post-info">
                 <div class="post-name-container">
                     <div class="post-name-title-container">

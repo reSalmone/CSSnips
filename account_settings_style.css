@@ -1,5 +1,9 @@
 @import './data.css';
 
+body {
+  background-color: var(--color2);
+}
+
 /* Reset base */
 * {
   box-sizing: border-box;

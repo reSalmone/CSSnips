@@ -35,7 +35,7 @@ $redirect = 'index.php';
                 <span class="title">CSSnips</span>
                 <span class="subtitle">Free open source snippet library to<br>easily create and share HTML/CSS code
                     instantly</span>
-                <img src="assets/up-arrow.png" class="scroll-arrow">
+                <img src="assets/images/up-arrow.png" class="scroll-arrow">
             </div>
             <canvas id="first-container-canvas"></canvas>
         </div>
@@ -75,7 +75,7 @@ $redirect = 'index.php';
                         <span class="activec-title"></span>
                     </div>
                 </div>
-                <img src="assets/up-arrow.png" class="activec-arrow">
+                <img src="assets/images/up-arrow.png" class="activec-arrow">
                 <div class="activec-container">
                     <span class="activec-box-title">Active challenge submissions</span>
                     <div class="activec-box">

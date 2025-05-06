@@ -12,7 +12,7 @@ $password = $_POST['password'] ?? '';
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or loginError("Connection to database refused");
 if ($dbcon != -1) { //se la connessione è correttamente stabilita
-    $q1 = "SELECT * from users where username = $1";
+    $q1 = "SELECT * from users where username ILIKE $1";
     $result = pg_query_params($dbcon, $q1, array($username));
     if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
         $hashed_password = $tuple['password'];

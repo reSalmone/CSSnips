@@ -15,7 +15,27 @@ function splitFileContent($content)
     return [$html, $css, $js];
 }
 
-$name = $_GET['clone'] ?? '';
+if (isset($_POST['remove-variation'])) {
+    unset($_SESSION['variation']);
+}
+
+$name = null;
+$foundClone = false;
+$foundVariation = false;
+$foundSessionVariation = false;
+if (isset($_GET['clone'])) {
+    $name = $_GET['clone'];
+    $foundClone = true;
+}
+if (isset($_GET['variation'])) {
+    $name = $_GET['variation'];
+    $foundVariation = true;
+    $_SESSION['variation'] = $name;
+}
+if (isset($_SESSION['variation'])) {
+    $foundSessionVariation = true;
+    $name = $_SESSION['variation'];
+}
 
 list($html, $css, $js) = null;
 $creator = null;
@@ -26,7 +46,6 @@ if ($name != '') {
     $filePath = __DIR__ . "\\snippets\\" . basename($name);
     $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
     if (file_exists(filename: $filePath)) {
-        $found = true;
         $content = file_get_contents($filePath);
         list($html, $css, $js) = splitFileContent($content);
 
@@ -34,11 +53,15 @@ if ($name != '') {
             $q1 = "SELECT * from snips where file_location = $1";
             $result = pg_query_params($dbcon, $q1, array($name));
             if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                $found = true;
                 $creator = $tuple['creator'];
                 $type = $tuple['element_type'];
+
+                if (!$foundSessionVariation) {
+                    echo '<script>localStorage.clear();</script>';
+                }
             }
         }
-        echo '<script>localStorage.clear();</script>';
     }
 }
 ?>
@@ -56,6 +79,21 @@ if ($name != '') {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="login-signup.css">
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
+    <script>
+        function removeQueryParam(key) {
+            const url = new URL(window.location);
+            url.searchParams.delete(key);
+            window.history.replaceState({}, '', url);
+        }
+    </script>
+    <?php
+    if ($foundClone) {
+        echo "<script>removeQueryParam('clone')</script>";
+    }
+    if ($foundVariation) {
+        echo "<script>removeQueryParam('variation')</script>";
+    }
+    ?>
 </head>
 
 <body>
@@ -65,15 +103,25 @@ if ($name != '') {
         <div class="post-page">
             <div class="post-title-container">
                 <span class="post-title">Snippet preview</span>
-                <span class="post-subtitle">Confirm before submitting the post request</span>
+                <span class="post-subtitle">Check your snippet before submitting the post</span>
             </div>
             <iframe id="post-preview"></iframe>
             <div class="post-server-error-container" id="post-server-error"></div>
             <div class="post-info">
+                <?php if (($foundVariation && $found) || ($foundSessionVariation && $found)) {
+                    echo '<div class="post-variation-container">';
+                    echo '<span class="post-variation-subtext">Posting as variation of <span class="post-variation-text">' . $type . '</span> by</span>';
+                    echo '<div class="post-variation-user">';
+                    echo '<div class="post-variation-pfp"></div>';
+                    echo '<span class="post-variation-text">' . $creator . '</span>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+                ?>
                 <div class="post-name-container">
                     <div class="post-name-title-container">
-                        <span class="post-name-title">Snippet's name</span>
-                        <span class="post-name-subtitle">Add a name to the snippet to save it as unique key</span>
+                        <span class="post-info-title">Snippet's name</span>
+                        <span class="post-info-subtitle">Add a name to the snippet to save it as unique key</span>
                     </div>
                     <div class="post-name-input-container">
                         <input type="text" class="post-name-input" id="post-name" spellcheck="false"
@@ -96,11 +144,11 @@ if ($name != '') {
                 </div>
                 <span id="post-type"></span>
                 <div class="post-description-container">
-                    <span class="post-description-title">Description</span>
+                    <span class="post-info-title">Description</span>
                     <span id="post-description-content"></span>
                 </div>
                 <div class="post-tags-container">
-                    <span class="post-tags-title">Snippet's tags</span>
+                    <span class="post-info-title">Snippet's tags</span>
                     <div id="post-tags-list"></div>
                 </div>
             </div>
@@ -113,6 +161,27 @@ if ($name != '') {
 
     <div id="rest" onclick="closeLogin(); closeSignup(); closePost();">
         <div class="snippet-page">
+            <?php if (($foundVariation && $found) || ($foundSessionVariation && $found)) {
+                echo '<div class="variation-container">';
+                echo '<span class="variation-subtext">Creating a variation of <a href="snippet.php?name=' . $name . '" class="variation-text">' . $type . '</a> by</span>';
+                echo '<div class="variation-user">';
+                echo '<div class="variation-pfp"></div>';
+                echo '<span class="variation-text">' . $creator . '</span>';
+                echo '</div>';
+                echo '<span id="variation-name" hidden>' . $name . '</span>';
+                echo '<form method="post" action="">';
+                echo '<button class="variation-remove" type="submit" name="remove-variation">
+                        <div class="variation-remove-checkmark">
+                            <svg viewBox="0 0 256 256">
+                                <path d="M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8" stroke-width="20px" fill="none" stroke-linecap="round">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>';
+                echo '</form>';
+                echo '</div>';
+            }
+            ?>
             <div class="snippet-action-bar">
                 <div class="left-action-buttons">
                     <div class="type-dropdown-div">
@@ -177,8 +246,6 @@ if ($name != '') {
                             placeholder="Html code"><?php
                             if ($found) {
                                 echo htmlspecialchars($html);
-                            } else {
-                                echo 'Css';
                             }
                             ?></textarea>
                         <textarea class="input-area" id="css-area"
@@ -187,8 +254,6 @@ if ($name != '') {
                             placeholder="Css code"><?php
                             if ($found) {
                                 echo htmlspecialchars($css);
-                            } else {
-                                echo 'Css';
                             }
                             ?></textarea>
                         <textarea class="input-area" id="js-area"
@@ -197,8 +262,6 @@ if ($name != '') {
                             placeholder="JavaScript code"><?php
                             if ($found) {
                                 echo htmlspecialchars($js);
-                            } else {
-                                echo 'Css';
                             }
                             ?></textarea>
                     </div>

@@ -6,6 +6,8 @@
 add snippets to index.php
 add tags to index.php
 
+add an actiobar on snippets (in snippet.php) to: add variation - open in editor (clone) - report (maybe)
+
 add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
     - load the snippet in creator.php
     - you gotta check that the snippet creator coincides with the username (duh)

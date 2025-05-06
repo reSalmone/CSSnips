@@ -39,7 +39,8 @@ $description = null;
 $date = null;
 $type = null;
 $tags = null;
-$id = null;
+$variations = null;
+$variationOf = null;
 
 $found = false;
 if (isset($_GET['name']) && file_exists(filename: $filePath)) {
@@ -63,7 +64,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
             $type = $tuple['element_type'];
             $tags = explode(',', trim($tuple['tags'], '{}'));
             $date = date('d-m-Y', strtotime($tuple['created_at']));
-            $id = $tuple['id'];
+            $variations = explode(',', trim($tuple['variations'], '{}'));
+            $variationOf = $tuple['variation_of'];
         }
     }
 }
@@ -88,6 +90,26 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
     <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
     <div id="rest" onclick="closeLogin(); closeSignup();">
         <div class="snippet-page">
+            <?php if ($variationOf != null) {
+                $v_creator = null;
+                $v_type = null;
+
+                $v_q1 = "SELECT * from snips where file_location = $1";
+                $v_result = pg_query_params($dbcon, $v_q1, array($variationOf));
+                if ($v_tuple = pg_fetch_array($v_result, null, PGSQL_ASSOC)) {
+                    $v_creator = $v_tuple['creator'];
+                    $v_type = $v_tuple['element_type'];
+                }
+
+                echo '<div class="variation-container">';
+                echo '<span class="variation-subtext">Variation of <a href="snippet.php?name=' . $variationOf . '" class="variation-text">' . $v_type . '</a> by</span>';
+                echo '<div class="variation-user">';
+                echo '<div class="variation-pfp"></div>';
+                echo '<span class="variation-text">' . $v_creator . '</span>';
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
             <div class="snippet-container">
                 <?php
                 if ($found) {
@@ -215,11 +237,56 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             <?php endforeach; ?>
                         </div>
                     </div>
-                </div>
-                <div class="creator-container">
-                    <div>
+                    <!--IF IT'S NOT A VARIATION, IT CAN THEN HAVE OTHER VARIATIONS-->
+                    <?php if ($variationOf == null) { ?>
+                        <div class="info-variations-container">
+                            <span class="info-variations-title">Variations</span>
+                            <div class="info-variations-output">
+                                <?php
+                                $va_q1 = "SELECT * FROM snips WHERE variation_of = $1 ORDER BY likes DESC, views DESC";
+                                $va_result = pg_query_params($dbcon, $va_q1, array($name));
+                                echo '<p class="info-variations-search-results">' . pg_num_rows($va_result) . ' variations</p>';
+                                if (pg_num_rows($va_result) > 0) {
+                                    echo '<div class="info-variations-search-output">';
+                                    while ($va_tuple = pg_fetch_array($va_result, null, PGSQL_ASSOC)) {
+                                        $va_fileLocation = $va_tuple['file_location'];
+                                        $va_fileContent = file_get_contents(__DIR__ . "\\snippets\\" . $va_fileLocation); //search for the file in the server
+                        
+                                        list($va_html, $va_css, $va_js) = splitFileContent($va_fileContent); //split file content into html, css, js
+                        
+                                        echo '<div class="info-variations-output-snip">';
+                                        echo '<div class="info-variations-output-snip-opener" onclick="location.href = \'snippet.php?name=' . $va_fileLocation . '\';">';
+                                        echo '<span>View code</span>';
+                                        echo '</div>';
+                                        echo '<iframe id="info-variations-output-snip-frame-' . $va_tuple['id'] . '" class="info-variations-output-preview"></iframe>';
+                                        echo '<script id="info-variations-snippet-data-' . $va_tuple['id'] . '" type="application/json">';
+                                        echo json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+                                        echo '</script>';
 
-                    </div>
+                                        echo '<script>
+                                                    document.addEventListener("DOMContentLoaded", function() {
+                                                        const data = JSON.parse(document.getElementById("info-variations-snippet-data-' . $va_tuple['id'] . '").textContent);
+                                                        assignIFrame("info-variations-output-snip-frame-' . $va_tuple['id'] . '", data.html, data.css, data.js);
+                                                    });
+                                                </script>';
+                                        echo '<div class="info-variations-info">';
+                                        echo '<div class="info-variations-info-creator">';
+                                        echo '<div class="info-variations-info-pfp"></div>';
+                                        echo '<span>' . htmlspecialchars($va_tuple['creator']) . '</span>';
+                                        echo '</div>';
+                                        echo '<div class="info-variations-info-views">';
+                                        echo '<p class="info-variations-info-text">' . htmlspecialchars($va_tuple['views']);
+                                        echo '<p class="info-variations-info-subtext"> views</p>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                    }
+                                    echo '</div>';
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -228,4 +295,5 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
 <script src="assets/scripts/snippet.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
+
 </html>

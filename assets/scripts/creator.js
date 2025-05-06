@@ -146,8 +146,6 @@ function renderTags() {
     });
 }
 
-
-
 function capitalizeProper(str) {
     if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -264,19 +262,8 @@ function closePost() {
     document.getElementById('rest').style.filter = 'brightness(100%)';
 }
 function resetSnippet() {
-    const areas = {
-        html: document.getElementById('html-area'),
-        css: document.getElementById('css-area'),
-        js: document.getElementById('js-area')
-    };
-
-    Object.keys(areas).forEach(type => {
-        areas[type].value = '';
-        updateLines(areas[type]);
-    });
-
-    displayCode();
     localStorage.clear();
+    location.reload();
 }
 function saveDraft() {
 }
@@ -295,6 +282,7 @@ function postSnippet() {
     let postDescription = document.getElementById('post-description-content').innerText;
     let posttagslist = document.getElementById('post-tags-list');
     const postTags = Array.from(posttagslist.children).map(child => child.innerText.trim());
+    let postVariationName = document.getElementById('variation-name');
 
     const completeHTML = `
 <!DOCTYPE html>
@@ -311,6 +299,9 @@ function postSnippet() {
     formData.append("postType", postType);
     formData.append("postDescription", postDescription);
     formData.append("postTags", JSON.stringify(postTags));
+    if (postVariationName) {
+        formData.append("postVariation", postVariationName.textContent);
+    }
 
     fetch("upload.php", {
         method: "POST",
@@ -346,7 +337,8 @@ function saveInLocalStorage() {
     const css = document.getElementById("css-area").value;
     const js = document.getElementById("js-area").value;
 
-    const description = document.getElementById("description-area").value;
+    let description = document.getElementById("description-area").value;
+    let postVariationName = document.getElementById('variation-name');
 
     //save all of the current data in localstorage (client side)
     localStorage.setItem("unsaved-html", html);

@@ -5,6 +5,11 @@ $creator = $_SESSION['username'];
 $type = $_POST['postType'];
 $name = $_POST['postName'];
 $description = $_POST['postDescription'];
+$variation = null;
+if (isset($_POST['postVariation'])) {
+    $variation = $_POST['postVariation'];
+}
+
 if ($_POST['postTags'] != '') {
     $tags = json_decode($_POST['postTags'], true);
     $escapedTags = array_map(fn($tags) => '"' . addslashes($tags) . '"', $tags);
@@ -15,7 +20,8 @@ if (isset($_FILES['postFile'])) {
     $tmpName = $_FILES['postFile']['tmp_name'];
     $content = file_get_contents($tmpName);
 
-    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or postError('Error connecting to databse');;
+    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or postError('Error connecting to databse');
+    ;
     if ($dbcon) {
         $q1 = "SELECT * from snips where file_location = $1";
 
@@ -25,8 +31,18 @@ if (isset($_FILES['postFile'])) {
             postError('That name already exists');
         }
 
-        $q2 = "insert into snips (creator, description, element_type, tags, file_location) values ($1, $2, $3, $4, $5)";
-        $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
+        $q2 = "";
+        $data = null;
+        if ($variation != null) {
+            $q2 = "insert into snips (creator, description, element_type, tags, file_location, variation_of) values ($1, $2, $3, $4, $5, $6)";
+            $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name, $variation));
+
+            $q3 = "UPDATE snips SET variations = variations || ARRAY[$1] WHERE file_location = $2";
+            pg_query_params($dbcon, $q3, array($name, $variation));
+        } else {
+            $q2 = "insert into snips (creator, description, element_type, tags, file_location) values ($1, $2, $3, $4, $5)";
+            $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
+        }
         if (!$data) {
             postError('Error during post registration');
         }
@@ -40,7 +56,8 @@ if (isset($_FILES['postFile'])) {
     postError('File not found');
 }
 
-function postError($error) {
+function postError($error)
+{
     echo json_encode(['success' => false, 'error' => $error]);
     exit;
 }

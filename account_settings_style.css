@@ -1,3 +1,5 @@
+@import './data.css';
+
 /* Reset base */
 * {
   box-sizing: border-box;
@@ -8,7 +10,7 @@
 
 /* Navbar */
 .navbar {
-  background-color: #2f2f40;
+  background-color: --color1;
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;

@@ -116,21 +116,21 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background-color 0.3s ease;
+    color: var(--color4);
   }
   
   .funzione-box:hover {
     background-color: #ddd;
+    color: var(--color2);
   }
   
   .funzione-text {
     font-size: 18px;
     font-weight: bold;
-    color: white;
   }
   
   .funzione-count {
     font-size: 16px;
-    color: white;
   }
   
  /* Navbar */

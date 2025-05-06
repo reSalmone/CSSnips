@@ -47,7 +47,7 @@ function splitFileContent($content)
                         echo 'value="' . $_GET['search'] . '"';
                     }
                     ?>>
-                <img src="assets/search.png" class="search-icon"
+                <img src="assets/images/search.png" class="search-icon"
                     onclick="document.getElementById('search-form').submit();">
             </div>
         </form>

@@ -21,21 +21,21 @@
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username or email" name="username"
                         spellcheck="false">
-                    <img src="assets/email.png" class="form-icon">
+                    <img src="assets/images/email.png" class="form-icon">
                 </div>
                 <div class="form-error-box">
-                    <img src="assets/exclamation.png" class="form-icon form-error-icon">
+                    <img src="assets/images/exclamation.png" class="form-icon form-error-icon">
                     <span class="form-error-text"></span>
                 </div>
             </div>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="password" class="form-input" placeholder="Password" name="password" spellcheck="false">
-                    <img src="assets/lock.png" class="form-icon form-show-password" onclick="showPassword(this);"
+                    <img src="assets/images/lock.png" class="form-icon form-show-password" onclick="showPassword(this);"
                         title="Show password">
                 </div>
                 <div class="form-error-box">
-                    <img src="assets/exclamation.png" class="form-icon form-error-icon">
+                    <img src="assets/images/exclamation.png" class="form-icon form-error-icon">
                     <span class="form-error-text"></span>
                 </div>
             </div>
@@ -60,10 +60,10 @@
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false">
-                    <img src="assets/user.png" class="form-icon">
+                    <img src="assets/images/user.png" class="form-icon">
                 </div>
                 <div class="form-error-box">
-                    <img src="assets/exclamation.png" class="form-icon form-error-icon">
+                    <img src="assets/images/exclamation.png" class="form-icon form-error-icon">
                     <span class="form-error-text"></span>
                 </div>
             </div>
@@ -72,12 +72,12 @@
                     <div class="form-input-container">
                         <input type="email" class="form-input form-input-1" placeholder="Email" name="email"
                             spellcheck="false">
-                        <img src="assets/email.png" class="form-icon">
+                        <img src="assets/images/email.png" class="form-icon">
                     </div>
                     <input type="email" class="form-input form-input-2" placeholder="Confirm email" name="confirmEmail"
                         spellcheck="false">
                     <div class="form-error-box">
-                        <img src="assets/exclamation.png" class="form-icon form-error-icon">
+                        <img src="assets/images/exclamation.png" class="form-icon form-error-icon">
                         <span class="form-error-text"></span>
                     </div>
                 </div>
@@ -87,13 +87,13 @@
                     <div class="form-input-container">
                         <input type="password" class="form-input form-input-1" placeholder="Password" name="password"
                             spellcheck="false">
-                        <img src="assets/lock.png" class="form-icon form-show-password" onclick="showPassword(this);"
+                        <img src="assets/images/lock.png" class="form-icon form-show-password" onclick="showPassword(this);"
                             title="Show password">
                     </div>
                     <input type="password" class="form-input form-input-2" placeholder="Confirm password"
                         name="confirmPassword" spellcheck="false">
                     <div class="form-error-box">
-                        <img src="assets/exclamation.png" class="form-icon form-error-icon">
+                        <img src="assets/images/exclamation.png" class="form-icon form-error-icon">
                         <span class="form-error-text"></span>
                     </div>
                 </div>

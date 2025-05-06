@@ -198,7 +198,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             <span class="data-text" id="data-saved-value"><?php echo $saved; ?></span>
                         </div>
                         <div class="data-views">
-                            <img src="assets/view.png" class="data-icon">
+                            <img src="assets/images/view.png" class="data-icon">
                             <span class="data-text"><?php echo $views; ?></span>
                         </div>
                     </div>
@@ -224,5 +224,4 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
 <script src="assets/scripts/snippet.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
-
 </html>

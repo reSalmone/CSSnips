@@ -15,7 +15,7 @@ snippet comment section
 snippet report section
 
 add a site-wide footer div
-make the login/signup/navbar load programmatically
+/make the login/signup/navbar load programmatically
 make likes and views show better in the explorer
 
 

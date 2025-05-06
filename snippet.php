@@ -247,6 +247,20 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                 <span class="post-title">Snippet preview</span>
                 <span class="post-subtitle">Confirm before submitting the post request</span>
             </div>
+            <div class="form-server-error-container" id="signup-server-error">
+                <?php
+                if (isset($_SESSION['signup_error'])) {
+                    echo "<span>" . $_SESSION['signup_error'] . "</span>";
+                    echo "<script>
+                        window.addEventListener('load', function() {
+                            openSignup(event);
+                            showSignupServerError();
+                        });
+                    </script>";
+                    unset($_SESSION['signup_error']);
+                }
+                ?>
+            </div>
             <iframe id="post-preview"></iframe>
             <div class="post-info">
                 <div class="post-name-container">

@@ -1,5 +1,5 @@
 //ROBA DA FARE LIVIO
-display post errors in creator.php
+/display post errors in creator.php
 /fix text (html css js) display in snippet.php (lines aren't loaded / tabs suck)
 /make an auto name-finding algorithm in the post section of creator.php
 /make snippet info look cooler in explorer.php

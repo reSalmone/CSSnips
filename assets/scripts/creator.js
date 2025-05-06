@@ -315,14 +315,30 @@ function postSnippet() {
     fetch("upload.php", {
         method: "POST",
         body: formData
-    }).then(res => res.text())
-        .then(text => {
-            console.log("Server response:", text);
-            if (text == "Received file content ;)") {
+    }).then(res => res.json())
+        .then(data => {
+            if (data.success) {
                 localStorage.clear();
                 location.href = "snippet.php?name=" + postname;
+            } else {
+                showPostServerError(data.error);
             }
         });
+
+}
+
+function showPostServerError(postError) {
+    let errorBox = document.getElementById("post-server-error");
+    let errorSnip = document.createElement("span");
+    errorSnip.textContent = postError;
+    errorBox.appendChild(errorSnip);
+    errorBox.style.display = "block";
+}
+
+function hidePostServerError() {
+    let errorBox = document.getElementById("post-server-error");
+    errorBox.innerHTML = '';
+    errorBox.style.display = "none";
 }
 
 function saveInLocalStorage() {

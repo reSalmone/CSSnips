@@ -14,7 +14,6 @@ function validateEmail() {
     return true; // consente l'invio
   }
 }
-
 function validatePassword() {
   const password = document.getElementById("password");
   const confirm = document.getElementById("confirm-password");
@@ -24,21 +23,22 @@ function validatePassword() {
   const passwordVal = password.value.trim();
   const confirmVal = confirm.value.trim();
 
-  const policyRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // La nuova regex per validare la password
+  const passwordRegex = /^(?=.*\d)[A-Za-z\d]{8,16}$/;
 
   let valid = true;
 
-  // Controllo policy password
-  if (!policyRegex.test(passwordVal)) {
+  // Controllo della password
+  if (!passwordRegex.test(passwordVal)) {
     password.classList.add("error");
-    passwordError.textContent = "La password deve avere almeno 8 caratteri, con maiuscole, minuscole, numeri e simboli.";
+    passwordError.textContent = "La password deve avere tra 8 e 16 caratteri e contenere almeno un numero.";
     valid = false;
   } else {
     password.classList.remove("error");
     passwordError.textContent = "";
   }
 
-  // Controllo conferma
+  // Controllo della conferma della password
   if (passwordVal !== confirmVal) {
     confirm.classList.add("error");
     confirmError.textContent = "Le password non corrispondono.";

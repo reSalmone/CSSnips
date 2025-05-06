@@ -1,16 +1,15 @@
 @import './data.css';
-
-body {
-  background-color: var(--color1);
-  color : white;
-}
-
 /* Reset base */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Noveo Sans" !important;
+  font-family: 'Noveo Sans', sans-serif;
+}
+
+body {
+  background-color: var(--color1);
+  color: white;
 }
 
 /* Navbar */
@@ -21,10 +20,6 @@ body {
   justify-content: space-between;
   align-items: center;
   color: white;
-}
-
-.nicon {
-  filter: brightness(0) invert(1);
 }
 
 .left-navbar {
@@ -60,9 +55,9 @@ body {
 .nicon {
   width: 18px;
   height: 18px;
+  filter: brightness(0) invert(1);
 }
 
-/* Dropdown */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -105,26 +100,38 @@ body {
 
 /* Main Settings Container */
 .settings-container {
-  max-width: 700px;
-  margin: 40px auto;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  background: var(--color2); /* <-- qui */
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 }
 
-
+/* Main Content */
+.main_var {
+  padding: 20px;
+  background-color: var(--color2);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
 
 h2,
-.section h3,
+.section h1,
 label {
   color: white;
 }
 
-.section {
+/* Section - Contact Details */
+.section,
+.sectionn {
   margin-bottom: 30px;
+  background-color: var(--color2-brighter);
+  padding: 20px;
+  border-radius: 10px;
 }
 
+
+
+/* Form Fields */
 input[type="email"],
 input[type="password"],
 input[type="text"],
@@ -148,6 +155,7 @@ textarea {
   resize: vertical;
 }
 
+/* Button Styles */
 .btn {
   background-color: white;
   color: black;
@@ -157,25 +165,14 @@ textarea {
   cursor: pointer;
   font-weight: bold;
   transition: background 0.3s;
+  margin-top: 10px;
 }
 
 .btn:hover {
   background-color: #e0e0e0;
 }
 
-
-input.error {
-  border: 2px solid red;
-}
-
-.error-message {
-  color: red;
-  font-size: 0.85rem;
-  margin-top: -10px;
-  margin-bottom: 10px;
-  display: block;
-} 
-
+/* Error Styles */
 input.error {
   border: 2px solid red;
 }

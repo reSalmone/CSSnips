@@ -1,3 +1,5 @@
+@import './data.css';
+
 /* Profilo Container */
 .profilo-container {
     max-width: 1200px;
@@ -114,7 +116,7 @@
 }
 
 .navbar {
-  background-color: #2f2f40;
+  background-color: var(--color1);
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;

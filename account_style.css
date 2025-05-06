@@ -1,10 +1,25 @@
 @import './data.css';
 
+
+* {
+  font-family: "Noveo Sans" !important;
+
+}
+
 body {
   background-color: var(--color1);
+  color : white;
 }
 
 /* Profilo Container */
+.main_var{
+  padding: 20px;
+  background-color: var(--color2);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
 .profilo-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -19,7 +34,7 @@ body {
     text-align: center;
     flex-direction: column; /* Aggiungi questa per disporre le informazioni in verticale */
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: var(--color2-brighter);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -37,6 +52,10 @@ body {
   .profilo-info p {
     margin: 10px 0;
   }
+
+  h2{
+    color: white;
+  }
   
   .profilo-info h2 {
     font-size: 24px;
@@ -53,7 +72,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-    background-color: #e8e8ff;
+    background-color: var(--color2-brighter);
     padding: 40px;
     min-height: 150px; 
     border-radius: 10px;
@@ -90,7 +109,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #e2e2e2;
+    background-color: var(--color2-brighter);
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
@@ -106,12 +125,12 @@ body {
   .funzione-text {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: white;
   }
   
   .funzione-count {
     font-size: 16px;
-    color: #555;
+    color: white;
   }
   
  /* Navbar */

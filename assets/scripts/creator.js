@@ -180,7 +180,14 @@ function updateCurrentTypeButton() {
 }
 
 
-
+function randomString(length) {
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += letters.charAt(Math.floor(Math.random() * letters.length));
+    }
+    return result;
+}
 
 function openPost(event) {
     event.stopPropagation();
@@ -196,7 +203,7 @@ function openPost(event) {
     dstDoc.close();
 
     let name = document.getElementById('post-name');
-    name.placeholder = "test";
+    name.placeholder = randomString(10);
 
     let type = document.getElementById('current-type');
     let postType = document.getElementById('post-type');
@@ -216,6 +223,40 @@ function openPost(event) {
         newTag.classList.add("post-tags-tag");
         posttags.appendChild(newTag);
     });
+
+    checkNameAvailability();
+}
+
+function checkNameAvailability() {
+    let checkname = '';
+    let name = document.getElementById('post-name');
+    if (name.value != '') {
+        checkname = name.value;
+    } else {
+        checkname = name.placeholder;
+    }
+
+    fetch('checkname.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `name=${encodeURIComponent(checkname)}`
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('post-name-check-success').style.display = 'block';
+                document.getElementById('post-name-check-failure').style.display = 'none';
+
+                document.getElementById('post-name').style.border = "2px solid rgb(100, 255, 100)";
+            } else {
+                document.getElementById('post-name-check-success').style.display = 'none';
+                document.getElementById('post-name-check-failure').style.display = 'block';
+
+                document.getElementById('post-name').style.border = "2px solid rgb(255, 100, 100)";
+            }
+        });
 }
 
 function closePost() {
@@ -288,7 +329,7 @@ function saveInLocalStorage() {
     const html = document.getElementById("html-area").value;
     const css = document.getElementById("css-area").value;
     const js = document.getElementById("js-area").value;
-    
+
     const description = document.getElementById("description-area").value;
 
     //save all of the current data in localstorage (client side)

@@ -1,13 +1,13 @@
 //ROBA DA FARE LIVIO
 display post errors in creator.php
 /fix text (html css js) display in snippet.php (lines aren't loaded / tabs suck)
-make an auto name-finding algorithm in the post section of creator.php
+/make an auto name-finding algorithm in the post section of creator.php
 /make snippet info look cooler in explorer.php
 add snippets to index.php
 add tags to index.php
 
 add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
-    /- load the snippet in creator.php (maybe this can be used to fix the data loss on login/signup)
+    - load the snippet in creator.php
     - you gotta check that the snippet creator coincides with the username (duh)
 
 snippet comment section

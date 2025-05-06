@@ -184,6 +184,7 @@
 .input-area::-webkit-scrollbar-thumb:active {
     background: var(--color2-brighter);
 }
+
 .input-area::-webkit-scrollbar-corner {
     background: transparent;
 }
@@ -365,6 +366,7 @@
     background: var(--color4);
     border-radius: 10px;
 }
+
 .description-area::-webkit-scrollbar-corner {
     background: transparent;
 }
@@ -716,3 +718,37 @@
     padding: 10px;
     cursor: pointer;
 }
+
+/*---------------STUFF FOR THE NAME CHECK IN THE POST----------------*/
+.post-name-check-checkmark {
+    top: 0;
+    left: 0;
+    height: 32px;
+    width: 32px;
+    transition: 100ms;
+    animation: like_effect 400ms ease;
+    display: none;
+    color: #000;
+}
+
+#post-name-check-success {
+    stroke: rgb(100, 255, 100);
+}
+#post-name-check-failure {
+    stroke: rgb(255, 100, 100);
+}
+
+@keyframes like_effect {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+/*----------------------------------------------------------*/

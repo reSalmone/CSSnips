@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account settings</title>
+  <link rel="stylesheet" href="account_settings_style.css">
+  <script src="account_settings_script.js"></script>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="left-navbar">
+        <a href="index.php" class="navbar-title">CSSnips</a>
+        <button class="nbutton" onclick="location.href='explorer.php'" type="button">
+            <span>Explore</span>
+            <img src="assets/search.png" class="nicon">
+        </button>
+        <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
+            <span>Challenges</span>
+            <img src="assets/target.png" class="nicon">
+        </button>
+        <button class="nbutton" onclick="location.href = 'creator.php'" type="button">
+            <span>Create</span>
+            <img src="assets/add.png" class="nicon">
+        </button>
+        <div class="dropdown">
+          <button class="dropbtn">Account ▾</button>
+          <div class="dropdown-content">
+            <a href="account.html">Account</a>
+            <a href="activity.html">Activity</a>
+            <a href="watchlist.html">Watchlist</a>
+            <a href="account_settings.html">Account settings</a>
+            <a href="logout.php">Logout</a>
+          </div> 
+        </div>
+    </div>
+  </header>
+
+  <main class="settings-container">
+    <div>
+      <h2>ACCOUNT SETTINGS</h2>
+
+      <div class="section">
+        <h3>EDIT CONTACT DETAILS</h3>
+        <form id="email-form">
+          <label for="email">E-mail address</label>
+          <input type="email" id="email" value="giuseppeciccone2003@gmail.com">
+          <span id="email-error" class="error-message"></span>
+          <button class="btn" onclick="return validateEmail()">UPDATE EMAIL ADDRESS</button>
+        </form>
+      </div>
+
+      <div class="section">
+        <h3>CHANGE PASSWORD</h3>
+        <form id="password-form">
+          <label for="new-password">New password</label>
+          <input type="password" id="password" name="password" placeholder="********" />
+          <span id="password-error" class="error-message"></span>
+        
+          <label for="confirm-password">Confirm password</label>
+          <input type="password" id="confirm-password">
+          <span id="confirm-error" class="error-message"></span>
+        
+          <button type="submit" class="btn" onclick="return validatePassword()">UPDATE PASSWORD</button>
+        </form>
+      </div>
+
+      <div class="section">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="GiuseppeCiccone" />
+
+        <label for="bio">Bio</label>
+        <textarea id="bio" name="bio" rows="3">Appassionato di programmazione web.</textarea>
+
+        <label for="fotoProfilo">Avatar</label>
+        <input type="file" id="fotoProfilo" name="fotoProfilo" accept=".jpg, .jpeg" />
+
+        <button type="submit" class="btn">UPDATE ACCOUNT SETTINGS</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

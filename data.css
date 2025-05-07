@@ -19,6 +19,8 @@
 
     --color4: #efffe1;
     --color4-placeholder: color-mix(in srgb, var(--color4) 50%, transparent);
+    --color4-dark: color-mix(in srgb, var(--color4) 90%, black);
+    --color4-darker: color-mix(in srgb, var(--color4) 80%, black);
 
     --color5: #F07167;
     /*#F07167*/

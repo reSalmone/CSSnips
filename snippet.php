@@ -21,6 +21,10 @@ function capitalizeProper($str)
     return strtoupper($str[0]) . strtolower(substr($str, 1));
 }
 
+if (!isset($_GET['name'])) {
+    header('Location: explorer.php');
+}
+
 $name = $_GET['name'] ?? '';
 
 $redirect = 'snippet.php';
@@ -222,6 +226,43 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             <img src="assets/images/view.png" class="data-icon">
                             <span class="data-text"><?php echo $views; ?></span>
                         </div>
+                    </div>
+                </div>
+                <div class="actions-container">
+                    <div class="left-actions-container">
+                        <button class="actions-button" onclick="window.location = 'creator.php?clone=<?php echo $name ?>'">
+                            <div class='actions-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M106 74.2A21.2 21.2 90 0084.8 95.4V201.4A21.2 21.2 90 00106 222.6H190.8A21.2 21.2 90 00212 201.4V95.4A21.2 21.2 90 00190.8 74.2H106ZM169.6 53A21.2 21.2 90 00148.4 31.8H63.6A21.2 21.2 90 0042.4 53V159A21.2 21.2 90 0063.4 180.2'
+                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                </svg>
+                            </div>
+                            <span>Clone</span>
+                        </button>
+                        <button class="actions-button"
+                            onclick="window.location = 'creator.php?variation=<?php echo $name ?>'">
+                            <div class='actions-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M106 74.2A21.2 21.2 90 0084.8 95.4V201.4A21.2 21.2 90 00106 222.6H190.8A21.2 21.2 90 00212 201.4V95.4A21.2 21.2 90 00190.8 74.2H106ZM169.6 53A21.2 21.2 90 00148.4 31.8H63.6A21.2 21.2 90 0042.4 53V159A21.2 21.2 90 0063.4 180.2'
+                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                </svg>
+                            </div>
+                            <span>Add variation</span>
+                        </button>
+                    </div>
+                    <div class="right-actions-container">
+                        <button class="actions-button" id="actions-report">
+                            <div class='actions-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M127.2 159H127.306M127.2 127.2V95.4M52.8099 201.4H201.5897C217.9519 201.4 228.147 183.6514 219.9023 169.5184L145.5126 41.9922C137.3315 27.9683 117.0685 27.9683 108.8874 41.9922L34.4979 169.5184C26.2536 183.6514 36.448 201.4 52.8099 201.4Z'
+                                        stroke-width='20px' stroke='#FFF' fill='none' stroke-linecap='round'></path>
+                                </svg>
+                            </div>
+                            <span>Report</span>
+                        </button>
                     </div>
                 </div>
                 <div class="info-container">

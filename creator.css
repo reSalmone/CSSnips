@@ -356,6 +356,10 @@
     width: 50%;
 }
 
+.action-form {
+    height: 100%;
+}
+
 .snippet-action-bar .action-button {
     outline: 0;
     border: 0;

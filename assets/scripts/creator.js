@@ -261,10 +261,6 @@ function closePost() {
     document.getElementById('post-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
 }
-function resetSnippet() {
-    localStorage.clear();
-    location.reload();
-}
 function saveDraft() {
 }
 

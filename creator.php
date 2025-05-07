@@ -15,7 +15,8 @@ function splitFileContent($content)
     return [$html, $css, $js];
 }
 
-if (isset($_POST['remove-variation'])) {
+if (isset($_GET['remove-variation'])) {
+    unset($_GET['remove-variation']);
     unset($_SESSION['variation']);
 }
 
@@ -23,13 +24,14 @@ $name = null;
 $foundClone = false;
 $foundVariation = false;
 $foundSessionVariation = false;
-if (isset($_SESSION['variation'])) {
-    $foundSessionVariation = true;
-    $name = $_SESSION['variation'];
-}
 if (isset($_GET['clone'])) {
     $name = $_GET['clone'];
     $foundClone = true;
+    unset($_SESSION['variation']);
+}
+if (isset($_SESSION['variation'])) {
+    $foundSessionVariation = true;
+    $name = $_SESSION['variation'];
 }
 if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
@@ -169,7 +171,7 @@ if ($name != '') {
                 echo '<span class="variation-text">' . $creator . '</span>';
                 echo '</div>';
                 echo '<span id="variation-name" hidden>' . $name . '</span>';
-                echo '<form method="post" action="">';
+                echo '<form method="get" action="">';
                 echo '<button class="variation-remove" type="submit" name="remove-variation">
                         <div class="variation-remove-checkmark">
                             <svg viewBox="0 0 256 256">
@@ -211,7 +213,9 @@ if ($name != '') {
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <button class="action-button" id="action-reset" onclick="resetSnippet();">Reset snippet</button>
+                    <form action="" method="get" class="action-form">
+                        <button class="action-button" type="submit" name="remove-variation" onclick="localStorage.clear();">Reset snippet</button>
+                    </form>
                     <?php
                     $action = isset($_SESSION['username']) ? "saveDraft(event);" : "openLogin(event);";
                     echo '<button class="action-button" type="button" onclick="' . $action . '">Save draft</button>';

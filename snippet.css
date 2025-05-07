@@ -376,6 +376,69 @@
     transition: all 2s;
 }
 
+.actions-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: var(--color2-brighter);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.left-actions-container, .right-actions-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.left-actions-container {
+    justify-content: flex-start;
+}
+.right-actions-container {
+    justify-content: flex-end;
+}
+
+.actions-button {
+    outline: 0;
+    border: 0;
+    background: var(--color2);
+    color: var(--color4);
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.actions-button:hover {
+    background: var(--color2-bright);
+}
+.actions-button:active {
+    background: var(--color4-brighter);
+}
+
+#actions-report {
+    color: var(--color5);
+}
+#actions-report path {
+    stroke: var(--color5);
+}
+
+.actions-svg {
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    transition: 100ms;
+    animation: like_effect 400ms ease;
+}
+.actions-svg path {
+    stroke: var(--color4);
+}
+
 .info-container {
     width: 100%;
     display: flex;

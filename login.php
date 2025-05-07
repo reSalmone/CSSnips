@@ -18,6 +18,15 @@ if ($dbcon != -1) { //se la connessione è correttamente stabilita
         $hashed_password = $tuple['password'];
         if (password_verify($password, $hashed_password)) {
             $_SESSION['username'] = $tuple['username'];
+            if (isset($_POST['remember'])) {
+                $_SESSION['user'] = $username;
+                $_SESSION['password'] = $password;
+                $_SESSION['remember'] = true;
+            } else {
+                unset($_SESSION['user']);
+                unset($_SESSION['password']);
+                unset($_SESSION['remember']);
+            }
             session_regenerate_id();
             header('Location: ' . $redirect);
             exit();

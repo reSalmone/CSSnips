@@ -15,9 +15,11 @@ function splitFileContent($content)
     return [$html, $css, $js];
 }
 
+$foundRemoveVariation = false;
 if (isset($_GET['remove-variation'])) {
     unset($_GET['remove-variation']);
     unset($_SESSION['variation']);
+    $foundRemoveVariation = true;
 }
 
 $name = null;
@@ -94,6 +96,9 @@ if ($name != '') {
     }
     if ($foundVariation) {
         echo "<script>removeQueryParam('variation')</script>";
+    }
+    if ($foundRemoveVariation) {
+        echo "<script>removeQueryParam('remove-variation')</script>";
     }
     ?>
 </head>
@@ -207,21 +212,43 @@ if ($name != '') {
                     </div>
                 </div>
                 <div class="right-action-buttons">
-                    <div class="toggle-switch">
-                        <label class="switch-label">
-                            <input type="checkbox" class="checkbox">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
                     <form action="" method="get" class="action-form">
-                        <button class="action-button" type="submit" name="remove-variation" onclick="localStorage.clear();">Reset snippet</button>
+                        <button class="action-button" id="action-report" type="submit" name="remove-variation"
+                            onclick="localStorage.clear();">
+                            <div class='action-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M127.2 159H127.306M127.2 127.2V95.4M52.8099 201.4H201.5897C217.9519 201.4 228.147 183.6514 219.9023 169.5184L145.5126 41.9922C137.3315 27.9683 117.0685 27.9683 108.8874 41.9922L34.4979 169.5184C26.2536 183.6514 36.448 201.4 52.8099 201.4Z'
+                                        stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                                </svg>
+                            </div>
+                            <span>Reset snippet</span>
+                        </button>
                     </form>
                     <?php
-                    $action = isset($_SESSION['username']) ? "saveDraft(event);" : "openLogin(event);";
-                    echo '<button class="action-button" type="button" onclick="' . $action . '">Save draft</button>';
-                    $action = isset($_SESSION['username']) ? "openPost(event);" : "openLogin(event);";
-                    echo '<button class="action-button" type="button" onclick="' . $action . '">Post snippet</button>';
+                    $actionSave = isset($_SESSION['username']) ? "saveDraft(event);" : "openLogin(event);";
+                    $actionPost = isset($_SESSION['username']) ? "openPost(event);" : "openLogin(event);";
                     ?>
+                    <button class="action-button" type="button" onclick="<?php echo $actionSave ?>">
+                        <div class='action-svg'>
+                            <svg viewBox='0 0 256 256'>
+                                <path
+                                    d='M31.8 86.92C31.8 74.2 31.8 68.9 33.92 63.6 36.04 60.42 39.22 57.24 42.4 55.12 47.7 53 53 53 65.72 53H101.76C107.06 53 110.24 53 112.36 53 114.48 54.06 116.6 54.06 118.72 55.12 120.84 57.24 121.9 58.3 126.14 62.54L127.2 63.6C131.44 67.84 132.5 68.9 134.62 71.02 136.74 72.08 138.86 72.08 140.98 73.14 143.1 74.2 146.28 74.2 151.58 74.2H188.68C200.34 74.2 205.64 74.2 210.94 76.32 214.12 78.44 217.3 81.62 219.42 84.8 222.6 90.1 222.6 95.4 222.6 108.12V167.48C222.6 179.14 222.6 184.44 219.42 189.74 217.3 192.92 214.12 196.1 210.94 198.22 205.64 201.4 200.34 201.4 188.68 201.4H65.72C53 201.4 47.7 201.4 42.4 198.22 39.22 196.1 36.04 192.92 33.92 189.74 31.8 184.44 31.8 179.14 31.8 167.48V86.92Z'
+                                stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                            </svg>
+                        </div>
+                        <span>Save draft</span>
+                    </button>
+                    <button class="action-button" type="button" onclick="<?php echo $actionPost ?>">
+                    <div class='action-svg'>
+                            <svg viewBox='0 0 256 256'>
+                                <path
+                                    d='M109.18 144.16 213.06 40.28M111.3 149.46 135.68 196.1C140.98 207.76 144.16 213.06 147.34 215.18 150.52 216.24 153.7 216.24 156.88 214.12 160.06 212 162.18 206.7 166.42 193.98L210.94 63.6C214.12 53 216.24 47.7 215.18 44.52 214.12 41.34 212 39.22 208.82 38.16 205.64 37.1 200.34 39.22 189.74 42.4L59.36 86.92C46.64 91.16 41.34 93.28 39.22 96.46 37.1 99.64 37.1 102.82 38.16 106 40.28 109.18 45.58 112.36 57.24 117.66L103.88 142.04C106 143.1 107.06 143.1 108.12 144.16 108.12 144.16 109.18 145.22 109.18 145.22 110.24 146.28 110.24 147.34 111.3 149.46Z'
+                                stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                            </svg>
+                        </div>
+                        <span>Post snippet</span>
+                    </button>
                 </div>
             </div>
             <div class="snippet-container">

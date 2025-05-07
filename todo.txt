@@ -1,4 +1,5 @@
 //ROBA DA FARE LIVIO
+/make remember me remember you in login
 /display post errors in creator.php
 /fix text (html css js) display in snippet.php (lines aren't loaded / tabs suck)
 /make an auto name-finding algorithm in the post section of creator.php
@@ -6,7 +7,7 @@
 add snippets to index.php
 add tags to index.php
 
-add an actiobar on snippets (in snippet.php) to: add variation - open in editor (clone) - report (maybe)
+/add an actiobar on snippets (in snippet.php) to: add variation - open in editor (clone) - report (maybe)
 
 add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
     - load the snippet in creator.php
@@ -14,7 +15,7 @@ add an edit snippet from snippet.php that sends back to creator.php with the sni
 
 snippet comment section
 /snippet rating section
-snippet report section
+/snippet report section
 
 add a site-wide footer div
 /make the login/signup/navbar load programmatically

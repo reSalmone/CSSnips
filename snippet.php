@@ -216,14 +216,22 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                     <svg viewBox='0 0 256 256'>
                                         <path
                                             d='M198.2 51v172.8a6.4 6.4 90 01-10.4 4.9984L127.8 180.7984l-60 48A6.4 6.4 90 0157.4 223.8V51a25.6 25.6 90 0125.6-25.6h89.6a25.6 25.6 90 0125.6 25.6z'
-                                            stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                            stroke-width='20px' fill='none'></path>
                                     </svg>
                                 </div>
                             </label>
                             <span class="data-text" id="data-saved-value"><?php echo $saved; ?></span>
                         </div>
                         <div class="data-views">
-                            <img src="assets/images/view.png" class="data-icon">
+                            <div class="data-like-save-container">
+                                <div class='data-views-checkmark'>
+                                    <svg viewBox='0 0 256 256'>
+                                        <path
+                                            d='M127.2 53C79.7 53 39.5 84.1 26.0 127.2 39.5 170.2 79.7 201.4 127.2 201.4 174.6 201.4 214.8 170.2 228.3 127.2 214.8 84.1 174.6 53 127.2 53Z M159.0 127.2C159.0 144.7 144.7 159 127.2 159 109.6 159 95.4 144.7 95.4 127.2 95.4 109.6 109.6 95.4 127.2 95.4 144.7 95.4 159.0 109.6 159.0 127.2Z'
+                                            stroke-width='20px' fill='none'></path>
+                                    </svg>
+                                </div>
+                            </div>
                             <span class="data-text"><?php echo $views; ?></span>
                         </div>
                     </div>
@@ -235,7 +243,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                 <svg viewBox='0 0 256 256'>
                                     <path
                                         d='M106 74.2A21.2 21.2 90 0084.8 95.4V201.4A21.2 21.2 90 00106 222.6H190.8A21.2 21.2 90 00212 201.4V95.4A21.2 21.2 90 00190.8 74.2H106ZM169.6 53A21.2 21.2 90 00148.4 31.8H63.6A21.2 21.2 90 0042.4 53V159A21.2 21.2 90 0063.4 180.2'
-                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                        stroke-width='20px' fill='none'></path>
                                 </svg>
                             </div>
                             <span>Clone</span>

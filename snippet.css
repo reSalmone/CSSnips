@@ -307,25 +307,25 @@
 }
 
 .data-like-save-container {
-    display: block;
     position: relative;
     cursor: pointer;
-    font-size: 20px;
     user-select: none;
     transition: 100ms;
 }
 
-.data-like-checkmark, .data-save-checkmark {
+.data-like-checkmark, .data-save-checkmark, .data-views-checkmark {
     top: 0;
     left: 0;
     height: 24px;
     width: 24px;
     transition: 100ms;
     animation: dislike_effect 400ms ease;
+    stroke: var(--color4);
+    will-change: transform;
 }
 
 .data-like-save-container input:checked~.data-like-checkmark path {
-    fill: #FF5353;
+    fill: var(--color5);
     stroke-width: 0;
 }
 .data-like-save-container input:checked~.data-save-checkmark path {
@@ -590,6 +590,7 @@
     align-items: center;
     color: var(--color4);
     font-size: 16px;
+    overflow: hidden;
 }
 
 .info-variations-info-views {

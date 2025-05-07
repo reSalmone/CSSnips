@@ -19,9 +19,12 @@
             onsubmit="return submitLoginForm(this);" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
-                    <input type="text" class="form-input" placeholder="Username or email" name="username"
-                        spellcheck="false">
-                    <img src="assets/images/email.png" class="form-icon">
+                    <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false" value="<?php 
+                        if (isset($_SESSION['remember'])) {
+                            echo $_SESSION['user'];
+                        }
+                        ?>">
+                    <img src="assets/images/user.png" class="form-icon">
                 </div>
                 <div class="form-error-box">
                     <img src="assets/images/exclamation.png" class="form-icon form-error-icon">
@@ -30,7 +33,11 @@
             </div>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
-                    <input type="password" class="form-input" placeholder="Password" name="password" spellcheck="false">
+                    <input type="password" class="form-input" placeholder="Password" name="password" spellcheck="false" value="<?php 
+                        if (isset($_SESSION['remember'])) {
+                            echo $_SESSION['password'];
+                        }
+                        ?>">
                     <img src="assets/images/lock.png" class="form-icon form-show-password" onclick="showPassword(this);"
                         title="Show password">
                 </div>
@@ -41,7 +48,11 @@
             </div>
             <div class="form-remember-forgot">
                 <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox" id="checkbox" name="remember">
+                    <input type="checkbox" class="checkbox" id="checkbox" name="remember" <?php 
+                    if (isset($_SESSION['remember'])) {
+                        echo 'checked';
+                    }
+                    ?>>
                     <div class="display-checkbox"></div>
                     <label class="checkbox-label remember" for="checkbox">Remember me</label>
                 </label>

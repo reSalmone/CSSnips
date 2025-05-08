@@ -4,29 +4,31 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     background-color: var(--color1);
 }
 .contest-box {
+    margin-top: 3%;
     background: var(--color2);
     width: 95%;
     border-radius: 20px;
-    margin-top: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     overflow: hidden;
+    
 }
 
 .contest-info-box {
     width: 100%;
     display: grid;
     grid-template: 
-            'a a a a'1fr
-            'b b c c'1fr
-            'd e c c'1fr
-            '. e c c'1fr/1fr 0.75fr 1fr 1.5fr;
+            'a a a a a'1fr
+            '. b b c c'0.75fr
+            '. d e c c'0.75fr
+            '. . . c c'0.25fr/0.1fr 1fr 1fr 0.75fr 0.75fr;
 }
 
 .contest-title {
@@ -38,8 +40,8 @@
     border-radius: 20px;
     background-color: color-mix(in srgb, var(--color2) 75%, black);
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
-    text-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
     z-index: 1;
+    /*height: 110%;*/
 
 }
 
@@ -47,11 +49,10 @@
     grid-area: b;
     color: color-mix(in srgb, var(--color3) 75%, black);
     font-size: 25px;
-    padding-left: 3%;
     font-weight: bold;
-    padding: 1.5rem;
-    justify-self: center;
-    text-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+    padding-top: 2rem;
+    justify-self: start;
+    text-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
 }
 
 .contest-background-target {
@@ -60,8 +61,8 @@
     --s: 50px;
     width: 100%;
   height: 100%;
-  --color: rgba(114, 114, 114, 0.3);
-  background-color: #191a1a;
+  --color: color-mix(in srgb, var(--color1) 87%, white);
+  background-color: color-mix(in srgb, var(--color1) 87%, black);
   background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
       linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
   background-size: var(--s) var(--s);
@@ -74,16 +75,16 @@
 .data{
     grid-area:d;
     align-self: center;
-    justify-items: center;
+    justify-items: start;
 
 }
 
 .data .range {
     position: relative;
     background-color: var(--color4);
-    width: 90%;
-    height: 2.75rem;
-    border-radius: 0.50rem;
+    width: 150%;
+    height: 1rem;
+    border-radius: 0.25rem;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 
@@ -95,7 +96,7 @@
     background-color: var(--color6);
     width: 76%;
     height: 100%;
-    border-radius: 0.50rem;
+    border-radius: 0.25rem;
 }
 .data-days {
     color: var(--color6);
@@ -121,5 +122,45 @@
     filter: saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
     padding: 0.5rem;
 }
+
+
+.challenge-container {
+    background: color-mix(in srgb, var(--color2) 75%, black);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
+    
+}
+.carosello {
+    width: 100%;
+    padding: 2%;
+    gap: 2%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.active-challenge-box {
+    background: var(--color4);
+    overflow: hidden;
+    border-radius: 20px;
+    flex: 0 0 calc(100% / 3 - 1rem);
+    min-width: calc(100% / 3);
+    height:400px;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: background-color .1s;
+    cursor: pointer;
+}
+
+.active-challenge-box:hover{
+    background-color: color-mix(in srgb, var(--color4) 85%, black);
+    transform: translateY(4px);
+    transition:transform .2s;
+}
+
 
 

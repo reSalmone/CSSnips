@@ -53,21 +53,29 @@
 }
 
 .nicon-trophy {
+    grid-area: e;
     align-self: center;
-    width: 130px;
-    height: 130px;
+    justify-self: center;
+    width: 115px;
+    height: 115px;
     filter: saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
     padding: 0.5rem;
+}
+
+.data{
+    grid-area:d;
+    align-self: center;
+    justify-self:start;
+
 }
 
 .data .range {
     position: relative;
     background-color: var(--color4);
-    width: 100%;
+    width: 200%;
     height: 0.75rem;
     border-radius: 0.25rem;
-    display: flex;
-    align-self: center;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 
 }
 
@@ -81,11 +89,21 @@
     border-radius: 0.25rem;
 }
 
+.data-days {
+    color: var(--color6);
+    font-size: 25px;
+    padding-left: 3%;
+    font-weight: bold;
+    padding: 0.75rem;
+    justify-self: start;
+    text-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+}
+
 .nicon-target {
     align-self: center;
+    justify-self: center;
     width: 50%;
     height: 50%;
-    margin-right: 100px;
     overflow: hidden;
 
 
@@ -96,47 +114,38 @@
     width: 95%;
     border-radius: 20px;
     margin-top: 5%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template: 
+            'a a a c c'1fr
+            '. b b c c'0.5fr
+            '. d e c c'1fr /0.08fr 1fr 1fr 0.5fr 0.5fr;
+
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     overflow: hidden;
     transition: background-color .1s;
     cursor: pointer;
+    padding-left:1em;
 }
 .contest-box:hover{
     background-color: color-mix(in srgb, var(--color2) 90%, black);
     transform: translateY(4px);
     transition:transform .2s;
 }
-
-.contest-info-box {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 .contest-title {
+    grid-area: a;
     color: var(--color4);
     font-size: 60px;
     font-weight: bold;
     padding: 1.5rem;
 }
 
-.contest-subinfo-box {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    padding: 1.5rem;
-}
-
 .contest-subtitle {
+    grid-area: b;
+    justify-self: start;
+    align-self: center;
     color: color-mix(in srgb, var(--color3) 75%, black);
     font-size: 25px;
-    padding-left: 3%;
     font-weight: bold;
-    padding: 0.5rem;
 }
 
 .challenge-container {
@@ -195,29 +204,19 @@
 }
 
 .contest-background-target {
+    grid-area: c;
+    --s: 50px;
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    --s: 100px;
-    /* control the size */
-    --c1: var(--color2);
-    --c2: var(--color1);
+  height: 100%;
+  --color: color-mix(in srgb, var(--color1) 87%, white);
+  background-color: color-mix(in srgb, var(--color1) 87%, black);
+  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
+      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+  background-size: var(--s) var(--s);
 
-    --_g: var(--c2) 4% 14%, var(--c1) 14% 24%, var(--c2) 22% 34%,
-        var(--c1) 34% 44%, var(--c2) 44% 56%, var(--c1) 56% 66%, var(--c2) 66% 76%,
-        var(--c1) 76% 86%, var(--c2) 86% 96%;
-    background: radial-gradient(100% 100% at 100% 0,
-            var(--c1) 4%,
-            var(--_g),
-            #0008 96%,
-            #0000),
-        radial-gradient(100% 100% at 0 100%,
-            #0000,
-            #0008 4%,
-            var(--_g),
-            var(--c1) 96%) var(--c1);
-    background-size: var(--s) var(--s);
+    display:grid;
+    align-items: center;
+    justify-items: center;
 
 }
 

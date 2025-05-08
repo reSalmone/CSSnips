@@ -121,8 +121,7 @@ label {
 }
 
 /* Section - Contact Details */
-.section,
-.sectionn {
+.section {
   margin-bottom: 30px;
   background-color: var(--color2-brighter);
   padding: 20px;

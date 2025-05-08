@@ -29,7 +29,10 @@
             <img src="assets/images/add.png" class="nicon">
         </button>
         <div class="dropdown">
-          <button class="dropbtn">Account ▾</button>
+          <button class="nbutton">
+            <span>Account</span>  
+            <img src="assets/images/omino.png" class="nicon">
+          </button>
           <div class="dropdown-content">
             <a href="account.html">Account</a>
             <a href="activity.html">Activity</a>

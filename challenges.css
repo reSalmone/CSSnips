@@ -223,20 +223,23 @@
 .scroll-button {
     position: absolute;
     border-radius: 20px;
-    padding: 1rem;
+    padding: 0.5rem;
     cursor: pointer;
-    font-size: 5rem;
     align-self: center;
     z-index: 1;
     border: 4px black;
-    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
+    height: 15%;
+    width: 8%;
+    filter:invert();
 }
-
+.scroll-button:hover{
+    transform:translateY(4px);
+    transition:transform.2s;
+}
 .left {
     left: 3%;
-
 }
-
 .right {
     right: 3%;
+
 }

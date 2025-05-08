@@ -33,10 +33,10 @@
             <img src="assets/images/omino.png" class="nicon">
           </button>
           <div class="dropdown-content">
-            <a href="account.html">Account</a>
-            <a href="activity.html">Activity</a>
-            <a href="watchlist.html">Watchlist</a>
-            <a href="account_settings.html">Account settings</a>
+            <a href="account.php">Account</a>
+            <a href="activity.php">Activity</a>
+            <a href="watchlist.php">Watchlist</a>
+            <a href="account_settings.php">Account settings</a>
             <a href="logout.php">Logout</a>
           </div> 
         </div>

@@ -15,7 +15,7 @@
     top: 0;
     right: 0;
     z-index: 2;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .navbar .left-navbar, .navbar .right-navbar {

@@ -13,51 +13,6 @@ body {
 }
 
 /* Navbar */
-.navbar {
-  background-color: var(--color1);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-}
-
-.left-navbar {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.navbar-title {
-  font-size: 1.5rem;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.nbutton {
-  background: #444;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: background 0.3s;
-}
-
-.nbutton:hover {
-  background: #555;
-}
-
-.nicon {
-  width: 18px;
-  height: 18px;
-  filter: brightness(0) invert(1);
-}
-
 .dropdown {
   position: relative;
   display: inline-block;

@@ -9,7 +9,23 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 //se salvamo le info del POST in delle variabili (vuote se non se trovano)
 $username = $_POST['username'] ?? '';
 $email = $_POST['email'] ?? '';
+$emailConfirm = $_POST['confirmEmail'] ?? '';
 $password = $_POST['password'] ?? '';
+$passwordConfirm = $_POST['confirmPassword'] ?? ''; 
+
+if (empty($username) || empty($password) || empty($email) || empty($emailConfirm) || empty($passwordConfirm)) {
+    signUpError("Registration form is not complete, it's missing 1 or more inputs");
+} else if ($email != $emailConfirm) {
+    signUpError("Email and email confirmation do not match");
+} else if ($password != $passwordConfirm) {
+    signUpError("Password and password confirmation do not match");
+} else if (!preg_match('/^[A-Za-z0-9]{3,16}$/', $username)) {
+    signUpError("Invalid username, must be:\n\t1: at least 3 characters\n\t2: not more than 16 characters");
+} else if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $email)) {
+    signUpError("Invalid email, use: 'test@example.net'");
+} else if (!preg_match('/^(?=.*\d)[A-Za-z\d!@#$%^&*()_+={}\[\]:;<>,.?\/\\|-]{8,32}$/', $password)) {
+    signUpError("Invalid password, must be:\n\t1: at least 8 characters\n\t2: not more than 16 characters\n\t3: at least 1 number");
+}
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or signUpError("Connection to database refused");
 if ($dbcon) { //se la connessione è correttamente stabilita

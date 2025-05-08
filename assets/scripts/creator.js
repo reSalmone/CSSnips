@@ -37,6 +37,7 @@ function displayCode() {
                     justify-content: center;
                     height: 100vh;
                     margin: 0;
+                    overflow: hidden;
                 }
                 ${css}
               </style>

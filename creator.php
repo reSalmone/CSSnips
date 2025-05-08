@@ -213,7 +213,7 @@ if ($name != '') {
                 </div>
                 <div class="right-action-buttons">
                     <form action="" method="get" class="action-form">
-                        <button class="action-button" id="action-report" type="submit" name="remove-variation"
+                        <button class="action-button" id="action-important" type="submit" name="remove-variation"
                             onclick="localStorage.clear();">
                             <div class='action-svg'>
                                 <svg viewBox='0 0 256 256'>

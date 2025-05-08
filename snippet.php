@@ -259,9 +259,33 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             </div>
                             <span>Add variation</span>
                         </button>
+                        <?php if (isset($_SESSION['username']) && $creator == $_SESSION['username']) { ?>
+                        <button class="actions-button" id="actions-important"
+                            onclick="window.location = 'editor.php?name=<?php echo $name ?>'">
+                            <div class='actions-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M106 74.2A21.2 21.2 90 0084.8 95.4V201.4A21.2 21.2 90 00106 222.6H190.8A21.2 21.2 90 00212 201.4V95.4A21.2 21.2 90 00190.8 74.2H106ZM169.6 53A21.2 21.2 90 00148.4 31.8H63.6A21.2 21.2 90 0042.4 53V159A21.2 21.2 90 0063.4 180.2'
+                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                </svg>
+                            </div>
+                            <span>Edit snippet</span>
+                        </button>
+                        <button class="actions-button" id="actions-important"
+                            onclick="window.location = 'delete.php?redirect=snippet.php?name=<?php echo $name ?>'">
+                            <div class='actions-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M197.5 41.6H151.2L148.6 36.5C146.6 32.4 142.6 30 138.2 30H94.5C90.2 30 86.1 32.4 81.4 41.6H35 M46.6 81.4 54.3 204.6C54.8 213.7 62.5 220.9 71.6 220.9H161C170.1 220.9 177.8 213.8 178.3 204.6L186.1 81.4Z'
+                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                </svg>
+                            </div>
+                            <span>Delete snippet</span>
+                        </button>
+                        <?php } ?>
                     </div>
                     <div class="right-actions-container">
-                        <button class="actions-button" id="actions-report">
+                        <button class="actions-button" id="actions-important">
                             <div class='actions-svg'>
                                 <svg viewBox='0 0 256 256'>
                                     <path

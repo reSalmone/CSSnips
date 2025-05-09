@@ -81,10 +81,9 @@
 
 .data .range .fill {
     position: absolute;
-    top: 0;
-    left: 0;
+    top:0;
+    left:0;
     background-color: var(--color6);
-    width: 76%;
     height: 100%;
     border-radius: 0.25rem;
 }
@@ -117,21 +116,20 @@
     display: grid;
     grid-template: 
             'a a a c c'1fr
-            '. b b c c'0.5fr
-            '. d e c c'1fr /0.08fr 1fr 1fr 0.5fr 0.5fr;
+            '. b b c c'0.7fr
+            '. d d c c'1fr /0.08fr 1fr 1fr 0.5fr 0.5fr;
 
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     overflow: hidden;
     transition: background-color .1s;
     cursor: pointer;
-    padding-left:1em;
 }
 .contest-box:hover{
     background-color: color-mix(in srgb, var(--color2) 90%, black);
     transform: translateY(4px);
     transition:transform .2s;
 }
-.contest-title {
+.contest-month {
     grid-area: a;
     color: var(--color4);
     font-size: 60px;
@@ -139,24 +137,56 @@
     padding: 1.5rem;
 }
 
-.contest-subtitle {
+.contest-content {
     grid-area: b;
     justify-self: start;
     align-self: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-items: center;
+    
+}
+.contest-content-title{
     color: color-mix(in srgb, var(--color3) 75%, black);
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
+
 }
 
-.challenge-container {
+.contest-content-subtitle{
+    color: color-mix(in srgb, var(--color3) 75%, black);
+    font-size: 20px;
+    font-weight: bold;
+
+}
+.other-challenges{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
     background: var(--color2);
     width: 95%;
     border-radius: 20px;
     margin-top: 5%;
-    display: flex;
-    flex-direction: row;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     margin-bottom: 100px;
+}
+
+.other-challenges-title {
+    justify-self: start;
+    color: var(--color4);
+    font-size: 60px;
+    font-weight: bold;
+    padding: 1.5rem;
+}
+
+
+.challenge-container {
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    
 }
 
 .carosello {

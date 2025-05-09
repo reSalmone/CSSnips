@@ -5,7 +5,7 @@
             <span>Explore</span>
             <img src="assets/images/search.png" class="nicon">
         </button>
-        <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
+        <button class="nbutton" onclick="location.href = 'challenges.php'" type="button">
             <span>Challenges</span>
             <img src="assets/images/target.png" class="nicon">
         </button>

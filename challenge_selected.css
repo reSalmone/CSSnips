@@ -26,7 +26,7 @@
     display: grid;
     grid-template: 
             'a a a a a'1fr
-            '. b b c c'0.75fr
+            '. b b c c'1fr
             '. d e c c'0.75fr
             '. . . c c'0.25fr/0.1fr 1fr 1fr 0.75fr 0.75fr;
 }
@@ -41,19 +41,34 @@
     background-color: color-mix(in srgb, var(--color2) 75%, black);
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
     z-index: 1;
-    /*height: 110%;*/
 
 }
 
-.contest-subtitle {
+.contest-content {
     grid-area: b;
-    color: color-mix(in srgb, var(--color3) 75%, black);
-    font-size: 25px;
-    font-weight: bold;
-    padding-top: 2rem;
-    justify-self: start;
-    text-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-items: center;
 }
+
+.contest-content-title{
+    color: color-mix(in srgb, var(--color3) 75%, black);
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+.contest-content-subtitle{
+    color: color-mix(in srgb, var(--color3) 75%, black);
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
 
 .contest-background-target {
 
@@ -138,6 +153,7 @@
     gap: 2%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    
 }
 
 .active-challenge-box {

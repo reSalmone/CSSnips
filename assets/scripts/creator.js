@@ -138,7 +138,7 @@ function removeTag(index) {
 function renderTags() {
     const tagList = document.getElementById("tags-list");
     tagList.innerHTML = "";
-    tags.forEach((tag, index) => {
+    Array.from(tags).forEach((tag, index) => {
         const el = document.createElement("div");
         el.className = "tags-tag";
         el.innerText = tag;
@@ -263,6 +263,47 @@ function closePost() {
     document.getElementById('rest').style.filter = 'brightness(100%)';
 }
 function saveDraft() {
+}
+
+function saveChanges() {
+    const html = document.getElementById("html-area").value;
+    const css = document.getElementById("css-area").value;
+    const js = document.getElementById("js-area").value;
+
+    let postname = document.getElementById("editing-name").innerText.toLowerCase();
+    let postType = document.getElementById('current-type').innerText.split(':')[1]?.trim();;
+    let postDescription = document.getElementById('description-area').value;
+    let posttagslist = document.getElementById('tags-list');
+    let postTags = Array.from(posttagslist.children).map(child => child.innerText.trim());
+
+    let completeHTML = `
+<!DOCTYPE html>
+<html>
+<head><style>${css}</style></head>
+<body>${html}<script>${js}<\/script></body>
+</html>`;
+
+    let file = new File([completeHTML], "snippet.html", { type: "text/html" });
+
+    let formData = new FormData();
+    formData.append("postFile", file);
+    formData.append("postName", postname);
+    formData.append("postType", postType);
+    formData.append("postDescription", postDescription);
+    formData.append("postTags", JSON.stringify(postTags));
+
+    fetch("upload-changes.php", {
+        method: "POST",
+        body: formData
+    }).then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                //tell in some way to snippet that the changes have been made
+                location.href = "snippet.php?name=" + postname;
+            } else {
+                console.log(data.error);
+            }
+        });
 }
 
 function postSnippet() {

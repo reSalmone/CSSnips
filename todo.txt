@@ -21,6 +21,14 @@ add a site-wide footer div
 /make the login/signup/navbar load programmatically
 make likes and views show better in the explorer
 
+//LIVIO FATTO -----------------------------------------------------------------------------------------
+per adesso l'edit sovrascrive il localStorage, la strat sento che è di creare un sistema di
+snippet temporanei con id quando - non loggato (ti salva questo id nella sessione così non ti perdi tutto se ritorni) o loggato, 
+ti crei un nuovo snippet. Ora quando apri il creator, se hai un id in session te manda a creator.php?id=x, se non ne
+hai uno te ne crea uno da capo. Questo evita il problema che l'editor sovrascriva il Localstorage: non salviamo le
+robe nel localStorage (magari sto id al posto della session): la roba viene salvata in uno snippet temporaneo (lo elimini quando 
+posti).
+//-----------------------------------------------------------------------------------------------------
 
 //ROBA DA FARE EMA
 bro devi fa ste challange, ora fa cagare onesto

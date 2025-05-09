@@ -23,19 +23,21 @@ if (isset($_GET['remove-variation'])) {
 }
 
 $name = null;
+$foundEdit = false;
 $foundClone = false;
 $foundVariation = false;
 $foundSessionVariation = false;
-if (isset($_GET['clone'])) {
+if (isset($_GET['edit'])) {
+    $name = $_GET['edit'];
+    $foundEdit = true;
+} else if (isset($_GET['clone'])) {
     $name = $_GET['clone'];
     $foundClone = true;
     unset($_SESSION['variation']);
-}
-if (isset($_SESSION['variation'])) {
+} else if (isset($_SESSION['variation'])) {
     $foundSessionVariation = true;
     $name = $_SESSION['variation'];
-}
-if (isset($_GET['variation'])) {
+} else if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
     $foundVariation = true;
     $_SESSION['variation'] = $name;
@@ -45,6 +47,7 @@ list($html, $css, $js) = null;
 $creator = null;
 $type = null;
 
+$permission = false;
 $found = false;
 if ($name != '') {
     $filePath = __DIR__ . "\\snippets\\" . basename($name);
@@ -60,6 +63,12 @@ if ($name != '') {
                 $found = true;
                 $creator = $tuple['creator'];
                 $type = $tuple['element_type'];
+
+                if ($foundEdit && (!isset($_SESSION['username']) || ($foundEdit && isset($_SESSION['username']) && $creator != $_SESSION['username']))) {
+                    //maybe make a system that EVERY page can have it's own errors sent to it and here send back a permission error
+                    header('Location: snippet.php?name=' . $name);
+                    exit;
+                }
 
                 if (!$foundSessionVariation) {
                     echo '<script>localStorage.clear();</script>';

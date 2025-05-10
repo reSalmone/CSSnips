@@ -201,9 +201,9 @@ if ($name != '') {
                         <span class="variation-subtext">Creating a variation of <a href="snippet.php?name=<?php echo $name ?>"
                                 class="variation-text"><?php echo $type ?></a> by</span>
                         <div class="variation-user">
-                            <div class="variation-pfp"></div>';
+                            <div class="variation-pfp"></div>
                             <span class="variation-text"><?php echo $creator ?></span>
-                        </div>';
+                        </div>
                         <span id="variation-name" hidden><?php echo $name ?></span>
                         <form method="get" action="">
                             <button class="variation-remove" type="submit" name="remove-variation">

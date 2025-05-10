@@ -34,9 +34,8 @@ $redirect = 'challenges.php';
             </div>
 
         </div>
-        <div class="contest-box" onclick="location.href = 'challenge_selected.php' " type="button">
-            <div class="contest-month">Challenge of the Month!</div>
-            <?php
+
+        <?php
             $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
             if ($dbcon != -1) { //se la connessione è correttamente stabilita
                 $q1 = "SELECT * FROM challenges WHERE date_end >= CURRENT_DATE;";
@@ -46,6 +45,8 @@ $redirect = 'challenges.php';
                     $datag = new DateTime();
                     $diff = $datag->diff($dataf);
                     $fill = $diff->format('%a') * 3.22;
+                    echo'<div class="contest-box" onclick="location.href = \'challenge_selected.php\' " type="button">
+                            <div class="contest-month">Challenge of the Month!</div>';
                     echo '<div class="contest-content">';
                     echo '<div class="contest-content-title">' . $tuple["name"] . '</div>';
                     echo '<div class="contest-content-subtitle">' . $tuple["description"] . '</div>';
@@ -58,18 +59,17 @@ $redirect = 'challenges.php';
                         echo $diff->format('%ad %hh %im left');
                         ?></p>
                     </div>
-                    <?php
+                    <!-- <img src="assets/images/trophy.png" class="nicon-trophy"> -->
+                    <div class="contest-background-target">
+                        <?php echo '<img src="'. $tuple["image"].'" class="nicon-target">'?>
+                    </div>
+                </div>
+                <?php
                 }
             } else {
                 echo '<p>Error connecting to databse</p>';
             }
-            ?>
-            <!-- <img src="assets/images/trophy.png" class="nicon-trophy"> -->
-            <div class="contest-background-target">
-                <img src="assets/images/pixel_botton.png" class="nicon-target">
-            </div>
-
-        </div>
+        ?>
         <div class="other-challenges">
             <div class="contest-month">Other Challenges</div>
             <div class="challenge-container">
@@ -78,36 +78,20 @@ $redirect = 'challenges.php';
                     <?php
                     $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                        $q1 = "SELECT * FROM challenges WHERE date_end IS NOT NULL";
+                        $q1 = "SELECT * FROM challenges WHERE date_end < CURRENT_DATE;";
                         $result = pg_query($dbcon, $q1);
-                        if ($tuple = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
-
+                        while ($tuple = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
+                            echo'<div class="active-challenge-box">
+                                    <div class="title-active-challenge-box">'.
+                                    $tuple["name"]
+                                .'</div>
+                                <img src="'.$tuple["image"].'" class="background-active-challenge-box">
+                                </div>';
                         }
                     } else {
                         echo '<p>Error connecting to databse</p>';
                     }
                     ?>
-
-                    <div class="active-challenge-box">
-                        <div class="title-active-challenge-box">Pixel Style</div>
-                        <img src="assets/images/challenge-img1.jpg" class="background-active-challenge-box">
-                    </div>
-                    <div class="active-challenge-box">
-                        <div class="title-active-challenge-box">Minimal Style</div>
-                        <img src="assets/images/challenge-img2.jpg" class="background-active-challenge-box">
-                    </div>
-                    <div class="active-challenge-box">
-                        <div class="title-active-challenge-box">Cyber Style</div>
-                        <img src="assets/images/challenge-img3.jpg" class="background-active-challenge-box">
-                    </div>
-                    <div class="active-challenge-box">
-                        <div class="title-active-challenge-box">Modern Style</div>
-                        <img src="assets/images/challenge-img1.jpg" class="background-active-challenge-box">
-                    </div>
-                    <div class="active-challenge-box">
-                        <div class="title-active-challenge-box">Medieval Style</div>
-                        <img src="assets/images/challenge-img1.jpg" class="background-active-challenge-box">
-                    </div>
                 </div>
                 <img src="assets/images/scroll-arrow-right.png" id='s-right' class="scroll-button right">
             </div>

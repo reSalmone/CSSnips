@@ -26,6 +26,7 @@
     /*#F07167*/
     --color5-bright: color-mix(in srgb, var(--color5) 90%, white);
     --color5-brighter: color-mix(in srgb, var(--color5) 80%, white);
+    --color5-darker: color-mix(in srgb, var(--color5) 80%, black);
     --color5-placeholder: color-mix(in srgb, var(--color5) 75%, transparent);
 
     --color6: #68ee89;

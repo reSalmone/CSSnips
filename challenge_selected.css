@@ -89,10 +89,18 @@
     justify-items: center;
 
 }
+
+.nicon-target {
+    max-height: 300px;
+    width: auto;
+    display: block;
+}
+
 .data{
     grid-area:d;
     align-self: center;
     justify-items: start;
+    object-fit: contain;
 
 }
 
@@ -169,9 +177,6 @@
 }
 
 
-.nicon-target {
-    overflow: hidden;
-}
 
 .nicon-trophy {
     grid-area: e;

@@ -1,7 +1,21 @@
 <?php
 //qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
 session_start();
+
+
+if (!isset($_GET['name'])) {
+    header('Location: challenge.php');
+}
+
+$name = $_GET['name'] ?? '';
 $redirect = 'challenges_selected.php';
+
+if ($name != '') {
+    $redirect = $redirect . '?name=' . $name;
+}
+
+
+$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
 ?>
 
 
@@ -28,17 +42,25 @@ $redirect = 'challenges_selected.php';
         <div class="contest-box">
 
             <?php
-            $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
+            
             if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                $q1 = "SELECT * FROM challenges WHERE date_end >= CURRENT_DATE;";
+                if($name=='Month'){
+                    $q1 = "SELECT * FROM challenges WHERE date_end >= CURRENT_DATE;";
+                }else{
+                    $q1 = "SELECT * FROM challenges WHERE name='$name';";
+                };
                 $result = pg_query($dbcon, $q1);
                 if ($tuple = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
-                    $dataf = new DateTime($tuple['date_end']);
+                    $dataf = new DateTime(datetime: $tuple['date_end']);
                     $datag = new DateTime();
-                    $diff = $datag->diff($dataf);
-                    $fill = $diff->format('%a') * 3.22;
-                    echo'<div class="contest-info-box">
-                            <div class="contest-title">Challenge of the Month!</div>';
+                    $diff = $datag->diff(targetObject: $dataf);
+                    echo '<span>'.$diff.'</span>';
+                    echo'<div class="contest-info-box">';
+                    if($name=='Month'){
+                        echo '<div class="contest-title">Challenge of the Month!</div>';
+                    }else{
+                        echo '<div class="contest-title">'.$name.' Challenge!</div>';
+                    };
                     echo '<div class="contest-content">';
                     echo '<div class="contest-content-title">' . $tuple["name"] . '</div>';
                     echo '<div class="contest-content-subtitle">' . $tuple["description"] . '</div>';

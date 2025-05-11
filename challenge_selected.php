@@ -54,7 +54,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                     $dataf = new DateTime(datetime: $tuple['date_end']);
                     $datag = new DateTime();
                     $diff = $datag->diff(targetObject: $dataf);
-                    echo '<span>'.$diff.'</span>';
+                    $fill = $diff->format('%a') * 3.22;
                     echo'<div class="contest-info-box">';
                     if($name=='Month'){
                         echo '<div class="contest-title">Challenge of the Month!</div>';
@@ -66,11 +66,18 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                     echo '<div class="contest-content-subtitle">' . $tuple["description"] . '</div>';
                     echo '</div>';?>
                     <div class="data">
-                        <div class="range">
-                            <div class="fill" id="fill" style="width: <?php echo $fill; ?>%;"></div>
-                            </div>
-                        <p class="data-days"><?php echo $diff->format('%ad %hh %im left');?>
-                        </p>
+                        <?php if($datag<=$dataf){
+                            echo '<div class="range">';
+                            echo '<div class="fill" id="fill" style="width:'.$fill.'%;"></div>';
+                            echo '</div>';
+                            echo '<p class="data-days">' .$diff->format('%ad %hh %im left').'</p>';
+                        }else{
+                            echo '<div class="range">';
+                            echo '<div class="fill" id="fill" style="width:100%; background-color: var(--color5);"></div>';
+                            echo '</div>';
+                            echo '<p class="data-days" style="color: var(--color5);">Terminated</p>';
+                        }
+                        ?>
                     </div>
                     <button class="actions-button" onclick="location.href ='creator.php'">
                             <div class='actions-svg'>

@@ -45,7 +45,7 @@ $redirect = 'challenges.php';
                     $datag = new DateTime();
                     $diff = $datag->diff($dataf);
                     $fill = $diff->format('%a') * 3.22;
-                    echo'<div class="contest-box" onclick="location.href = \'challenge_selected.php?name=Month\' " type="button">
+                    echo'<div class="contest-box" onclick="location.href = \'challenge_selected.php?name='.$tuple["name"].'\' " type="button">
                             <div class="contest-month">Challenge of the Month!</div>';
                     echo '<div class="contest-content">';
                     echo '<div class="contest-content-title">' . $tuple["name"] . '</div>';

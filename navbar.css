@@ -2,6 +2,7 @@
 
 #rest {
     min-height: calc(100vh - 90px);
+    transition: .3s;
 }
 
 .navbar {

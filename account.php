@@ -6,7 +6,29 @@ if (!isset($_SESSION["username"])) {
 }
 
 $redirect = 'account.php';
-?>
+
+$username = $_SESSION['username'] ?? '';
+
+$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
+if (!$dbcon) {
+  echo "<p>Errore nella connessione al database.</p>";
+  exit;
+}
+
+$q = "SELECT username, email, bio FROM users WHERE username='$username';";
+
+$result = pg_query($dbcon, $q);
+if (!$result) {
+  echo "<p>Errore nella query al database.</p>";
+  exit;
+}
+
+$user = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+if (!$user) {
+  echo "<p>Utente non trovato.</p>";
+  exit;
+}
+  ?>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -36,10 +58,9 @@ $redirect = 'account.php';
         <section class="profilo-info">
           <img src="fotoprofilo.jpg" alt="Foto Profilo" class="profilo-img">
           <div class="info-text">
-            <h2>Nome Utente</h2>
-            <p>Email: utente@email.com</p>
-            <p>Data iscrizione: 01/01/2024</p>
-            <p>Bio: Appassionato di programmazione web.</p>
+            <?php echo "<h2>" . htmlspecialchars($username) . "</h2>" ?>
+            <?php echo "<p>Email:" . htmlspecialchars($user['email']) . "</p>" ?>
+            <?php echo "<p>Bio:" . htmlspecialchars($user['bio']) . "</p>" ?>
           </div>
         </section>
 

@@ -22,7 +22,7 @@
         if (isset($_SESSION['username'])) { ?>
             <div class="dropdown">
                 <button class="nbutton">
-                    <span>Account</span>
+                    <?php echo "<span>" . htmlspecialchars($_SESSION['username']) . "</span>" ?>
                     <img src="assets/images/omino.png" class="nicon">
                 </button>
                 <div class="dropdown-content">

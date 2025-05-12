@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["username"])) {
+  header("Location: index.php");
+}
+
+$redirect = 'account.php';
+  ?>
+
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -8,41 +19,17 @@
   <link rel="stylesheet" href="account_settings.css">
   <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
   <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="login-signup.css">
+  <link rel="stylesheet" href="checkbox.css">
   <script src="account_settings.js"></script>
 </head>
 
 <body>
 
-  <header class="navbar">
-    <div class="left-navbar">
-        <a href="index.php" class="navbar-title">CSSnips</a>
-        <button class="nbutton" onclick="location.href='explorer.php'" type="button">
-            <span>Explore</span>
-            <img src="assets/images/search.png" class="nicon">
-        </button>
-        <button class="nbutton" onclick="location.href = 'challenges.html'" type="button">
-            <span>Challenges</span>
-            <img src="assets/images/target.png" class="nicon">
-        </button>
-        <button class="nbutton" onclick="location.href = 'creator.php'" type="button">
-            <span>Create</span>
-            <img src="assets/images/add.png" class="nicon">
-        </button>
-        <div class="dropdown">
-          <button class="nbutton">
-            <span>Account</span>  
-            <img src="assets/images/omino.png" class="nicon">
-          </button>
-          <div class="dropdown-content">
-            <a href="account.php">Account</a>
-            <a href="activity.php">Activity</a>
-            <a href="watchlist.php">Watchlist</a>
-            <a href="account_settings.php">Account settings</a>
-            <a href="logout.php">Logout</a>
-          </div> 
-        </div>
-    </div>
-  </header>
+  <!-- Header con il nome del sito e il menu a tendina -->
+  <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
+  <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
+  <div id="rest" onclick="closeLogin(); closeSignup();">
 
   <main class="settings-container">
     

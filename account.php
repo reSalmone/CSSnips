@@ -24,12 +24,10 @@ $redirect = 'account.php';
 </head>
 
 <body>
-
   <!-- Header con il nome del sito e il menu a tendina -->
   <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
   <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
   <div id="rest" onclick="closeLogin(); closeSignup();">
-
 
     <main class="profilo-container">
 

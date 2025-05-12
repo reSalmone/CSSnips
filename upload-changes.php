@@ -5,6 +5,7 @@ $creator = $_SESSION['username'];
 $type = $_POST['postType'];
 $name = $_POST['postName'];
 $description = $_POST['postDescription'];
+$pgTagsArray = null;
 
 if ($_POST['postTags'] != '') {
     $tags = json_decode($_POST['postTags'], true);
@@ -17,40 +18,30 @@ if (isset($_FILES['postFile'])) {
     $content = file_get_contents($tmpName);
 
     $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or postError('Error connecting to databse');
-    ;
     if ($dbcon) {
         $q1 = "SELECT * from snips where file_location = $1";
 
         $resultFileName = pg_query_params($dbcon, $q1, array($name));
         $tupleFileName = pg_fetch_array($resultFileName, null, PGSQL_ASSOC);
         if ($tupleFileName) {
-            postError('That name already exists');
-        }
+            
+            $q2 = "UPDATE snips set description = $1, element_type = $2, tags = $3 WHERE file_location = $4";
+            $data = pg_query_params($dbcon, $q2, array($description, $type, $pgTagsArray, $name));
 
-        $q2 = "";
-        $data = null;
-        if ($variation != null) {
-            $q2 = "insert into snips (creator, description, element_type, tags, file_location, variation_of) values ($1, $2, $3, $4, $5, $6)";
-            $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name, $variation));
+            if (!$data) {
+                postError('Error during post registration');
+            }
 
-            $q3 = "UPDATE snips SET variations = variations || ARRAY[$1] WHERE file_location = $2";
-            pg_query_params($dbcon, $q3, array($name, $variation));
+            $path = __DIR__ . "\\snippets\\" . $name;
+            file_put_contents($path, $content);
+            echo json_encode(['success' => true]);
+            exit();
         } else {
-            $q2 = "insert into snips (creator, description, element_type, tags, file_location) values ($1, $2, $3, $4, $5)";
-            $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
+            postError('File not found in database');
         }
-        if (!$data) {
-            postError('Error during post registration');
-        }
-
-        $path = __DIR__ . "\\snippets\\" . $name;
-        file_put_contents($path, $content);
-        unset($_SESSION['variation']);
-        echo json_encode(['success' => true]);
-        exit();
     }
 } else {
-    postError('File not found');
+    postError('File not found: contact an administrator, how did you even manage to get here');
 }
 
 function postError($error)

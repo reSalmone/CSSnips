@@ -1,4 +1,4 @@
-//ROBA DA FARE LIVIO
+//ROBA DA FARE (LIVIO)
 /make remember me remember you in login
 /display post errors in creator.php
 /fix text (html css js) display in snippet.php (lines aren't loaded / tabs suck)
@@ -9,19 +9,27 @@ add tags to index.php
 
 /add an actiobar on snippets (in snippet.php) to: add variation - open in editor (clone) - report (maybe)
 
-add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
-    - load the snippet in creator.php
-    - you gotta check that the snippet creator coincides with the username (duh)
+/add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
+/    - load the snippet in creator.php
+/    - you gotta check that the snippet creator coincides with the username (duh)
 
 snippet comment section
 /snippet rating section
 /snippet report section
 
-add a site-wide footer div
+/add a site-wide footer div
 /make the login/signup/navbar load programmatically
 make likes and views show better in the explorer
+add challenge creator to creator.php and connect it to challenges
+make a page system to explorer.php
+add a report system
+good-looking code in editors
 
-//LIVIO FATTO -----------------------------------------------------------------------------------------
+add report/delete confirm choice
+add EVERY page .php error reader and notification system so you can display them
+
+
+//SO STRAFATTO -----------------------------------------------------------------------------------------
 per adesso l'edit sovrascrive il localStorage, la strat sento che è di creare un sistema di
 snippet temporanei con id quando - non loggato (ti salva questo id nella sessione così non ti perdi tutto se ritorni) o loggato, 
 ti crei un nuovo snippet. Ora quando apri il creator, se hai un id in session te manda a creator.php?id=x, se non ne
@@ -29,14 +37,3 @@ hai uno te ne crea uno da capo. Questo evita il problema che l'editor sovrascriv
 robe nel localStorage (magari sto id al posto della session): la roba viene salvata in uno snippet temporaneo (lo elimini quando 
 posti).
 //-----------------------------------------------------------------------------------------------------
-
-//ROBA DA FARE EMA
-bro devi fa ste challange, ora fa cagare onesto
-    - calcola per adesso è totalmente scollegato dal sistema, quando vuoi iniziare dimmi e ti collego tutto con php e cazzi
-    - non lo volevo fa ora che non voglio sovrascrivere nulla
-poi collegale pe bene all'index.php
-    - in caso dimme e te le collego io che te serve php per farlo
-
-
-//ROBA DA FARE GIUSEPPE
-eh sto profilo va disegnato

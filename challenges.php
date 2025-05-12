@@ -17,6 +17,7 @@ $redirect = 'challenges.php';
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
     <link rel="stylesheet" href="challenges.css">
     <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="footer.css">
 
 </head>
 
@@ -109,6 +110,7 @@ $redirect = 'challenges.php';
                 <img src="assets/images/scroll-arrow-right.png" id='s-right' class="scroll-button right">
             </div>
         </div>
+        <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 
 </body>

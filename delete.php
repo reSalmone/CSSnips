@@ -20,7 +20,6 @@ if (file_exists(__DIR__ . "\\snippets\\" . $name)) {
 
             $q2 = "DELETE FROM snips WHERE file_location = $1";
             $data = pg_query_params($dbcon, $q2, array($name));
-
             if (!$data) {
                 deleteError('Error during post removal: ' . pg_last_error($dbcon));
             }

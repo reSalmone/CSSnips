@@ -42,6 +42,7 @@ if (!$user) {
   <link rel="stylesheet" href="navbar.css">
   <link rel="stylesheet" href="login-signup.css">
   <link rel="stylesheet" href="checkbox.css">
+  <link rel="stylesheet" href="footer.css">
   <script src="account.js"></script>
 </head>
 
@@ -93,6 +94,7 @@ if (!$user) {
       </var>
 
     </main>
+    <?php include 'footer-code.php'; ?> <!--FOOTER-->
   </div>
 </body>
 <script src="assets/scripts/login.js"></script>

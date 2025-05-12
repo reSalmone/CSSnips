@@ -24,6 +24,8 @@ $redirect = 'index.php';
     <link rel="stylesheet" href="login-signup.css"> <!-- Login and signup -->
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css"> <!-- Font -->
+    <link rel="stylesheet" href="footer.css">
+
 </head>
 
 <body>
@@ -84,6 +86,7 @@ $redirect = 'index.php';
                 </div>
             </div>
         </div>
+        <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
 <script src="assets/scripts/title-wave2.js"></script>

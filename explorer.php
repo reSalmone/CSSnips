@@ -29,6 +29,7 @@ function splitFileContent($content)
     <link rel="stylesheet" href="login-signup.css">
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
     <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="footer.css">
 </head>
 
 <body>
@@ -128,10 +129,11 @@ function splitFileContent($content)
             }
             ?>
         </div>
+        <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
 <script src="assets/scripts/explorer.js"></script>
-
+<script src="assets/scripts/title-wave2.js"></script>
 </html>

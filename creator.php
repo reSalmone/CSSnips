@@ -66,7 +66,7 @@ if ($name != '') {
                 $creator = $tuple['creator'];
                 $type = $tuple['element_type'];
                 $description = $tuple['description'];
-                $tags = explode(',', trim($tuple['tags'], '{}'));
+                $tags = ($t = trim($tuple['tags'], '{}')) === '' ? [] : explode(',', $t);
 
                 if ($foundEdit && (!isset($_SESSION['username']) || ($foundEdit && isset($_SESSION['username']) && $creator != $_SESSION['username']))) {
                     //maybe make a system that EVERY page can have it's own errors sent to it and here send back a permission error
@@ -96,6 +96,7 @@ if ($name != '') {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="login-signup.css">
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="footer.css">
     <script>
         function removeQueryParam(key) {
             const url = new URL(window.location);
@@ -366,6 +367,7 @@ if ($name != '') {
                 </div>
             </div>
         </div>
+        <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
 <script src="assets/scripts/creator.js"></script>

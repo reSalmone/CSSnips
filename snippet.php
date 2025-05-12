@@ -43,7 +43,6 @@ $description = null;
 $date = null;
 $type = null;
 $tags = null;
-$variations = null;
 $variationOf = null;
 
 $found = false;
@@ -66,9 +65,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
             $saved = $tuple['saved'];
             $description = $tuple['description'];
             $type = $tuple['element_type'];
-            $tags = explode(',', trim($tuple['tags'], '{}'));
+            $tags = ($t = trim($tuple['tags'], '{}')) === '' ? [] : explode(',', $t);
             $date = date('d-m-Y', strtotime($tuple['created_at']));
-            $variations = explode(',', trim($tuple['variations'], '{}'));
             $variationOf = $tuple['variation_of'];
         }
     }
@@ -87,6 +85,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="login-signup.css">
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="footer.css">
 </head>
 
 <body>
@@ -248,8 +247,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             </div>
                             <span>Clone</span>
                         </button>
-                        <button class="actions-button"
-                            onclick="window.location = 'creator.php?variation=<?php echo $name ?>'">
+                        <?php if ($variationOf == null) { ?>
+                        <button class="actions-button" onclick="window.location = 'creator.php?variation=<?php echo $name ?>'">
                             <div class='actions-svg'>
                                 <svg viewBox='0 0 256 256'>
                                     <path
@@ -259,6 +258,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             </div>
                             <span>Add variation</span>
                         </button>
+                        <?php } ?>
                         <?php if (isset($_SESSION['username']) && $creator == $_SESSION['username']) { ?>
                             <button class="actions-button" id="actions-important"
                                 onclick="window.location = 'creator.php?edit=<?php echo $name ?>'">
@@ -304,9 +304,13 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     <div class="tags-container">
                         <span class="tags-title">Tags</span>
                         <div id="tags-list">
-                            <?php foreach ($tags as $tag): ?>
+                            <?php
+                            if (empty($tags)) {
+                                echo '<span class="tags-no-tags">No tags</span>';
+                            } else { 
+                                foreach ($tags as $tag): ?>
                                 <div class="tags-tag"><?= htmlspecialchars($tag) ?></div>
-                            <?php endforeach; ?>
+                            <?php endforeach; } ?>
                         </div>
                     </div>
                     <!--IF IT'S NOT A VARIATION, IT CAN THEN HAVE OTHER VARIATIONS-->
@@ -366,6 +370,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                 </div>
             <?php endif; ?>
         </div>
+        <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
 <script src="assets/scripts/snippet.js"></script>

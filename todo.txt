@@ -9,17 +9,18 @@ add tags to index.php
 
 /add an actiobar on snippets (in snippet.php) to: add variation - open in editor (clone) - report (maybe)
 
-add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
-    - load the snippet in creator.php
-    - you gotta check that the snippet creator coincides with the username (duh)
+/add an edit snippet from snippet.php that sends back to creator.php with the snippet name as GET
+/    - load the snippet in creator.php
+/    - you gotta check that the snippet creator coincides with the username (duh)
 
 snippet comment section
 /snippet rating section
 /snippet report section
 
-add a site-wide footer div
+/add a site-wide footer div
 /make the login/signup/navbar load programmatically
 make likes and views show better in the explorer
+add challenge creator to creator.php and connect it to challenges
 
 //LIVIO FATTO -----------------------------------------------------------------------------------------
 per adesso l'edit sovrascrive il localStorage, la strat sento che è di creare un sistema di

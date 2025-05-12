@@ -43,6 +43,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
     <link rel="stylesheet" href="login-signup.css">
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
     <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="footer.css">
 
 </head>
 
@@ -172,6 +173,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                     ?>
             </div>
         </div>
+        <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
 

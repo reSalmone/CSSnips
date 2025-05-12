@@ -526,6 +526,12 @@
     font-size: 16px;
 }
 
+.tags-no-tags {
+    color: var(--color4);
+    font-size: 16px;
+    text-align: center;
+}
+
 .info-variations-container {
     background: var(--color2-brighter);
     width: 100%;

@@ -81,10 +81,9 @@
 
 .data .range .fill {
     position: absolute;
-    top: 0;
-    left: 0;
+    top:0;
+    left:0;
     background-color: var(--color6);
-    width: 76%;
     height: 100%;
     border-radius: 0.25rem;
 }
@@ -104,7 +103,6 @@
     justify-self: center;
     width: 50%;
     height: 50%;
-    overflow: hidden;
 
 
 }
@@ -117,21 +115,21 @@
     display: grid;
     grid-template: 
             'a a a c c'1fr
-            '. b b c c'0.5fr
-            '. d e c c'1fr /0.08fr 1fr 1fr 0.5fr 0.5fr;
+            '. b b c c'0.7fr
+            '. d f c c'1fr /0.08fr 1fr 1fr 0.5fr 0.5fr;
 
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
-    overflow: hidden;
     transition: background-color .1s;
     cursor: pointer;
-    padding-left:1em;
+    z-index: 0;
+    position:relative;
 }
 .contest-box:hover{
     background-color: color-mix(in srgb, var(--color2) 90%, black);
     transform: translateY(4px);
     transition:transform .2s;
 }
-.contest-title {
+.contest-month {
     grid-area: a;
     color: var(--color4);
     font-size: 60px;
@@ -139,24 +137,92 @@
     padding: 1.5rem;
 }
 
-.contest-subtitle {
+.contest-content {
     grid-area: b;
     justify-self: start;
     align-self: center;
-    color: color-mix(in srgb, var(--color3) 75%, black);
-    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-items: center;
+    
+}
+.contest-content-title{
+    color: color-mix(in srgb, var(--color2-darker) 30%, black);
+    font-size: 30px;
     font-weight: bold;
+
 }
 
-.challenge-container {
+.contest-content-subtitle{
+    color: color-mix(in srgb, var(--color2) 30%, black);
+    font-size: 20px;
+    font-weight: bold;
+
+}
+.actions-button {
+    grid-area: f;
+    position:relative;
+    align-self: center;
+    justify-self: center;
+    z-index: 1;
+    outline: 0;
+    border: 0;
+    background: var(--color5);
+    color: var(--color4);
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+    overflow: hidden;
+    
+}
+.actions-button:hover {
+    background: var(--color5-darker);
+}
+.actions-button:active {
+    background: var(--color5-darker);
+}
+
+.actions-svg {
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+}
+
+
+.other-challenges{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
     background: var(--color2);
     width: 95%;
     border-radius: 20px;
     margin-top: 5%;
-    display: flex;
-    flex-direction: row;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     margin-bottom: 100px;
+}
+
+.other-challenges-title {
+    justify-self: start;
+    color: var(--color4);
+    font-size: 60px;
+    font-weight: bold;
+    padding: 1.5rem;
+}
+
+
+.challenge-container {
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
 }
 
 .carosello {
@@ -228,18 +294,17 @@
     align-self: center;
     z-index: 1;
     border: 4px black;
-    height: 15%;
-    width: 8%;
+    height: 100px;
+    width: 100px;
     filter:invert();
-}
-.scroll-button:hover{
-    transform:translateY(4px);
-    transition:transform.2s;
 }
 .left {
     left: 3%;
 }
 .right {
     right: 3%;
-
 }
+.scroll-button:active{
+    transform: scale(0.95);
+}
+

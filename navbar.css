@@ -2,6 +2,7 @@
 
 #rest {
     min-height: calc(100vh - 90px);
+    transition: .3s;
 }
 
 .navbar {
@@ -37,6 +38,9 @@
     margin: 0;
     overflow: hidden;
     padding: 0 1vw;
+    background: linear-gradient(to right, var(--color2), var(--color4));
+    background-clip: text;
+    color: transparent;
 }
 
 .nbutton {

@@ -17,7 +17,8 @@
     align-items: center;
     justify-content: center;
     background: var(--color1);
-    position: relative; /*this is so that the canvas can be absolute*/
+    position: relative;
+    /*this is so that the canvas can be absolute*/
     padding-top: 5%;
 }
 
@@ -33,6 +34,9 @@
     font-size: 100px;
     margin: 0;
     font-weight: bold;
+    background: linear-gradient(to right, var(--color2), var(--color4));
+    background-clip: text;
+    color: transparent;
 }
 
 .subtitle {

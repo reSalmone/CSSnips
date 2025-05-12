@@ -420,10 +420,10 @@
     background: var(--color4-brighter);
 }
 
-#actions-report {
+#actions-important {
     color: var(--color5);
 }
-#actions-report path {
+#actions-important path {
     stroke: var(--color5);
 }
 

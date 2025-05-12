@@ -24,6 +24,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    animation: appear .5s ease;
+}
+@keyframes appear {
+    0% { opacity: 0; transform: translateY(-20px);}
+    100% { opacity: 1;  transform: translateY(0);}
 }
 
 @media (min-width: 768px) and (max-width: 1300px) {
@@ -187,7 +192,6 @@
     border-radius: 10px;
     width: 100%;
     background-color: rgba(255, 0, 0, 0.5);
-    /*border: 2px solid rgba(255, 0, 0, 0.6);*/
     margin: 20px 0;
     padding: 12px 15px;
     color: var(--color5);

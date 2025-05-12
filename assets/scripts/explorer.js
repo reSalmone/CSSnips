@@ -19,6 +19,7 @@ function assignIFrame(iframeID, html, css, js) {
                     margin: 0;
                     border: 0;
                     outline: 0;
+                    overflow: hidden;
                 }
                 ${css}
               </style>

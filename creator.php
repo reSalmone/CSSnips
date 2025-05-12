@@ -23,19 +23,21 @@ if (isset($_GET['remove-variation'])) {
 }
 
 $name = null;
+$foundEdit = false;
 $foundClone = false;
 $foundVariation = false;
 $foundSessionVariation = false;
-if (isset($_GET['clone'])) {
+if (isset($_GET['edit'])) {
+    $name = $_GET['edit'];
+    $foundEdit = true;
+} else if (isset($_GET['clone'])) {
     $name = $_GET['clone'];
     $foundClone = true;
     unset($_SESSION['variation']);
-}
-if (isset($_SESSION['variation'])) {
+} else if (isset($_SESSION['variation'])) {
     $foundSessionVariation = true;
     $name = $_SESSION['variation'];
-}
-if (isset($_GET['variation'])) {
+} else if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
     $foundVariation = true;
     $_SESSION['variation'] = $name;
@@ -44,7 +46,10 @@ if (isset($_GET['variation'])) {
 list($html, $css, $js) = null;
 $creator = null;
 $type = null;
+$description = null;
+$tags = null;
 
+$permission = false;
 $found = false;
 if ($name != '') {
     $filePath = __DIR__ . "\\snippets\\" . basename($name);
@@ -60,6 +65,14 @@ if ($name != '') {
                 $found = true;
                 $creator = $tuple['creator'];
                 $type = $tuple['element_type'];
+                $description = $tuple['description'];
+                $tags = explode(',', trim($tuple['tags'], '{}'));
+
+                if ($foundEdit && (!isset($_SESSION['username']) || ($foundEdit && isset($_SESSION['username']) && $creator != $_SESSION['username']))) {
+                    //maybe make a system that EVERY page can have it's own errors sent to it and here send back a permission error
+                    header('Location: snippet.php?name=' . $name);
+                    exit;
+                }
 
                 if (!$foundSessionVariation) {
                     echo '<script>localStorage.clear();</script>';
@@ -168,27 +181,43 @@ if ($name != '') {
 
     <div id="rest" onclick="closeLogin(); closeSignup(); closePost();">
         <div class="snippet-page">
-            <?php if (($foundVariation && $found) || ($foundSessionVariation && $found)) {
-                echo '<div class="variation-container">';
-                echo '<span class="variation-subtext">Creating a variation of <a href="snippet.php?name=' . $name . '" class="variation-text">' . $type . '</a> by</span>';
-                echo '<div class="variation-user">';
-                echo '<div class="variation-pfp"></div>';
-                echo '<span class="variation-text">' . $creator . '</span>';
-                echo '</div>';
-                echo '<span id="variation-name" hidden>' . $name . '</span>';
-                echo '<form method="get" action="">';
-                echo '<button class="variation-remove" type="submit" name="remove-variation">
+            <?php if (($foundEdit && $found)) { ?>
+                <div class="variation-container">
+                    <span class="variation-subtext">Editing <a href="snippet.php?name=<?php echo $name ?>"
+                            class="variation-text"><?php echo $name ?></a></span>
+                    <span id="editing-name" hidden><?php echo $name ?></span>
+                    <button class="variation-remove" onclick="location = 'snippet.php?name=<?php echo $name ?>'">
                         <div class="variation-remove-checkmark">
                             <svg viewBox="0 0 256 256">
-                                <path d="M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8" stroke-width="20px" fill="none" stroke-linecap="round">
+                                <path d="M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8" stroke-width="20px" fill="none"
+                                    stroke-linecap="round">
                                 </path>
                             </svg>
                         </div>
-                    </button>';
-                echo '</form>';
-                echo '</div>';
-            }
-            ?>
+                    </button>
+                </div>
+            <?php } else if (($foundVariation && $found) || ($foundSessionVariation && $found)) { ?>
+                    <div class="variation-container">
+                        <span class="variation-subtext">Creating a variation of <a href="snippet.php?name=<?php echo $name ?>"
+                                class="variation-text"><?php echo $type ?></a> by</span>
+                        <div class="variation-user">
+                            <div class="variation-pfp"></div>
+                            <span class="variation-text"><?php echo $creator ?></span>
+                        </div>
+                        <span id="variation-name" hidden><?php echo $name ?></span>
+                        <form method="get" action="">
+                            <button class="variation-remove" type="submit" name="remove-variation">
+                                <div class="variation-remove-checkmark">
+                                    <svg viewBox="0 0 256 256">
+                                        <path d="M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8" stroke-width="20px" fill="none"
+                                            stroke-linecap="round">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+            <?php } ?>
             <div class="snippet-action-bar">
                 <div class="left-action-buttons">
                     <div class="type-dropdown-div">
@@ -212,43 +241,57 @@ if ($name != '') {
                     </div>
                 </div>
                 <div class="right-action-buttons">
-                    <form action="" method="get" class="action-form">
-                        <button class="action-button" id="action-report" type="submit" name="remove-variation"
-                            onclick="localStorage.clear();">
+                    <?php if ($foundEdit && $found) { ?>
+                        <!--EDIT BUTTONS-->
+                        <button class="action-button" onclick="saveChanges();">
                             <div class='action-svg'>
                                 <svg viewBox='0 0 256 256'>
                                     <path
-                                        d='M127.2 159H127.306M127.2 127.2V95.4M52.8099 201.4H201.5897C217.9519 201.4 228.147 183.6514 219.9023 169.5184L145.5126 41.9922C137.3315 27.9683 117.0685 27.9683 108.8874 41.9922L34.4979 169.5184C26.2536 183.6514 36.448 201.4 52.8099 201.4Z'
+                                        d='M31.8 86.92C31.8 74.2 31.8 68.9 33.92 63.6 36.04 60.42 39.22 57.24 42.4 55.12 47.7 53 53 53 65.72 53H101.76C107.06 53 110.24 53 112.36 53 114.48 54.06 116.6 54.06 118.72 55.12 120.84 57.24 121.9 58.3 126.14 62.54L127.2 63.6C131.44 67.84 132.5 68.9 134.62 71.02 136.74 72.08 138.86 72.08 140.98 73.14 143.1 74.2 146.28 74.2 151.58 74.2H188.68C200.34 74.2 205.64 74.2 210.94 76.32 214.12 78.44 217.3 81.62 219.42 84.8 222.6 90.1 222.6 95.4 222.6 108.12V167.48C222.6 179.14 222.6 184.44 219.42 189.74 217.3 192.92 214.12 196.1 210.94 198.22 205.64 201.4 200.34 201.4 188.68 201.4H65.72C53 201.4 47.7 201.4 42.4 198.22 39.22 196.1 36.04 192.92 33.92 189.74 31.8 184.44 31.8 179.14 31.8 167.48V86.92Z'
                                         stroke-width='20px' fill='none' stroke-linecap='round'></path>
                                 </svg>
                             </div>
-                            <span>Reset snippet</span>
+                            <span>Save changes</span>
                         </button>
-                    </form>
-                    <?php
-                    $actionSave = isset($_SESSION['username']) ? "saveDraft(event);" : "openLogin(event);";
-                    $actionPost = isset($_SESSION['username']) ? "openPost(event);" : "openLogin(event);";
-                    ?>
-                    <button class="action-button" type="button" onclick="<?php echo $actionSave ?>">
-                        <div class='action-svg'>
-                            <svg viewBox='0 0 256 256'>
-                                <path
-                                    d='M31.8 86.92C31.8 74.2 31.8 68.9 33.92 63.6 36.04 60.42 39.22 57.24 42.4 55.12 47.7 53 53 53 65.72 53H101.76C107.06 53 110.24 53 112.36 53 114.48 54.06 116.6 54.06 118.72 55.12 120.84 57.24 121.9 58.3 126.14 62.54L127.2 63.6C131.44 67.84 132.5 68.9 134.62 71.02 136.74 72.08 138.86 72.08 140.98 73.14 143.1 74.2 146.28 74.2 151.58 74.2H188.68C200.34 74.2 205.64 74.2 210.94 76.32 214.12 78.44 217.3 81.62 219.42 84.8 222.6 90.1 222.6 95.4 222.6 108.12V167.48C222.6 179.14 222.6 184.44 219.42 189.74 217.3 192.92 214.12 196.1 210.94 198.22 205.64 201.4 200.34 201.4 188.68 201.4H65.72C53 201.4 47.7 201.4 42.4 198.22 39.22 196.1 36.04 192.92 33.92 189.74 31.8 184.44 31.8 179.14 31.8 167.48V86.92Z'
-                                stroke-width='20px' fill='none' stroke-linecap='round'></path>
-                            </svg>
-                        </div>
-                        <span>Save draft</span>
-                    </button>
-                    <button class="action-button" type="button" onclick="<?php echo $actionPost ?>">
-                    <div class='action-svg'>
-                            <svg viewBox='0 0 256 256'>
-                                <path
-                                    d='M109.18 144.16 213.06 40.28M111.3 149.46 135.68 196.1C140.98 207.76 144.16 213.06 147.34 215.18 150.52 216.24 153.7 216.24 156.88 214.12 160.06 212 162.18 206.7 166.42 193.98L210.94 63.6C214.12 53 216.24 47.7 215.18 44.52 214.12 41.34 212 39.22 208.82 38.16 205.64 37.1 200.34 39.22 189.74 42.4L59.36 86.92C46.64 91.16 41.34 93.28 39.22 96.46 37.1 99.64 37.1 102.82 38.16 106 40.28 109.18 45.58 112.36 57.24 117.66L103.88 142.04C106 143.1 107.06 143.1 108.12 144.16 108.12 144.16 109.18 145.22 109.18 145.22 110.24 146.28 110.24 147.34 111.3 149.46Z'
-                                stroke-width='20px' fill='none' stroke-linecap='round'></path>
-                            </svg>
-                        </div>
-                        <span>Post snippet</span>
-                    </button>
+                    <?php } else { ?>
+                        <form action="" method="get" class="action-form">
+                            <button class="action-button" id="action-important" type="submit" name="remove-variation"
+                                onclick="localStorage.clear();">
+                                <div class='action-svg'>
+                                    <svg viewBox='0 0 256 256'>
+                                        <path
+                                            d='M127.2 159H127.306M127.2 127.2V95.4M52.8099 201.4H201.5897C217.9519 201.4 228.147 183.6514 219.9023 169.5184L145.5126 41.9922C137.3315 27.9683 117.0685 27.9683 108.8874 41.9922L34.4979 169.5184C26.2536 183.6514 36.448 201.4 52.8099 201.4Z'
+                                            stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                                    </svg>
+                                </div>
+                                <span>Reset snippet</span>
+                            </button>
+                        </form>
+                        <?php
+                        $actionSave = isset($_SESSION['username']) ? "saveDraft(event);" : "openLogin(event);";
+                        $actionPost = isset($_SESSION['username']) ? "openPost(event);" : "openLogin(event);";
+                        ?>
+                        <button class="action-button" type="button" onclick="<?php echo $actionSave ?>">
+                            <div class='action-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M31.8 86.92C31.8 74.2 31.8 68.9 33.92 63.6 36.04 60.42 39.22 57.24 42.4 55.12 47.7 53 53 53 65.72 53H101.76C107.06 53 110.24 53 112.36 53 114.48 54.06 116.6 54.06 118.72 55.12 120.84 57.24 121.9 58.3 126.14 62.54L127.2 63.6C131.44 67.84 132.5 68.9 134.62 71.02 136.74 72.08 138.86 72.08 140.98 73.14 143.1 74.2 146.28 74.2 151.58 74.2H188.68C200.34 74.2 205.64 74.2 210.94 76.32 214.12 78.44 217.3 81.62 219.42 84.8 222.6 90.1 222.6 95.4 222.6 108.12V167.48C222.6 179.14 222.6 184.44 219.42 189.74 217.3 192.92 214.12 196.1 210.94 198.22 205.64 201.4 200.34 201.4 188.68 201.4H65.72C53 201.4 47.7 201.4 42.4 198.22 39.22 196.1 36.04 192.92 33.92 189.74 31.8 184.44 31.8 179.14 31.8 167.48V86.92Z'
+                                        stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                                </svg>
+                            </div>
+                            <span>Save draft</span>
+                        </button>
+                        <button class="action-button" type="button" onclick="<?php echo $actionPost ?>">
+                            <div class='action-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M109.18 144.16 213.06 40.28M111.3 149.46 135.68 196.1C140.98 207.76 144.16 213.06 147.34 215.18 150.52 216.24 153.7 216.24 156.88 214.12 160.06 212 162.18 206.7 166.42 193.98L210.94 63.6C214.12 53 216.24 47.7 215.18 44.52 214.12 41.34 212 39.22 208.82 38.16 205.64 37.1 200.34 39.22 189.74 42.4L59.36 86.92C46.64 91.16 41.34 93.28 39.22 96.46 37.1 99.64 37.1 102.82 38.16 106 40.28 109.18 45.58 112.36 57.24 117.66L103.88 142.04C106 143.1 107.06 143.1 108.12 144.16 108.12 144.16 109.18 145.22 109.18 145.22 110.24 146.28 110.24 147.34 111.3 149.46Z'
+                                        stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                                </svg>
+                            </div>
+                            <span>Post snippet</span>
+                        </button>
+                    <?php } ?>
                 </div>
             </div>
             <div class="snippet-container">
@@ -301,8 +344,12 @@ if ($name != '') {
             <div class="info-container">
                 <div class="description-container">
                     <span class="description-title">Add a description</span>
-                    <textarea class="description-area" id="description-area"
-                        oninput="saveInLocalStorage();">This is my new element</textarea>
+                    <?php if ($found && $foundEdit) {
+                        echo '<textarea class="description-area" id="description-area">' . $description . '</textarea>';
+                    } else {
+                        echo '<textarea class="description-area" id="description-area"
+                        oninput="saveInLocalStorage();">This is my new element</textarea>';
+                    } ?>
                 </div>
                 <div class="tags-container">
                     <div class="tags-title-container">
@@ -315,8 +362,7 @@ if ($name != '') {
                         <button class="tags-add" onclick="addTag()">Add tag</button>
                     </div>
                     <span class="tags-subtitle">Current tags:</span>
-                    <div id="tags-list">
-                    </div>
+                    <div id="tags-list"></div>
                 </div>
             </div>
         </div>
@@ -325,5 +371,11 @@ if ($name != '') {
 <script src="assets/scripts/creator.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
+<?php if ($found && $foundEdit) { ?>
+    <script>
+        tags = <?php echo json_encode($tags); ?>;
+        renderTags();
+    </script>
+<?php } ?>
 
 </html>

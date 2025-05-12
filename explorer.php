@@ -84,38 +84,42 @@ function splitFileContent($content)
                     echo '<div class="search-output">';
                     while ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                         $fileLocation = $tuple['file_location'];
-                        $fileContent = file_get_contents(__DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
+                        if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
+                            $fileContent = file_get_contents(__DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
             
-                        list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
+                            list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
             
-                        echo '<div class="output-snip">';
-                        echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
-                        echo '<span>View code</span>';
-                        echo '</div>';
-                        echo '<iframe id="output-snip-frame-' . $tuple['id'] . '" class="output-preview"></iframe>';
-                        /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
-                        and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
-                        echo '<script id="snippet-data-' . $tuple['id'] . '" type="application/json">';
-                        echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-                        echo '</script>';
+                            echo '<div class="output-snip">';
+                            echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
+                            echo '<span>View code</span>';
+                            echo '</div>';
+                            echo '<iframe id="output-snip-frame-' . $tuple['id'] . '" class="output-preview"></iframe>';
+                            /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
+                            and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
+                            echo '<script id="snippet-data-' . $tuple['id'] . '" type="application/json">';
+                            echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+                            echo '</script>';
 
-                        echo '<script>
+                            echo '<script>
                                 document.addEventListener("DOMContentLoaded", function() {
                                     const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . '").textContent);
                                     assignIFrame("output-snip-frame-' . $tuple['id'] . '", data.html, data.css, data.js);
                                 });
                             </script>';
-                        echo '<div class="info">';
-                        echo '<div class="info-creator">';
-                        echo '<div class="info-pfp"></div>';
-                        echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
-                        echo '</div>';
-                        echo '<div class="info-views">';
-                        echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
-                        echo '<p class="info-subtext"> views</p>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
+                            echo '<div class="info">';
+                            echo '<div class="info-creator">';
+                            echo '<div class="info-pfp"></div>';
+                            echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
+                            echo '</div>';
+                            echo '<div class="info-views">';
+                            echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
+                            echo '<p class="info-subtext"> views</p>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                        } else {
+                            echo 'Your server files aren\' synched with the database: file \'' . $fileLocation . '\' is missing';
+                        }
                     }
                     echo '</div>';
                 }

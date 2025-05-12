@@ -271,8 +271,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                 </div>
                                 <span>Edit snippet</span>
                             </button>
-                            <button class="actions-button" id="actions-important"
-                                onclick="window.location = 'delete.php?redirect=snippet.php?name=<?php echo $name ?>'">
+                            <button class="actions-button" id="actions-important" onclick="location.href = 'delete.php?name=<?php echo $name ?>'">
                                 <div class='actions-svg'>
                                     <svg viewBox='0 0 256 256'>
                                         <path

@@ -298,6 +298,7 @@ function saveChanges() {
     }).then(res => res.json())
         .then(data => {
             if (data.success) {
+                localStorage.clear();
                 //tell in some way to snippet that the changes have been made
                 location.href = "snippet.php?name=" + postname;
             } else {

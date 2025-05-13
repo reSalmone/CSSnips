@@ -8,6 +8,7 @@
     --color2: #1D7874;
     --color2-bright: color-mix(in srgb, var(--color2) 95%, white);
     --color2-brighter: color-mix(in srgb, var(--color2) 90%, white);
+    --color2-dark: color-mix(in srgb, var(--color2) 90%, black);
     --color2-darker: color-mix(in srgb, var(--color2) 80%, black);
 
     /*inutile pe adesso - se se trova uno bello usa il 3 come colori del blocco codice e cazzi*/

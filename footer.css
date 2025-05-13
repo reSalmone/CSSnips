@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    width: 40%;
+    width: 30%;
     text-align: left;
 }
 
@@ -23,6 +23,7 @@
     align-items: start;
     justify-content: center;
     gap: 20px;
+    margin-left: 20%;
 }
 
 .footer-right {
@@ -31,8 +32,9 @@
     align-items: start;
     justify-content: center;
     padding: 20px;
-    width: 60%;
+    width: 70%;
     margin: auto;
+    text-align: center;
 }
 
 .footer-external-links {
@@ -46,7 +48,6 @@
     left: 0;
     height: 24px;
     width: 24px;
-    animation: like_effect 400ms ease;
     cursor: pointer;
     transition: .3s;
 }
@@ -88,11 +89,12 @@
     text-decoration: none;
     transition: .3s;
     will-change: auto;
+    position: relative;
 }
 
 .footer-link-subtitle:hover {
     color: var(--color4);
-    transform: scale(1.1);
+    transform: scale(1.2);
     animation: glow 2s infinite;
 }
 
@@ -112,5 +114,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 20px;
 }

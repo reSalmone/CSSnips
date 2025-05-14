@@ -8,24 +8,13 @@ if (!isset($_SESSION["username"])) {
 $redirect = 'account.php';
 
 $username = $_SESSION['username'] ?? '';
+$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or die('Could not connect: ' . pg_last_error());
+$query = "SELECT username, email, bio FROM users WHERE username='$username';";
+$result = pg_query($query) or die('Query failed: '. pg_last_error());
 
-$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
-if (!$dbcon) {
-  echo "<p>Errore nella connessione al database.</p>";
-  exit;
-}
-
-$q = "SELECT username, email, bio FROM users WHERE username='$username';";
-
-$result = pg_query($dbcon, $q);
-if (!$result) {
-  echo "<p>Errore nella query al database.</p>";
-  exit;
-}
-
-$user = pg_fetch_array($result, NULL, PGSQL_ASSOC);
-if (!$user) {
-  echo "<p>Utente non trovato.</p>";
+$line = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+if (!$line) {
+  echo "<p>Could not find username.</p>";
   exit;
 }
   ?>
@@ -60,8 +49,8 @@ if (!$user) {
           <img src="fotoprofilo.jpg" alt="Foto Profilo" class="profilo-img">
           <div class="info-text">
             <?php echo "<h2>" . htmlspecialchars($username) . "</h2>" ?>
-            <?php echo "<p>Email:" . htmlspecialchars($user['email']) . "</p>" ?>
-            <?php echo "<p>Bio:" . htmlspecialchars($user['bio']) . "</p>" ?>
+            <?php echo "<p>Email:" . htmlspecialchars($line['email']) . "</p>" ?>
+            <?php echo "<p>Bio:" . htmlspecialchars($line['bio']) . "</p>" ?>
           </div>
         </section>
 
@@ -96,6 +85,10 @@ if (!$user) {
     </main>
     <?php include 'footer-code.php'; ?> <!--FOOTER-->
   </div>
+  <?php
+    pg_free_result($result);
+    pg_close($dbcon);
+    ?>
 </body>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>

@@ -6,7 +6,19 @@ if (!isset($_SESSION["username"])) {
 }
 
 $redirect = 'account.php';
-  ?>
+
+$username = $_SESSION['username'] ?? '';
+$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or die('Could not connect: ' . pg_last_error());
+$query = "SELECT username, email, bio FROM users WHERE username='$username';";
+$result = pg_query($query) or die('Query failed: '. pg_last_error());
+
+$line = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+if (!$line) {
+  echo "<p>Could not find username.</p>";
+  exit;
+}
+
+?>
 
 
 <!DOCTYPE html>
@@ -40,7 +52,7 @@ $redirect = 'account.php';
           <h1>EDIT CONTACT DETAILS</h1>
           <form id="email-form">
             <label for="email">E-mail address</label>
-            <input type="email" id="email" value="giuseppeciccone2003@gmail.com">
+            <input type="email" id="email" value=<?php echo htmlspecialchars($line['email']); ?>>
             <span id="email-error" class="error-message"></span>
             <button class="btn" onclick="return validateEmail()">UPDATE EMAIL ADDRESS</button>
           </form>
@@ -69,21 +81,23 @@ $redirect = 'account.php';
           <h1>EDIT ACCOUNT DETAILS</h1>
           <form id="account-form">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="GiuseppeCiccone" />
+            <input type="text" id="username" name="username" value=<?php echo htmlspecialchars($username); ?> />
     
             <label for="bio">Bio</label>
-            <textarea id="bio" name="bio" rows="3">Appassionato di programmazione web.</textarea>
+            <textarea id="bio" name="bio" rows="3"><?php echo htmlspecialchars($line['bio']); ?></textarea>
     
             <label for="fotoProfilo">Avatar</label>
             <input type="file" id="fotoProfilo" name="fotoProfilo" accept=".jpg, .jpeg" />
     
-            <button type="submit" class="btn">UPDATE ACCOUNT SETTINGS</button>
+            <button type="submit" class="btn" onclick="return updateAccount()">UPDATE ACCOUNT SETTINGS</button>
           </form>
         </div>
       </section>
-
-
     </var>
   </main>
+  <?php
+  pg_free_result($result);
+  pg_close($dbcon);
+  ?>
 </body>
 </html>

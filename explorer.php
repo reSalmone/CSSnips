@@ -65,7 +65,8 @@ function splitFileContent($content)
                             WHEN EXISTS (
                                 SELECT 1 FROM unnest(tags) AS tag
                                 WHERE tag ILIKE $1
-                            ) THEN 3
+                            ) THEN 4
+                            WHEN challenge_type ILIKE $1 THEN 3
                             WHEN element_type ILIKE $1 THEN 2
                             WHEN creator ILIKE $1 THEN 1
                             ELSE 0
@@ -75,6 +76,7 @@ function splitFileContent($content)
                             SELECT 1 FROM unnest(tags) AS tag
                             WHERE tag ILIKE $1
                         )
+                        OR challenge_type ILIKE $1
                         OR element_type ILIKE $1
                         OR creator ILIKE $1
                         ORDER BY relevance DESC, likes DESC, views DESC;";
@@ -135,5 +137,4 @@ function splitFileContent($content)
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
 <script src="assets/scripts/explorer.js"></script>
-<script src="assets/scripts/title-wave2.js"></script>
 </html>

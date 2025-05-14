@@ -7,9 +7,21 @@ ora dovrebbe funge <3
 
 
 <?php
-//qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
 session_start();
 $redirect = 'index.php';
+
+function splitFileContent($content)
+{
+    preg_match('/<style>(.*?)<\/style>/s', $content, $matchesCss);
+    preg_match('/<body>(.*?)<script>/s', $content, $matchesHtml);
+    preg_match('/<script>(.*?)<\/script>/s', $content, $matchesJs);
+
+    $css = isset($matchesCss[1]) ? trim($matchesCss[1]) : '';
+    $html = isset($matchesHtml[1]) ? trim($matchesHtml[1]) : '';
+    $js = isset($matchesJs[1]) ? trim($matchesJs[1]) : '';
+
+    return [$html, $css, $js];
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +72,70 @@ $redirect = 'index.php';
                 <span class="secondary-subtitle">Search through them with our tag system</span>
             </div>
             <div class="slideshow-container">
-                <div class="slideshow"></div>
-                <div class="slideshow"></div>
+                <div class="slideshow">
+                    <?php for ($i = 0; $i < 3; $i++) { ?>
+                    <div class="slideshow-object-right">
+                        <div class="slideshow-item">button</div>
+                        <div class="slideshow-item">rainbow</div>
+                        <div class="slideshow-item">mac</div>
+                        <div class="slideshow-item">form</div>
+                        <div class="slideshow-item">input</div>
+                        <div class="slideshow-item">grayscale</div>
+                        <div class="slideshow-item">simple</div>
+                        <div class="slideshow-item">input</div>
+                        <div class="slideshow-item">colorful</div>
+                        <div class="slideshow-item">windows</div>
+                    </div>
+                    <?php } ?>
+                </div>
+                <div class="slideshow">
+                    <?php for ($i = 0; $i < 3; $i++) { ?>
+                    <div class="slideshow-object-left">
+                        <div class="slideshow-item">modern</div>
+                        <div class="slideshow-item">pixel</div>
+                        <div class="slideshow-item">minimal</div>
+                        <div class="slideshow-item">delete</div>
+                        <div class="slideshow-item">red</div>
+                        <div class="slideshow-item">slider</div>
+                        <div class="slideshow-item">hover</div>
+                        <div class="slideshow-item">blue</div>
+                        <div class="slideshow-item">circle</div>
+                        <div class="slideshow-item">add</div>
+                    </div>
+                    <?php } ?>
+                </div>
+                <div class="slideshow">
+                    <?php for ($i = 0; $i < 3; $i++) { ?>
+                    <div class="slideshow-object-right">
+                        <div class="slideshow-item">animated</div>
+                        <div class="slideshow-item">gradient</div>
+                        <div class="slideshow-item">radio</div>
+                        <div class="slideshow-item">text</div>
+                        <div class="slideshow-item">switch</div>
+                        <div class="slideshow-item">bold</div>
+                        <div class="slideshow-item">loader</div>
+                        <div class="slideshow-item">checkbox</div>
+                        <div class="slideshow-item">card</div>
+                        <div class="slideshow-item">3d</div>
+                    </div>
+                    <?php } ?>
+                </div>
+                <div class="slideshow">
+                    <?php for ($i = 0; $i < 3; $i++) { ?>
+                    <div class="slideshow-object-left">
+                        <div class="slideshow-item">tooltip</div>
+                        <div class="slideshow-item">icon</div>
+                        <div class="slideshow-item">green</div>
+                        <div class="slideshow-item">svg</div>
+                        <div class="slideshow-item">download</div>
+                        <div class="slideshow-item">editor</div>
+                        <div class="slideshow-item">2d</div>
+                        <div class="slideshow-item">white</div>
+                        <div class="slideshow-item">space</div>
+                        <div class="slideshow-item">menu</div>
+                    </div>
+                    <?php } ?>
+                </div>
             </div>
         </div>
         <div class="fourth-container">
@@ -92,5 +166,5 @@ $redirect = 'index.php';
 <script src="assets/scripts/title-wave2.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
-
+<script src="assets/scripts/index.js"></script>
 </html>

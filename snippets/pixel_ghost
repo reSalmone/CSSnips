@@ -318,8 +318,7 @@
   100% {
     opacity: 0.2;
   }
-}
-</style></head>
+}</style></head>
 <body><div id="ghost">
   <div id="red">
     <div id="pupil"></div>
@@ -357,6 +356,5 @@
     <div id="an18"></div>
   </div>
   <div id="shadow"></div>
-</div>
-<script></script></body>
+</div><script></script></body>
 </html>

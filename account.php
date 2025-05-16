@@ -13,7 +13,7 @@ $query1 = "SELECT username, email, bio FROM users WHERE username='$username';";
 $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
 $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
 $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator = '$username'";
-$query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at limit 4) SELECT file_location FROM this order by created_at desc ";
+$query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at limit 4) SELECT * FROM this order by created_at desc ";
 $result1 = pg_query($query1) or die('Query failed: ' . pg_last_error());
 $result2 = pg_query($query2) or die('Query failed: ' . pg_last_error());
 $result3 = pg_query($query3) or die('Query failed: ' . pg_last_error());
@@ -24,7 +24,6 @@ $line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC);
 $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
 $line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC);
 $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
-$line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +39,7 @@ $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
   <link rel="stylesheet" href="login-signup.css">
   <link rel="stylesheet" href="checkbox.css">
   <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="explorer.css">
   <script src="account.js"></script>
 </head>
 
@@ -67,12 +67,34 @@ $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
           <h2>RECENT ACTIVITY</h2>
           <div class="activity-container">
             <?php
-            if (!$line5) {
-              echo "<p class='centro'>Non ci sono risultati.</p>";
+            if (pg_num_rows($result5) > 0) {
+              while ($tuple = pg_fetch_array($result5, NULL, PGSQL_ASSOC)) {
+                $id = (int) $tuple['id'];
+                ?>
+                <div class="output-snip" data-snippet-id="<?= $id ?>">
+                  <div class="output-snip-opener"
+                    onclick="location.href='snippet.php?name=<?= urlencode($tuple['file_location']) ?>';">
+                    <span>View code</span>
+                  </div>
+                  <div class="output-loader" id="output-loader-<?= $id ?>"></div>
+                  <iframe id="output-snip-frame-<?= $id ?>" class="output-preview">
+                  </iframe>
+                  <div class="info">
+                    <div class="info-creator">
+                      <div class="info-pfp"></div>
+                      <span><?= htmlspecialchars($tuple['creator']) ?></span>
+                    </div>
+                    <div class="info-views">
+                      <p class="info-text"><?= htmlspecialchars($tuple['views']) ?>
+                        <span class="info-subtext"> views</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <?php
+              }
             } else {
-              do {
-                echo "" . htmlspecialchars($line5["file_location"]) . "\t";
-              } while ($line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC));
+              echo "<p class='centro'>Non ci sono risultati.</p>";
             }
             ?>
           </div>

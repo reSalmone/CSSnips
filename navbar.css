@@ -19,7 +19,8 @@
     overflow: visible;
 }
 
-.navbar .left-navbar, .navbar .right-navbar {
+.navbar .left-navbar,
+.navbar .right-navbar {
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -62,7 +63,8 @@
     padding: 0 1vw;
 }
 
-.nbutton .nicon, .login-icon {
+.nbutton .nicon,
+.login-icon {
     width: 16px;
     height: 16px;
     margin-left: 7px;
@@ -70,9 +72,11 @@
     user-select: none;
     filter: brightness(0) invert(1);
 }
+
 .nbutton:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
 .nbutton:hover:active {
     background-color: rgba(255, 255, 255, 0.2);
 }
@@ -82,45 +86,45 @@
 }
 
 
-/* menù a tendina del button account */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background-color: #444;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: var(--color1-brighter);
-  min-width: 160px;
-  right: 0;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  border-radius: 5px;
-  z-index: 1;
+    position: absolute;
+    background-color: var(--color1-bright);
+    right: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    z-index: 1;
+    overflow: hidden;
+    top: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .1s;
+    max-height: 0;
 }
 
 .dropdown-content a {
-  color: white;
-  padding: 10px 16px;
-  text-decoration: none;
-  display: block;
+    color: var(--color4);
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
 }
 
 .dropdown-content a:hover {
-  background-color: #f1f1f1;
-  color: var(--color1-brighter);
+    background-color: var(--color1-brighter);
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
+#dropdown-nbutton {
+    position: relative;
+    overflow: visible;
+    padding: 0 60px;
 }
 
+#dropdown-nbutton:hover {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#dropdown-nbutton:hover .dropdown-content {
+    max-height:fit-content;
+    opacity: 1;
+}

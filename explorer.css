@@ -137,6 +137,16 @@
     width: 100%;
     min-width: 0;
     min-height: 0;
+    animation: slide-in 0.5s;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .search-output .output-preview {

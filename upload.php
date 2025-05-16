@@ -10,6 +10,13 @@ if (isset($_POST['postVariation'])) {
     $variation = $_POST['postVariation'];
 }
 
+if (!ctype_alpha($type)) {
+    postError('Invalid type');
+}
+if (!preg_match('/^[a-zA-Z0-9_]{3,16}$/', $name)) {
+    postError('Invalid name');
+}
+
 if ($_POST['postTags'] != '') {
     $tags = json_decode($_POST['postTags'], true);
     $escapedTags = array_map(fn($tags) => '"' . addslashes($tags) . '"', $tags);
@@ -21,7 +28,7 @@ if (isset($_FILES['postFile'])) {
     $content = file_get_contents($tmpName);
 
     $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or postError('Error connecting to databse');
-    ;
+    
     if ($dbcon) {
         $q1 = "SELECT * from snips where file_location = $1";
 

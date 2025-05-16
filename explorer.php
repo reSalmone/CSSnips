@@ -3,6 +3,8 @@
 session_start();
 $redirect = 'explorer.php';
 
+$search = $_GET['search'] ?? '';
+
 $pageSize = 9;
 $page = 1;
 if (isset($_GET['page'])) {
@@ -33,14 +35,18 @@ $pageOffset = ($page - 1) * $pageSize;
     <div id="rest" onclick="closeLogin(); closeSignup();">
         <div class="title-container">
             <span class="title">Explorer</span>
-            <span class="subtitle">Search for the perfect snippet to include in your project</span>
+            <?php if ($search == '') { ?>
+                <span class="subtitle">Search for the perfect snippet to include in your project</span>
+            <?php } else { ?>
+                <span class="subtitle">Searching for: <?= $search ?></span>
+            <?php } ?>
         </div>
         <form action="explorer.php" method="GET" class="search-form" id="search-form">
             <div class="search-bar">
                 <input placeholder="Search for elements / tags / usernames" type="search" class="search-input"
                     name="search" spellcheck="false" <?php
-                    if (isset($_GET['search'])) {
-                        echo 'value="' . $_GET['search'] . '"';
+                    if ($search != '') {
+                        echo 'value="' . $search . '"';
                     }
                     ?>>
                 <img src="assets/images/search.png" class="search-icon"
@@ -49,7 +55,6 @@ $pageOffset = ($page - 1) * $pageSize;
         </form>
         <div class="search-output-div">
             <?php
-            $search = $_GET['search'] ?? '';
             $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
             if ($dbcon != -1) { //se la connessione è correttamente stabilita
                 $resultAll = null;
@@ -88,22 +93,23 @@ $pageOffset = ($page - 1) * $pageSize;
                 }
                 $totalResults = pg_fetch_row($resultAll)[0];
                 $totalPages = ceil($totalResults / $pageSize);
-                echo '<div class="search-results">';
-                echo '<div class="search-results-left">';
-                echo '<p class="search-results-subtext">Page ';
-                echo '<p class="search-results-text">' . $page;
-                echo '<p class="search-results-subtext"> of ';
-                echo '<p class="search-results-text">' . $totalPages;
-                echo '</div>';
-                echo '<div class="search-results-right">';
-                echo '<p class="search-results-subtext">Showing ';
-                echo '<p class="search-results-text">' . pg_num_rows($resultPage) . '</p>';
-                echo '<p class="search-results-subtext"> out of ';
-                echo '<p class="search-results-text">' . ($totalResults) . '</p>';
-                echo '<p class="search-results-subtext"> results</p>';
-                echo '</div>';
-                echo '</div>';
-                if (pg_num_rows($resultPage) > 0) {
+                ?>
+                <div class="search-results">
+                    <div class="search-results-left">
+                        <p class="search-results-subtext">Page </p>
+                        <p class="search-results-text"><?= $page ?></p>
+                        <p class="search-results-subtext"> of </p>
+                        <p class="search-results-text"><?= $totalPages ?></p>
+                    </div>';
+                    <div class="search-results-right">
+                        <p class="search-results-subtext">Showing </p>
+                        <p class="search-results-text"><?= pg_num_rows($resultPage) ?></p>
+                        <p class="search-results-subtext"> out of </p>
+                        <p class="search-results-text"><?= ($totalResults) ?></p>
+                        <p class="search-results-subtext"> results</p>
+                    </div>
+                </div>
+                <?php if (pg_num_rows($resultPage) > 0) {
                     echo '<div class="search-output">';
                     while ($tuple = pg_fetch_assoc($resultPage)) {
                         $id = (int) $tuple['id'];

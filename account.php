@@ -13,7 +13,7 @@ $query1 = "SELECT username, email, bio FROM users WHERE username='$username';";
 $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
 $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
 $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator = '$username'";
-$query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at limit 4) SELECT * FROM this order by created_at desc ";
+$query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at limit 3) SELECT * FROM this order by created_at desc ";
 $result1 = pg_query($query1) or die('Query failed: ' . pg_last_error());
 $result2 = pg_query($query2) or die('Query failed: ' . pg_last_error());
 $result3 = pg_query($query3) or die('Query failed: ' . pg_last_error());
@@ -41,6 +41,9 @@ $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
   <link rel="stylesheet" href="footer.css">
   <link rel="stylesheet" href="explorer.css">
   <script src="account.js"></script>
+  <script src="assets/scripts/login.js"></script>
+  <script src="assets/scripts/signup.js"></script>
+  <script src="assets/scripts/explorer.js"></script>
 </head>
 
 <body>

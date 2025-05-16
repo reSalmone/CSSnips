@@ -36,3 +36,22 @@ function assignIFrame(iframeID, html, css, js) {
     let output = document.getElementById(iframeID);
     output.srcdoc = completeDocument;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const els = document.querySelectorAll('.output-snip');
+  const ids = Array.from(els, el => el.dataset.snippetId).map(Number);
+
+  if (!ids.length) return;
+
+  fetch(`load_snippets.php?ids=${ids.join(',')}`)
+    .then(r => r.json())
+    .then(snippets => {
+      snippets.forEach(s => {
+        const iframeId = 'output-snip-frame-' + s.id;
+        const loaderID = 'output-loader-' + s.id;
+        assignIFrame(iframeId, s.html, s.css, s.js);
+        document.getElementById(loaderID).style.display = "none";
+      });
+    })
+    .catch(err => console.error('Batch load error:', err));
+});

@@ -39,7 +39,6 @@ $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
   <link rel="stylesheet" href="login-signup.css">
   <link rel="stylesheet" href="checkbox.css">
   <link rel="stylesheet" href="footer.css">
-  <link rel="stylesheet" href="explorer.css">
   <script src="account.js"></script>
   <script src="assets/scripts/login.js"></script>
   <script src="assets/scripts/signup.js"></script>

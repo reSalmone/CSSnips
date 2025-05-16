@@ -21,7 +21,7 @@
 /make the login/signup/navbar load programmatically
 make likes and views show better in the explorer
 add challenge creator to creator.php and connect it to challenges
-make a page system to explorer.php
+/make a page system to explorer.php
 add a report system
 good-looking code in editors
 

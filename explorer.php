@@ -2,6 +2,13 @@
 //qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
 session_start();
 $redirect = 'explorer.php';
+
+$pageSize = 9;
+$page = 1;
+if (isset($_GET['page'])) {
+    $page = intval($_GET['page']);
+}
+$pageOffset = ($page - 1) * $pageSize;
 ?>
 
 <!DOCTYPE html>
@@ -45,11 +52,12 @@ $redirect = 'explorer.php';
             $search = $_GET['search'] ?? '';
             $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
             if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                $q1 = "SELECT * FROM snips ORDER BY likes DESC, views DESC";
-                $result = null;
+                $resultAll = null;
+                $resultPage = null;
                 if ($search != '') {
-                    $q1 = "SELECT *,
-                        CASE
+                    $q1Base = "WITH filtered_snips AS (
+                            SELECT *,
+                            CASE
                             WHEN EXISTS (
                                 SELECT 1 FROM unnest(tags) AS tag
                                 WHERE tag ILIKE $1
@@ -67,15 +75,37 @@ $redirect = 'explorer.php';
                         OR challenge_type ILIKE $1
                         OR element_type ILIKE $1
                         OR creator ILIKE $1
-                        ORDER BY relevance DESC, likes DESC, views DESC;";
-                    $result = pg_query_params($dbcon, $q1, array($search));
+                        )";
+                    $q1 = $q1Base . " SELECT * FROM filtered_snips ORDER BY relevance DESC, likes DESC, views DESC LIMIT $2 OFFSET $3;"; //se viene effettuata una ricerca
+                    $resultPage = pg_query_params($dbcon, $q1, array($search, $pageSize, $pageOffset));
+                    $q1All = $q1Base . " SELECT COUNT(*) FROM filtered_snips;";
+                    $resultAll = pg_query_params($dbcon, $q1All, array($search));
                 } else {
-                    $result = pg_query($dbcon, $q1);
+                    $q1 = "SELECT * FROM snips ORDER BY likes DESC, views DESC LIMIT $1 OFFSET $2;"; //se non viene effettuata una ricerca
+                    $resultPage = pg_query_params($dbcon, $q1, array($pageSize, $pageOffset));
+                    $q1All = "SELECT COUNT(*) FROM snips;";
+                    $resultAll = pg_query($dbcon, $q1All);
                 }
-                echo '<p class="search-results">' . pg_num_rows($result) . ' results</p>';
-                if (pg_num_rows($result) > 0) {
+                $totalResults = pg_fetch_row($resultAll)[0];
+                $totalPages = ceil($totalResults / $pageSize);
+                echo '<div class="search-results">';
+                echo '<div class="search-results-left">';
+                echo '<p class="search-results-subtext">Page ';
+                echo '<p class="search-results-text">' . $page;
+                echo '<p class="search-results-subtext"> of ';
+                echo '<p class="search-results-text">' . $totalPages;
+                echo '</div>';
+                echo '<div class="search-results-right">';
+                echo '<p class="search-results-subtext">Showing ';
+                echo '<p class="search-results-text">' . pg_num_rows($resultPage) . '</p>';
+                echo '<p class="search-results-subtext"> out of ';
+                echo '<p class="search-results-text">' . ($totalResults) . '</p>';
+                echo '<p class="search-results-subtext"> results</p>';
+                echo '</div>';
+                echo '</div>';
+                if (pg_num_rows($resultPage) > 0) {
                     echo '<div class="search-output">';
-                    while ($tuple = pg_fetch_assoc($result)) {
+                    while ($tuple = pg_fetch_assoc($resultPage)) {
                         $id = (int) $tuple['id'];
                         ?>
                         <div class="output-snip" data-snippet-id="<?= $id ?>">
@@ -101,6 +131,20 @@ $redirect = 'explorer.php';
                         <?php
                     }
                     echo '</div>';
+                    if ($totalPages > 1) {
+                        echo '<div class="page-buttons">';
+                        if ($page > 1) {
+                            echo '<div class="page-buttons-left">';
+                            echo '<button class="page-button" onclick="updateUrlAndDirect(\'page\', ' . ($page - 1) . ');">Previous page</button>';
+                            echo '</div>';
+                        }
+                        if ($page < $totalPages) {
+                            echo '<div class="page-buttons-right">';
+                            echo '<button class="page-button" onclick="updateUrlAndDirect(\'page\', ' . ($page + 1) . ');">Next page</button>';
+                            echo '</div>';
+                        }
+                        echo '</div>';
+                    }
                 }
             } else {
                 echo '<p>Error connecting to databse</p>';

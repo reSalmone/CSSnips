@@ -13,24 +13,19 @@ $query1 = "SELECT username, email, bio FROM users WHERE username='$username';";
 $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
 $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
 $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator = '$username'";
-$query5 = "with this as (select * from snips where creator = 'test1' order by created_at limit 4) select file_location from this order by created_at desc";
-$result1 = pg_query($query1) or die('Query failed: '. pg_last_error());
-$result2 = pg_query($query2) or die('Query failed: '. pg_last_error());
-$result3 = pg_query($query3) or die('Query failed: '. pg_last_error());
-$result4 = pg_query($query4) or die('Query failed: '. pg_last_error());
-$result5 = pg_query($query5) or die('Query failed: '. pg_last_error());
+$query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at limit 4) SELECT file_location FROM this order by created_at desc ";
+$result1 = pg_query($query1) or die('Query failed: ' . pg_last_error());
+$result2 = pg_query($query2) or die('Query failed: ' . pg_last_error());
+$result3 = pg_query($query3) or die('Query failed: ' . pg_last_error());
+$result4 = pg_query($query4) or die('Query failed: ' . pg_last_error());
+$result5 = pg_query($query5) or die('Query failed: ' . pg_last_error());
 
 $line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC);
 $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
 $line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC);
 $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
 $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
-
-if (!$line1 or !$line2 or !$line3 or !$line4 or !$line5) {
-  echo "<p>Could not find username.</p>";
-  exit;
-}
-  ?>
+?>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -71,14 +66,14 @@ if (!$line1 or !$line2 or !$line3 or !$line4 or !$line5) {
         <section class="recent-activity">
           <h2>RECENT ACTIVITY</h2>
           <div class="activity-container">
-            <?php 
-              if(!$line5){
-                echo "<p>Non ci sono risultati.</p>";
-              }
-
-              do{
-                echo "". htmlspecialchars($line5["file_location"]) . "\t";
+            <?php
+            if (!$line5) {
+              echo "<p class='centro'>Non ci sono risultati.</p>";
+            } else {
+              do {
+                echo "" . htmlspecialchars($line5["file_location"]) . "\t";
               } while ($line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC));
+            }
             ?>
           </div>
         </section>
@@ -91,11 +86,11 @@ if (!$line1 or !$line2 or !$line3 or !$line4 or !$line5) {
           </div>
           <div class="funzione-box">
             <div class="funzione-text">Likes</div>
-            <div class="funzione-count"><?php echo htmlspecialchars($line2['numero_stringhe']) ?></div>
+            <div class="funzione-count"><?php echo htmlspecialchars($line2['numero_stringhe'] ?? 0) ?></div>
           </div>
           <div class="funzione-box">
             <div class="funzione-text">Watchlist</div>
-            <div class="funzione-count"><?php echo htmlspecialchars($line3['numero_stringhe']) ?></div>
+            <div class="funzione-count"><?php echo htmlspecialchars($line3['numero_stringhe'] ?? 0) ?></div>
           </div>
           <div class="funzione-box">
             <div class="funzione-text">Followers</div>
@@ -112,13 +107,13 @@ if (!$line1 or !$line2 or !$line3 or !$line4 or !$line5) {
     <?php include 'footer-code.php'; ?> <!--FOOTER-->
   </div>
   <?php
-    pg_free_result($result1);
-    pg_free_result($result2);
-    pg_free_result($result3);
-    pg_free_result($result4);
-    pg_free_result($result5);
-    pg_close($dbcon);
-    ?>
+  pg_free_result($result1);
+  pg_free_result($result2);
+  pg_free_result($result3);
+  pg_free_result($result4);
+  pg_free_result($result5);
+  pg_close($dbcon);
+  ?>
 </body>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>

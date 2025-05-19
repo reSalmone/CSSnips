@@ -100,7 +100,7 @@ $pageOffset = ($page - 1) * $pageSize;
                         <p class="search-results-text"><?= $page ?></p>
                         <p class="search-results-subtext"> of </p>
                         <p class="search-results-text"><?= $totalPages ?></p>
-                    </div>';
+                    </div>
                     <div class="search-results-right">
                         <p class="search-results-subtext">Showing </p>
                         <p class="search-results-text"><?= pg_num_rows($resultPage) ?></p>
@@ -109,35 +109,37 @@ $pageOffset = ($page - 1) * $pageSize;
                         <p class="search-results-subtext"> results</p>
                     </div>
                 </div>
-                <?php if (pg_num_rows($resultPage) > 0) {
-                    echo '<div class="search-output">';
-                    while ($tuple = pg_fetch_assoc($resultPage)) {
-                        $id = (int) $tuple['id'];
-                        ?>
-                        <div class="output-snip" data-snippet-id="<?= $id ?>">
-                            <div class="output-snip-opener"
-                                onclick="location.href='snippet.php?name=<?= urlencode($tuple['file_location']) ?>';">
-                                <span>View code</span>
-                            </div>
-                            <div class="output-loader" id="output-loader-<?= $id ?>"></div>
-                            <iframe id="output-snip-frame-<?= $id ?>" class="output-preview">
-                            </iframe>
-                            <div class="info">
-                                <div class="info-creator">
-                                    <div class="info-pfp"></div>
-                                    <span><?= htmlspecialchars($tuple['creator']) ?></span>
+                <?php if ($totalResults > 0) {
+                    if (pg_num_rows($resultPage) > 0) {
+                        echo '<div class="search-output">';
+                        while ($tuple = pg_fetch_assoc($resultPage)) {
+                            $id = (int) $tuple['id'];
+                            ?>
+                            <div class="output-snip" data-snippet-id="<?= $id ?>">
+                                <div class="output-snip-opener"
+                                    onclick="location.href='snippet.php?name=<?= urlencode($tuple['file_location']) ?>';">
+                                    <span>View code</span>
                                 </div>
-                                <div class="info-views">
-                                    <p class="info-text"><?= htmlspecialchars($tuple['views']) ?>
-                                        <span class="info-subtext"> views</span>
-                                    </p>
+                                <div class="output-loader" id="output-loader-<?= $id ?>"></div>
+                                <iframe id="output-snip-frame-<?= $id ?>" class="output-preview">
+                                </iframe>
+                                <div class="info">
+                                    <div class="info-creator">
+                                        <div class="info-pfp"></div>
+                                        <span><?= htmlspecialchars($tuple['creator']) ?></span>
+                                    </div>
+                                    <div class="info-views">
+                                        <p class="info-text"><?= htmlspecialchars($tuple['views']) ?>
+                                            <span class="info-subtext"> views</span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php
+                            <?php
+                        }
+                        echo '</div>';
                     }
-                    echo '</div>';
-                    if ($totalPages > 1) {
+                    if ($totalPages > 1 || $page > $totalPages) {
                         echo '<div class="page-buttons">';
                         if ($page > 1) {
                             echo '<div class="page-buttons-left">';
@@ -151,6 +153,8 @@ $pageOffset = ($page - 1) * $pageSize;
                         }
                         echo '</div>';
                     }
+                } else {
+                    echo '<p class="no-snippets-text">No snippets found</p>';
                 }
             } else {
                 echo '<p>Error connecting to databse</p>';

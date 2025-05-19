@@ -33,6 +33,7 @@ add EVERY page .php error reader and notification system so you can display them
 il sistema di post/save changes fa cagare
 
 aggiungi il sistema di draft - si possono poi vedere dall'account
+make login system ajax, but reload the page is login is successful
 
 
 //SO STRAFATTO -----------------------------------------------------------------------------------------

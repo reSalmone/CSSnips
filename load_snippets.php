@@ -2,7 +2,6 @@
 header('Content-Type: application/json');
 
 if (empty($_GET['ids'])) {
-    http_response_code(400);
     echo json_encode(['error' => 'Missing ids']);
     exit;
 }
@@ -11,7 +10,6 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
 if ($dbcon != -1) {
     $idList = array_map('intval', explode(',', $_GET['ids']));
     if (!$idList) {
-        http_response_code(400);
         echo json_encode(['error' => 'Invalid ids']);
         exit;
     }
@@ -25,7 +23,6 @@ if ($dbcon != -1) {
     $sql = 'SELECT id, file_location FROM snips WHERE id IN (' . implode(',', $placeholders) . ')';
     $res = pg_query_params($dbcon, $sql, $idList);
     if (!$res) {
-        http_response_code(500);
         echo json_encode(['error' => 'DB query failed']);
         exit;
     }

@@ -16,12 +16,9 @@ $numero_saved = null;
 $numero_codici = null;
 $result5 = null;
 
-
-
 $found = false;
 
-if ($dbcon != -1) { //se la connessione è correttamente stabilita
-  //update views
+if ($dbcon != -1) { 
   $query1 = "SELECT username, email, bio FROM users WHERE username='$username';";
   $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
   $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
@@ -85,7 +82,7 @@ if ($dbcon != -1) { //se la connessione è correttamente stabilita
             </div>
           </section>
 
-          <!-- Recent Activity (quattro codici recenti in orizzontale) -->
+          <!-- Recent Activity (tre codici recenti in orizzontale) -->
           <section class="recent-activity">
             <h2>RECENT ACTIVITY</h2>
             <div class="activity-container">
@@ -159,9 +156,7 @@ if ($dbcon != -1) { //se la connessione è correttamente stabilita
       </main>
         <?php
     }
-    ?>
-
-      <?php include 'footer-code.php'; ?> <!--FOOTER-->
+    include 'footer-code.php'; ?> <!--FOOTER-->
   </div>
   <?php
   pg_free_result($result1);

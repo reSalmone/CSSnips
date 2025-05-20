@@ -26,6 +26,7 @@ $name = null;
 $foundEdit = false;
 $foundClone = false;
 $foundVariation = false;
+$foundDraft = false;
 $foundSessionVariation = false;
 if (isset($_GET['edit'])) {
     $name = $_GET['edit'];
@@ -33,14 +34,16 @@ if (isset($_GET['edit'])) {
 } else if (isset($_GET['clone'])) {
     $name = $_GET['clone'];
     $foundClone = true;
-    unset($_SESSION['variation']);
-} else if (isset($_SESSION['variation'])) {
-    $foundSessionVariation = true;
-    $name = $_SESSION['variation'];
+} else if (isset($_GET['draft'])) {
+    $name = $_GET['draft'];
+    $foundDraft = true;
 } else if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
     $foundVariation = true;
-    $_SESSION['variation'] = $name;
+} else if (isset($_COOKIE['variationCookie'])) {
+    $name = $_COOKIE['variationCookie'];
+    $foundVariation = true;
+    setcookie('variationCookie', '', 0, '/');
 }
 
 list($html, $css, $js) = null;
@@ -53,6 +56,9 @@ $permission = false;
 $found = false;
 if ($name != '') {
     $filePath = __DIR__ . "\\snippets\\" . basename($name);
+    if ($foundDraft) {
+        $filePath = __DIR__ . "\\drafts\\" . basename($name);
+    }
     $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
     if (file_exists(filename: $filePath)) {
         $content = file_get_contents($filePath);
@@ -60,26 +66,36 @@ if ($name != '') {
 
         if ($dbcon) {
             $q1 = "SELECT * from snips where file_location = $1";
+            if ($foundDraft) {
+                $q1 = "SELECT * from drafts where file_location = $1";
+            }
             $result = pg_query_params($dbcon, $q1, array($name));
             if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                 $found = true;
                 $creator = $tuple['creator'];
-                $type = $tuple['element_type'];
+                if ($foundDraft) {
+                    $type = $tuple['type'];
+                } else {
+                    $type = $tuple['element_type'];
+                }
                 $description = $tuple['description'];
                 $tags = ($t = trim($tuple['tags'], '{}')) === '' ? [] : explode(',', $t);
+
+                if ($foundDraft && isset($tuple['variation_of'])) {
+                    $foundVariation = true;
+                }
 
                 if ($foundEdit && (!isset($_SESSION['username']) || ($foundEdit && isset($_SESSION['username']) && $creator != $_SESSION['username']))) {
                     //maybe make a system that EVERY page can have it's own errors sent to it and here send back a permission error
                     header('Location: snippet.php?name=' . $name);
                     exit;
                 }
-
-                if (!$foundSessionVariation) {
-                    echo '<script>localStorage.clear();</script>';
-                }
             }
         }
     }
+}
+if ($name != '' && !$found) {
+    header('Location: creator.php');
 }
 ?>
 
@@ -97,6 +113,7 @@ if ($name != '') {
     <link rel="stylesheet" href="login-signup.css">
     <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
     <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="snippet-loader.css">
     <script>
         function removeQueryParam(key) {
             const url = new URL(window.location);
@@ -129,7 +146,7 @@ if ($name != '') {
             <iframe id="post-preview"></iframe>
             <div class="post-server-error-container" id="post-server-error"></div>
             <div class="post-info">
-                <?php if (($foundVariation && $found) || ($foundSessionVariation && $found)) {
+                <?php if ($foundVariation && $found) {
                     echo '<div class="post-variation-container">';
                     echo '<span class="post-variation-subtext">Posting as variation of <span class="post-variation-text">' . $type . '</span> by</span>';
                     echo '<div class="post-variation-user">';
@@ -180,7 +197,83 @@ if ($name != '') {
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closePost();">
+    <div class="center-div load-center-div" id="load-center-div">
+        <div class="load-page">
+            <div class="load-title-container">
+                <span class="load-title">Select action</span>
+                <span class="load-subtitle">Chose whether you want to load a draft or create a new snippet from
+                    scratch</span>
+            </div>
+            <div class="load-actions">
+                <button class="load-action-button" onclick="openDrafts(event);">Load a draft</button>
+                <div class="load-action-separator">
+                    <hr class="load-action-hr">
+                    <span class="load-action-or">or</span>
+                    <hr class="load-action-hr">
+                </div>
+                <button class="load-action-button" onclick="closeLoad();">Create from scratch</button>
+            </div>
+        </div>
+    </div>
+    <div class="center-div drafts-center-div" id="drafts-center-div">
+        <div class="drafts-page">
+            <div class="drafts-title-container">
+                <span class="drafts-title">Select a draft</span>
+            </div>
+            <?php
+            if (isset($_SESSION['username'])) {
+                $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
+                if ($dbcon != -1) { //se la connessione è correttamente stabilita
+            
+                    $q1 = "SELECT * FROM drafts WHERE creator = $1 ORDER BY created_at DESC";
+                    $results = pg_query_params($dbcon, $q1, array($_SESSION['username']));
+                    if (pg_num_rows($results) > 0) {
+                        echo '<div class="drafts-search-output">';
+                        while ($tuple = pg_fetch_assoc($results)) {
+                            $id = (int) $tuple['id'];
+                            $draftName = $tuple['file_location'];
+                            ?>
+                            <div class="drafts-output-snip" data-snippet-id="<?= $id ?>" id="drafts-output-snip-<?= $id ?>">
+                                <div class="drafts-output-loader" id="drafts-output-loader-<?= $id ?>"></div>
+                                <iframe id="drafts-output-snip-frame-<?= $id ?>" class="drafts-output-preview">
+                                </iframe>
+                                <div class="drafts-output-actions">
+                                    <?php if (!$foundDraft || $tuple['file_location'] != $name) { ?>
+                                        <div class="drafts-output-snip-opener"
+                                            onclick="location.href='creator.php?draft=<?= urlencode($tuple['file_location']) ?>';">Select
+                                            draft</div>
+                                        <button class="drafts-output-delete" onclick="deleteDraft('<?= $draftName ?>')">
+                                            <div class='drafts-output-delete-svg'>
+                                                <svg viewBox='0 0 256 256'>
+                                                    <path
+                                                        d='M197.5 41.6H151.2L148.6 36.5C146.6 32.4 142.6 30 138.2 30H94.5C90.2 30 86.1 32.4 81.4 41.6H35 M46.6 81.4 54.3 204.6C54.8 213.7 62.5 220.9 71.6 220.9H161C170.1 220.9 177.8 213.8 178.3 204.6L186.1 81.4Z'
+                                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                    <?php } else {
+                                        echo '<div class="drafts-output-snip-opener">Currently selected</div>';
+                                    } ?>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        echo '</div>';
+                    } else {
+                        echo '<p class="drafts-error">No drafts found</p>';
+                    }
+                } else {
+                    echo '<p class="drafts-error">Error connecting to databse</p>';
+                }
+            }
+            ?>
+            <div class="drafts-actions">
+                <button class="drafts-action-button" onclick="closeDrafts();">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rest" onclick="closeLogin(); closeSignup(); closePost(); closeLoad(); closeDrafts();">
         <div class="snippet-page">
             <?php if (($foundEdit && $found)) { ?>
                 <div class="variation-container">
@@ -197,7 +290,7 @@ if ($name != '') {
                         </div>
                     </button>
                 </div>
-            <?php } else if (($foundVariation && $found) || ($foundSessionVariation && $found)) { ?>
+            <?php } else if ($foundVariation && $found) { ?>
                     <div class="variation-container">
                         <span class="variation-subtext">Creating a variation of <a href="snippet.php?name=<?php echo $name ?>"
                                 class="variation-text"><?php echo $type ?></a> by</span>
@@ -206,23 +299,24 @@ if ($name != '') {
                             <span class="variation-text"><?php echo $creator ?></span>
                         </div>
                         <span id="variation-name" hidden><?php echo $name ?></span>
-                        <form method="get" action="">
-                            <button class="variation-remove" type="submit" name="remove-variation">
-                                <div class="variation-remove-checkmark">
-                                    <svg viewBox="0 0 256 256">
-                                        <path d="M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8" stroke-width="20px" fill="none"
-                                            stroke-linecap="round">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </button>
-                        </form>
+                        <?php 
+                        $locationAfter = $foundDraft ? "creator.php?clone=$name" : "snippet.php?name=$name";
+                        ?>
+                        <button class="variation-remove" onclick="location = '<?= $locationAfter ?>'">
+                            <div class="variation-remove-checkmark">
+                                <svg viewBox="0 0 256 256">
+                                    <path d="M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8" stroke-width="20px" fill="none"
+                                        stroke-linecap="round">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
                     </div>
             <?php } ?>
             <div class="snippet-action-bar">
                 <div class="left-action-buttons">
                     <div class="type-dropdown-div">
-                        <button class="action-button" id="current-type"></button>
+                        <button class="action-button" id="current-type">Type: button</button>
                         <div class="type-dropdown-container">
                             <div class="type-dropdown-content">
                                 <button class="type-dropdown-button"
@@ -269,9 +363,21 @@ if ($name != '') {
                             </button>
                         </form>
                         <?php
-                        $actionSave = isset($_SESSION['username']) ? "saveDraft(event);" : "openLogin(event);";
+                        $actionSaveName = $foundDraft ? $name : "";
+                        $actionSave = isset($_SESSION['username']) ? ("saveDraft('" . $actionSaveName . "');") : "openLogin(event);";
                         $actionPost = isset($_SESSION['username']) ? "openPost(event);" : "openLogin(event);";
+                        $actionDrafts = isset($_SESSION['username']) ? "openDrafts(event);" : "openLogin(event);";
                         ?>
+                        <button class="action-button" type="button" onclick="<?php echo $actionDrafts ?>">
+                            <div class='action-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M63.6 222.6H190.8M127.2 31.8V180.2M127.2 180.2 180.2 127.2M127.2 180.2 74.2 127.2'
+                                        stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                                </svg>
+                            </div>
+                            <span>Load draft</span>
+                        </button>
                         <button class="action-button" type="button" onclick="<?php echo $actionSave ?>">
                             <div class='action-svg'>
                                 <svg viewBox='0 0 256 256'>
@@ -280,7 +386,11 @@ if ($name != '') {
                                         stroke-width='20px' fill='none' stroke-linecap='round'></path>
                                 </svg>
                             </div>
-                            <span>Save draft</span>
+                            <?php if ($foundDraft) {
+                                echo '<span>Update draft</span>';
+                            } else {
+                                echo '<span>Save draft</span>';
+                            } ?>
                         </button>
                         <button class="action-button" type="button" onclick="<?php echo $actionPost ?>">
                             <div class='action-svg'>
@@ -316,25 +426,22 @@ if ($name != '') {
                             <div>1</div>
                         </div>
                         <textarea class="input-area" id="html-area"
-                            oninput="updateLines(this); displayCode(); saveInLocalStorage();"
-                            onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
-                            placeholder="Html code"><?php
+                            oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
+                            onkeydown="insertTab(event, this)" spellcheck="false" placeholder="Html code"><?php
                             if ($found) {
                                 echo htmlspecialchars($html);
                             }
                             ?></textarea>
                         <textarea class="input-area" id="css-area"
-                            oninput="updateLines(this); displayCode(); saveInLocalStorage();"
-                            onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
-                            placeholder="Css code"><?php
+                            oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
+                            onkeydown="insertTab(event, this)" spellcheck="false" placeholder="Css code"><?php
                             if ($found) {
                                 echo htmlspecialchars($css);
                             }
                             ?></textarea>
                         <textarea class="input-area" id="js-area"
-                            oninput="updateLines(this); displayCode(); saveInLocalStorage();"
-                            onscroll="syncScroll(this);" onkeydown="insertTab(event, this)" spellcheck="false"
-                            placeholder="JavaScript code"><?php
+                            oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
+                            onkeydown="insertTab(event, this)" spellcheck="false" placeholder="JavaScript code"><?php
                             if ($found) {
                                 echo htmlspecialchars($js);
                             }
@@ -345,11 +452,11 @@ if ($name != '') {
             <div class="info-container">
                 <div class="description-container">
                     <span class="description-title">Add a description</span>
-                    <?php if ($found && $foundEdit) {
-                        echo '<textarea class="description-area" id="description-area">' . $description . '</textarea>';
+                    <?php if (($found && $foundEdit || $found && $foundDraft)) {
+                        echo '<textarea class="description-area" id="description-area" oninput="saved = false;">' . $description . '</textarea>';
                     } else {
                         echo '<textarea class="description-area" id="description-area"
-                        oninput="saveInLocalStorage();">This is my new element</textarea>';
+                        oninput="saved = false;">This is my new element</textarea>';
                     } ?>
                 </div>
                 <div class="tags-container">
@@ -373,11 +480,15 @@ if ($name != '') {
 <script src="assets/scripts/creator.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
-<?php if ($found && $foundEdit) { ?>
+<?php if (($found && $foundEdit || $found && $foundDraft)) { ?>
     <script>
         tags = <?php echo json_encode($tags); ?>;
         renderTags();
     </script>
-<?php } ?>
+<?php }
+if (isset($_SESSION['username']) && !$foundEdit && !$foundClone && !$foundVariation && !$foundDraft) {
+    echo '<script>if (!loadedFromStorage) { openLoad(); }</script>';
+}
+?>
 
 </html>

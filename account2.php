@@ -6,7 +6,8 @@ if (!isset($_SESSION["username"])) {
 }
 $redirect = 'account.php';
 
-$username = $_SESSION['username'] ?? '';
+$my_username = $SESSION['username'] ?? '';
+$username = $GET['username'] ?? '';
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 
 $email = null;
@@ -80,6 +81,9 @@ if ($dbcon != -1) {
               <?php echo "<h2>" . htmlspecialchars($username) . "</h2>" ?>
               <?php echo "<p>Email:" . htmlspecialchars($email) . "</p>" ?>
               <?php echo "<p>Bio:" . htmlspecialchars($bio) . "</p>" ?>
+              <?php if($my_username != $username) {
+                /*qua bisogna mettere il pulsante per seguire gli altri utenti*/
+              } ?>
             </div>
           </section>
 

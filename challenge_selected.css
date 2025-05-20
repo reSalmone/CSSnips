@@ -18,6 +18,7 @@
     justify-content: center;
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     overflow: hidden;
+    margin-bottom: 100px;
     
 }
 
@@ -27,9 +28,9 @@
     grid-template: 
             'a a a a a'1fr
             '. b b c c'1fr
-            '. d e c c'0.75fr
-            '. f g c c'0.4fr/0.1fr 1fr 1fr 0.75fr 0.75fr;
-    padding-bottom: 10px;;
+            '. d d c c'0.75fr
+            '. f . c c'0.75fr/0.1fr 1fr 1fr 0.75fr 0.75fr;
+    column-gap:20px;
 }
 
 .contest-title {
@@ -38,7 +39,6 @@
     font-size: 80px;
     font-weight: bold;
     padding: 1.5rem;
-    border-radius: 20px;
     background-color: color-mix(in srgb, var(--color2) 75%, black);
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
     z-index: 1;
@@ -107,7 +107,7 @@
 .data .range {
     position: relative;
     background-color: var(--color4);
-    width: 150%;
+    width: 90%;
     height: 1rem;
     border-radius: 0.25rem;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
@@ -133,7 +133,7 @@
     text-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 
-.actions-button {
+.create-button {
     grid-area: f;
     align-self: center;
     justify-self: start;
@@ -151,19 +151,22 @@
     gap: 10px;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
-.actions-button:hover {
+.create-button:hover {
     background: var(--color5-darker);
 }
-.actions-button:active {
+.create-button:active {
     background: var(--color5-darker);
 }
 
-.actions-svg {
+.create-svg {
     top: 0;
     left: 0;
     height: 20px;
     width: 20px;
+    
+
 }
+/*
 .data-views-checkmark {
     grid-area: g;
     align-self: center;
@@ -175,7 +178,7 @@
     transition: 100ms;
     stroke: var(--color4);
 }
-
+*/
 
 
 .nicon-trophy {
@@ -192,7 +195,7 @@
     width: 100%;
     height: 100%;
     background: color-mix(in srgb, var(--color2) 75%, black);
-    border-radius: 11px;
+    border-radius: 0px 0px 20px 20px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -266,6 +269,23 @@
     background: var(--color4);
 }
 
+.like-svg {
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background:none; 
+    border:none;
+    cursor:pointer;
+}
+.like-svg:hover svg path {
+    stroke:var(--color6-placeholder);
+}
+.like-svg:active svg path {
+    stroke:var(--color6);
+    fill:var(--color6);
+}
+
 .output-snip-opener {
     position: absolute;
     right: 20px;
@@ -285,45 +305,84 @@
     background: rgba(0, 0, 0, 0.2);
 }
 
-/*
-.challenge-container {
-    background: color-mix(in srgb, var(--color2) 75%, black);
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
-    
-}
-.carosello {
-    width: 100%;
-    padding: 2%;
-    gap: 2%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    
-}
-
-.active-challenge-box {
-    background: var(--color4);
-    overflow: hidden;
-    border-radius: 20px;
-    flex: 0 0 calc(100% / 3 - 1rem);
-    min-width: calc(100% / 3);
-    height:400px;
+@media (max-width:910px){
+    .contest-info-box {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    .contest-title {
+    color: var(--color4);
+    font-size: 50px;
+    font-weight: bold;
+    padding: 1.5rem;
+    background-color: color-mix(in srgb, var(--color2) 75%, black);
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
-    padding: 10px;
-    display: flex;
+    z-index: 1;
+    }
+    .contest-content {
     align-items: center;
-    flex-direction: column;
-    transition: background-color .1s;
-    cursor: pointer;
-}
+    justify-items: center;
+    padding: 10px;
+    }
+    .contest-content-title {
+        font-size: 30px;
+        text-align: center;
+        text-justify: center;
+    }
 
-.active-challenge-box:hover{
-    background-color: color-mix(in srgb, var(--color4) 85%, black);
-    transform: translateY(4px);
-    transition:transform .2s;
+    .contest-content-subtitle {
+        font-size: 20px;
+        text-align: center;
+        text-justify: center;
+        
+    }
+    .data{
+    justify-items: center;
+
+    }
+    .data .range {
+        width: 100%;
+        height: 1rem;
+        border-radius: 0.25rem;
+        box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+    }
+
+    .data-days {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .create-button {
+        width: 70%;
+        font-size: 20px;
+        justify-content: center;
+        padding: 15px;
+    }
+
+    .nicon-target {
+        max-height: 200px;
+    }
+
+    .search-output {
+        grid-template-columns: 1fr; /* una colonna su mobile */
+    }
+
+    .search-output .output-snip {
+        height: auto;
+    }
+
+    .search-output .output-preview {
+        height: 300px;
+    }
 }
-*/
+@media (min-width: 910px) and (max-width: 1200px) {
+
+    .search-output {
+        grid-template-columns: repeat(2, 1fr); /* due colonne su tablet */
+        align-items: center;
+    }
+
+}
 
 

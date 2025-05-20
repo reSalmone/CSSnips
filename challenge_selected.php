@@ -88,8 +88,8 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                         ?>
                     </div>
                     <?php if($datag<=$dataf){
-                    echo '<button class="actions-button" onclick="location.href =\'creator.php\'">
-                            <div class=\'actions-svg\'>
+                    echo '<button class="create-button" onclick="location.href =\'creator.php\'">
+                            <div class=\'create-svg\'>
                                 <svg  viewBox="0 0 512.000000 512.000000">
                                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                                 fill="#efffe1" stroke="none">
@@ -103,13 +103,13 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                     </button>';
                     }
                     ?>
-                    <div class="data-views-checkmark">
+                    <!--<div class="data-views-checkmark">
                         <svg viewBox='0 0 256 256'>
                                         <path
                                             d='M127.2 53C79.7 53 39.5 84.1 26.0 127.2 39.5 170.2 79.7 201.4 127.2 201.4 174.6 201.4 214.8 170.2 228.3 127.2 214.8 84.1 174.6 53 127.2 53Z M159.0 127.2C159.0 144.7 144.7 159 127.2 159 109.6 159 95.4 144.7 95.4 127.2 95.4 109.6 109.6 95.4 127.2 95.4 144.7 95.4 159.0 109.6 159.0 127.2Z'
                                             stroke-width='20px' fill='none'></path>
                                     </svg>
-                    </div>
+                    </div>-->
                     <!-- <img src="assets/images/trophy.png" class="nicon-trophy"> -->
                     <div class="contest-background-target">
                         <?php echo '<img src="'. $tuple["image"].'" class="nicon-target">'?>
@@ -135,6 +135,12 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                                 list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
                 
                                 echo '<div class="output-snip">';
+                                echo '<button class="like-svg" >
+                                        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
+                                        <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" 
+                                        stroke="#efffe1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                      </button>';
                                 echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
                                 echo '<span>View code</span>';
                                 echo '</div>';

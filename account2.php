@@ -6,8 +6,8 @@ if (!isset($_SESSION["username"])) {
 }
 $redirect = 'account.php';
 
-$my_username = $SESSION['username'] ?? '';
-$username = $GET['username'] ?? '';
+$my_username = $_SESSION['username'] ?? '';
+$username = $_GET['username'] ?? '';
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 
 $email = null;
@@ -16,23 +16,29 @@ $numero_liked = null;
 $numero_saved = null;
 $numero_codici = null;
 $result5 = null;
-$line5 = null;
+$result6 = null;
 
 $found = false;
 
-if ($dbcon != -1) { 
+if ($dbcon != -1) {
   $query1 = "SELECT username, email, bio FROM users WHERE username='$username';";
   $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
   $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
   $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator = '$username'";
   $query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at desc) SELECT * FROM this limit 3";
+  $query6 = "SELECT * FROM users WHERE username = '$my_username'";
   $result1 = pg_query($query1);
   $result2 = pg_query($query2);
   $result3 = pg_query($query3);
   $result4 = pg_query($query4);
   $result5 = pg_query($query5);
+  $result6 = pg_query($query6);
 
-  if (($line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC)) && ($line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) && ($line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC)) && ($line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC)) && ($line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC))) {
+  if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6) {
+    $line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC);
+    $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
+    $line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC);
+    $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
     $found = true;
     $email = $line1['email'];
     $bio = $line1['bio'];
@@ -81,9 +87,28 @@ if ($dbcon != -1) {
               <?php echo "<h2>" . htmlspecialchars($username) . "</h2>" ?>
               <?php echo "<p>Email:" . htmlspecialchars($email) . "</p>" ?>
               <?php echo "<p>Bio:" . htmlspecialchars($bio) . "</p>" ?>
-              <?php if($my_username != $username) {
+              <?php
+              if ($my_username != $username) {
                 /*qua bisogna mettere il pulsante per seguire gli altri utenti*/
-              } ?>
+                $is_following = false;
+                $line6 = pg_fetch_array($result6, NULL, PGSQL_ASSOC);
+                $lista = $line6["following"];// PostgreSQL restituisce gli array come stringa tipo: {elem1,elem2,...}
+                $lista = trim($lista, '{}'); // Rimuovi le parentesi graffe
+                $elements = explode(',', $lista); // Split sugli elementi
+            
+                foreach ($elements as $item) {
+                  if ($item == '$username') {
+                    $is_following = true;
+                  }
+                }
+                ?>
+                <button id="follow-btn" class="<?php $is_following ? 'following' : 'follow' ?>"
+                  onclick="toggleFollow('<?php htmlspecialchars($username) ?>', <?php $is_following ? 'true' : 'false' ?>)">
+                  <?php $is_following ? 'Following' : 'Follow' ?>
+                </button>
+                <?php
+              }
+              ?>
             </div>
           </section>
 
@@ -92,8 +117,9 @@ if ($dbcon != -1) {
             <h2>RECENT ACTIVITY</h2>
             <div class="activity-container">
               <?php
+              $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
               if ($line5) {
-                do {
+                while ($line5) {
                   $id = (int) $line5['id'];
                   ?>
                   <div class="output-snip" data-snippet-id="<?= $id ?>">
@@ -118,7 +144,7 @@ if ($dbcon != -1) {
                   </div>
                   <?php
                   $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
-                } while ($line5) ;
+                }
               } else {
                 echo "<p class='centro'>Non ci sono risultati.</p>";
               }
@@ -160,7 +186,7 @@ if ($dbcon != -1) {
           </section>
         </var>
       </main>
-        <?php
+      <?php
     }
     include 'footer-code.php'; ?> <!--FOOTER-->
   </div>

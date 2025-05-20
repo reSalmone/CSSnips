@@ -61,6 +61,37 @@ h2 {
   margin-bottom: 20px;
 }
 
+/* BUTTON PER ACCOUNT2 */
+#follow-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Stato "non seguito" - blu scuro */
+.follow {
+  background-color: #004080; /* blu scuro */
+  color: white;
+}
+
+.follow:hover {
+  background-color: #0059b3; /* celeste più acceso al passaggio */
+}
+
+/* Stato "seguito" - celeste chiaro */
+.following {
+  background-color: #3399ff; /* celeste chiaro */
+  color: white;
+}
+
+.following:hover {
+  background-color: #66b2ff; /* celeste ancora più chiaro al passaggio */
+}
+
+
 /* Recent Activity - Display in row */
 .centro {
   width: 100%;

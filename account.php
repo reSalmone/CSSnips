@@ -15,7 +15,6 @@ $numero_liked = null;
 $numero_saved = null;
 $numero_codici = null;
 $result5 = null;
-$line5 = null;
 
 $found = false;
 
@@ -31,8 +30,12 @@ if ($dbcon != -1) {
   $result4 = pg_query($query4);
   $result5 = pg_query($query5);
 
-  if (($line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC)) && ($line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) && ($line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC)) && ($line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC)) && ($line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC))) {
+  if ($result1 && $result2 && $result3 && $result4 && $result5){
     $found = true;
+    $line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC);
+    $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
+    $line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC);
+    $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
     $email = $line1['email'];
     $bio = $line1['bio'];
     $numero_liked = $line2['numero_stringhe'];
@@ -88,8 +91,9 @@ if ($dbcon != -1) {
             <h2>RECENT ACTIVITY</h2>
             <div class="activity-container">
               <?php
+              $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
               if ($line5) {
-                do {
+                while($line5){
                   $id = (int) $line5['id'];
                   ?>
                   <div class="output-snip" data-snippet-id="<?= $id ?>">
@@ -114,7 +118,7 @@ if ($dbcon != -1) {
                   </div>
                   <?php
                   $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
-                } while ($line5) ;
+                }
               } else {
                 echo "<p class='centro'>Non ci sono risultati.</p>";
               }

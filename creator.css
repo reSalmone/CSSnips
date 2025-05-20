@@ -66,6 +66,7 @@
     cursor: pointer;
     background: transparent;
 }
+
 .variation-remove-checkmark {
     top: 0;
     left: 0;
@@ -74,12 +75,15 @@
     transition: 100ms;
     animation: like_effect 400ms ease;
 }
+
 .variation-remove-checkmark path {
     stroke: rgb(255, 100, 100);
 }
+
 .variation-remove-checkmark:hover {
     transform: scale(1.1);
 }
+
 .variation-remove-checkmark:active {
     transform: scale(1.2);
 }
@@ -268,13 +272,15 @@
     justify-content: space-between;
 }
 
-.left-action-buttons, .right-action-buttons {
+.left-action-buttons,
+.right-action-buttons {
     display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
 
 }
+
 .snippet-action-bar .left-action-buttons {
     justify-content: flex-start;
 }
@@ -305,6 +311,7 @@
 .action-button:hover {
     background: var(--color2-bright);
 }
+
 .action-button:active {
     background: var(--color4-brighter);
 }
@@ -312,6 +319,7 @@
 #action-important {
     color: var(--color5);
 }
+
 #action-important path {
     stroke: var(--color5);
 }
@@ -324,9 +332,11 @@
     transition: 100ms;
     animation: like_effect 400ms ease;
 }
+
 .action-button:hover .action-svg {
     transform: scale(1.2);
 }
+
 .action-svg path {
     stroke: var(--color4);
 }
@@ -775,6 +785,7 @@
 #post-name-check-success {
     stroke: rgb(100, 255, 100);
 }
+
 #post-name-check-failure {
     stroke: rgb(255, 100, 100);
 }
@@ -792,6 +803,7 @@
         transform: scale(1);
     }
 }
+
 /*----------------------------------------------------------*/
 
 .post-server-error-container {
@@ -803,4 +815,268 @@
     padding: 12px 15px;
     color: var(--color5);
     text-overflow: ellipsis;
+}
+
+.center-div.load-center-div {
+    width: 40%;
+}
+
+.load-page {
+    backdrop-filter: blur(10px);
+    box-shadow: #00000059 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    background: rgba(0, 0, 0, .5);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    overflow-y: scroll;
+    animation: appear .5s ease;
+}
+
+.load-page::-webkit-scrollbar {
+    width: 6px;
+}
+
+.load-page::-webkit-scrollbar-thumb {
+    background: var(--color4);
+    border-radius: 10px;
+}
+
+.load-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.load-title {
+    color: var(--color4);
+    font-size: 50px;
+    text-align: center;
+}
+
+.load-subtitle {
+    color: var(--color4);
+    font-size: 20px;
+    text-align: center;
+}
+
+.load-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 40px;
+    margin: 10% 0;
+}
+
+.load-action-button {
+    outline: 0;
+    border: 0;
+    background: var(--color4);
+    color: var(--color1);
+    border-radius: 100px;
+    flex: 1;
+    font-size: 20px;
+    padding: 10px;
+    width: 80%;
+    cursor: pointer;
+}
+
+.load-action-separator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.load-action-hr {
+    border-radius: 100px;
+    width: 30%;
+    height: 0px;
+    border: 1px solid var(color4);
+}
+
+.load-action-or {
+    font-size: 16px;
+    color: var(--color4-placeholder);
+}
+
+.center-div.drafts-center-div {
+    width: 40%;
+}
+
+.drafts-page {
+    backdrop-filter: blur(10px);
+    box-shadow: #00000059 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    background: rgba(0, 0, 0, .5);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-height: 80vh;
+    overflow-y: scroll;
+    animation: appear .5s ease;
+}
+
+.drafts-page::-webkit-scrollbar {
+    width: 6px;
+}
+
+.drafts-page::-webkit-scrollbar-thumb {
+    background: var(--color4);
+    border-radius: 10px;
+}
+
+.drafts-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drafts-title {
+    color: var(--color4);
+    font-size: 50px;
+    text-align: center;
+}
+
+
+.drafts-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 40px;
+    margin: 5% 0;
+}
+
+.drafts-action-button {
+    outline: 0;
+    border: 0;
+    background: var(--color4);
+    color: var(--color1);
+    border-radius: 100px;
+    flex: 1;
+    font-size: 20px;
+    padding: 10px;
+    width: 80%;
+    cursor: pointer;
+}
+
+
+
+.drafts-search-output {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    padding: 10px
+}
+
+.drafts-search-output .drafts-output-snip {
+    height: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color2-brighter);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    animation: slide-in 0.5s;
+    gap: 5px;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.drafts-search-output .drafts-output-preview {
+    background: var(--color4);
+    border-radius: 10px;
+    width: 100%;
+    border: 0;
+}
+
+.drafts-output-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    gap: 5px;
+}
+
+.drafts-output-snip-opener {
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--color4);
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color2);
+}
+
+.drafts-output-snip-opener:hover {
+    background: var(--color2-bright);
+}
+
+.drafts-output-snip-opener:active {
+    background: var(--color2-brighter);
+}
+
+.drafts-output-delete {
+    outline: 0;
+    border: 0;
+    background: var(--color2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 0 10px;
+    height: 100%;
+}
+.drafts-output-delete:hover {
+    background: var(--color2-bright);
+}
+.drafts-output-delete:active {
+    background: var(--color2-brighter);
+}
+
+.drafts-output-delete-svg {
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    padding: 2px;
+    transition: 100ms;
+    animation: like_effect 400ms ease;
+    margin-left: 2px;
+}
+.drafts-output-delete-svg path {
+    stroke: var(--color4);
+}
+
+.drafts-error {
+    color: var(--color4);
+    font-size: 16px;
 }

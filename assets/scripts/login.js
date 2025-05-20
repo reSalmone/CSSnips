@@ -78,7 +78,7 @@ function openLogin(event) {
     resetErrorForAllForms();
     document.getElementById('signup-center-div').style.display = 'none';
     document.getElementById('login-center-div').style.display = 'block';
-    document.getElementById('rest').style.filter = 'brightness(50%)';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
 }
 
 function closeLogin(event) {

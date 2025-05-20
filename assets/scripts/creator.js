@@ -1,4 +1,8 @@
 var currentLang = "html";
+var saved = true;
+let elementType = "button";
+
+
 const areas = {
     html: document.getElementById('html-area'),
     css: document.getElementById('css-area'),
@@ -17,6 +21,7 @@ function copyToClipboard() {
     }
 }
 
+
 function displayCode() {
     const html = document.getElementById('html-area').value;
     const css = document.getElementById('css-area').value;
@@ -28,7 +33,7 @@ function displayCode() {
             <head>
               <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
               <style>
-                * {
+              * {
                     font-family: "Noveo Sans";
                 }
                 body {
@@ -45,11 +50,11 @@ function displayCode() {
             <body>
               ${html}
               <script>
-                ${js}
+              ${js}
               <\/script>
             </body>
             </html>
-        `;
+            `;
 
     let output = document.getElementById("output");
     output.srcdoc = completeDocument;
@@ -127,7 +132,7 @@ function addTag() {
         }
     }
     input.focus;
-    saveInLocalStorage();
+    saved = false;
 }
 
 function removeTag(index) {
@@ -152,8 +157,6 @@ function capitalizeProper(str) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-let elementType = "button";
-
 const dropdownDiv = document.querySelector('.type-dropdown-div');
 const dropdownContent = document.querySelector('.type-dropdown-container');
 
@@ -175,7 +178,7 @@ function setElementType(button, event) {
 function updateCurrentTypeButton() {
     let currentTypeButton = document.getElementById("current-type");
     currentTypeButton.innerText = "Type: " + elementType;
-    saveInLocalStorage();
+    saved = false;
 }
 
 
@@ -235,6 +238,11 @@ function checkNameAvailability() {
         checkname = name.placeholder;
     }
 
+    if (!/^[a-zA-Z0-9_]{3,16}$/.test(checkname)) {
+        displayAvailability(false);
+        return;
+    }
+
     fetch('checkname.php', {
         method: 'POST',
         headers: {
@@ -244,25 +252,97 @@ function checkNameAvailability() {
     })
         .then(response => response.json())
         .then(data => {
+            displayAvailability(data.success);
             if (data.success) {
-                document.getElementById('post-name-check-success').style.display = 'block';
-                document.getElementById('post-name-check-failure').style.display = 'none';
-
-                document.getElementById('post-name').style.border = "2px solid rgb(100, 255, 100)";
-            } else {
-                document.getElementById('post-name-check-success').style.display = 'none';
-                document.getElementById('post-name-check-failure').style.display = 'block';
-
-                document.getElementById('post-name').style.border = "2px solid rgb(255, 100, 100)";
+                hidePostServerError();
             }
         });
+}
+
+function displayAvailability(available) {
+    if (available) {
+        document.getElementById('post-name-check-success').style.display = 'block';
+        document.getElementById('post-name-check-failure').style.display = 'none';
+
+        document.getElementById('post-name').style.border = "2px solid rgb(100, 255, 100)";
+    } else {
+        document.getElementById('post-name-check-success').style.display = 'none';
+        document.getElementById('post-name-check-failure').style.display = 'block';
+
+        document.getElementById('post-name').style.border = "2px solid rgb(255, 100, 100)";
+    }
 }
 
 function closePost() {
     document.getElementById('post-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
 }
-function saveDraft() {
+
+function saveDraft(name) {
+    const html = document.getElementById("html-area").value;
+    const css = document.getElementById("css-area").value;
+    const js = document.getElementById("js-area").value;
+
+    let postname = null;
+    if (name != '') {
+        postname = name;
+    } else {
+        postname = randomString(16);
+    }
+    let postType = document.getElementById('current-type').innerText.split(':')[1]?.trim();
+    let postDescription = document.getElementById('description-area').value;
+    let posttagslist = document.getElementById('tags-list');
+    let postTags = Array.from(posttagslist.children).map(child => child.innerText.trim());
+    let postVariationName = document.getElementById('variation-name');
+
+    let completeHTML = `
+<!DOCTYPE html>
+<html>
+<head><style>${css}</style></head>
+<body>${html}<script>${js}<\/script></body>
+</html>`;
+
+    let file = new File([completeHTML], "snippet.html", { type: "text/html" });
+
+    let formData = new FormData();
+    formData.append("postFile", file);
+    formData.append("postName", postname);
+    formData.append("postType", postType);
+    formData.append("postDescription", postDescription);
+    formData.append("postTags", JSON.stringify(postTags));
+    if (postVariationName) {
+        formData.append("postVariation", postVariationName.textContent);
+    }
+
+    fetch("upload-draft.php", {
+        method: "POST",
+        body: formData
+    }).then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                saved = true;
+                location.href = 'creator.php?draft=' + postname;
+            } else {
+                showPostServerError(data.error);
+            }
+        });
+
+}
+
+function deleteDraft(name) {
+
+    fetch("delete-draft.php?name=" + name, {
+        method: "GET",
+    }).then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                console.log(data.id);
+                document.getElementById("drafts-output-snip-" + data.id).remove();
+            } else {
+                showPostServerError(data.error);
+            }
+        });
+
 }
 
 function saveChanges() {
@@ -361,6 +441,7 @@ function showPostServerError(postError) {
     let errorBox = document.getElementById("post-server-error");
     let errorSnip = document.createElement("span");
     errorSnip.textContent = postError;
+    errorBox.innerHTML = '';
     errorBox.appendChild(errorSnip);
     errorBox.style.display = "block";
 }
@@ -371,6 +452,106 @@ function hidePostServerError() {
     errorBox.style.display = "none";
 }
 
+function openLoad() {
+    document.getElementById('load-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+}
+
+function closeLoad() {
+    document.getElementById('load-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function openDrafts(event) {
+    closeLoad();
+    event.stopPropagation();
+    document.getElementById('drafts-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+}
+
+function closeDrafts() {
+    document.getElementById('drafts-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function assignIFrame(iframeID, html, css, js) {
+    html = html != null ? html : ""
+    css = css != null ? css : ""
+    js = js != null ? js : ""
+    const completeDocument = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
+              <style>
+                * {
+                    font-family: "Noveo Sans";
+                }
+                body {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    margin: 0;
+                    border: 0;
+                    outline: 0;
+                    overflow: hidden;
+                }
+                ${css}
+              </style>
+            </head>
+            <body>
+              ${html}
+              <script>
+                ${js}
+              <\/script>
+            </body>
+            </html>
+        `;
+
+    let output = document.getElementById(iframeID);
+    output.srcdoc = completeDocument;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const els = document.querySelectorAll('.drafts-output-snip');
+    const ids = Array.from(els, el => el.dataset.snippetId).map(Number);
+
+    if (!ids.length) return;
+
+    fetch(`load_snippets.php?ids=${ids.join(',')}&draft=true`)
+        .then(r => r.json())
+        .then(snippets => {
+            snippets.forEach(s => {
+                const iframeId = 'drafts-output-snip-frame-' + s.id;
+                const loaderID = 'drafts-output-loader-' + s.id;
+                assignIFrame(iframeId, s.html, s.css, s.js);
+                document.getElementById(loaderID).style.display = "none";
+            });
+        })
+        .catch(err => console.error('Batch load error:', err));
+});
+
+function updateUrlAndDirect(key, value) {
+    const url = new URL(window.location.href);
+    url.searchParams.set(key, value);
+    window.location.href = url.toString();
+}
+
+window.addEventListener('beforeunload', function (e) {
+    if (!saved) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+
+document.querySelectorAll('form.form-form').forEach(form => {
+    form.addEventListener('submit', () => {
+        saveInLocalStorage();
+        saved = true;
+    });
+});
+
 function saveInLocalStorage() {
     const html = document.getElementById("html-area").value;
     const css = document.getElementById("css-area").value;
@@ -379,7 +560,6 @@ function saveInLocalStorage() {
     let description = document.getElementById("description-area").value;
     let postVariationName = document.getElementById('variation-name');
 
-    //save all of the current data in localstorage (client side)
     localStorage.setItem("unsaved-html", html);
     localStorage.setItem("unsaved-css", css);
     localStorage.setItem("unsaved-js", js);
@@ -387,11 +567,16 @@ function saveInLocalStorage() {
     localStorage.setItem("unsaved-type", elementType);
     localStorage.setItem("unsaved-description", description);
     localStorage.setItem("unsaved-tags", tags);
+
+    if (postVariationName) {
+        document.cookie = "variationCookie=" + postVariationName.textContent + "; path=/";
+    }
 }
 
 function restoreLocalStorage() {
     Object.keys(areas).forEach(type => {
         const savedCode = localStorage.getItem("unsaved-" + type);
+        localStorage.removeItem("unsaved-" + type);
         if (savedCode) {
             areas[type].value = savedCode;
         }
@@ -402,17 +587,28 @@ function restoreLocalStorage() {
     localType = localStorage.getItem("unsaved-type");
     localDescription = localStorage.getItem("unsaved-description");
     localTags = localStorage.getItem("unsaved-tags");
+    localStorage.removeItem("unsaved-type");
+    localStorage.removeItem("unsaved-description");
+    localStorage.removeItem("unsaved-tags");
+
     if (localType) {
         elementType = localType;
+        updateCurrentTypeButton();
     }
     if (localDescription) {
         document.getElementById("description-area").value = localDescription;
     }
     if (localTags) {
         tags = localTags.split(',');
+        renderTags();
     }
 }
-restoreLocalStorage();
+
 switchLang("html");
-updateCurrentTypeButton();
-renderTags();
+displayCode();
+
+var loadedFromStorage = false;
+if (localStorage.getItem("unsaved-html")) {
+    restoreLocalStorage();
+    loadedFromStorage = true;
+}

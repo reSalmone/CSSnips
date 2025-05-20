@@ -21,6 +21,9 @@ if ($dbcon != -1) {
     }
 
     $sql = 'SELECT id, file_location FROM snips WHERE id IN (' . implode(',', $placeholders) . ')';
+    if (isset($_GET['draft'])) {
+        $sql = 'SELECT id, file_location FROM drafts WHERE id IN (' . implode(',', $placeholders) . ')';
+    }
     $res = pg_query_params($dbcon, $sql, $idList);
     if (!$res) {
         echo json_encode(['error' => 'DB query failed']);
@@ -32,6 +35,9 @@ if ($dbcon != -1) {
     while ($row = pg_fetch_assoc($res)) {
         $id = (int) $row['id'];
         $path = __DIR__ . '/snippets/' . $row['file_location'];
+        if (isset($_GET['draft'])) {
+            $path = __DIR__ . '/drafts/' . $row['file_location'];
+        }
         if (!file_exists($path))
             continue;
 

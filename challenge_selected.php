@@ -94,7 +94,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                                 fill="#efffe1" stroke="none">
                                 <path d="M2305 5113 c-671 -72 -1279 -393 -1707 -903 -301 -358 -488 -764 -571 -1240 -19 -109 -21 -162 -21 -410 0 -248 2 -301 21 -410 94 -540 320 -987 693 -1374 383 -398 866 -650 1430 -749 109 -19 162 -21 410 -21 313 0 407 10 653 73 881 228 1600 947 1828 1828 63 246 73 340 73 653 0 248 -2 301 -21 410 -99 564 -352 1047 -749 1430 
-                                        -386 372 -837 600 -1368 npm691 -97 17 -172 22 -376 24 -140 2 -273 1 -295 -2z m565 -418 c486 -78 869 -273 1210 -615 298 -297 494 -648 584 -1040 70 -309 70 -651 0 -960 -121 -532 -453 -1006 -931 -1328 -184 -124 -463 -243 -693 -296 -309 -70 -651 -70 -960 0 -532 121 -1006 453 -1328 931 -124 184 -243 463 -296 693 -70 309 -70 651 0 960 90 392 286 743 584 1040 377 378 808 578 1365 634 79 8 372 -4 465 -19z"/>
+                                        -386 372 -837 600 -1368 691 -97 17 -172 22 -376 24 -140 2 -273 1 -295 -2z m565 -418 c486 -78 869 -273 1210 -615 298 -297 494 -648 584 -1040 70 -309 70 -651 0 -960 -121 -532 -453 -1006 -931 -1328 -184 -124 -463 -243 -693 -296 -309 -70 -651 -70 -960 0 -532 121 -1006 453 -1328 931 -124 184 -243 463 -296 693 -70 309 -70 651 0 960 90 392 286 743 584 1040 377 378 808 578 1365 634 79 8 372 -4 465 -19z"/>
                                 <path d="M2470 3748 c-24 -13 -58 -40 -74 -61 l-31 -39 -3 -434 -3 -434 -417 0 c-414 0 -418 0 -462 -22 -24 -13 -57 -40 -74 -61 -26 -32 -31 -49 -34 -105 -5 -88 23 -144 93 -187 l48 -30 424 -3 423 -3 0 -418 0 -418 23 -44 c73 -137 281 -137 354 0 l23 44 0 418 0 418 423 3 424 3 48 30 c70 43 98 99 93 187 -3 56 -8 73 -34 105 -17 21 -50 48 -74 61 -44 22 -48 22 -462 22 l-417 0 -3 434 -3 434 -31 39 c-39 50 -105 83 -164 83 -28 0 -63 -9 -90 -22z"/>
                                 </g>
                                 </svg>
@@ -124,7 +124,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
             <div class="search-output-div">
                 <?php
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                        $q2 = "SELECT * FROM snips WHERE challenge_off='$name' AND challenge_points IS NOT NULL ORDER BY challenge_points DESC";
+                        $q2 = "SELECT * FROM snips WHERE challenge_of='$name' AND challenge_points IS NOT NULL ORDER BY challenge_points DESC";
                         $result2 = pg_query($dbcon, $q2);
                         echo '<div class="search-output">';
                         $rank=1;
@@ -138,7 +138,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                                 echo '<div class="output-snip">';
                                 echo '<div class= "snip-info">';
                                 echo '<button class="like-svg" >
-                                        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
+                                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none">
                                         <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" 
                                         stroke="#efffe1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>

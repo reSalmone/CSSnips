@@ -294,6 +294,7 @@ function saveDraft(name) {
     let posttagslist = document.getElementById('tags-list');
     let postTags = Array.from(posttagslist.children).map(child => child.innerText.trim());
     let postVariationName = document.getElementById('variation-name');
+    let postChallengeName = document.getElementById('challenge-name');
 
     let completeHTML = `
 <!DOCTYPE html>
@@ -313,6 +314,9 @@ function saveDraft(name) {
     if (postVariationName) {
         formData.append("postVariation", postVariationName.textContent);
     }
+    if (postChallengeName) {
+        formData.append("postChallenge", postChallengeName.textContent);
+    }
 
     fetch("upload-draft.php", {
         method: "POST",
@@ -323,7 +327,7 @@ function saveDraft(name) {
                 saved = true;
                 location.href = 'creator.php?draft=' + postname;
             } else {
-                showPostServerError(data.error);
+                alert('error: ' + data.error);
             }
         });
 
@@ -402,6 +406,7 @@ function postSnippet() {
     let posttagslist = document.getElementById('post-tags-list');
     const postTags = Array.from(posttagslist.children).map(child => child.innerText.trim());
     let postVariationName = document.getElementById('variation-name');
+    let postChallengeName = document.getElementById('challenge-name');
 
     const completeHTML = `
 <!DOCTYPE html>
@@ -421,6 +426,9 @@ function postSnippet() {
     if (postVariationName) {
         formData.append("postVariation", postVariationName.textContent);
     }
+    if (postChallengeName) {
+        formData.append("postChallenge", postChallengeName.textContent);
+    }
 
     fetch("upload.php", {
         method: "POST",
@@ -428,7 +436,7 @@ function postSnippet() {
     }).then(res => res.json())
         .then(data => {
             if (data.success) {
-                localStorage.clear();
+                saved = true;
                 location.href = "snippet.php?name=" + postname;
             } else {
                 showPostServerError(data.error);
@@ -559,6 +567,7 @@ function saveInLocalStorage() {
 
     let description = document.getElementById("description-area").value;
     let postVariationName = document.getElementById('variation-name');
+    let postChallengeName = document.getElementById('challenge-name');
 
     localStorage.setItem("unsaved-html", html);
     localStorage.setItem("unsaved-css", css);
@@ -570,6 +579,9 @@ function saveInLocalStorage() {
 
     if (postVariationName) {
         document.cookie = "variationCookie=" + postVariationName.textContent + "; path=/";
+    }
+    if (postChallengeName) {
+        document.cookie = "challengeCookie=" + postChallengeName.textContent + "; path=/";
     }
 }
 

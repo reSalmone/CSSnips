@@ -10,6 +10,10 @@ $variation = null;
 if (isset($_POST['postVariation'])) {
     $variation = $_POST['postVariation'];
 }
+$challenge = null;
+if (isset($_POST['postChallenge'])) {
+    $challenge = $_POST['postChallenge'];
+}
 
 if (!ctype_alpha($type)) {
     postDraftError('Invalid type');
@@ -37,21 +41,29 @@ if (isset($_FILES['postFile'])) {
         $q2 = "";
         $data = null;
         if ($tupleFileName) { //update
-            if ($variation != null) {
-                $q2 = "UPDATE drafts SET creator = $1, description = $2, type = $3, tags = $4, variation_of = $6 WHERE file_location = $5";
-                $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name, $variation));
-            } else {
-                $q2 = "UPDATE drafts SET creator = $1, description = $2, type = $3, tags = $4 WHERE file_location = $5";
-                $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
+            $q2 = "UPDATE drafts SET creator = $1, description = $2, type = $3, tags = $4 WHERE file_location = $5";
+            $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
+        } else { //insert
+            $columns = ["creator", "description", "type", "tags", "file_location"];
+            $placeholders = ["$1", "$2", "$3", "$4", "$5"];
+            $params = [$creator, $description, $type, $pgTagsArray, $name];
+            $paramIndex = 6;
+            if ($variation !== null) {
+                $columns[] = "variation_of";
+                $placeholders[] = "\$$paramIndex";
+                $params[] = $variation;
+                $paramIndex++;
             }
-        } else {
-            if ($variation != null) {
-                $q2 = "insert into drafts (creator, description, type, tags, file_location, variation_of) values ($1, $2, $3, $4, $5, $6)";
-                $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name, $variation));
-            } else {
-                $q2 = "insert into drafts (creator, description, type, tags, file_location) values ($1, $2, $3, $4, $5)";
-                $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
+
+            if ($challenge !== null) {
+                $columns[] = "challenge_of";
+                $placeholders[] = "\$$paramIndex";
+                $params[] = $challenge;
+                $paramIndex++;
             }
+
+            $q2 = "INSERT INTO drafts (" . implode(", ", $columns) . ") VALUES (" . implode(", ", $placeholders) . ")";
+            $data = pg_query_params($dbcon, $q2, $params);
         }
 
         if (!$data) {

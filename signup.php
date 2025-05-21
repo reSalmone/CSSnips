@@ -53,7 +53,7 @@ if ($dbcon) { //se la connessione è correttamente stabilita
 
     $_SESSION['username'] = $username;
     session_regenerate_id();
-    header('Location: $redirect');
+    header('Location:' . $redirect);
     exit();
 }
 

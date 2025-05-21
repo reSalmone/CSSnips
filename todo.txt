@@ -25,14 +25,14 @@ add challenge creator to creator.php and connect it to challenges
 add a report system
 good-looking code in editors
 
-add report/delete confirm choice
+add report/delete/draft-delete confirm choice
 add EVERY page .php error reader and notification system so you can display them
 /make stuff in explorer.php with ajax
 
 /aggiungi controlli su info varie del post di uno snippet
 il sistema di post/save changes fa cagare
 
-aggiungi il sistema di draft - si possono poi vedere dall'account
+/aggiungi il sistema di draft - si possono poi vedere dall'account
 make login system ajax, but reload the page is login is successful
 
 

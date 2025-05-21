@@ -23,10 +23,13 @@ if (isset($_GET['remove-variation'])) {
 }
 
 $name = null;
+$challengeName = null;
+
 $foundEdit = false;
 $foundClone = false;
 $foundVariation = false;
 $foundDraft = false;
+$foundChallenge = false;
 $foundSessionVariation = false;
 if (isset($_GET['edit'])) {
     $name = $_GET['edit'];
@@ -37,6 +40,10 @@ if (isset($_GET['edit'])) {
 } else if (isset($_GET['draft'])) {
     $name = $_GET['draft'];
     $foundDraft = true;
+}
+if (isset($_GET['challenge'])) {
+    $challengeName = $_GET['challenge'];
+    $foundChallenge = true;
 } else if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
     $foundVariation = true;
@@ -44,6 +51,10 @@ if (isset($_GET['edit'])) {
     $name = $_COOKIE['variationCookie'];
     $foundVariation = true;
     setcookie('variationCookie', '', 0, '/');
+} else if (isset($_COOKIE['challengeCookie'])) {
+    $challengeName = $_COOKIE['challengeCookie'];
+    $foundChallenge = true;
+    setcookie('challengeCookie', '', 0, '/');
 }
 
 list($html, $css, $js) = null;
@@ -54,6 +65,21 @@ $tags = null;
 
 $permission = false;
 $found = false;
+$foundC = false;
+
+if ($foundChallenge) {
+    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
+    if ($dbcon != -1) {
+        $q1 = "SELECT * from challenges where name = $1";
+        $result = pg_query_params($dbcon, $q1, array($challengeName));
+        if (pg_fetch_array($result, null, PGSQL_ASSOC)) {
+            $foundC = true;
+        } else {
+            header('Location: challenges.php');
+        }
+    }
+}
+
 if ($name != '') {
     $filePath = __DIR__ . "\\snippets\\" . basename($name);
     if ($foundDraft) {
@@ -83,6 +109,11 @@ if ($name != '') {
 
                 if ($foundDraft && isset($tuple['variation_of'])) {
                     $foundVariation = true;
+                }
+                if ($foundDraft && isset($tuple['challenge_of'])) {
+                    $foundChallenge = true;
+                    $foundC = true;
+                    $challengeName = $tuple['challenge_of'];
                 }
 
                 if ($foundEdit && (!isset($_SESSION['username']) || ($foundEdit && isset($_SESSION['username']) && $creator != $_SESSION['username']))) {
@@ -128,6 +159,9 @@ if ($name != '' && !$found) {
     if ($foundVariation) {
         echo "<script>removeQueryParam('variation')</script>";
     }
+    if ($foundChallenge) { //not sure why I'm doing it to challenges aswell
+        echo "<script>removeQueryParam('challenge')</script>";
+    }
     if ($foundRemoveVariation) {
         echo "<script>removeQueryParam('remove-variation')</script>";
     }
@@ -153,6 +187,10 @@ if ($name != '' && !$found) {
                     echo '<div class="post-variation-pfp"></div>';
                     echo '<span class="post-variation-text">' . $creator . '</span>';
                     echo '</div>';
+                    echo '</div>';
+                } else if ($foundChallenge && $foundC) {
+                    echo '<div class="post-variation-container">';
+                    echo '<span class="post-variation-subtext">Posting snippet for challenge <span class="post-variation-text">' . $challengeName . '</span></span>';
                     echo '</div>';
                 }
                 ?>
@@ -299,7 +337,7 @@ if ($name != '' && !$found) {
                             <span class="variation-text"><?php echo $creator ?></span>
                         </div>
                         <span id="variation-name" hidden><?php echo $name ?></span>
-                        <?php 
+                        <?php
                         $locationAfter = $foundDraft ? "creator.php?clone=$name" : "snippet.php?name=$name";
                         ?>
                         <button class="variation-remove" onclick="location = '<?= $locationAfter ?>'">
@@ -312,6 +350,23 @@ if ($name != '' && !$found) {
                             </div>
                         </button>
                     </div>
+            <?php } else if ($foundChallenge && $foundC) { ?>
+                        <div class="variation-container">
+                            <span class="variation-subtext">Submitting snippet for challenge '<a
+                                    href="challenge_selected.php?name=<?php echo urlencode($challengeName) ?>"
+                                    class="variation-text"><?php echo $challengeName ?></a>'</span>
+                            <span id="challenge-name" hidden><?php echo $challengeName ?></span>
+                            <button class="variation-remove"
+                                onclick="location = 'challenge_selected.php?name=<?php echo urlencode($challengeName) ?>'">
+                                <div class="variation-remove-checkmark">
+                                    <svg viewBox="0 0 256 256">
+                                        <path d="M51.2 51.2 204.8 204.8M204.8 51.2 51.2 204.8" stroke-width="20px" fill="none"
+                                            stroke-linecap="round">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
             <?php } ?>
             <div class="snippet-action-bar">
                 <div class="left-action-buttons">
@@ -349,6 +404,7 @@ if ($name != '' && !$found) {
                             <span>Save changes</span>
                         </button>
                     <?php } else { ?>
+                        <!--NORMAL BUTTONS-->
                         <form action="" method="get" class="action-form">
                             <button class="action-button" id="action-important" type="submit" name="remove-variation"
                                 onclick="localStorage.clear();">
@@ -486,7 +542,7 @@ if ($name != '' && !$found) {
         renderTags();
     </script>
 <?php }
-if (isset($_SESSION['username']) && !$foundEdit && !$foundClone && !$foundVariation && !$foundDraft) {
+if (isset($_SESSION['username']) && !$foundEdit && !$foundClone && !$foundVariation && !$foundDraft && !$foundChallenge) {
     echo '<script>if (!loadedFromStorage) { openLoad(); }</script>';
 }
 ?>

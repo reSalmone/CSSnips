@@ -88,7 +88,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                         ?>
                     </div>
                     <?php if($datag<=$dataf){
-                    echo '<button class="create-button" onclick="location.href =\'creator.php\'">
+                    echo '<button class="create-button" onclick="location.href =\'creator.php?challenge=' . urlencode($name) . '\'">
                             <div class=\'create-svg\'>
                                 <svg  viewBox="0 0 512.000000 512.000000">
                                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
@@ -124,7 +124,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
             <div class="search-output-div">
                 <?php
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                        $q2 = "SELECT * FROM snips WHERE challenge_type='$name'";
+                        $q2 = "SELECT * FROM snips WHERE challenge_of='$name'";
                         $result2 = pg_query($dbcon, $q2);
                         echo '<div class="search-output">';
                         while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {

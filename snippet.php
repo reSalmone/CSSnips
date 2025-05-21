@@ -44,6 +44,7 @@ $date = null;
 $type = null;
 $tags = null;
 $variationOf = null;
+$challengeOf = null;
 
 $found = false;
 if (isset($_GET['name']) && file_exists(filename: $filePath)) {
@@ -68,6 +69,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
             $tags = ($t = trim($tuple['tags'], '{}')) === '' ? [] : explode(',', $t);
             $date = date('d-m-Y', strtotime($tuple['created_at']));
             $variationOf = $tuple['variation_of'];
+            $challengeOf = $tuple['challenge_of'];
         }
     }
 }
@@ -110,6 +112,10 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                 echo '<div class="variation-pfp"></div>';
                 echo '<span class="variation-text">' . $v_creator . '</span>';
                 echo '</div>';
+                echo '</div>';
+            } else if ($challengeOf != null) {
+                echo '<div class="variation-container">';
+                echo '<span class="variation-subtext">Submission for challenge <a href="challenge_selected.php?name=' . urlencode($challengeOf) . '" class="variation-text">' . $challengeOf . '</a></span>';
                 echo '</div>';
             }
             ?>
@@ -226,7 +232,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                 <div class='data-views-checkmark'>
                                     <svg viewBox='0 0 256 256'>
                                         <path
-                                            d='M127.2 53C79.7 53 39.5 84.1 26.0 127.2 39.5 170.2 79.7 201.4 127.2 201.4 174.6 201.4 214.8 170.2 228.3 127.2 214.8 84.1 174.6 53 127.2 53Z M159.0 127.2C159.0 144.7 144.7 159 127.2 159 109.6 159 95.4 144.7 95.4 127.2 95.4 109.6 109.6 95.4 127.2 95.4 144.7 95.4 159.0 109.6 159.0 127.2Z'
+                                            d='M31.8 148.4c0-23.1928 28.62-74.2 95.4-74.2s95.4 51.0178 95.4 74.2m-63.6 0a31.8 31.8 90 11-63.6 0 31.8 31.8 90 0163.6 0Z'
                                             stroke-width='20px' fill='none'></path>
                                     </svg>
                                 </div>

@@ -10,6 +10,10 @@ $variation = null;
 if (isset($_POST['postVariation'])) {
     $variation = $_POST['postVariation'];
 }
+$challenge = null;
+if (isset($_POST['postChallenge'])) {
+    $challenge = $_POST['postChallenge'];
+}
 
 if (!ctype_alpha($type)) {
     postError('Invalid type');
@@ -29,7 +33,7 @@ if (isset($_FILES['postFile'])) {
     $content = file_get_contents($tmpName);
 
     $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or postError('Error connecting to databse');
-    
+
     if ($dbcon) {
         $q1 = "SELECT * from snips where file_location = $1";
 
@@ -41,16 +45,29 @@ if (isset($_FILES['postFile'])) {
 
         $q2 = "";
         $data = null;
-        if ($variation != null) {
-            $q2 = "insert into snips (creator, description, element_type, tags, file_location, variation_of) values ($1, $2, $3, $4, $5, $6)";
-            $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name, $variation));
+        //this is to add a list of different tags into database, now for example it's both variations and challenges.
+        //if it wasn't done like this I should've made 4 different statements with the 4 different queries
+        $columns = ["creator", "description", "element_type", "tags", "file_location"];
+        $placeholders = ["$1", "$2", "$3", "$4", "$5"];
+        $params = [$creator, $description, $type, $pgTagsArray, $name];
+        $paramIndex = 6;
 
-            $q3 = "UPDATE snips SET variations = variations || ARRAY[$1] WHERE file_location = $2";
-            pg_query_params($dbcon, $q3, array($name, $variation));
-        } else {
-            $q2 = "insert into snips (creator, description, element_type, tags, file_location) values ($1, $2, $3, $4, $5)";
-            $data = pg_query_params($dbcon, $q2, array($creator, $description, $type, $pgTagsArray, $name));
+        if ($variation !== null) {
+            $columns[] = "variation_of";
+            $placeholders[] = "\$$paramIndex";
+            $params[] = $variation;
+            $paramIndex++;
         }
+
+        if ($challenge !== null) {
+            $columns[] = "challenge_of";
+            $placeholders[] = "\$$paramIndex";
+            $params[] = $challenge;
+            $paramIndex++;
+        }
+
+        $q2 = "INSERT INTO snips (" . implode(", ", $columns) . ") VALUES (" . implode(", ", $placeholders) . ")";
+        $data = pg_query_params($dbcon, $q2, $params);
         if (!$data) {
             postError('Error during post registration');
         }

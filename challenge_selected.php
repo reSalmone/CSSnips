@@ -124,11 +124,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
             <div class="search-output-div">
                 <?php
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
-<<<<<<< Updated upstream
-                        $q2 = "SELECT * FROM snips WHERE challenge_of='$name'";
-=======
-                        $q2 = "SELECT * FROM snips WHERE challenge_type='$name' AND challenge_points IS NOT NULL ORDER BY challenge_points DESC";
->>>>>>> Stashed changes
+                        $q2 = "SELECT * FROM snips WHERE challenge_off='$name' AND challenge_points IS NOT NULL ORDER BY challenge_points DESC";
                         $result2 = pg_query($dbcon, $q2);
                         echo '<div class="search-output">';
                         $rank=1;

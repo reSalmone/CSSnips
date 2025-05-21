@@ -73,22 +73,23 @@ h2 {
 
 /* Stato "non seguito" - blu scuro */
 .follow {
-  background-color: #004080; /* blu scuro */
+  background-color: var(--color1); /* blu scuro */
   color: white;
 }
 
 .follow:hover {
-  background-color: #0059b3; /* celeste più acceso al passaggio */
+  background-color: var(--color1-brighter); /* celeste più acceso al passaggio */
 }
 
 /* Stato "seguito" - celeste chiaro */
 .following {
-  background-color: #3399ff; /* celeste chiaro */
-  color: white;
+  background-color: white; /* celeste chiaro */
+  color: var(--color1);
 }
 
 .following:hover {
-  background-color: #66b2ff; /* celeste ancora più chiaro al passaggio */
+  background-color: grey; /* celeste ancora più chiaro al passaggio */
+  color: var(--color1);
 }
 
 

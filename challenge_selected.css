@@ -269,6 +269,12 @@
     background: var(--color4);
 }
 
+.snip-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .like-svg {
     top: 0;
     left: 0;
@@ -284,6 +290,13 @@
 .like-svg:active svg path {
     stroke:var(--color6);
     fill:var(--color6);
+}
+
+.rank-svg{
+    top: 0;
+    right: 0;
+    height: 24px;
+    width: 24px;
 }
 
 .output-snip-opener {

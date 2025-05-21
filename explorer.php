@@ -67,7 +67,7 @@ $pageOffset = ($page - 1) * $pageSize;
                                 SELECT 1 FROM unnest(tags) AS tag
                                 WHERE tag ILIKE $1
                             ) THEN 4
-                            WHEN challenge_type ILIKE $1 THEN 3
+                            WHEN challenge_of ILIKE $1 THEN 3
                             WHEN element_type ILIKE $1 THEN 2
                             WHEN creator ILIKE $1 THEN 1
                             ELSE 0
@@ -77,7 +77,7 @@ $pageOffset = ($page - 1) * $pageSize;
                             SELECT 1 FROM unnest(tags) AS tag
                             WHERE tag ILIKE $1
                         )
-                        OR challenge_type ILIKE $1
+                        OR challenge_of ILIKE $1
                         OR element_type ILIKE $1
                         OR creator ILIKE $1
                         )";

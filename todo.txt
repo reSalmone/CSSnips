@@ -20,7 +20,7 @@
 /add a site-wide footer div
 /make the login/signup/navbar load programmatically
 make likes and views show better in the explorer
-add challenge creator to creator.php and connect it to challenges
+/add challenge creator to creator.php and connect it to challenges
 /make a page system to explorer.php
 add a report system
 good-looking code in editors
@@ -34,6 +34,7 @@ il sistema di post/save changes fa cagare
 
 /aggiungi il sistema di draft - si possono poi vedere dall'account
 make login system ajax, but reload the page is login is successful
+aggiungi un controllo a creator.php: pija la challenge solo se non è terminata - non può essere sia challenge che variation
 
 
 //SO STRAFATTO -----------------------------------------------------------------------------------------

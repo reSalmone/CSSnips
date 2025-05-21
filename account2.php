@@ -97,14 +97,14 @@ if ($dbcon != -1) {
                 $elements = explode(',', $lista); // Split sugli elementi
             
                 foreach ($elements as $item) {
-                  if ($item == '$username') {
+                  if (trim($item) == $username) {
                     $is_following = true;
                   }
                 }
                 ?>
-                <button id="follow-btn" class="<?php $is_following ? 'following' : 'follow' ?>"
-                  onclick="toggleFollow('<?php htmlspecialchars($username) ?>', <?php $is_following ? 'true' : 'false' ?>)">
-                  <?php $is_following ? 'Following' : 'Follow' ?>
+                <button id="follow-btn" class="<?php echo $is_following ? 'following' : 'follow' ?>"
+                  onclick="toggleFollow('<?php echo htmlspecialchars($username) ?>', <?php $is_following ? 'true' : 'false' ?>)">
+                  <?php echo $is_following ? 'Following' : 'Follow' ?>
                 </button>
                 <?php
               }

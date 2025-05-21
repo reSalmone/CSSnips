@@ -149,7 +149,7 @@ $is_challenge_active= false;
                                         if (isset($_SESSION['username'])) {
                                             if ($dbcon != -1) {
                                                 $challenge_points +=1;
-                                                $q3 = "UPDATE snips SET challenge_points =$challenge_points WHERE id=$snip_name";
+                                                $q3 = "UPDATE snips SET challenge_points = $1 WHERE id = $2";
                                                 $result3 = pg_query_params($dbcon, $q3, array($challenge_points, $snip_name));
                                             }
                                         } else {

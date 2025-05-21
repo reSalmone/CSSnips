@@ -108,7 +108,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
 
                 echo '<div class="variation-container">';
                 echo '<span class="variation-subtext">Variation of <a href="snippet.php?name=' . $variationOf . '" class="variation-text">' . $v_type . '</a> by</span>';
-                echo '<div class="variation-user">';
+                echo '<div class="variation-user" onclick="location.href = \'account2.php?username=' . $v_creator . '\'">';
                 echo '<div class="variation-pfp"></div>';
                 echo '<span class="variation-text">' . $v_creator . '</span>';
                 echo '</div>';
@@ -166,7 +166,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
             <?php if ($found): ?>
                 <div class="data-container">
                     <div class="data-left">
-                        <div class="data-user">
+                        <div class="data-user" onclick="location.href = 'account2.php?username=<?= $creator ?>'">
                             <span class="data-subtext"><?php echo capitalizeProper($type) . ' by '; ?></span>
                             <div class="data-pfp"></div>
                             <span class="data-text"><?php echo $creator; ?></span>
@@ -353,9 +353,9 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                                         });
                                                     </script>';
                                             echo '<div class="info-variations-info">';
-                                            echo '<div class="info-variations-info-creator">';
+                                            echo '<div class="info-variations-info-creator" onclick="location.href = \'account2.php?username=' . $va_tuple['creator'] . '\'">';
                                             echo '<div class="info-variations-info-pfp"></div>';
-                                            echo '<span>' . htmlspecialchars($va_tuple['creator']) . '</span>';
+                                            echo '<span>' . $va_tuple['creator'] . '</span>';
                                             echo '</div>';
                                             echo '<div class="info-variations-info-views">';
                                             echo '<p class="info-variations-info-text">' . htmlspecialchars($va_tuple['views']);

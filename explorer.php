@@ -124,7 +124,7 @@ $pageOffset = ($page - 1) * $pageSize;
                                 <iframe id="output-snip-frame-<?= $id ?>" class="output-preview">
                                 </iframe>
                                 <div class="info">
-                                    <div class="info-creator">
+                                    <div class="info-creator" onclick="location.href = 'account2.php?username=<?= $tuple['creator'] ?>'">
                                         <div class="info-pfp"></div>
                                         <span><?= htmlspecialchars($tuple['creator']) ?></span>
                                     </div>

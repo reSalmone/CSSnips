@@ -183,7 +183,7 @@ if ($name != '' && !$found) {
                 <?php if ($foundVariation && $found) {
                     echo '<div class="post-variation-container">';
                     echo '<span class="post-variation-subtext">Posting as variation of <span class="post-variation-text">' . $type . '</span> by</span>';
-                    echo '<div class="post-variation-user">';
+                    echo '<div class="post-variation-user" onclick="location.href = \'account2.php?username=' . $creator . '\'">';
                     echo '<div class="post-variation-pfp"></div>';
                     echo '<span class="post-variation-text">' . $creator . '</span>';
                     echo '</div>';
@@ -332,7 +332,7 @@ if ($name != '' && !$found) {
                     <div class="variation-container">
                         <span class="variation-subtext">Creating a variation of <a href="snippet.php?name=<?php echo $name ?>"
                                 class="variation-text"><?php echo $type ?></a> by</span>
-                        <div class="variation-user">
+                        <div class="variation-user" onclick="location.href = 'account2.php?username=<?= $creator ?>'">
                             <div class="variation-pfp"></div>
                             <span class="variation-text"><?php echo $creator ?></span>
                         </div>

@@ -49,6 +49,7 @@
     flex-direction: row;
     gap: 10px;
     align-items: center;
+    cursor: pointer;
 }
 
 .variation-pfp {
@@ -269,6 +270,7 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 
 .data-pfp {

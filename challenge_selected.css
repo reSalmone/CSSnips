@@ -272,24 +272,80 @@
 .snip-info{
     display: flex;
     flex-direction: row;
-    justify-content: space-between; 
-    justify-items: center;
-    width: 100%;  
+    align-items: center;
+    align-content: center;
+    width: 100%; 
+}
+
+.info-like {
+    font-size: 30px;
+    color: var(--color4);
+}
+.data-like-save-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.data-like-save-container {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: 100ms;
+}
+
+
+.data-like-save-container input:checked~.like-svg path {
+    fill: var(--color5);
+    stroke-width: 0;
+}
+
+
+.data-like-save-container input:checked~.like-svg {
+    animation: like_effect 400ms ease;
+}
+
+.data-like-save-container:hover {
+    transform: scale(1.1);
 }
 
 .like-svg {
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     background:none; 
     border:none;
     cursor:pointer;
 }
-.like-svg:hover svg path {
-    stroke:var(--color6-placeholder);
+
+@keyframes like_effect {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
-.like-svg:active svg path {
-    stroke:var(--color6);
-    fill:var(--color6);
+
+@keyframes dislike_effect {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .rank-svg{

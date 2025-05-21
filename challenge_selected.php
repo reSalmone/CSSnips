@@ -27,6 +27,7 @@ if ($name != '') {
     $redirect = $redirect . '?name=' . $name;
 }
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
+$is_challenge_active= false;
 ?>
 
 
@@ -63,8 +64,9 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                     $datag = new DateTime();
                     $diff = $datag->diff(targetObject: $dataf);
                     $fill = $diff->format('%a') * 3.22;
+                    $is_challenge_active= $datag<=$dataf;
                     echo'<div class="contest-info-box">';
-                    if($datag<=$dataf){
+                    if($is_challenge_active){
                         echo '<div class="contest-title">Challenge of the Month!</div>';
                     }else{
                         echo '<div class="contest-title">'.$name.' Challenge!</div>';
@@ -74,7 +76,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                     echo '<div class="contest-content-subtitle">' . $tuple["description"] . '</div>';
                     echo '</div>';?>
                     <div class="data">
-                        <?php if($datag<=$dataf){
+                        <?php if($is_challenge_active){
                             echo '<div class="range">';
                             echo '<div class="fill" id="fill" style="width:'.$fill.'%;"></div>';
                             echo '</div>';
@@ -87,7 +89,7 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                         }
                         ?>
                     </div>
-                    <?php if($datag<=$dataf){
+                    <?php if($is_challenge_active){
                     echo '<button class="create-button" onclick="location.href =\'creator.php?challenge=' . urlencode($name) . '\'">
                             <div class=\'create-svg\'>
                                 <svg  viewBox="0 0 512.000000 512.000000">
@@ -134,33 +136,56 @@ $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres pass
                                 $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
                 
                                 list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-                
+                                
                                 echo '<div class="output-snip">';
                                 echo '<div class= "snip-info">';
-                                echo '<button class="like-svg" >
-                                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none">
-                                        <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" 
-                                        stroke="#efffe1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </button>';
-                                if($rank==1){
-                                    echo '<div class="rank-svg">
-                                            <svg viewBox="0 0 64 64" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Flat"> <g id="Color"> <polygon fill="#a60416" points="45 28 27 28 27 56 36 50 45 56 45 28"></polygon> 
-                                            // <polygon fill="#a60416" points="19 28 37 28 37 56 28 50 19 56 19 28"></polygon> <polygon fill="#212529" points="41 33 23 33 23 61 32 55 41 61 41 33"></polygon> <path d="M23,42.82a11.22,11.22,0,0,1,2.65.23c2,.87,3.68,3,6.35,3s4.35-2.08,6.35-3A11.22,11.22,0,0,1,41,42.82V33H23Z" fill="#111315"></path> <polygon fill="#dd051d" points="37 33 37 58.33 32 55 27 58.33 27 33 37 33"></polygon> <path d="M27,43.81c3.65,2.88,6.36,2.88,10,0V33H27Z" fill="#a60416"></path>
-                                            // <path d="M50.55,23.5c0-2.11,1.57-4.44,1-6.34S48.2,14.24,47,12.6s-1.3-4.48-3-5.69-4.35-.42-6.32-1S34.11,3,32,3s-3.83,2.24-5.73,2.86-4.68-.14-6.32,1-1.75,4-3,5.69-3.85,2.59-4.49,4.56.95,4.23.95,6.34-1.57,4.44-.95,6.34S15.8,32.76,17,34.4s1.3,4.48,3,5.69,4.35.42,6.32,1S29.89,44,32,44s3.83-2.24,5.73-2.86,4.68.14,6.32-1,1.75-4,3-5.69,3.85-2.59,4.49-4.56S50.55,25.61,50.55,23.5Z" fill="#fccd1d"></path> <circle cx="32" cy="23.5" fill="#f9a215" r="14.5"></circle> 
-                                            // <path d="M33.37,16l1.52,2.63a1.54,1.54,0,0,0,1.06.76L39,20a1.53,1.53,0,0,1,.85,2.56l-2.1,2.22a1.5,1.5,0,0,0-.4,1.22l.36,3a1.57,1.57,0,0,1-2.22,1.58l-2.81-1.27a1.6,1.6,0,0,0-1.32,0l-2.81,1.27A1.57,1.57,0,0,1,26.31,29l.36-3a1.5,1.5,0,0,0-.4-1.22l-2.1-2.22A1.53,1.53,0,0,1,25,20l3-.59a1.54,1.54,0,0,0,1.06-.76L30.63,16A1.59,1.59,0,0,1,33.37,16Z" fill="#fccd1d"></path> </g> </g> </g></svg>
-                                    </div>';
-                                }elseif($rank==2){
-                                    echo '<div class="rank-svg">
-                                        <svg viewBox="0 0 64 64" fill="#000000"><g stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Flat"> <g id="Color"> <polygon fill="#212529" points="45 17 32 25 19 17 19 3 45 3 45 17"></polygon> <polygon fill="#dd051d" points="40 3 40 20.08 32 25 24 20.08 24 3 40 3"></polygon> 
-                                        <path d="M32,25l6.49-4a21.36,21.36,0,0,0-13,0Z" fill="#a60416"></path> <circle cx="32" cy="41.5" fill="#fccd1d" r="19.5"></circle> <circle cx="32" cy="41.5" fill="#f9a215" r="14.5"></circle> <path d="M33.88,33.57a6.49,6.49,0,0,0-5.81,1.23,6.41,6.41,0,0,0-2.21,4.89H30c0-2.24,3.37-2.38,4-1,1,2.1-8,7-8,7v4H38v-4H34a7.07,7.07,0,0,0,4-7.54A6.16,6.16,0,0,0,33.88,33.57Z" fill="#fccd1d"></path> </g> </g> </g></svg>
-                                    </div>';
-                                }elseif($rank==3){
-                                    echo '<div class="rank-svg">
-                                        <svg viewBox="0 0 64 64" fill="#000000"><g stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Flat"> <g id="Color"> <polygon fill="#212529" points="45 17 32 25 19 17 19 3 45 3 45 17"></polygon> <polygon fill="#dd051d" points="40 3 40 20.08 32 25 24 20.08 24 3 40 3"></polygon> <path d="M32,25l6.49-4a21.36,21.36,0,0,0-13,0Z" fill="#a60416">
-                                        </path> <circle cx="32" cy="41.5" fill="#fccd1d" r="19.5"></circle> <circle cx="32" cy="41.5" fill="#f9a215" r="14.5"></circle>
-                                         <path d="M36.54,41.5A4.52,4.52,0,0,0,38.38,38c0-2.76-2.86-5-6.38-5s-6.37,2.24-6.37,5h3.92a2,2,0,0,1,3.9-.29c.17,1.23-.77,2.73-2,2.73v2.12c2.22,0,2.84,3.5.72,4.32A2,2,0,0,1,29.55,45H25.63c0,2.76,2.85,5,6.37,5s6.38-2.24,6.38-5A4.52,4.52,0,0,0,36.54,41.5Z" fill="#fccd1d"></path> </g> </g> </g></svg>
-                                    </div>';
+                                $challenge_points=$tuple['challenge_points'];
+                                $challenge_name=$tuple['challenge_of'];
+                                $snip_name=$tuple['id'];
+                                if($is_challenge_active){
+
+                                echo '<label class="data-like-save-container">';
+                                        
+                                        if (isset($_SESSION['username'])) {
+                                            if ($dbcon != -1) {
+                                                $challenge_points +=1;
+                                                $q3 = "UPDATE snips SET challenge_points =$challenge_points WHERE id=$snip_name";
+                                                $result3 = pg_query_params($dbcon, $q3, array($challenge_points, $snip_name));
+                                            }
+                                        } else {
+                                            echo "<input type='checkbox' onclick='event.preventDefault(); event.stopPropagation(); openLogin(event);'>";
+                                        }
+                                   
+                                echo ' <div class="like-svg">
+                                            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
+                                            <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" 
+                                            stroke="#efffe1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </label>';
+  
+                                }
+                                else{
+                                    echo '<p class="info-like">'.$challenge_points.' vote'.'</p>';
+                                    if($rank==1){
+                                        echo '<div class="rank-svg">
+                                                <svg viewBox="0 0 64 64" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Flat"> <g id="Color"> <polygon fill="#a60416" points="45 28 27 28 27 56 36 50 45 56 45 28"></polygon> 
+                                                // <polygon fill="#a60416" points="19 28 37 28 37 56 28 50 19 56 19 28"></polygon> <polygon fill="#212529" points="41 33 23 33 23 61 32 55 41 61 41 33"></polygon> <path d="M23,42.82a11.22,11.22,0,0,1,2.65.23c2,.87,3.68,3,6.35,3s4.35-2.08,6.35-3A11.22,11.22,0,0,1,41,42.82V33H23Z" fill="#111315"></path> <polygon fill="#dd051d" points="37 33 37 58.33 32 55 27 58.33 27 33 37 33"></polygon> <path d="M27,43.81c3.65,2.88,6.36,2.88,10,0V33H27Z" fill="#a60416"></path>
+                                                // <path d="M50.55,23.5c0-2.11,1.57-4.44,1-6.34S48.2,14.24,47,12.6s-1.3-4.48-3-5.69-4.35-.42-6.32-1S34.11,3,32,3s-3.83,2.24-5.73,2.86-4.68-.14-6.32,1-1.75,4-3,5.69-3.85,2.59-4.49,4.56.95,4.23.95,6.34-1.57,4.44-.95,6.34S15.8,32.76,17,34.4s1.3,4.48,3,5.69,4.35.42,6.32,1S29.89,44,32,44s3.83-2.24,5.73-2.86,4.68.14,6.32-1,1.75-4,3-5.69,3.85-2.59,4.49-4.56S50.55,25.61,50.55,23.5Z" fill="#fccd1d"></path> <circle cx="32" cy="23.5" fill="#f9a215" r="14.5"></circle> 
+                                                // <path d="M33.37,16l1.52,2.63a1.54,1.54,0,0,0,1.06.76L39,20a1.53,1.53,0,0,1,.85,2.56l-2.1,2.22a1.5,1.5,0,0,0-.4,1.22l.36,3a1.57,1.57,0,0,1-2.22,1.58l-2.81-1.27a1.6,1.6,0,0,0-1.32,0l-2.81,1.27A1.57,1.57,0,0,1,26.31,29l.36-3a1.5,1.5,0,0,0-.4-1.22l-2.1-2.22A1.53,1.53,0,0,1,25,20l3-.59a1.54,1.54,0,0,0,1.06-.76L30.63,16A1.59,1.59,0,0,1,33.37,16Z" fill="#fccd1d"></path> </g> </g> </g></svg>
+                                        </div>';
+                                    }elseif($rank==2){
+                                        echo '<div class="rank-svg">
+                                            <svg viewBox="0 0 64 64" fill="#000000"><g stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Flat"> <g id="Color"> <polygon fill="#212529" points="45 17 32 25 19 17 19 3 45 3 45 17"></polygon> <polygon fill="#dd051d" points="40 3 40 20.08 32 25 24 20.08 24 3 40 3"></polygon> 
+                                            <path d="M32,25l6.49-4a21.36,21.36,0,0,0-13,0Z" fill="#a60416"></path> <circle cx="32" cy="41.5" fill="#fccd1d" r="19.5"></circle> <circle cx="32" cy="41.5" fill="#f9a215" r="14.5"></circle> <path d="M33.88,33.57a6.49,6.49,0,0,0-5.81,1.23,6.41,6.41,0,0,0-2.21,4.89H30c0-2.24,3.37-2.38,4-1,1,2.1-8,7-8,7v4H38v-4H34a7.07,7.07,0,0,0,4-7.54A6.16,6.16,0,0,0,33.88,33.57Z" fill="#fccd1d"></path> </g> </g> </g></svg>
+                                        </div>';
+                                    }elseif($rank==3){
+                                        echo '<div class="rank-svg">
+                                            <svg viewBox="0 0 64 64" fill="#000000"><g stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Flat"> <g id="Color"> <polygon fill="#212529" points="45 17 32 25 19 17 19 3 45 3 45 17"></polygon> <polygon fill="#dd051d" points="40 3 40 20.08 32 25 24 20.08 24 3 40 3"></polygon> <path d="M32,25l6.49-4a21.36,21.36,0,0,0-13,0Z" fill="#a60416">
+                                            </path> <circle cx="32" cy="41.5" fill="#fccd1d" r="19.5"></circle> <circle cx="32" cy="41.5" fill="#f9a215" r="14.5"></circle>
+                                            <path d="M36.54,41.5A4.52,4.52,0,0,0,38.38,38c0-2.76-2.86-5-6.38-5s-6.37,2.24-6.37,5h3.92a2,2,0,0,1,3.9-.29c.17,1.23-.77,2.73-2,2.73v2.12c2.22,0,2.84,3.5.72,4.32A2,2,0,0,1,29.55,45H25.63c0,2.76,2.85,5,6.37,5s6.38-2.24,6.38-5A4.52,4.52,0,0,0,36.54,41.5Z" fill="#fccd1d"></path> </g> </g> </g></svg>
+                                        </div>';
+                                    }
                                 }
                                 echo '</div>';
                                 $rank = $rank+1;

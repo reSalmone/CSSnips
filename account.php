@@ -14,33 +14,43 @@ $bio = null;
 $numero_liked = null;
 $numero_saved = null;
 $numero_codici = null;
+$numero_followers = null;
+$numero_following = null;
 $result5 = null;
 
 $found = false;
 
-if ($dbcon != -1) { 
+if ($dbcon != -1) {
   $query1 = "SELECT username, email, bio FROM users WHERE username='$username';";
   $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
   $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
   $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator = '$username'";
   $query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at desc) SELECT * FROM this limit 3";
+  $query6 = "SELECT cardinality(followers) AS numero_followers FROM users WHERE username = '$username'";
+  $query7 = "SELECT cardinality(following) AS numero_following FROM users WHERE username = '$username'";
   $result1 = pg_query($query1);
   $result2 = pg_query($query2);
   $result3 = pg_query($query3);
   $result4 = pg_query($query4);
   $result5 = pg_query($query5);
+  $result6 = pg_query($query6);
+  $result7 = pg_query($query7);
 
-  if ($result1 && $result2 && $result3 && $result4 && $result5){
+  if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6 && $result7) {
     $found = true;
     $line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC);
     $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
     $line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC);
     $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
+    $line6 = pg_fetch_array($result6, NULL, PGSQL_ASSOC);
+    $line7 = pg_fetch_array($result7, NULL, PGSQL_ASSOC);
     $email = $line1['email'];
     $bio = $line1['bio'];
     $numero_liked = $line2['numero_stringhe'];
     $numero_saved = $line3['numero_stringhe'];
     $numero_codici = $line4['numero_codici'];
+    $numero_followers = $line6['numero_followers'];
+    $numero_following = $line7['numero_following'];
   }
 }
 ?>
@@ -93,7 +103,7 @@ if ($dbcon != -1) {
               <?php
               $line5 = pg_fetch_array($result5, NULL, PGSQL_ASSOC);
               if ($line5) {
-                while($line5){
+                while ($line5) {
                   $id = (int) $line5['id'];
                   ?>
                   <div class="output-snip" data-snippet-id="<?= $id ?>">
@@ -142,15 +152,14 @@ if ($dbcon != -1) {
             </div>
             <div class="funzione-box">
               <div class="funzione-text">Followers</div>
-              <div class="funzione-count">100</div>
+              <div class="funzione-count"><?php echo htmlspecialchars($numero_followers ?? 0) ?></div>
             </div>
             <div class="funzione-box">
               <div class="funzione-text">Following</div>
-              <div class="funzione-count">50</div>
+              <div class="funzione-count"><?php echo htmlspecialchars($numero_following ?? 0) ?></div>
             </div>
           </section>
         </var>
-
       </main> <?php
     } else { ?>
       <main class="profilo-container">
@@ -160,7 +169,7 @@ if ($dbcon != -1) {
           </section>
         </var>
       </main>
-        <?php
+      <?php
     }
     include 'footer-code.php'; ?> <!--FOOTER-->
   </div>

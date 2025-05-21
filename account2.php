@@ -15,6 +15,8 @@ $bio = null;
 $numero_liked = null;
 $numero_saved = null;
 $numero_codici = null;
+$numero_followers = null;
+$numero_following = null;
 $result5 = null;
 $result6 = null;
 
@@ -27,24 +29,32 @@ if ($dbcon != -1) {
   $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator = '$username'";
   $query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at desc) SELECT * FROM this limit 3";
   $query6 = "SELECT * FROM users WHERE username = '$my_username'";
+  $query7 = "SELECT cardinality(followers) AS numero_followers FROM users WHERE username = '$username'";
+  $query8 = "SELECT cardinality(following) AS numero_following FROM users WHERE username = '$username'";
   $result1 = pg_query($query1);
   $result2 = pg_query($query2);
   $result3 = pg_query($query3);
   $result4 = pg_query($query4);
   $result5 = pg_query($query5);
   $result6 = pg_query($query6);
+  $result7 = pg_query($query7);
+  $result8 = pg_query($query8);
 
-  if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6) {
+  if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6 && $result7 && $result8) {
     $line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC);
     $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
     $line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC);
     $line4 = pg_fetch_array($result4, NULL, PGSQL_ASSOC);
+    $line7 = pg_fetch_array($result7, NULL, PGSQL_ASSOC);
+    $line8 = pg_fetch_array($result8, NULL, PGSQL_ASSOC);
     $found = true;
     $email = $line1['email'];
     $bio = $line1['bio'];
     $numero_liked = $line2['numero_stringhe'];
     $numero_saved = $line3['numero_stringhe'];
     $numero_codici = $line4['numero_codici'];
+    $numero_followers = $line7['numero_followers'];
+    $numero_following = $line8['numero_following'];
   }
 }
 ?>
@@ -168,11 +178,11 @@ if ($dbcon != -1) {
             </div>
             <div class="funzione-box">
               <div class="funzione-text">Followers</div>
-              <div class="funzione-count">100</div>
+              <div class="funzione-count"><?php echo htmlspecialchars($numero_followers ?? 0) ?></div>
             </div>
             <div class="funzione-box">
               <div class="funzione-text">Following</div>
-              <div class="funzione-count">50</div>
+              <div class="funzione-count"><?php echo htmlspecialchars($numero_following ?? 0) ?></div>
             </div>
           </section>
         </var>

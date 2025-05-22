@@ -23,14 +23,14 @@ $result6 = null;
 $found = false;
 
 if ($dbcon != -1) {
-  $query1 = "SELECT username, email, bio FROM users WHERE username='$username';";
-  $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
-  $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username = '$username'";
-  $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator = '$username'";
-  $query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at desc) SELECT * FROM this limit 3";
+  $query1 = "SELECT * FROM users WHERE username ILIKE'$username';";
+  $query2 = "SELECT cardinality(likedsnippets) AS numero_stringhe FROM users WHERE username ILIKE '$username'";
+  $query3 = "SELECT cardinality(savedsnippets) AS numero_stringhe FROM users WHERE username ILIKE '$username'";
+  $query4 = "SELECT count(*) AS numero_codici FROM snips WHERE creator ILIKE '$username'";
+  $query5 = "with this as (SELECT * FROM snips WHERE creator ILIKE '$username' order by created_at desc) SELECT * FROM this limit 3";
   $query6 = "SELECT * FROM users WHERE username = '$my_username'";
-  $query7 = "SELECT cardinality(followers) AS numero_followers FROM users WHERE username = '$username'";
-  $query8 = "SELECT cardinality(following) AS numero_following FROM users WHERE username = '$username'";
+  $query7 = "SELECT cardinality(followers) AS numero_followers FROM users WHERE username ILIKE '$username'";
+  $query8 = "SELECT cardinality(following) AS numero_following FROM users WHERE username ILIKE '$username'";
   $result1 = pg_query($query1);
   $result2 = pg_query($query2);
   $result3 = pg_query($query3);

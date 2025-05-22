@@ -96,9 +96,6 @@ if ($dbcon != -1) {
                 <label for="bio">Bio</label>
                 <textarea id="bio" name="bio" rows="3"><?php echo htmlspecialchars($bio); ?></textarea>
 
-                <label for="fotoProfilo">Avatar</label>
-                <input type="file" id="fotoProfilo" name="fotoProfilo" accept=".jpg, .jpeg" />
-
                 <button type="submit" class="btn" onclick="return updateAccount()">UPDATE ACCOUNT SETTINGS</button>
               </form>
             </div>

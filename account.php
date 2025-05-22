@@ -17,6 +17,8 @@ $numero_codici = null;
 $numero_followers = null;
 $numero_following = null;
 $result5 = null;
+$result8 = null;
+$result9 = null;
 
 $found = false;
 
@@ -28,6 +30,8 @@ if ($dbcon != -1) {
   $query5 = "with this as (SELECT * FROM snips WHERE creator = '$username' order by created_at desc) SELECT * FROM this limit 3";
   $query6 = "SELECT cardinality(followers) AS numero_followers FROM users WHERE username = '$username'";
   $query7 = "SELECT cardinality(following) AS numero_following FROM users WHERE username = '$username'";
+  $query8 = "SELECT followers FROM users WHERE username = '$username'";
+  $query9 = "SELECT following FROM users WHERE username = '$username'";
   $result1 = pg_query($query1);
   $result2 = pg_query($query2);
   $result3 = pg_query($query3);
@@ -35,8 +39,10 @@ if ($dbcon != -1) {
   $result5 = pg_query($query5);
   $result6 = pg_query($query6);
   $result7 = pg_query($query7);
+  $result8 = pg_query($query8);
+  $result9 = pg_query($query9);
 
-  if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6 && $result7) {
+  if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6 && $result7 && $result8 && $result9) {
     $found = true;
     $line1 = pg_fetch_array($result1, NULL, PGSQL_ASSOC);
     $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
@@ -149,26 +155,70 @@ if ($dbcon != -1) {
               <div class="funzione-text">Watchlist</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_saved ?? 0) ?></div>
             </div>
-            <div class="funzione-box">
+
+            <!-- FOLLOWERS --> 
+            <div class="funzione-box" onclick="toggleList('followers')">
               <div class="funzione-text">Followers</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_followers ?? 0) ?></div>
             </div>
-            <div class="funzione-box">
+            <div class="list-container" id="followers-list">
+              <?php
+                if($line8 = pg_fetch_array($result8, NULL, PGSQL_ASSOC)){
+                  $lista = $line8["followers"];// PostgreSQL restituisce gli array come stringa tipo: {elem1,elem2,...}
+                  $lista = trim($lista, '{}'); // Rimuovi le parentesi graffe
+                  $elements = explode(',', $lista); // Split sugli elementi
+                  
+                  if(empty($lista) || $lista === '') { 
+                    echo "<h3>no followers.</h3>";
+                  } else {
+                    foreach ($elements as $item) {
+                      $clean_item = htmlspecialchars(trim($item));
+                      echo "<div class='list-user' onclick=\"location.href = 'account2.php?username=$clean_item'\">" . $clean_item . "</div>";
+                    }
+                  }
+                } else {
+                  echo "<h3>no followers.</h3>";
+                }
+              ?>
+            </div>
+
+            <!-- FOLLOWING --> 
+            <div class="funzione-box" onclick="toggleList('following')">
               <div class="funzione-text">Following</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_following ?? 0) ?></div>
+            </div>
+            <div class="list-container" id="following-list">
+              <?php
+                  if($line9 = pg_fetch_array($result9, NULL, PGSQL_ASSOC)){
+                  $lista = $line9["following"];// PostgreSQL restituisce gli array come stringa tipo: {elem1,elem2,...}
+                  $lista = trim($lista, '{}'); // Rimuovi le parentesi graffe
+                  $elements = explode(',', $lista); // Split sugli elementi
+            
+                  if(empty($lista) || $lista === '') { 
+                    echo "<h3>no following.</h3>";
+                  } else {
+                    foreach ($elements as $item) {
+                      $clean_item = htmlspecialchars(trim($item));
+                      echo "<div class='list-user' onclick=\"location.href = 'account2.php?username=$clean_item'\">" . $clean_item . "</div>";
+                    }
+                  }
+                } else {
+                  echo "<h3>no following.</h3>";
+                }
+              ?>
             </div>
           </section>
         </var>
       </main> <?php
     } else { ?>
-      <main class="profilo-container">
-        <var class="main_var">
-          <section class="profilo-info">
-            <h2>ERROR: UNABLE TO CONNECT TO THE DATABASE. PLEASE TRY AGAIN LATER.</h2>
-          </section>
-        </var>
-      </main>
-      <?php
+    <main class="profilo-container">
+      <var class="main_var">
+        <section class="profilo-info">
+          <h2>ERROR: UNABLE TO CONNECT TO THE DATABASE. PLEASE TRY AGAIN LATER.</h2>
+        </section>
+      </var>
+    </main>
+    <?php
     }
     include 'footer-code.php'; ?> <!--FOOTER-->
   </div>

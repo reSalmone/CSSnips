@@ -192,3 +192,55 @@ h2 {
     background: rgba(0, 0, 0, 0.2);
 }
 
+/* parte per le finestre di followers e following */
+/* Lista followers/following */
+.list-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background-color: var(--color2-brighter);
+  margin: -10px 0 20px;
+  border-radius: 8px;
+  padding: 0 20px;
+}
+
+/* Quando la lista è visibile */
+.list-container.active {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.list-user {
+  padding: 6px 12px; /* riduci un po' il padding verticale e orizzontale */
+  border-radius: 12px; /* aumenta l'arrotondamento degli angoli */
+  background-color: white;
+  color: var(--color2-brighter);
+  text-align: center;
+  width: fit-content; /* larghezza adattata al contenuto */
+  margin: 6px auto; /* margine verticale e centratura orizzontale */
+  font-size: 14px; /* un po' più piccolo */
+  border-bottom: none; /* togli il bordo sotto per non creare righe troppo lunghe */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* facoltativo, per un leggero effetto di profondità */
+}
+
+.list-user:hover {
+  background-color: var(--color2); /* o un colore a tua scelta */
+  color: white;
+  cursor: pointer;
+  transform: scale(1.02); /* leggera ingranditura */
+  transition: all 0.2s ease-in-out;
+  border-radius: 12px;
+}
+
+.list-user:last-child {
+  border-bottom: none;
+}
+
+h3 {
+  font-family: 'Noveo Sans', sans-serif;
+  color: white;
+  font-size: 16px; /* o la misura che vuoi */
+  font-weight: normal;
+  text-align: center;
+  margin: 10px 0; /* un po' di margine verticale, come gli altri elementi */
+}

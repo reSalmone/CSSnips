@@ -88,7 +88,6 @@ if ($dbcon != -1) {
         <var class="main_var">
           <!-- Sezione delle informazioni dell'utente -->
           <section class="profilo-info">
-            <img src="fotoprofilo.jpg" alt="Foto Profilo" class="profilo-img">
             <div class="info-text">
               <?php echo "<h2>" . htmlspecialchars($username) . "</h2>" ?>
               <?php echo "<p>Email:" . htmlspecialchars($email) . "</p>" ?>

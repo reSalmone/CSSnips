@@ -17,6 +17,7 @@ $numero_saved = null;
 $numero_codici = null;
 $numero_followers = null;
 $numero_following = null;
+$real_username = null;
 $result5 = null;
 $result6 = null;
 
@@ -50,6 +51,7 @@ if ($dbcon != -1) {
     $found = true;
     $email = $line1['email'];
     $bio = $line1['bio'];
+    $real_username = $line1['username'];
     $numero_liked = $line2['numero_stringhe'];
     $numero_saved = $line3['numero_stringhe'];
     $numero_codici = $line4['numero_codici'];
@@ -92,9 +94,8 @@ if ($dbcon != -1) {
         <var class="main_var">
           <!-- Sezione delle informazioni dell'utente -->
           <section class="profilo-info">
-            <img src="fotoprofilo.jpg" alt="Foto Profilo" class="profilo-img">
             <div class="info-text">
-              <?php echo "<h2>" . htmlspecialchars($username) . "</h2>" ?>
+              <?php echo "<h2>" . htmlspecialchars($real_username) . "</h2>" ?>
               <?php echo "<p>Email:" . htmlspecialchars($email) . "</p>" ?>
               <?php echo "<p>Bio:" . htmlspecialchars($bio) . "</p>" ?>
               <?php
@@ -107,7 +108,7 @@ if ($dbcon != -1) {
                 $elements = explode(',', $lista); // Split sugli elementi
             
                 foreach ($elements as $item) {
-                  if (trim($item) == $username) {
+                  if (strtolower(trim($item)) == strtolower($username)) {
                     $is_following = true;
                   }
                 }

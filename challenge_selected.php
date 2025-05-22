@@ -8,7 +8,7 @@ if (!isset($_GET['name'])) {
 }
 
 $name = $_GET['name'] ?? '';
-$redirect = 'challenges_selected.php';
+$redirect = 'challenge_selected.php';
 
 function splitFileContent($content)
 {

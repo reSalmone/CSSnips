@@ -29,8 +29,8 @@ if (empty($username) || empty($password) || empty($email) || empty($emailConfirm
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or signUpError("Connection to database refused");
 if ($dbcon) { //se la connessione è correttamente stabilita
-    $q1 = "SELECT * from users where username = $1";
-    $q2 = "SELECT * from users where email = $1";
+    $q1 = "SELECT * from users where ILIKE $1";
+    $q2 = "SELECT * from users where ILIKE $1";
 
     $resultUsername = pg_query_params($dbcon, $q1, array($username));
     $tupleUsername = pg_fetch_array($resultUsername, null, PGSQL_ASSOC);

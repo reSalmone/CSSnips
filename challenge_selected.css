@@ -275,6 +275,7 @@
     align-items: center;
     align-content: center;
     width: 100%; 
+    gap: 10px;
 }
 
 .info-like {
@@ -315,9 +316,10 @@
 .like-svg {
     height: 35px;
     width: 35px;
-    background:none; 
-    border:none;
-    cursor:pointer;
+    transition: 100ms;
+    animation: dislike_effect 400ms ease;
+    stroke: var(--color4);
+    will-change: transform;
 }
 
 @keyframes like_effect {

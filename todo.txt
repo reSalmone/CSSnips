@@ -35,6 +35,7 @@ il sistema di post/save changes fa cagare
 /aggiungi il sistema di draft - si possono poi vedere dall'account
 make login system ajax, but reload the page is login is successful
 aggiungi un controllo a creator.php: pija la challenge solo se non è terminata - non può essere sia challenge che variation
+aggiungi sitewide icon
 
 
 //SO STRAFATTO -----------------------------------------------------------------------------------------

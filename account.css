@@ -106,8 +106,8 @@ h2 {
 }
 
 .activity-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonne uguali */
   margin-top: 20px;
   gap: 20px;
   background-color: var(--color2-brighter);
@@ -116,6 +116,19 @@ h2 {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+.activity-container-nosnippets {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 20px;
+  background-color: var(--color2-brighter);
+  padding: 40px;
+  min-height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+} 
 
 /* Funzioni - Occupano una riga intera */
 .funzioni-container {

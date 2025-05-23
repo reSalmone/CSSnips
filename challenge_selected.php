@@ -126,7 +126,7 @@ $is_challenge_active= false;
             <div class="search-output-div">
                 <?php
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                        $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND snip_likes IS NOT NULL ORDER BY snip_likes DESC";
+                        $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
                         $result2 = pg_query($dbcon, $q2);
                         echo '<div class="search-output">';
                         $rank=1;
@@ -139,37 +139,36 @@ $is_challenge_active= false;
                                 
                                 echo '<div class="output-snip">';
                                 echo '<div class= "snip-info">';
-                                $snip_likes=$tuple['snip_likes'];
+                                $snip_likes=$tuple['challenge_likes'];
                                 $challenge_name=$tuple['challenge_of'];
                                 $snip_name=$tuple['id'];
-                                if($is_challenge_active){
-                                echo '<p class="info-like">'. $snip_name.'-' .$snip_likes.'</p>';
-                                echo '<label class="data-like-save-container">';
-            
-                                            
-                                if (isset($_SESSION['username'])) {
-                                    if ($dbcon != -1) {
-                                        $q3 = "SELECT * from users where username = $1";
-                                        $result3 = pg_query_params($dbcon, $q3, array($_SESSION['username']));
-                                        $tuple3=(pg_fetch_array($result3, null, PGSQL_ASSOC));
-                                        $user_id=$tuple3['id'];
-                                        $q_check = "SELECT 1 FROM user_snip_likes WHERE user_id = $1 AND snip_id = $2";
-                                        $result_check = pg_query_params($dbcon, $q_check, array($user_id, $snip_name));
-                                        if (pg_num_rows($result_check) === 0) {     
-                                            $q4 = "INSERT INTO user_snip_likes (user_id,snip_id) VALUES ($1, $2);";
-                                            $result4 = pg_query_params($dbcon, $q4, array($user_id, $snip_name));
+                                if ($is_challenge_active){
+                                    
+                                    echo '<label class="data-like-save-container">';      
+                                    if (isset($_SESSION['username'])) {
+                                        if ($dbcon != -1) {
+                                            $q3 = "SELECT * from users where username ILIKE $1";
+                                            $result3 = pg_query_params($dbcon, $q3, array($_SESSION['username']));
+                                            if($tuple3=(pg_fetch_array($result3, null, PGSQL_ASSOC))){
+                                                $user_id=$tuple3['id'];
+                                                $q_check = "SELECT 1 FROM user_snip_likes WHERE user_id = $1 AND snip_id = $2";
+                                                $result_check = pg_query_params($dbcon, $q_check, array($user_id, $snip_name));
+                                                $is_checked=pg_num_rows($result_check);
+                                                echo "<input type='checkbox' data-snippet='".$snip_name."' ".($is_checked? "checked" : "")." id='snip-like-checkbox'>";
+                                                $snip_likes=$tuple['challenge_likes'];
+                                            }
                                         }
-                                    }
-                                } else {
-                                    echo "<input type='checkbox' onclick='event.preventDefault(); event.stopPropagation(); openLogin(event);'>";
-                                }     
-                                echo ' <div class="like-svg">
-                                            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
-                                            <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" 
-                                            stroke="#efffe1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </div>
-                                    </label>';
+                                    }else{
+                                        echo "<input type='checkbox' onclick='event.preventDefault(); event.stopPropagation(); openLogin(event);'>";
+                                    }     
+                                    echo   '<div class="like-svg">
+                                                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
+                                                <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" 
+                                                stroke="#efffe1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                        </label>';
+                                    echo '<p class="info-like" id="data-liked-value">'.$snip_likes.'</p>';
   
                                 }
                                 else{

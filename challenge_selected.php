@@ -151,10 +151,11 @@ $is_challenge_active= false;
                                             $result3 = pg_query_params($dbcon, $q3, array($_SESSION['username']));
                                             if($tuple3=(pg_fetch_array($result3, null, PGSQL_ASSOC))){
                                                 $user_id=$tuple3['id'];
-                                                $q_check = "SELECT 1 FROM user_snip_likes WHERE user_id = $1 AND snip_id = $2";
+                                                $q_check = "SELECT * FROM user_snip_likes WHERE user_id = $1 AND snip_id = $2";
                                                 $result_check = pg_query_params($dbcon, $q_check, array($user_id, $snip_name));
                                                 $is_checked=pg_num_rows($result_check);
-                                                echo "<input type='checkbox' data-snippet='".$snip_name."' ".($is_checked? "checked" : "")." id='snip-like-checkbox'>";
+                                                $checkValue = $is_checked > 0 ? "checked" : "";
+                                                echo "<input type='checkbox' data-snippet='".$snip_name."' " . $checkValue ." id='snip-like-checkbox'>";
                                                 $snip_likes=$tuple['challenge_likes'];
                                             }
                                         }

@@ -489,15 +489,6 @@
     animation-play-state: paused;
 }
 
-@keyframes move-left {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
 .search-output {
     width: 100%;
     display: flex;

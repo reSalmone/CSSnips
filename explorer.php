@@ -124,14 +124,19 @@ $pageOffset = ($page - 1) * $pageSize;
                                 <iframe id="output-snip-frame-<?= $id ?>" class="output-preview">
                                 </iframe>
                                 <div class="info">
-                                    <div class="info-creator" onclick="location.href = 'account2.php?username=<?= $tuple['creator'] ?>'">
+                                    <div class="info-creator" onclick="location.href = 'account.php?username=<?= $tuple['creator'] ?>'">
                                         <div class="info-pfp"></div>
                                         <span><?= htmlspecialchars($tuple['creator']) ?></span>
                                     </div>
                                     <div class="info-views">
-                                        <p class="info-text"><?= htmlspecialchars($tuple['views']) ?>
-                                            <span class="info-subtext"> views</span>
-                                        </p>
+                                        <div class='data-views-checkmark'>
+                                            <svg viewBox='0 0 256 256'>
+                                                <path
+                                                    d='M31.8 148.4c0-23.1928 28.62-74.2 95.4-74.2s95.4 51.0178 95.4 74.2m-63.6 0a31.8 31.8 90 11-63.6 0 31.8 31.8 90 0163.6 0Z'
+                                                    stroke-width='20px' fill='none'></path>
+                                            </svg>
+                                        </div>
+                                        <p class="info-text"><?= htmlspecialchars($tuple['views']) ?></p>
                                     </div>
                                 </div>
                             </div>

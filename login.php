@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 session_start();
 $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
 
@@ -34,7 +35,7 @@ if ($dbcon != -1) { //se la connessione è correttamente stabilita
                 unset($_SESSION['remember']);
             }
             session_regenerate_id();
-            header('Location: ' . $redirect);
+            echo json_encode(['success' => true, 'redirect' => $redirect]);
             exit();
         } else {
             loginError("Incorrect password");
@@ -45,9 +46,7 @@ if ($dbcon != -1) { //se la connessione è correttamente stabilita
 }
 
 function loginError($error) {
-    global $redirect;
-    $_SESSION['login_error'] = "$error";
-    header('Location: ' . $redirect);
+    echo json_encode(['success' => false, 'error' => $error]);
     exit();
 }
 ?>

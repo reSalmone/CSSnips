@@ -147,3 +147,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+function openReport(event) {
+    event.stopPropagation();
+    document.getElementById('report-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+}
+
+function closeReport() {
+    document.getElementById('report-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function reportFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch('submit-report.php', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Report submitted successfully");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            closeReport();
+        });
+}

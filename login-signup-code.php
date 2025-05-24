@@ -1,22 +1,8 @@
 <div class="center-div" id="login-center-div">
     <div class="form-page" id="login-page">
         <p class="form-title">Login</p>
-        <div class="form-server-error-container" id="login-server-error">
-            <?php
-            if (isset($_SESSION['login_error'])) {
-                echo "<span>" . $_SESSION['login_error'] . "</span>";
-                echo "<script>
-                        window.addEventListener('load', function() {
-                            openLogin(event);
-                            showLoginServerError();
-                        });
-                    </script>";
-                unset($_SESSION['login_error']);
-            }
-            ?>
-        </div>
-        <form action="login.php?redirect=<?php echo $redirect ?>" method="POST" class="form-form"
-            onsubmit="return submitLoginForm(this);" novalidate>
+        <div class="form-server-error-container" id="login-server-error"></div>
+        <form class="form-form" onsubmit="submitLoginForm(event, '<?= $redirect ?>');" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false" value="<?php 
@@ -58,7 +44,7 @@
                 </label>
                 <a class="form-forgot-password" href="">Forgot password?</a>
             </div>
-            <input type="submit" class="form-button" value="Login">
+            <input type="submit" class="form-button" value="Login" id="login-submit">
         </form>
         <p class="form-switch-form">Don't have an account? <span onclick="openSignup(event);">Signup</span></p>
     </div>
@@ -66,22 +52,8 @@
 <div class="center-div" id="signup-center-div">
     <div class="form-page" id="signup-page">
         <p class="form-title">Sign up</p>
-        <div class="form-server-error-container" id="signup-server-error">
-        <?php
-            if (isset($_SESSION['signup_error'])) {
-                echo "<span>" . $_SESSION['signup_error'] . "</span>";
-                echo "<script>
-                        window.addEventListener('load', function() {
-                            openSignup(event);
-                            showSignupServerError();
-                        });
-                    </script>";
-                unset($_SESSION['signup_error']);
-            }
-            ?>
-        </div>
-        <form action="signup.php?redirect=<?php echo $redirect ?>" method="POST" class="form-form"
-            onsubmit="return submitSignupForm(this);" novalidate>
+        <div class="form-server-error-container" id="signup-server-error"></div>
+        <form class="form-form" onsubmit="submitSignupForm(event, '<?= $redirect ?>');" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false">
@@ -123,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="form-button" value="Sign up">
+            <input type="submit" class="form-button" value="Sign up" id="signup-submit">
         </form>
         <p class="form-switch-form">Already have an account? <span onclick="openLogin(event);">Login</span></p>
     </div>

@@ -1,27 +1,52 @@
-function submitLoginForm(form) {
-    let error = false;
+let loginLoading = false;
+function submitLoginForm(event, redirect) {
+    event.preventDefault();
+    if (!loginLoading) {
+        let form = event.target;
+        let error = false;
 
-    let username = form.username;
-    let password = form.password;
+        let username = form.username;
+        let password = form.password;
 
-    hideError(username);
-    hideError(password);
+        hideError(username);
+        hideError(password);
 
-    if (username.value == "") {
-        showError(username, "Username or email is required");
-        error = true;
+        if (username.value == "") {
+            showError(username, "Username is required");
+            error = true;
+        }
+        if (password.value == "") {
+            showError(password, "Password is required");
+            error = true;
+        }
+        if (error) {
+            return;
+        }
+
+        loginLoading = true;
+        document.getElementById("login-submit").style.background = "#ddd";
+        const formData = new FormData(form);
+
+        fetch('login.php?redirect=' + redirect, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.href = data.redirect;
+                } else {
+                    showLoginServerError(data.error);
+                }
+            })
+            .catch(error => {
+                showLoginServerError(error + ' [this is a programming error, please send this error to the staff providing enough context]');
+            })
+            .finally(() => {
+                loginLoading = false
+                document.getElementById("login-submit").style.background = "#fff";
+            });
     }
-    if (password.value == "") {
-        showError(password, "Password is required");
-        error = true;
-    }
-    if (error) {
-        shakeElement(document.getElementById("login-page"), 500);
-    }
-    if (error) {
-        return false;
-    }
-    return true;
 }
 
 function hideError(element) {
@@ -52,12 +77,14 @@ function showError(element, errorText) {
         errorBox.style.maxHeight = (errorBox.scrollHeight + 1) + "px";
         errorBox.style.opacity = "1";
     }
+    //shakeElement(document.getElementById("login-page"), 500);
 }
 
 function shakeElement(element, duration) {
-    element.style.animation = `shake ${duration}ms`;
+    element.classList.add('shake');
+
     setTimeout(() => {
-        element.style.animation = "";
+        element.classList.remove('shake');
     }, duration);
 }
 
@@ -66,10 +93,10 @@ function showPassword(icon) {
     input.forEach(i => {
         if (i.type === "password") {
             i.type = "text";
-            icon.src = "assets/unlock.png";
+            icon.src = "assets/images/unlock.png";
         } else {
             i.type = "password";
-            icon.src = "assets/lock.png";
+            icon.src = "assets/images/lock.png";
         }
     });
 }
@@ -94,7 +121,11 @@ function resetErrorForAllForms() {
     });
 }
 
-function showLoginServerError() {
+function showLoginServerError(error) {
     let errorBox = document.getElementById("login-server-error");
+    let errorSnip = document.createElement("span");
+    errorSnip.textContent = error;
+    errorBox.innerHTML = '';
+    errorBox.appendChild(errorSnip);
     errorBox.style.display = "block";
 }

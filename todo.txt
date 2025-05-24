@@ -4,7 +4,7 @@
 /fix text (html css js) display in snippet.php (lines aren't loaded / tabs suck)
 /make an auto name-finding algorithm in the post section of creator.php
 /make snippet info look cooler in explorer.php
-#add snippets to index.php
+#add snippets to index.php (ho deciso di non metterli)
 /add tags to index.php
 
 /add an actiobar on snippets (in snippet.php) to: add variation - open in editor (clone) - report (maybe)
@@ -13,28 +13,29 @@
 /    - load the snippet in creator.php
 /    - you gotta check that the snippet creator coincides with the username (duh)
 
-#snippet comment section
+#snippet comment section (ho deciso di non metterli, troppo lungo, in caso dopo)
 /snippet rating section
 /snippet report section
 
 /add a site-wide footer div
 /make the login/signup/navbar load programmatically
-make likes and views show better in the explorer
+#make likes and views show better in the explorer (ho deciso di mette solo le views)
 /add challenge creator to creator.php and connect it to challenges
 /make a page system to explorer.php
-add a report system
+#add a report system (ho creato la pagina, il sistema non lo creo)
 good-looking code in editors
 
-add report/delete/draft-delete confirm choice
+add delete/draft-delete confirm choice
 add EVERY page .php error reader and notification system so you can display them
 /make stuff in explorer.php with ajax
 
 /aggiungi controlli su info varie del post di uno snippet
-il sistema di post/save changes fa cagare
+il sistema di post/save changes fa cagare - prova a salvare tutta la roba da postare/salvare in variabili che vengono aggiornate a ogni input: quando apri post
+    semplicemente vedi ste variabili, e quando posti (essendo fatto da js è easy) piji le variabili e le posti senza pijare da oggetti html
 
 /aggiungi il sistema di draft - si possono poi vedere dall'account
-make login system ajax, but reload the page is login is successful
-aggiungi un controllo a creator.php: pija la challenge solo se non è terminata - non può essere sia challenge che variation
+/make login system ajax, but reload the page is login is successful
+/aggiungi un controllo a creator.php: pija la challenge solo se non è terminata - non può essere sia challenge che variation
 aggiungi sitewide icon
 
 

@@ -44,6 +44,10 @@ if (isset($_GET['edit'])) {
 if (isset($_GET['challenge'])) {
     $challengeName = $_GET['challenge'];
     $foundChallenge = true;
+} else if (isset($_COOKIE['challengeCookie'])) {
+    $challengeName = $_COOKIE['challengeCookie'];
+    $foundChallenge = true;
+    setcookie('challengeCookie', '', 0, '/');
 } else if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
     $foundVariation = true;
@@ -51,10 +55,6 @@ if (isset($_GET['challenge'])) {
     $name = $_COOKIE['variationCookie'];
     $foundVariation = true;
     setcookie('variationCookie', '', 0, '/');
-} else if (isset($_COOKIE['challengeCookie'])) {
-    $challengeName = $_COOKIE['challengeCookie'];
-    $foundChallenge = true;
-    setcookie('challengeCookie', '', 0, '/');
 }
 
 list($html, $css, $js) = null;
@@ -72,9 +72,17 @@ if ($foundChallenge) {
     if ($dbcon != -1) {
         $q1 = "SELECT * from challenges where name = $1";
         $result = pg_query_params($dbcon, $q1, array($challengeName));
-        if (pg_fetch_array($result, null, PGSQL_ASSOC)) {
-            $foundC = true;
+        if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+            $q2 = "SELECT * from challenges where name = $1 and date_end >= CURRENT_DATE";
+            $result2 = pg_query_params($dbcon, $q2, array($challengeName));
+            if ($tuple2 = pg_fetch_array($result2, null, PGSQL_ASSOC)) {
+                $foundC = true;
+            } else {
+                //dije challenge terminata
+                header('Location: challenge_selected.php?name=' . $tuple['name']);
+            }
         } else {
+            //dije challenge non trovate
             header('Location: challenges.php');
         }
     }
@@ -183,7 +191,7 @@ if ($name != '' && !$found) {
                 <?php if ($foundVariation && $found) {
                     echo '<div class="post-variation-container">';
                     echo '<span class="post-variation-subtext">Posting as variation of <span class="post-variation-text">' . $type . '</span> by</span>';
-                    echo '<div class="post-variation-user" onclick="location.href = \'account2.php?username=' . $creator . '\'">';
+                    echo '<div class="post-variation-user" onclick="location.href = \'account.php?username=' . $creator . '\'">';
                     echo '<div class="post-variation-pfp"></div>';
                     echo '<span class="post-variation-text">' . $creator . '</span>';
                     echo '</div>';
@@ -332,7 +340,7 @@ if ($name != '' && !$found) {
                     <div class="variation-container">
                         <span class="variation-subtext">Creating a variation of <a href="snippet.php?name=<?php echo $name ?>"
                                 class="variation-text"><?php echo $type ?></a> by</span>
-                        <div class="variation-user" onclick="location.href = 'account2.php?username=<?= $creator ?>'">
+                        <div class="variation-user" onclick="location.href = 'account.php?username=<?= $creator ?>'">
                             <div class="variation-pfp"></div>
                             <span class="variation-text"><?php echo $creator ?></span>
                         </div>

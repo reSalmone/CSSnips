@@ -192,6 +192,8 @@ function randomString(length) {
 }
 
 function openPost(event) {
+    closeDrafts();
+    closeLoad();
     event.stopPropagation();
     document.getElementById('post-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(50%)';
@@ -472,6 +474,7 @@ function closeLoad() {
 
 function openDrafts(event) {
     closeLoad();
+    closePost();
     event.stopPropagation();
     document.getElementById('drafts-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(30%)';

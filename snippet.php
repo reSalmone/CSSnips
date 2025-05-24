@@ -93,7 +93,58 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
 <body>
     <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
     <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
-    <div id="rest" onclick="closeLogin(); closeSignup();">
+
+    <div class="center-div report-center-div" id="report-center-div">
+        <div class="report-page">
+            <div class="report-title-container">
+                <span class="report-title">Report snippet</span>
+                <span class="report-subtitle">Select a report reason</span>
+            </div>
+            <form id="report-form" class="report-form" onsubmit="reportFormSubmit(event);">
+                <div class="report-radio-container">
+                    <label for="copyright" class="report-label">
+                        <input type="radio" id="copyright" name="reportReason" class="report-radio">
+                        <div class="radio-title-container">
+                            <span class="radio-title">Copyright violation</span>
+                            <span class="radio-subtitle">Choose this if you believe this post infringes on someone's
+                                intellectual property or copyrighted content</span>
+                        </div>
+                    </label>
+                    <label for="inappropriate" class="report-label">
+                        <input type="radio" id="inappropriate" name="reportReason" class="report-radio">
+                        <div class="radio-title-container">
+                            <span class="radio-title">Misleading or Inappropriate Content</span>
+                            <span class="radio-subtitle">Select this if this post contains false, misleading, or
+                                inappropriate information that may deceive users or promote harmful actions</span>
+                        </div>
+                    </label>
+                    <label for="spam" class="report-label">
+                        <input type="radio" id="spam" name="reportReason" class="report-radio">
+                        <div class="radio-title-container">
+                            <span class="radio-title">Spam or Malicious Content</span>
+                            <span class="radio-subtitle">Report this if this post seems to be spam, promotes phishing,
+                                or contains malicious intent or links</span>
+                        </div>
+                    </label>
+                    <label for="other" class="report-label">
+                        <input type="radio" id="other" name="reportReason" class="report-radio">
+                        <div class="radio-title-container">
+                            <span class="radio-title">Other</span>
+                            <span class="radio-subtitle">If your reason doesn't fit the categories above, select this
+                                and provide more details in the subsequent field</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="report-textarea-container">
+                    <span class="report-textarea-title">Write anything that will help us verify your claim, like details or links</span>
+                    <textarea class="report-textarea" name="reportComment" spellcheck="false" placeholder="Report comment..."></textarea>
+                </div>
+                <button type="submit" class="report-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport();">
         <div class="snippet-page">
             <?php if ($variationOf != null) {
                 $v_creator = null;
@@ -108,7 +159,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
 
                 echo '<div class="variation-container">';
                 echo '<span class="variation-subtext">Variation of <a href="snippet.php?name=' . $variationOf . '" class="variation-text">' . $v_type . '</a> by</span>';
-                echo '<div class="variation-user" onclick="location.href = \'account2.php?username=' . $v_creator . '\'">';
+                echo '<div class="variation-user" onclick="location.href = \'account.php?username=' . $v_creator . '\'">';
                 echo '<div class="variation-pfp"></div>';
                 echo '<span class="variation-text">' . $v_creator . '</span>';
                 echo '</div>';
@@ -166,7 +217,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
             <?php if ($found): ?>
                 <div class="data-container">
                     <div class="data-left">
-                        <div class="data-user" onclick="location.href = 'account2.php?username=<?= $creator ?>'">
+                        <div class="data-user" onclick="location.href = 'account.php?username=<?= $creator ?>'">
                             <span class="data-subtext"><?php echo capitalizeProper($type) . ' by '; ?></span>
                             <div class="data-pfp"></div>
                             <span class="data-text"><?php echo $creator; ?></span>
@@ -254,16 +305,17 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             <span>Clone</span>
                         </button>
                         <?php if ($variationOf == null) { ?>
-                        <button class="actions-button" onclick="window.location = 'creator.php?variation=<?php echo $name ?>'">
-                            <div class='actions-svg'>
-                                <svg viewBox='0 0 256 256'>
-                                    <path
-                                        d='M106 74.2A21.2 21.2 90 0084.8 95.4V201.4A21.2 21.2 90 00106 222.6H190.8A21.2 21.2 90 00212 201.4V95.4A21.2 21.2 90 00190.8 74.2H106ZM169.6 53A21.2 21.2 90 00148.4 31.8H63.6A21.2 21.2 90 0042.4 53V159A21.2 21.2 90 0063.4 180.2'
-                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
-                                </svg>
-                            </div>
-                            <span>Add variation</span>
-                        </button>
+                            <button class="actions-button"
+                                onclick="window.location = 'creator.php?variation=<?php echo $name ?>'">
+                                <div class='actions-svg'>
+                                    <svg viewBox='0 0 256 256'>
+                                        <path
+                                            d='M106 74.2A21.2 21.2 90 0084.8 95.4V201.4A21.2 21.2 90 00106 222.6H190.8A21.2 21.2 90 00212 201.4V95.4A21.2 21.2 90 00190.8 74.2H106ZM169.6 53A21.2 21.2 90 00148.4 31.8H63.6A21.2 21.2 90 0042.4 53V159A21.2 21.2 90 0063.4 180.2'
+                                            stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                    </svg>
+                                </div>
+                                <span>Add variation</span>
+                            </button>
                         <?php } ?>
                         <?php if (isset($_SESSION['username']) && $creator == $_SESSION['username']) { ?>
                             <button class="actions-button" id="actions-important"
@@ -277,7 +329,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                 </div>
                                 <span>Edit snippet</span>
                             </button>
-                            <button class="actions-button" id="actions-important" onclick="location.href = 'delete.php?name=<?php echo $name ?>'">
+                            <button class="actions-button" id="actions-important"
+                                onclick="location.href = 'delete.php?name=<?php echo $name ?>'">
                                 <div class='actions-svg'>
                                     <svg viewBox='0 0 256 256'>
                                         <path
@@ -290,7 +343,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                         <?php } ?>
                     </div>
                     <div class="right-actions-container">
-                        <button class="actions-button" id="actions-important">
+                        <button class="actions-button" id="actions-important" onclick="openReport(event);">
                             <div class='actions-svg'>
                                 <svg viewBox='0 0 256 256'>
                                     <path
@@ -313,10 +366,11 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             <?php
                             if (empty($tags)) {
                                 echo '<span class="tags-no-tags">No tags</span>';
-                            } else { 
+                            } else {
                                 foreach ($tags as $tag): ?>
-                                <div class="tags-tag"><?= htmlspecialchars($tag) ?></div>
-                            <?php endforeach; } ?>
+                                    <div class="tags-tag" onclick="location.href = 'explorer.php?search=<?= htmlspecialchars($tag) ?>'"><?= htmlspecialchars($tag) ?></div>
+                                <?php endforeach;
+                            } ?>
                         </div>
                     </div>
                     <!--IF IT'S NOT A VARIATION, IT CAN THEN HAVE OTHER VARIATIONS-->
@@ -353,7 +407,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                                         });
                                                     </script>';
                                             echo '<div class="info-variations-info">';
-                                            echo '<div class="info-variations-info-creator" onclick="location.href = \'account2.php?username=' . $va_tuple['creator'] . '\'">';
+                                            echo '<div class="info-variations-info-creator" onclick="location.href = \'account.php?username=' . $va_tuple['creator'] . '\'">';
                                             echo '<div class="info-variations-info-pfp"></div>';
                                             echo '<span>' . $va_tuple['creator'] . '</span>';
                                             echo '</div>';

@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 session_start();
 $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
 
@@ -29,8 +30,8 @@ if (empty($username) || empty($password) || empty($email) || empty($emailConfirm
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or signUpError("Connection to database refused");
 if ($dbcon) { //se la connessione è correttamente stabilita
-    $q1 = "SELECT * from users where ILIKE $1";
-    $q2 = "SELECT * from users where ILIKE $1";
+    $q1 = "SELECT * from users where username ILIKE $1";
+    $q2 = "SELECT * from users where email ILIKE $1";
 
     $resultUsername = pg_query_params($dbcon, $q1, array($username));
     $tupleUsername = pg_fetch_array($resultUsername, null, PGSQL_ASSOC);
@@ -41,7 +42,7 @@ if ($dbcon) { //se la connessione è correttamente stabilita
     $resultEmail = pg_query_params($dbcon, $q2, array($email));
     $tupleEmail = pg_fetch_array($resultEmail, null, PGSQL_ASSOC);
     if ($tupleEmail) {
-        signUpError("Email already exists");
+        signUpError("Email is already registered");
     }
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -53,14 +54,12 @@ if ($dbcon) { //se la connessione è correttamente stabilita
 
     $_SESSION['username'] = $username;
     session_regenerate_id();
-    header('Location:' . $redirect);
+    echo json_encode(['success' => true, 'redirect' => $redirect]);
     exit();
 }
 
 function signUpError($error) {
-    global $redirect;
-    $_SESSION['signup_error'] = "$error";
-    header('Location: ' . $redirect);
+    echo json_encode(['success' => false, 'error' => $error]);
     exit();
 }
 ?>

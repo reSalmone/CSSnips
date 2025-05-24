@@ -11,6 +11,7 @@ if (!isset($_SESSION['username']) || !isset($_POST['snippet'])) {
 
 $user = $_SESSION['username'];
 $snip_id = $_POST['snippet'];
+file_put_contents("debug_log.txt", print_r($_POST, true), FILE_APPEND);
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 if ($dbcon != -1) {
@@ -45,8 +46,8 @@ if ($dbcon != -1) {
         } 
     }
     $q_snip = "SELECT * FROM snips_with_likes WHERE id = $1";
-    $res_snip = pg_query_params($dbcon, $q_snip, $snip_id);
-    $tupla_snip = (pg_fetch_array($res_snip, null, PGSQL_ASSOC));
+    $res_snip = pg_query_params($dbcon, $q_snip,array($snip_id));
+    $tuple_snip = (pg_fetch_array($res_snip, null, PGSQL_ASSOC));
     $snip_likes=$tuple_snip['challenge_likes'];
 
     // Stampa in formato JSON parte dell'array contenente le ricette

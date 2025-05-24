@@ -155,7 +155,7 @@ $is_challenge_active= false;
                                                 $result_check = pg_query_params($dbcon, $q_check, array($user_id, $snip_name));
                                                 $is_checked=pg_num_rows($result_check);
                                                 $checkValue = $is_checked > 0 ? "checked" : "";
-                                                echo "<input type='checkbox' data-snippet='".$snip_name."' " . $checkValue ." id='snip-like-checkbox'>";
+                                                echo "<input type='checkbox' data-snippet='".$snip_name."' " . $checkValue ." class='snip-like-checkbox'>";
                                                 $snip_likes=$tuple['challenge_likes'];
                                             }
                                         }
@@ -169,7 +169,7 @@ $is_challenge_active= false;
                                                 </svg>
                                             </div>
                                         </label>';
-                                    echo '<p class="info-like" id="data-liked-value">'.$snip_likes.'</p>';
+                                    echo '<p class="info-like" id="data-liked-value-'.$snip_name.'">'.$snip_likes.'</p>';
   
                                 }
                                 else{
@@ -237,7 +237,7 @@ $is_challenge_active= false;
         <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
-
+<script src="assets/scripts/challenge_selected.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
 <script src="assets/scripts/explorer.js"></script>

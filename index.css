@@ -302,13 +302,135 @@
 .activec-box {
     width: 70%;
     height: 80%;
-    background: var(--color4);
+    background: var(--color2);
     overflow: hidden;
+    cursor: pointer;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+}
+
+.activec-box:hover{
+    background-color: color-mix(in srgb, var(--color2) 90%, black);
+    transform: translateY(4px);
+    transition:transform .2s;
+}
+
+.contest-month {
+    color: var(--color4);
+    font-size: 35px;
+    font-weight: bold;
+    padding: 1rem;
+}
+
+.contest-content {
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-items: center;
+    gap:20px;
+    
+}
+
+.actions-button {
+    grid-area: f;
+    position:relative;
+    align-self: center;
+    justify-self: center;
+    z-index: 1;
+    outline: 0;
+    border: 0;
+    background: var(--color5);
+    color: var(--color4);
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+    
+}
+.actions-button:hover {
+    background: var(--color5-darker);
+}
+.actions-button:active {
+    background: var(--color5-darker);
+}
+
+.actions-svg {
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+}
+
+
+.data{
+    align-self: center;
+    justify-self:start;
+
+}
+
+.data .range {
+    position: relative;
+    background-color: var(--color4);
+    width: 100%;
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+
+}
+
+.data .range .fill {
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: var(--color6);
+    height: 100%;
+    border-radius: 0.25rem;
+}
+
+.data-days {
+    color: var(--color6);
+    font-size: 20px;
+    padding-left: 3%;
+    font-weight: bold;
+    padding: 0.75rem;
+    justify-self: start;
+    text-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+}
+
+.nicon-target {
+    align-self: center;
+    justify-self: center;
+    width: 60%;
+    height: 70%;
+}
+
+.contest-background-target {
+    grid-area: c;
+    --s: 50px;
+    width: 100%;
+  height: 100%;
+  --color: color-mix(in srgb, var(--color1) 87%, white);
+  background-color: color-mix(in srgb, var(--color1) 87%, black);
+  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
+      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+  background-size: var(--s) var(--s);
+
+    display:grid;
+    align-items: center;
+    justify-items: center;
+
 }
 
 .activec-arrow {
@@ -320,3 +442,158 @@
     align-self: center;
     rotate: 90deg;
 }
+
+
+
+.activec-snips-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    overflow: hidden;
+    position: relative;
+    width: 70%;
+    height: 80%;
+    background: var(--color2);
+    cursor: pointer;
+    border-radius: 20px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+}
+
+
+.slidesnip {
+    width: 100%;
+    height: 100%;
+    background: var(--color2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.slidesnip-object-left {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 0 5px;
+    animation-play-state: running;
+}
+
+.slidesnip-object-left {
+    animation: move-left 30s linear infinite;
+}
+
+.slidesnip:hover .slideshow-object-left{
+    animation-play-state: paused;
+}
+
+@keyframes move-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.search-output {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+.search-output .output-snip {
+    height: 350px;
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color1-brighter);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.search-output .output-preview {
+    background: var(--color4);
+    border-radius: 10px;
+    width: 100%;
+    height: 90%;
+    border: 0;
+}
+
+.search-output .info {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color4);
+    font-size: 20px;
+    overflow: hidden;
+}
+
+.info-views {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
+
+.info-subtext {
+    font-size: 20px;
+    font-style: italic;
+    color: var(--color4-placeholder);
+}
+
+.info-creator {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.info-pfp {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background: var(--color4);
+}
+
+.snip-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    width: 100%; 
+    gap: 10px;
+}
+
+.info-like {
+    font-size: 30px;
+    color: var(--color4);
+}
+
+.output-snip-opener {
+    position: absolute;
+    right: 20px;
+    bottom: 70px;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--color2);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.output-snip-opener:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.output-snip-opener:active {
+    background: rgba(0, 0, 0, 0.2);
+}
+

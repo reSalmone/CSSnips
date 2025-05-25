@@ -288,6 +288,11 @@
     .activec {
         flex-direction: column;
         align-items: center;
+        width: 100%;
+    }
+
+    .activec-container {
+        width: 100%;
     }
     
     .activec-arrow {

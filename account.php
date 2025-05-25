@@ -1,10 +1,15 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["username"])) {
+if (!isset($_SESSION["username"]) && !isset($_GET["username"])) {
   header("Location: index.php");
 }
-$redirect = 'account.php';
+
+if (isset($_GET["username"])) {
+  $redirect = 'account.php?username=' . htmlspecialchars($_GET["username"]);
+} else {
+  $redirect = 'account.php';
+}
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 
@@ -120,7 +125,7 @@ if ($dbcon != -1) {
               <?php echo "<p>Bio:" . htmlspecialchars($bio) . "</p>" ?>
               <!-- DA RIVEDERE -->
               <?php
-              if ($username != $target_username && $target_username != '') {
+              if ($username != $target_username && $target_username != '' && $username != '') {
                 /*qua bisogna mettere il pulsante per seguire gli altri utenti*/
                 $is_following = false;
                 $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
@@ -188,16 +193,17 @@ if ($dbcon != -1) {
           </section>
 
           <!-- Funzionalità sotto, ciascuna occupa una riga intera -->
+          <?php $a = $target_username == '' ? $username : $target_username; ?>
           <section class="funzioni-container">
-            <div class="funzione-box">
+            <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=activity'">
               <div class="funzione-text">Activity</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_codici) ?></div>
             </div>
-            <div class="funzione-box">
+            <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=liked'">
               <div class="funzione-text">Likes</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_liked ?? 0) ?></div>
             </div>
-            <div class="funzione-box">
+            <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=watchlist'">
               <div class="funzione-text">Watchlist</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_saved ?? 0) ?></div>
             </div>

@@ -35,7 +35,7 @@
         </div>
         <div class="footer-list">
             <a href="index.php" class="footer-link-title">Information</a>
-            <a href="index.php" class="footer-link-subtitle">About us</a>
+            <a href="about_us.php" class="footer-link-subtitle">About us</a>
             <a href="index.php" class="footer-link-subtitle">Contact us</a>
         </div>
         <div class="footer-list">

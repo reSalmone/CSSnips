@@ -18,10 +18,24 @@ if (file_exists(__DIR__ . "\\snippets\\" . $name)) {
         $tupleFileName = pg_fetch_array($resultFileName, null, PGSQL_ASSOC);
         if ($tupleFileName) {
 
+            //remove liked
+            $qremoveLike = "UPDATE users SET likedsnippets = array_remove(likedsnippets, $1) WHERE $1 = ANY(likedsnippets);;";
+            $dataRemoveLike = pg_query_params($dbcon, $qremoveLike, array($name));
+            if (!$dataRemoveLike) {
+                deleteError('Error during like removal from all users removal: ' . pg_last_error($dbcon));
+            }
+
+            //remove saved
+            $qremoveSave = "UPDATE users SET savedsnippets = array_remove(savedsnippets, $1) WHERE $1 = ANY(savedsnippets);";
+            $dataRemoveSave = pg_query_params($dbcon, $qremoveSave, array($name));
+            if (!$dataRemoveSave) {
+                deleteError('Error during save removal from all users removal: ' . pg_last_error($dbcon));
+            }
+
             $q2 = "DELETE FROM snips WHERE file_location = $1";
             $data = pg_query_params($dbcon, $q2, array($name));
             if (!$data) {
-                deleteError('Error during post removal: ' . pg_last_error($dbcon));
+                deleteError('Error during snippet removal: ' . pg_last_error($dbcon));
             }
 
             $path = __DIR__ . "\\snippets\\" . $name;

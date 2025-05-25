@@ -52,8 +52,9 @@
 .form-title {
     color: #ffffff;
     text-align: center;
-    font-size: 50px;
+    font-size: 3.1rem;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .form-form {
@@ -72,7 +73,7 @@
     background: #ffffff;
     color: #222;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .form-input-container {
@@ -90,7 +91,7 @@
     background-color: transparent;
     text-decoration-color: #ffffff;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 1rem;
 }
 .form-input::placeholder {
     color: rgba(255, 255, 255, 0.8);
@@ -136,13 +137,13 @@
 
 .form-forgot-password {
     color: #ffffff;
-    font-size: 14px;
+    font-size: 0.9rem;
     text-align: left;
 }
 
 .form-switch-form {
     color: #ffffff;
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 .form-switch-form span {
     text-decoration: underline;
@@ -151,7 +152,7 @@
 
 .remember {
     color: #ffffff;
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
 .form-input-and-error-container {
@@ -173,7 +174,7 @@
 }
 .form-error-text {
     color: rgba(255, 0, 0, 0.6);
-    font-size: 14px;
+    font-size: 0.9rem;
     white-space: pre;
 }
 .form-error-icon {

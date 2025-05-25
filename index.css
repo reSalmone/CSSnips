@@ -31,7 +31,7 @@
 
 .title {
     color: var(--color4);
-    font-size: 100px;
+    font-size: 6.25rem;
     margin: 0;
     font-weight: bold;
     background: linear-gradient(to right, var(--color2), var(--color4));
@@ -41,7 +41,7 @@
 
 .subtitle {
     color: var(--color4);
-    font-size: 30px;
+    font-size: 1.9rem;
     margin: 0;
 }
 
@@ -140,14 +140,14 @@
 
 .snippet-title {
     color: var(--color2);
-    font-size: 30px;
+    font-size: 1.9rem;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
 }
 
 .snippet-title:hover {
-    font-size: 40px;
+    font-size: 2.5rem;
 }
 
 .code-box {
@@ -170,14 +170,14 @@
 
 .secondary-title {
     color: var(--color4);
-    font-size: 70px;
+    font-size: 4.3rem;
     margin: 0;
     font-weight: bold;
 }
 
 .secondary-subtitle {
     color: var(--color4);
-    font-size: 30px;
+    font-size: 1.9rem;
     margin: 0;
 }
 
@@ -256,6 +256,7 @@
     padding: 10px 20px;
     cursor: pointer;
     transition: .1s;
+    font-size: 1.2rem;
 }
 
 .slideshow-item:hover {
@@ -282,7 +283,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin-bottom: 100px;
 }
 
 .activec-container {
@@ -296,7 +296,7 @@
 
 .activec-box-title {
     color: var(--color4);
-    font-size: 40px;
+    font-size: 2.5rem;
     margin: 0;
 }
 
@@ -322,7 +322,7 @@
 
 .contest-month {
     color: var(--color4);
-    font-size: 35px;
+    font-size: 2.2rem;
     font-weight: bold;
     padding: 1rem;
 }
@@ -332,6 +332,7 @@
     align-self: center;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-items: center;
     gap:20px;
@@ -339,6 +340,7 @@
 }
 
 .actions-button {
+    grid-area: f;
     position:relative;
     align-self: center;
     justify-self: center;
@@ -350,7 +352,7 @@
     border-radius: 5px;
     padding: 20px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -368,14 +370,14 @@
 .actions-svg {
     top: 0;
     left: 0;
-    height: 20px;
-    width: 20px;
+    height: 1.2rem;
+    width: 1.2rem;
 }
 
 
 .data{
     align-self: center;
-    justify-self:center;
+    justify-self:start;
 
 }
 
@@ -400,11 +402,11 @@
 
 .data-days {
     color: var(--color6);
-    font-size: 20px;
+    font-size: 1.2rem;
     padding-left: 3%;
     font-weight: bold;
     padding: 0.75rem;
-    justify-self: center;
+    justify-self: start;
     text-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 
@@ -416,7 +418,8 @@
 }
 
 .contest-background-target {
-    --s: 50px;
+    grid-area: c;
+    --s: 3.1rem;
     width: 100%;
   height: 100%;
   --color: color-mix(in srgb, var(--color1) 87%, white);
@@ -432,8 +435,8 @@
 }
 
 .activec-arrow {
-    width: 50px;
-    height: 50px;
+    width: 3.1rem;
+    height: 3.1rem;
     pointer-events: none;
     user-select: none;
     filter: brightness(0) invert(1);
@@ -483,6 +486,10 @@
     animation: move-left 30s linear infinite;
 }
 
+.slidesnip:hover .slideshow-object-left{
+    animation-play-state: paused;
+}
+
 .search-output {
     width: 100%;
     display: flex;
@@ -519,7 +526,7 @@
     justify-content: space-between;
     align-items: center;
     color: var(--color4);
-    font-size: 20px;
+    font-size: 1.2rem;
     overflow: hidden;
 }
 
@@ -530,7 +537,7 @@
 }
 
 .info-subtext {
-    font-size: 20px;
+    font-size: 1.2rem;
     font-style: italic;
     color: var(--color4-placeholder);
 }
@@ -559,7 +566,7 @@
 }
 
 .info-like {
-    font-size: 30px;
+    font-size: 1.9rem;
     color: var(--color4);
 }
 
@@ -568,7 +575,7 @@
     right: 20px;
     bottom: 70px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.9rem;
     color: var(--color2);
     padding: 10px;
     border-radius: 5px;
@@ -580,127 +587,4 @@
 
 .output-snip-opener:active {
     background: rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width:1200px){
-
-.activec {
-    height: 90%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.activec-container {
-    width: 80%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.contest-content {
-    justify-self: center;
-    align-self: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-items: center;
-    gap:15px;
-    
-}
-
-.actions-button {
-    position:relative;
-    align-self: center;
-    justify-self: center;
-    z-index: 1;
-    outline: 0;
-    border: 0;
-    background: var(--color5);
-    color: var(--color4);
-    border-radius: 5px;
-    padding: 15px;
-    cursor: pointer;
-    font-size: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1px;
-    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
-    
-}
-
-.activec-box {
-    width: 70%;
-    height: 80%;
-    background: var(--color2);
-    overflow: hidden;
-    cursor: pointer;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
-}
-
-.contest-month {
-    color: var(--color4);
-    font-size: 35px;
-    font-weight: bold;
-    padding: 1rem;
-}
-
-.nicon-target {
-    align-self: center;
-    justify-self: center;
-    width: 40%;
-    height: 90%;
-}
-
-.contest-background-target {
-    --s: 50px;
-    width: 100%;
-  height: 150px;
-  --color: color-mix(in srgb, var(--color1) 87%, white);
-  background-color: color-mix(in srgb, var(--color1) 87%, black);
-  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
-      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
-  background-size: var(--s) var(--s);
-
-    display:grid;
-    align-items: center;
-    justify-items: center;
-
-}
-
-}
-@media (max-width:750px){
-
-.contest-content {
-    justify-self: center;
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-items: center;
-    gap:15px;
-    
-}
-
-.contest-month {
-    color: var(--color4);
-    font-size: 30px;
-    font-weight: bold;
-    padding: 1rem;
-}
-
-
-
 }

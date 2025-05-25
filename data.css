@@ -43,3 +43,8 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance:none;
 }
+
+html {
+    /*if you want to use this just set YOUR value to xrem where x is previousPixelSize/16 */
+    font-size: clamp(10px, 1vw, 100px);
+}

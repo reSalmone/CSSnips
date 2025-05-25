@@ -278,11 +278,22 @@
 }
 
 .activec {
-    height: 75vh;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+
+@media (max-width: 768px) {
+    .activec {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .activec-arrow {
+        rotate: 0;
+    }
+
 }
 
 .activec-container {

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Toggle del menù a tendina
+  
   const menuIcon = document.getElementById('menu-icon');
   const navMenu = document.getElementById('nav');
 
@@ -10,14 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // parte per le finestre di followers e following
   let currentlyOpen = null;
 
   window.toggleList = function(type) {
   const thisList = document.getElementById(`${type}-list`);
   if (!thisList) return;
 
-  // Toglie o aggiunge la classe 'active' indipendentemente dallo stato dell'altra lista
   if (thisList.classList.contains('active')) {
     thisList.classList.remove('active');
   } else {
@@ -25,8 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 };
 
-
-  // Funzione follow/unfollow
   window.toggleFollow = function (username, isFollowing) {
     if (isFollowing) {
       const confirmUnfollow = confirm("Do you want to unfollow this user?");

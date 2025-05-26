@@ -11,7 +11,7 @@ if (isset($_GET["username"])) {
   $redirect = 'account.php';
 }
 
-$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
+$dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
 
 $username = $_SESSION['username'] ?? '';
 $target_username = $_GET['username'] ?? '';
@@ -105,9 +105,8 @@ if ($dbcon != -1) {
 </head>
 
 <body>
-  <!-- Header con il nome del sito e il menu a tendina -->
-  <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
-  <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
+  <?php include 'navbar-code.php'; ?>
+  <?php include 'login-signup-code.php'; ?>
   <div id="rest" onclick="closeLogin(); closeSignup();">
 
     <?php
@@ -116,22 +115,18 @@ if ($dbcon != -1) {
       <main class="profilo-container">
 
         <var class="main_var">
-          <!-- Sezione delle informazioni dell'utente -->
           <section class="profilo-info">
             <div class="info-text">
-              <!-- DEVE ESSERE CAMBIATO USERNAME STAMPATO-->
               <?php echo "<h2>" . htmlspecialchars($real_username) . "</h2>" ?>
               <?php echo "<p>Email:" . htmlspecialchars($email) . "</p>" ?>
               <?php echo "<p>Bio:" . htmlspecialchars($bio) . "</p>" ?>
-              <!-- DA RIVEDERE -->
               <?php
               if ($username != $target_username && $target_username != '' && $username != '') {
-                /*qua bisogna mettere il pulsante per seguire gli altri utenti*/
                 $is_following = false;
                 $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
-                $lista = $line2["following"];// PostgreSQL restituisce gli array come stringa tipo: {elem1,elem2,...}
-                $lista = trim($lista, '{}'); // Rimuovi le parentesi graffe
-                $elements = explode(',', $lista); // Split sugli elementi
+                $lista = $line2["following"];
+                $lista = trim($lista, '{}');
+                $elements = explode(',', $lista);
             
                 foreach ($elements as $item) {
                   if (strtolower(trim($item)) == strtolower($target_username)) {
@@ -149,7 +144,6 @@ if ($dbcon != -1) {
             </div>
           </section>
 
-          <!-- Recent Activity (tre codici recenti in orizzontale) -->
           <section class="recent-activity">
             <h2>RECENT ACTIVITY</h2>
             <?php
@@ -192,7 +186,6 @@ if ($dbcon != -1) {
             </div>
           </section>
 
-          <!-- Funzionalità sotto, ciascuna occupa una riga intera -->
           <?php $a = $target_username == '' ? $username : $target_username; ?>
           <section class="funzioni-container">
             <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=activity'">
@@ -204,11 +197,10 @@ if ($dbcon != -1) {
               <div class="funzione-count"><?php echo htmlspecialchars($numero_liked ?? 0) ?></div>
             </div>
             <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=watchlist'">
-              <div class="funzione-text">Watchlist</div>
+              <div class="funzione-text">Saved</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_saved ?? 0) ?></div>
             </div>
 
-            <!-- FOLLOWERS -->
             <div class="funzione-box" onclick="toggleList('followers')">
               <div class="funzione-text">Followers</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_followers ?? 0) ?></div>
@@ -216,16 +208,19 @@ if ($dbcon != -1) {
             <div class="list-container" id="followers-list">
               <?php
               if ($line8 = pg_fetch_array($result8, NULL, PGSQL_ASSOC)) {
-                $lista = $line8["followers"];// PostgreSQL restituisce gli array come stringa tipo: {elem1,elem2,...}
-                $lista = trim($lista, '{}'); // Rimuovi le parentesi graffe
-                $elements = explode(',', $lista); // Split sugli elementi
+                $lista = $line8["followers"];
+                $lista = trim($lista, '{}');
+                $elements = explode(',', $lista);
             
                 if (empty($lista) || $lista === '') {
                   echo "<h3>no followers.</h3>";
                 } else {
                   foreach ($elements as $item) {
                     $clean_item = htmlspecialchars(trim($item));
-                    echo "<div class='list-user' onclick=\"location.href = 'account.php?username=$clean_item'\">" . $clean_item . "</div>";
+                    echo "<div class='list-user' onclick=\"location.href = 'account.php?username=$clean_item'\"> 
+                      <span class='user-name'>$clean_item</span>
+                      <img src='assets/images/omino.png' class='user-icon'>
+                    </div>";
                   }
                 }
               } else {
@@ -234,7 +229,6 @@ if ($dbcon != -1) {
               ?>
             </div>
 
-            <!-- FOLLOWING -->
             <div class="funzione-box" onclick="toggleList('following')">
               <div class="funzione-text">Following</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_following ?? 0) ?></div>
@@ -242,16 +236,19 @@ if ($dbcon != -1) {
             <div class="list-container" id="following-list">
               <?php
               if ($line10 = pg_fetch_array($result10, NULL, PGSQL_ASSOC)) {
-                $lista = $line10["following"];// PostgreSQL restituisce gli array come stringa tipo: {elem1,elem2,...}
-                $lista = trim($lista, '{}'); // Rimuovi le parentesi graffe
-                $elements = explode(',', $lista); // Split sugli elementi
+                $lista = $line10["following"];
+                $lista = trim($lista, '{}');
+                $elements = explode(',', $lista);
             
                 if (empty($lista) || $lista === '') {
                   echo "<h3>no following.</h3>";
                 } else {
                   foreach ($elements as $item) {
                     $clean_item = htmlspecialchars(trim($item));
-                    echo "<div class='list-user' onclick=\"location.href = 'account.php?username=$clean_item'\">" . $clean_item . "</div>";
+                    echo "<div class='list-user' onclick=\"location.href = 'account.php?username=$clean_item'\"> 
+                      <span class='user-name'>$clean_item</span>
+                      <img src='assets/images/omino.png' class='user-icon'>
+                    </div>";
                   }
                 }
               } else {
@@ -276,7 +273,7 @@ if ($dbcon != -1) {
       </main>
       <?php
     }
-    include 'footer-code.php'; ?> <!--FOOTER-->
+    include 'footer-code.php'; ?>
   </div>
   <?php
   pg_free_result($result1);

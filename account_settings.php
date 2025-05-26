@@ -46,9 +46,8 @@ if ($dbcon != -1) {
 
 <body>
 
-  <!-- Header con il nome del sito e il menu a tendina -->
-  <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
-  <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
+  <?php include 'navbar-code.php'; ?> 
+  <?php include 'login-signup-code.php'; ?> 
   <div id="rest" onclick="closeLogin(); closeSignup();">
 
     <?php if ($found) {
@@ -113,7 +112,7 @@ if ($dbcon != -1) {
       </main>
       <?php
     }
-    include 'footer-code.php'; ?> <!--FOOTER-->
+    include 'footer-code.php'; ?>
   </div>
   <?php
   pg_free_result($result);

@@ -223,26 +223,57 @@ h2 {
   overflow-y: auto;
 }
 
-.list-user {
-  padding: 6px 12px; /* riduci un po' il padding verticale e orizzontale */
-  border-radius: 12px; /* aumenta l'arrotondamento degli angoli */
+/* .list-user {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 12px 20px;
   background-color: white;
-  color: var(--color2-brighter);
+  color: var(--color2);
+  border-radius: 30px;
   text-align: center;
-  width: fit-content; /* larghezza adattata al contenuto */
-  margin: 6px auto; /* margine verticale e centratura orizzontale */
-  font-size: 14px; /* un po' più piccolo */
-  border-bottom: none; /* togli il bordo sotto per non creare righe troppo lunghe */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* facoltativo, per un leggero effetto di profondità */
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+} */
+
+.list-user {
+  display: flex; /* cambia da block a flex */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 12px 20px;
+  background-color: white;
+  color: var(--color2);
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  text-align: left; /* opzionale */
 }
 
+.user-name {
+  flex: 1;
+  text-align: left;
+}
+
+.user-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+}
+
+
 .list-user:hover {
-  background-color: var(--color2); /* o un colore a tua scelta */
-  color: white;
-  cursor: pointer;
-  transform: scale(1.02); /* leggera ingranditura */
-  transition: all 0.2s ease-in-out;
-  border-radius: 12px;
+  background-color: #f0f0f0;
+  transform: scale(1.03);
 }
 
 .list-user:last-child {

@@ -1,5 +1,4 @@
 @import './data.css';
-/* Reset base */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,14 +11,12 @@ body {
   color: white;
 }
 
-/* Main Settings Container */
 .settings-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Main Content */
 .main_var {
   padding: 20px;
   background-color: var(--color2);
@@ -34,7 +31,6 @@ label {
   color: white;
 }
 
-/* Section - Contact Details */
 .section {
   margin-bottom: 30px;
   background-color: var(--color2-brighter);
@@ -42,9 +38,6 @@ label {
   border-radius: 10px;
 }
 
-
-
-/* Form Fields */
 input[type="email"],
 input[type="password"],
 input[type="text"],
@@ -68,7 +61,6 @@ textarea {
   resize: vertical;
 }
 
-/* Button Styles */
 .btn {
   background-color: white;
   color: black;
@@ -86,7 +78,6 @@ textarea {
   color: white;
 }
 
-/* Error Styles */
 input.error {
   border: 2px solid red;
 }
@@ -99,8 +90,6 @@ input.error {
   display: block;
 }
 
-
-/*INTERFACCIA IN CASO DI ERRORE*/
 .profilo-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -117,10 +106,10 @@ input.error {
 
 .profilo-info {
   display: flex;
-  justify-content: center; /* Centra orizzontalmente */
-  align-items: center; /* Centra verticalmente */
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  flex-direction: column; /* Aggiungi questa per disporre le informazioni in verticale */
+  flex-direction: column;
   padding: 20px;
   background-color: var(--color2-brighter);
   border-radius: 10px;

@@ -13,7 +13,6 @@ function validateEmail() {
   emailInput.classList.remove("error");
   errorSpan.textContent = "";
 
-  // Invia la nuova email al server
   fetch("update_email.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -21,13 +20,13 @@ function validateEmail() {
   })
   .then(response => response.text())
   .then(data => {
-    alert(data);  // puoi migliorare con un messaggio più elegante
+    alert(data); 
   })
   .catch(error => {
     alert("Errore nella richiesta: " + error);
   });
 
-  return false; // blocca il comportamento di default del form
+  return false;
 }
 
 function validatePassword() {
@@ -43,7 +42,6 @@ function validatePassword() {
 
   let valid = true;
 
-  // Validazione password
   if (!passwordRegex.test(passwordVal)) {
     password.classList.add("error");
     passwordError.textContent = "La password deve avere tra 8 e 16 caratteri e contenere almeno un numero.";
@@ -53,7 +51,6 @@ function validatePassword() {
     passwordError.textContent = "";
   }
 
-  // Validazione conferma
   if (passwordVal !== confirmVal) {
     confirm.classList.add("error");
     confirmError.textContent = "Le password non corrispondono.";
@@ -65,7 +62,6 @@ function validatePassword() {
 
   if (!valid) return false;
 
-  // Invia la nuova password al server
   fetch("update_password.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -73,13 +69,13 @@ function validatePassword() {
   })
   .then(response => response.text())
   .then(data => {
-    alert(data);  // messaggio di successo o errore
+    alert(data);
   })
   .catch(error => {
     alert("Errore nella richiesta: " + error);
   });
 
-  return false; // blocca l'invio del form
+  return false;
 }
 
 function updateAccount() {
@@ -101,12 +97,12 @@ function updateAccount() {
   })
   .then(response => response.text())
   .then(data => {
-    alert(data); // Messaggio di successo o errore
-    location.reload(); // Ricarica la pagina per aggiornare i dati
+    alert(data);
+    location.reload();
   })
   .catch(error => {
     alert("Errore durante l'invio: " + error);
   });
 
-  return false; // Impedisce il submit del form
+  return false;
 }

@@ -22,7 +22,7 @@ function copyToClipboard() {
 }
 
 
-function displayCode() {
+async function displayCode() {
     const html = document.getElementById('html-area').value;
     const css = document.getElementById('css-area').value;
     const js = document.getElementById('js-area').value;
@@ -68,6 +68,28 @@ function insertTab(e, textArea) {
         const end = textArea.selectionEnd;
 
         textArea.value = textArea.value.substring(0, start) + '\t' + textArea.value.substring(end);
+        textArea.selectionStart = textArea.selectionEnd = start + 1;
+    }
+}
+
+function insertBrackets(e, textArea) {
+    if (e.key === '{') {
+        e.preventDefault();
+
+        const start = textArea.selectionStart;
+        const end = textArea.selectionEnd;
+
+        textArea.value = textArea.value.substring(0, start) + '{}' + textArea.value.substring(end);
+        textArea.selectionStart = textArea.selectionEnd = start + 1;
+    }
+
+    if (e.key === '(') {
+        e.preventDefault();
+
+        const start = textArea.selectionStart;
+        const end = textArea.selectionEnd;
+
+        textArea.value = textArea.value.substring(0, start) + '()' + textArea.value.substring(end);
         textArea.selectionStart = textArea.selectionEnd = start + 1;
     }
 }

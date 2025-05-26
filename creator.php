@@ -491,21 +491,21 @@ if ($name != '' && !$found) {
                         </div>
                         <textarea class="input-area" id="html-area"
                             oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
-                            onkeydown="insertTab(event, this)" spellcheck="false" placeholder="Html code"><?php
+                            onkeydown="insertTab(event, this);" spellcheck="false" placeholder="Html code"><?php
                             if ($found) {
                                 echo htmlspecialchars($html);
                             }
                             ?></textarea>
                         <textarea class="input-area" id="css-area"
                             oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
-                            onkeydown="insertTab(event, this)" spellcheck="false" placeholder="Css code"><?php
+                            onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false" placeholder="Css code"><?php
                             if ($found) {
                                 echo htmlspecialchars($css);
                             }
                             ?></textarea>
                         <textarea class="input-area" id="js-area"
                             oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
-                            onkeydown="insertTab(event, this)" spellcheck="false" placeholder="JavaScript code"><?php
+                            onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false" placeholder="JavaScript code"><?php
                             if ($found) {
                                 echo htmlspecialchars($js);
                             }

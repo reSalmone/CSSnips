@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head><style>.test {
+	outline: 0;
+	border: 2px solid #ff8800;
+	background: #ffcc00;
+	padding: 10px;
+	font-size: 20px;
+	border-radius: 10px;
+	color: #ff5500;
+	transition: .1s
+}
+
+.test:hover {
+	transform: scale(1.1);
+	border: 2px dotted #ff9900;
+	background: #ffdd00;
+}
+
+.test:active {
+	transition: 0s;
+	outline: 2px solid #ff9900;
+	outline-offset: 3px;
+}</style></head>
+<body><button class="test">
+	<span>This is a test button</span>
+</button><script></script></body>
+</html>

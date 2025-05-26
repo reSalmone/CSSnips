@@ -21,11 +21,13 @@
                 <?php echo "<span>" . htmlspecialchars($_SESSION['username']) . "</span>" ?>
                 <img src="assets/images/omino.png" class="nicon">
                 <div class="dropdown-content">
-                    <a href="account.php">Account</a>
-                    <a href="activity.php">Activity</a>
-                    <a href="watchlist.php">Watchlist</a>
+                    <a href='account.php'>Account</a>
+                    <a href ='activity.php?username=<?php echo urlencode($_SESSION['username']); ?>&type=activity'>Activity</a>
+                    <a href='activity.php?username=<?php echo urlencode($_SESSION['username']); ?>&type=liked'>Likes</a>
+                    <a href='activity.php?username=<?php echo urlencode($_SESSION['username']); ?>&type=watchlist'>Saved</a>
                     <a href="account_settings.php">Account settings</a>
                     <a href="logout.php?redirect=<?php echo $redirect; ?>">Logout</a>
+                </div>
                 </div>
             </button>
         <?php } else {

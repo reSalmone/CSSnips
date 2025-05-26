@@ -164,8 +164,8 @@ h2 {
 }
 
 .output-snip {
-    height: 400px;
-    padding: 10px;
+    height: 25rem;
+    padding: 0.6rem;
     border-radius: 10px;
     background-color: var(--color2);
     display: flex;
@@ -188,12 +188,12 @@ h2 {
 
 .output-snip-opener {
     position: absolute;
-    right: 20px;
-    bottom: 70px;
+    right: 1.2rem;
+    bottom: 4.2rem;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.2rem;
     color: var(--color2);
-    padding: 10px;
+    padding: 0.6rem;
     border-radius: 5px;
 }
 
@@ -288,3 +288,36 @@ h3 {
   text-align: center;
   margin: 10px 0; /* un po' di margine verticale, come gli altri elementi */
 }
+
+
+/* parte da finire */
+.recent-activity {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  overflow-x: auto; /* orizzontale di default */
+}
+
+.snippet {
+  min-width: 300px; /* o dimensione adatta ai tuoi contenuti */
+  flex-shrink: 0;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Mobile: imposta layout verticale e scrollbar verticale 
+@media (max-width: 768px) {
+  .recent-activity {
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 80vh;
+  }
+
+  .snippet {
+    min-width: unset;
+    width: 100%;
+  }
+}*/

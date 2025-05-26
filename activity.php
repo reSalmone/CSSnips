@@ -71,37 +71,36 @@ if ($type != "") {
                 $resultAll = null;
                 $resultPage = null;
                 if ($type == 'activity') {
-                    $q1 = "SELECT * FROM snips WHERE creator ILIKE '$username' ORDER BY likes DESC, views DESC, created_at DESC LIMIT $1 OFFSET $2;"; 
+                    $q1 = "SELECT * FROM snips WHERE creator ILIKE '$username' ORDER BY likes DESC, views DESC, created_at DESC LIMIT $1 OFFSET $2;";
                     $q1All = "SELECT COUNT(*) FROM snips WHERE creator ILIKE '$username';";
                 } else if ($type == 'watchlist') {
                     $q1 = "with abc as(SELECT unnest(savedsnippets) AS names FROM users WHERE username ILIKE '$username') SELECT * FROM snips x join abc y on x.file_location = y.names ORDER BY likes DESC, views DESC, created_at DESC LIMIT $1 OFFSET $2;";
                     $q1All = "with abc as(SELECT unnest(savedsnippets) AS names FROM users WHERE username ILIKE '$username') SELECT count(*) FROM snips x join abc y on x.file_location = y.names;";
                 } else if ($type == 'liked') {
                     $q1 = "with abc as(SELECT unnest(likedsnippets) AS names FROM users WHERE username ILIKE '$username') 
-                            SELECT * FROM snips x join abc y on x.file_location = y.names ORDER BY likes DESC, views DESC, created_at DESC LIMIT $1 OFFSET $2;"; 
+                            SELECT * FROM snips x join abc y on x.file_location = y.names ORDER BY likes DESC, views DESC, created_at DESC LIMIT $1 OFFSET $2;";
                     $q1All = "with abc as(SELECT unnest(likedsnippets) AS names FROM users WHERE username ILIKE '$username') SELECT count(*) FROM snips x join abc y on x.file_location = y.names;";
                 }
                 $resultPage = pg_query_params($dbcon, $q1, array($pageSize, $pageOffset));
                 $resultAll = pg_query($dbcon, $q1All);
                 $totalResults = pg_fetch_row($resultAll)[0];
                 $totalPages = ceil($totalResults / $pageSize);
-                ?>
-                <div class="search-results">
-                    <div class="search-results-left">
-                        <p class="search-results-subtext">Page </p>
-                        <p class="search-results-text"><?= $page ?></p>
-                        <p class="search-results-subtext"> of </p>
-                        <p class="search-results-text"><?= $totalPages ?></p>
-                    </div>
-                    <div class="search-results-right">
-                        <p class="search-results-subtext">Showing </p>
-                        <p class="search-results-text"><?= pg_num_rows($resultPage) ?></p>
-                        <p class="search-results-subtext"> out of </p>
-                        <p class="search-results-text"><?= ($totalResults) ?></p>
-                        <p class="search-results-subtext"> results</p>
-                    </div>
-                </div>
-                <?php if ($totalResults > 0) {
+                if ($totalResults > 0) {
+                    echo '<div class="search-results">
+                            <div class="search-results-left">
+                                <p class="search-results-subtext">Page </p>
+                                <p class="search-results-text"><?= $page ?></p>
+                                <p class="search-results-subtext"> of </p>
+                                <p class="search-results-text"><?= $totalPages ?></p>
+                            </div>
+                            <div class="search-results-right">
+                                <p class="search-results-subtext">Showing </p>
+                                <p class="search-results-text"><?= pg_num_rows($resultPage) ?></p>
+                                <p class="search-results-subtext"> out of </p>
+                                <p class="search-results-text"><?= ($totalResults) ?></p>
+                                <p class="search-results-subtext"> results</p>
+                            </div>
+                        </div>';
                     if (pg_num_rows($resultPage) > 0) {
                         echo '<div class="search-output">';
                         while ($tuple = pg_fetch_assoc($resultPage)) {
@@ -151,7 +150,7 @@ if ($type != "") {
                         echo '</div>';
                     }
                 } else {
-                    echo '<p class="no-snippets-text">No snippets found</p>';
+                    echo '<p class="no-snippets-text" style="display: flex; justify-content: center; align-items: center; height: 100%; text-align: center;">NO SNIPPETS FOUND</p>';
                 }
                 ?>
             </div>

@@ -28,21 +28,23 @@
     grid-template: 
             'a a a a a'1fr
             '. b b c c'1fr
-            '. d d c c'0.75fr
+            '. d d c c'0.5fr
             '. f . c c'0.75fr/0.1fr 1fr 1fr 0.75fr 0.75fr;
-    column-gap:20px;
+    column-gap:2rem;
 }
 
 .contest-title {
     grid-area: a;
+    width:100%;
+    height: 100%;
     color: var(--color4);
-    font-size: 80px;
+    font-size: 6.5rem;
     font-weight: bold;
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
     background-color: color-mix(in srgb, var(--color2) 75%, black);
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
     z-index: 1;
-
+    text-justify: center;
 }
 
 .contest-content {
@@ -54,19 +56,20 @@
     flex-wrap: wrap;
     align-items: start;
     justify-items: center;
-    gap:10px;
+    gap:1rem;
+    padding: 2.5rem 1.5rem 1.5rem 0rem;
 }
 
 .contest-content-title{
     color: color-mix(in srgb, var(--color2-darker) 30%, black);
-    font-size: 30px;
+    font-size: 2.6rem;
     font-weight: bold;
 
 }
 
 .contest-content-subtitle{
     color: color-mix(in srgb, var(--color2) 30%, black);
-    font-size: 20px;
+    font-size: 1.7rem;
     font-weight: bold;
 
 }
@@ -75,7 +78,7 @@
 .contest-background-target {
 
     grid-area: c;
-    --s: 50px;
+    --s: 4rem;
     width: 100%;
   height: 100%;
   --color: color-mix(in srgb, var(--color1) 87%, white);
@@ -91,7 +94,7 @@
 }
 
 .nicon-target {
-    max-height: 300px;
+    max-height: 30rem;
     width: auto;
     display: block;
 }
@@ -107,7 +110,7 @@
 .data .range {
     position: relative;
     background-color: var(--color4);
-    width: 90%;
+    width: 45rem;
     height: 1rem;
     border-radius: 0.25rem;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
@@ -125,7 +128,7 @@
 }
 .data-days {
     color: var(--color6);
-    font-size: 25px;
+    font-size: 2.5rem;
     padding-left: 3%;
     font-weight: bold;
     padding: 0.75rem;
@@ -142,13 +145,13 @@
     background: var(--color5);
     color: var(--color4);
     border-radius: 5px;
-    padding: 20px;
+    padding: 2rem;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 1rem;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 .create-button:hover {
@@ -161,42 +164,18 @@
 .create-svg {
     top: 0;
     left: 0;
-    height: 20px;
-    width: 20px;
+    height: 2rem;
+    width: 2rem;
     
 
-}
-/*
-.data-views-checkmark {
-    grid-area: g;
-    align-self: center;
-    justify-self: center;
-    top: 0;
-    left: 0;
-    height: 24px;
-    width: 24px;
-    transition: 100ms;
-    stroke: var(--color4);
-}
-*/
-
-
-.nicon-trophy {
-    grid-area: e;
-    align-self: center;
-    justify-self: center;
-    width: 200px;
-    height: 200px;
-    filter: saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
-    padding: 0.5rem;
 }
 
 .search-output-div {
     width: 100%;
     height: 100%;
     background: color-mix(in srgb, var(--color2) 75%, black);
-    border-radius: 0px 0px 20px 20px;
-    padding: 20px;
+    border-radius: 0rem 0rem 2rem 2rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
 }
@@ -205,18 +184,18 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding-bottom: 20px;
+    gap: 2rem;
+    padding-bottom: 2rem;
 }
 
 .search-output .output-snip {
-    height: 400px;
-    padding: 10px;
+    height: 35rem;
+    padding: 1rem;
     border-radius: 10px;
     background-color: var(--color2-brighter);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
     position: relative;
     width: 100%;
     min-width: 0;
@@ -239,18 +218,18 @@
     justify-content: space-between;
     align-items: center;
     color: var(--color4);
-    font-size: 20px;
+    font-size: 2rem;
     overflow: hidden;
 }
 
 .info-views {
     display: flex;
     flex-direction: row;
-    gap: 6px;
+    gap: 0.1rem;
 }
 
 .info-subtext {
-    font-size: 20px;
+    font-size: 1.8rem;
     font-style: italic;
     color: var(--color4-placeholder);
 }
@@ -258,13 +237,13 @@
 .info-creator {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 1rem;
     align-items: center;
 }
 
 .info-pfp {
-    width: 30px;
-    height: 30px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 5px;
     background: var(--color4);
 }
@@ -275,11 +254,11 @@
     align-items: center;
     align-content: center;
     width: 100%; 
-    gap: 10px;
+    gap: 0.3rem;
 }
 
 .info-like {
-    font-size: 30px;
+    font-size: 2.5rem;
     color: var(--color4);
 }
 .data-like-save-container input {
@@ -357,12 +336,12 @@
 
 .output-snip-opener {
     position: absolute;
-    right: 20px;
-    bottom: 70px;
+    right: 2rem;
+    bottom: 6rem;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.8rem;
     color: var(--color2);
-    padding: 10px;
+    padding: 1rem;
     border-radius: 5px;
 }
 
@@ -374,34 +353,36 @@
     background: rgba(0, 0, 0, 0.2);
 }
 
+@media (min-width: 910px) and (max-width: 1200px) {
+
+    .search-output {
+        grid-template-columns: repeat(2, 1fr); /* due colonne su tablet */
+        align-items: center;
+    }
+
+}
+
 @media (max-width:910px){
     .contest-info-box {
         display: flex;
         flex-direction: column;
-        row-gap: 20px;
+        row-gap: 2rem;
     }
     .contest-title {
-    color: var(--color4);
-    font-size: 50px;
-    font-weight: bold;
     padding: 1.5rem;
-    background-color: color-mix(in srgb, var(--color2) 75%, black);
-    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
-    z-index: 1;
+    text-align: center;
     }
     .contest-content {
     align-items: center;
-    justify-items: center;
-    padding: 10px;
+    padding: 1.5rem;
+    
     }
     .contest-content-title {
-        font-size: 30px;
         text-align: center;
         text-justify: center;
     }
 
     .contest-content-subtitle {
-        font-size: 20px;
         text-align: center;
         text-justify: center;
         
@@ -411,26 +392,22 @@
 
     }
     .data .range {
-        width: 100%;
-        height: 1rem;
-        border-radius: 0.25rem;
-        box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+        width: 30rem;
     }
 
     .data-days {
-        font-size: 20px;
         text-align: center;
     }
 
     .create-button {
-        width: 70%;
-        font-size: 20px;
+        width: 30rem;
+        font-size: 2rem;
         justify-content: center;
-        padding: 15px;
+        padding: 1.5rem;
     }
 
     .nicon-target {
-        max-height: 200px;
+        max-height: 30rem;
     }
 
     .search-output {
@@ -442,16 +419,9 @@
     }
 
     .search-output .output-preview {
-        height: 300px;
+        height: 30rem;
     }
 }
-@media (min-width: 910px) and (max-width: 1200px) {
 
-    .search-output {
-        grid-template-columns: repeat(2, 1fr); /* due colonne su tablet */
-        align-items: center;
-    }
-
-}
 
 

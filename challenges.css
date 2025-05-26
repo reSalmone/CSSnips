@@ -14,7 +14,7 @@
     justify-content: center;
     background: var(--color1);
     padding-top: 5%;
-    gap: 30px;
+    gap: 2rem;
 }
 
 .title-container {
@@ -22,12 +22,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 2rem;
 }
 
 .title {
     color: var(--color4);
-    font-size: 100px;
+    font-size: 8rem;
     margin: 0;
 }
 
@@ -40,39 +40,30 @@
 
 .subtitle {
     color: var(--color4);
-    font-size: 25px;
+    font-size: 2rem;
     margin: 0;
     font-weight: bold;
 }
 
 .nicon {
     align-self: center;
-    width: 100px;
-    height: 100px;
+    width: 8rem;
+    height: 8rem;
     filter: brightness(0) saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
-}
-
-.nicon-trophy {
-    grid-area: e;
-    align-self: center;
-    justify-self: center;
-    width: 115px;
-    height: 115px;
-    filter: saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
-    padding: 0.5rem;
 }
 
 .data{
     grid-area:d;
     align-self: center;
     justify-self:start;
+    padding-left: 2.5rem;
 
 }
 
 .data .range {
     position: relative;
     background-color: var(--color4);
-    width: 200%;
+    width: 30rem;
     height: 0.75rem;
     border-radius: 0.25rem;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
@@ -90,7 +81,7 @@
 
 .data-days {
     color: var(--color6);
-    font-size: 25px;
+    font-size: 1.8rem;
     padding-left: 3%;
     font-weight: bold;
     padding: 0.75rem;
@@ -114,15 +105,16 @@
     margin-top: 5%;
     display: grid;
     grid-template: 
-            'a a a c c'1fr
-            '. b b c c'0.7fr
-            '. d f c c'1fr /0.08fr 1fr 1fr 0.5fr 0.5fr;
+            'a a c c'1fr
+            'b b c c'0.7fr
+            'd f c c'1fr /1fr 1fr 0.5fr 0.5fr;
 
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     transition: background-color .1s;
     cursor: pointer;
     z-index: 0;
     position:relative;
+    column-gap:2rem;
 }
 .contest-box:hover{
     background-color: color-mix(in srgb, var(--color2) 90%, black);
@@ -132,7 +124,7 @@
 .contest-month {
     grid-area: a;
     color: var(--color4);
-    font-size: 60px;
+    font-size: 4.3em;
     font-weight: bold;
     padding: 1.5rem;
 }
@@ -150,15 +142,17 @@
 }
 .contest-content-title{
     color: color-mix(in srgb, var(--color2-darker) 30%, black);
-    font-size: 30px;
+    font-size: 2.5rem;
     font-weight: bold;
+    padding-left: 2.5rem;
 
 }
 
 .contest-content-subtitle{
     color: color-mix(in srgb, var(--color2) 30%, black);
-    font-size: 20px;
+    font-size: 1.6rem;
     font-weight: bold;
+    padding-left: 2.5rem;
 
 }
 .actions-button {
@@ -172,9 +166,9 @@
     background: var(--color5);
     color: var(--color4);
     border-radius: 5px;
-    padding: 20px;
+    padding: 1.8rem;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.6rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -230,15 +224,20 @@
     padding: 20px;
     gap: 20px;
     display: flex;
-    overflow-x: hidden;
+    overflow-x:auto;
     scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+.carosello::-webkit-scrollbar {
+    display: none; 
 }
 
 .active-challenge-box {
     background: var(--color4);
     overflow: hidden;
     border-radius: 20px;
-    height: 400px;
+    height: 38rem;
     flex: 0 0 calc(100% / 3 - 1rem);
     min-width: calc(100% / 3 - 1rem);
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
@@ -257,10 +256,18 @@
 
 .title-active-challenge-box {
     color: var(--color3);
-    font-size: 45px;
+    font-size: 3.5rem;
     margin: 0;
     font-weight: bold;
     padding: 1rem;
+}
+.subtitle-active-challenge-box {
+    color: var(--color5);
+    font-size: 2.3rem;
+    margin: 0;
+    font-weight: bold;
+    padding: 0rem 1rem 1rem 1rem;
+
 }
 
 .background-active-challenge-box {
@@ -274,6 +281,24 @@
     --s: 50px;
     width: 100%;
   height: 100%;
+  --color: color-mix(in srgb, var(--color1) 87%, white);
+  background-color: color-mix(in srgb, var(--color1) 87%, black);
+  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
+      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+  background-size: var(--s) var(--s);
+
+    display:grid;
+    align-items: center;
+    justify-items: center;
+
+}
+
+.contest-background-active-challenge {
+    grid-area: c;
+    --s: 50px;
+    width: 100%;
+    height: 400%;
+    border-radius: 20px;
   --color: color-mix(in srgb, var(--color1) 87%, white);
   background-color: color-mix(in srgb, var(--color1) 87%, black);
   background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),

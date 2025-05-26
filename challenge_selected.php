@@ -85,7 +85,7 @@ $is_challenge_active= false;
                             echo '<div class="range">';
                             echo '<div class="fill" id="fill" style="width:100%; background-color: var(--color5);"></div>';
                             echo '</div>';
-                            echo '<p class="data-days" style="color: var(--color5);">Terminated</p>';
+                            echo '<p class="data-days" style="color: var(--color5);">Terminated '.$diff->format('%a days ago').'</p>';
                         }
                         ?>
                     </div>

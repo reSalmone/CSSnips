@@ -104,6 +104,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                 <div class="report-radio-container">
                     <label for="copyright" class="report-label">
                         <input type="radio" id="copyright" name="reportReason" class="report-radio">
+                        <div class="report-radio-div"><span class="report-radio-span"></span></div>
                         <div class="radio-title-container">
                             <span class="radio-title">Copyright violation</span>
                             <span class="radio-subtitle">Choose this if you believe this post infringes on someone's
@@ -112,6 +113,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     </label>
                     <label for="inappropriate" class="report-label">
                         <input type="radio" id="inappropriate" name="reportReason" class="report-radio">
+                        <div class="report-radio-div"><span class="report-radio-span"></span></div>
                         <div class="radio-title-container">
                             <span class="radio-title">Misleading or Inappropriate Content</span>
                             <span class="radio-subtitle">Select this if this post contains false, misleading, or
@@ -120,6 +122,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     </label>
                     <label for="spam" class="report-label">
                         <input type="radio" id="spam" name="reportReason" class="report-radio">
+                        <div class="report-radio-div"><span class="report-radio-span"></span></div>
                         <div class="radio-title-container">
                             <span class="radio-title">Spam or Malicious Content</span>
                             <span class="radio-subtitle">Report this if this post seems to be spam, promotes phishing,
@@ -128,6 +131,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     </label>
                     <label for="other" class="report-label">
                         <input type="radio" id="other" name="reportReason" class="report-radio">
+                        <div class="report-radio-div"><span class="report-radio-span"></span></div>
                         <div class="radio-title-container">
                             <span class="radio-title">Other</span>
                             <span class="radio-subtitle">If your reason doesn't fit the categories above, select this
@@ -136,8 +140,10 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     </label>
                 </div>
                 <div class="report-textarea-container">
-                    <span class="report-textarea-title">Write anything that will help us verify your claim, like details or links</span>
-                    <textarea class="report-textarea" name="reportComment" spellcheck="false" placeholder="Report comment..."></textarea>
+                    <span class="report-textarea-title">Write anything that will help us verify your claim, like details
+                        or links</span>
+                    <textarea class="report-textarea" name="reportComment" spellcheck="false"
+                        placeholder="Report comment..."></textarea>
                 </div>
                 <button type="submit" class="report-submit">Submit</button>
             </form>
@@ -156,30 +162,31 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                     $v_creator = $v_tuple['creator'];
                     $v_type = $v_tuple['element_type'];
                 }
-
-                echo '<div class="variation-container">';
-                echo '<span class="variation-subtext">Variation of <a href="snippet.php?name=' . $variationOf . '" class="variation-text">' . $v_type . '</a> by</span>';
-                echo '<div class="variation-user" onclick="location.href = \'account.php?username=' . $v_creator . '\'">';
-                echo '<div class="variation-pfp"></div>';
-                echo '<span class="variation-text">' . $v_creator . '</span>';
-                echo '</div>';
-                echo '</div>';
-            } else if ($challengeOf != null) {
-                echo '<div class="variation-container">';
-                echo '<span class="variation-subtext">Submission for challenge <a href="challenge_selected.php?name=' . urlencode($challengeOf) . '" class="variation-text">' . $challengeOf . '</a></span>';
-                echo '</div>';
-            }
-            ?>
-            <div class="snippet-container">
-                <?php
-                if ($found) {
-                    echo '<iframe id="output" class="output-container"></iframe>';
-                } else {
-                    echo '<div id="output" class="output-container">';
-                    echo '<span class="snippet-not-found">Snippet not found</span>';
-                    echo '</div>';
-                }
                 ?>
+
+                <div class="variation-container">
+                    <span class="variation-subtext">Variation of <a href="snippet.php?name=<?= $variationOf ?>"
+                            class="variation-text"><?= $v_type ?></a> by</span>
+                    <div class="variation-user" onclick="location.href = 'account.php?username=<?= $v_creator ?>'">
+                        <div class="variation-pfp"></div>
+                        <span class="variation-text"><?= $v_creator ?></span>
+                    </div>
+                </div>
+            <?php } else if ($challengeOf != null) { ?>
+                    <div class="variation-container">
+                        <span class="variation-subtext">Submission for challenge <a
+                                href="challenge_selected.php?name=<?= urlencode($challengeOf) ?>"
+                                class="variation-text"><?= $challengeOf ?></a></span>
+                    </div>
+            <?php } ?>
+            <div class="snippet-container">
+                <?php if ($found) { ?>
+                    <iframe id="output" class="output-container"></iframe>
+                <?php } else { ?>
+                    <div id="output" class="output-container">
+                        <span class="snippet-not-found">Snippet not found</span>
+                    </div>
+                <?php } ?>
                 <script id="snippet-data" type="application/json">
                     <?= json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>
                 </script>
@@ -217,8 +224,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
             <?php if ($found): ?>
                 <div class="data-container">
                     <div class="data-left">
+                        <span class="data-subtext"><?php echo capitalizeProper($type) . ' by '; ?></span>
                         <div class="data-user" onclick="location.href = 'account.php?username=<?= $creator ?>'">
-                            <span class="data-subtext"><?php echo capitalizeProper($type) . ' by '; ?></span>
                             <div class="data-pfp"></div>
                             <span class="data-text"><?php echo $creator; ?></span>
                         </div>
@@ -368,7 +375,10 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                 echo '<span class="tags-no-tags">No tags</span>';
                             } else {
                                 foreach ($tags as $tag): ?>
-                                    <div class="tags-tag" onclick="location.href = 'explorer.php?search=<?= htmlspecialchars($tag) ?>'"><?= htmlspecialchars($tag) ?></div>
+                                    <div class="tags-tag"
+                                        onclick="location.href = 'explorer.php?search=<?= htmlspecialchars($tag) ?>'">
+                                        <?= htmlspecialchars($tag) ?>
+                                    </div>
                                 <?php endforeach;
                             } ?>
                         </div>
@@ -390,34 +400,44 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                             $va_fileContent = file_get_contents(__DIR__ . "\\snippets\\" . $va_fileLocation); //search for the file in the server
                         
                                             list($va_html, $va_css, $va_js) = splitFileContent($va_fileContent); //split file content into html, css, js
-                        
-                                            echo '<div class="info-variations-output-snip">';
-                                            echo '<div class="info-variations-output-snip-opener" onclick="location.href = \'snippet.php?name=' . $va_fileLocation . '\';">';
-                                            echo '<span>View code</span>';
-                                            echo '</div>';
-                                            echo '<iframe id="info-variations-output-snip-frame-' . $va_tuple['id'] . '" class="info-variations-output-preview"></iframe>';
-                                            echo '<script id="info-variations-snippet-data-' . $va_tuple['id'] . '" type="application/json">';
-                                            echo json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-                                            echo '</script>';
+                                            ?>
 
-                                            echo '<script>
-                                                        document.addEventListener("DOMContentLoaded", function() {
-                                                            const data = JSON.parse(document.getElementById("info-variations-snippet-data-' . $va_tuple['id'] . '").textContent);
-                                                            assignIFrame("info-variations-output-snip-frame-' . $va_tuple['id'] . '", data.html, data.css, data.js);
-                                                        });
-                                                    </script>';
-                                            echo '<div class="info-variations-info">';
-                                            echo '<div class="info-variations-info-creator" onclick="location.href = \'account.php?username=' . $va_tuple['creator'] . '\'">';
-                                            echo '<div class="info-variations-info-pfp"></div>';
-                                            echo '<span>' . $va_tuple['creator'] . '</span>';
-                                            echo '</div>';
-                                            echo '<div class="info-variations-info-views">';
-                                            echo '<p class="info-variations-info-text">' . htmlspecialchars($va_tuple['views']);
-                                            echo '<p class="info-variations-info-subtext"> views</p>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                        } else {
+                                            <div class="info-variations-output-snip">
+                                                <div class="info-variations-output-snip-opener"
+                                                    onclick="location.href = 'snippet.php?name=<?= $va_fileLocation ?>'">
+                                                    <span>View code</span>
+                                                </div>
+                                                <iframe id="info-variations-output-snip-frame-<?= $va_tuple['id'] ?>"
+                                                    class="info-variations-output-preview"></iframe>
+                                                <script id="info-variations-snippet-data-<?= $va_tuple['id'] ?>" type="application/json">
+                                                    <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
+                                                </script>
+
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        const data = JSON.parse(document.getElementById("info-variations-snippet-data-<?= $va_tuple['id'] ?>").textContent);
+                                                        assignIFrame("info-variations-output-snip-frame-<?= $va_tuple['id'] ?>", data.html, data.css, data.js);
+                                                    });
+                                                </script>
+                                                <div class="info-variations-info">
+                                                    <div class="info-variations-info-creator"
+                                                        onclick="location.href = 'account.php?username=<?= $va_tuple['creator'] ?>'">
+                                                        <div class="info-variations-info-pfp"></div>
+                                                        <span><?= $va_tuple['creator'] ?></span>
+                                                    </div>
+                                                    <div class="info-variations-info-views">
+                                                        <div class='info-variations-info-views-svg'>
+                                                            <svg viewBox='0 0 256 256'>
+                                                                <path
+                                                                    d='M31.8 148.4c0-23.1928 28.62-74.2 95.4-74.2s95.4 51.0178 95.4 74.2m-63.6 0a31.8 31.8 90 11-63.6 0 31.8 31.8 90 0163.6 0Z'
+                                                                    stroke-width='20px' fill='none'></path>
+                                                            </svg>
+                                                        </div>
+                                                        <p class="info-variations-info-text"><?= htmlspecialchars($va_tuple['views']) ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php } else {
                                             echo 'Your server files aren\' synched with the database: file \'' . $va_fileLocation . '\' is missing';
                                         }
                                     }

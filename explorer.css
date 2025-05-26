@@ -189,14 +189,13 @@
     width: 1.5rem;
     transition: 100ms;
     animation: dislike_effect 400ms ease;
-    stroke: var(--color4);
+    stroke: var(--color4-placeholder);
     will-change: transform;
 }
 
-.info-subtext {
+.info-text {
     font-size: 1.2rem;
-    font-style: italic;
-    color: var(--color4-placeholder);
+    color: var(--color4);
 }
 
 .info-creator {
@@ -205,11 +204,17 @@
     gap: 0.6rem;
     align-items: center;
     cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 10px;
+}
+
+.info-creator:hover {
+    background: rgb(0, 0, 0, 0.1);
 }
 
 .info-pfp {
-    width: 1.9rem;
-    height: 1.9rem;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 5px;
     background: var(--color4);
 }

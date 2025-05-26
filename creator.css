@@ -50,11 +50,17 @@
     gap: 0.6rem;
     align-items: center;
     cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 10px;
+}
+
+.variation-user:hover {
+    background: rgb(0, 0, 0, 0.1);
 }
 
 .variation-pfp {
-    width: 1.9rem;
-    height: 1.9rem;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 5px;
     background: var(--color4);
 }
@@ -652,11 +658,17 @@
     align-items: center;
     gap: 0.6rem;
     cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 10px;
+}
+
+.post-variation-user:hover {
+    background: rgb(0, 0, 0, 0.1);
 }
 
 .post-variation-pfp {
-    width: 1.9rem;
-    height: 1.9rem;
+    width: 1.3rem;
+    height: 1.3rem;
     border-radius: 5px;
     background: var(--color4);
 }
@@ -1047,11 +1059,12 @@
     flex: 1;
     gap: 0.3rem;
     height: 10%;
+    font-size: 1rem;
 }
 
 .drafts-output-snip-opener {
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: var(--color4);
     border-radius: 20px;
     width: 100%;
@@ -1093,8 +1106,8 @@
 .drafts-output-delete-svg {
     top: 0;
     left: 0;
-    height: 1.2rem;
-    width: 1.2rem;
+    height: 1.1rem;
+    width: 1.1rem;
     padding: 0.1rem;
     transition: 100ms;
     animation: like_effect 400ms ease;

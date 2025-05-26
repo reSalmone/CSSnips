@@ -11,7 +11,6 @@ if (!isset($_SESSION['username']) || !isset($_POST['snippet'])) {
 
 $user = $_SESSION['username'];
 $snip_id = $_POST['snippet'];
-file_put_contents("debug_log.txt", print_r($_POST, true), FILE_APPEND);
 
 $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1");
 if ($dbcon != -1) {

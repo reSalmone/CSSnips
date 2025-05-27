@@ -25,6 +25,8 @@ function submitLoginForm(event, redirect) {
 
         loginLoading = true;
         document.getElementById("login-submit").style.background = "#ddd";
+        document.getElementById("login-submit-text").style.display = "none";
+        document.getElementById("login-submit-loader").style.display = "block";
         const formData = new FormData(form);
 
         fetch('login.php?redirect=' + redirect, {
@@ -45,6 +47,8 @@ function submitLoginForm(event, redirect) {
             .finally(() => {
                 loginLoading = false
                 document.getElementById("login-submit").style.background = "#fff";
+                document.getElementById("login-submit-text").style.display = "block";
+                document.getElementById("login-submit-loader").style.display = "none";
             });
     }
 }

@@ -60,6 +60,8 @@ function submitSignupForm(event, redirect) {
 
         signupLoading = true;
         document.getElementById("signup-submit").style.background = "#ddd";
+        document.getElementById("signup-submit-text").style.display = "none";
+        document.getElementById("signup-submit-loader").style.display = "block";
         const formData = new FormData(form);
 
         fetch('signup.php?redirect=' + redirect, {
@@ -80,6 +82,8 @@ function submitSignupForm(event, redirect) {
             .finally(() => {
                 signupLoading = false
                 document.getElementById("signup-submit").style.background = "#fff";
+                document.getElementById("signup-submit-text").style.display = "block";
+                document.getElementById("signup-submit-loader").style.display = "none";
             });
     }
 }

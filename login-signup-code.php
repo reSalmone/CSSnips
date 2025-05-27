@@ -2,10 +2,11 @@
     <div class="form-page" id="login-page">
         <p class="form-title">Login</p>
         <div class="form-server-error-container" id="login-server-error"></div>
-        <form class="form-form" onsubmit="submitLoginForm(event, '<?= $redirect ?>');" novalidate>
+        <form class="form-form" onsubmit="submitLoginForm(event, '<?= urlencode($redirect) ?>');" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
-                    <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false" value="<?php 
+                    <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false"
+                        value="<?php
                         if (isset($_SESSION['remember'])) {
                             echo $_SESSION['user'];
                         }
@@ -19,7 +20,8 @@
             </div>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
-                    <input type="password" class="form-input" placeholder="Password" name="password" spellcheck="false" value="<?php 
+                    <input type="password" class="form-input" placeholder="Password" name="password" spellcheck="false"
+                        value="<?php
                         if (isset($_SESSION['remember'])) {
                             echo $_SESSION['password'];
                         }
@@ -34,7 +36,7 @@
             </div>
             <div class="form-remember-forgot">
                 <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox" id="checkbox" name="remember" <?php 
+                    <input type="checkbox" class="checkbox" id="checkbox" name="remember" <?php
                     if (isset($_SESSION['remember'])) {
                         echo 'checked';
                     }
@@ -44,7 +46,10 @@
                 </label>
                 <a class="form-forgot-password" href="">Forgot password?</a>
             </div>
-            <input type="submit" class="form-button" value="Login" id="login-submit">
+            <button type="submit" class="form-button" id="login-submit">
+                <span id="login-submit-text">Login</span>
+                <div class="submit-loader" id="login-submit-loader"></div>
+            </button>
         </form>
         <p class="form-switch-form">Don't have an account? <span onclick="openSignup(event);">Signup</span></p>
     </div>
@@ -53,7 +58,7 @@
     <div class="form-page" id="signup-page">
         <p class="form-title">Sign up</p>
         <div class="form-server-error-container" id="signup-server-error"></div>
-        <form class="form-form" onsubmit="submitSignupForm(event, '<?= $redirect ?>');" novalidate>
+        <form class="form-form" onsubmit="submitSignupForm(event, '<?= urlencode($redirect) ?>');" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
                     <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false">
@@ -84,8 +89,8 @@
                     <div class="form-input-container">
                         <input type="password" class="form-input form-input-1" placeholder="Password" name="password"
                             spellcheck="false">
-                        <img src="assets/images/lock.png" class="form-icon form-show-password" onclick="showPassword(this);"
-                            title="Show password">
+                        <img src="assets/images/lock.png" class="form-icon form-show-password"
+                            onclick="showPassword(this);" title="Show password">
                     </div>
                     <input type="password" class="form-input form-input-2" placeholder="Confirm password"
                         name="confirmPassword" spellcheck="false">
@@ -95,7 +100,10 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="form-button" value="Sign up" id="signup-submit">
+            <button type="submit" class="form-button" id="signup-submit">
+                <span id="signup-submit-text">Signup</span>
+                <div class="submit-loader" id="signup-submit-loader"></div>
+            </button>
         </form>
         <p class="form-switch-form">Already have an account? <span onclick="openLogin(event);">Login</span></p>
     </div>

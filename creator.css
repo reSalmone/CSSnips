@@ -846,8 +846,8 @@
     display: none;
     border-radius: 10px;
     width: 100%;
-    background-color: rgba(255, 0, 0, 0.5);
-    margin: 1.2rem 0;
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 2px dashed rgba(255, 0, 0, 0.6);    margin: 1.2rem 0;
     padding: 0.8rem 0.9rem;
     color: var(--color5);
     text-overflow: ellipsis;

@@ -2,12 +2,38 @@ var currentLang = "html";
 var saved = true;
 let elementType = "button";
 
-
 const areas = {
     html: document.getElementById('html-area'),
     css: document.getElementById('css-area'),
     js: document.getElementById('js-area')
 };
+
+const oldAreasValue = {
+    html: document.getElementById('html-area').value,
+    css: document.getElementById('css-area').value,
+    js: document.getElementById('js-area').value
+};
+
+function save() {
+    saved = true;
+    document.getElementById("code-unsaved").style.display = "none";
+}
+
+async function unsave() {
+    saved = false;
+    document.getElementById("code-unsaved").style.display = "flex";
+
+    let foundChanges = false;
+    Object.keys(areas).forEach(type => {
+        if (areas[type].value != oldAreasValue[type]) {
+            foundChanges = true;
+        }
+    });
+
+    if (!foundChanges) {
+        document.getElementById("code-unsaved").style.display = "none";
+    }
+}
 
 function copyToClipboard() {
     navigator.clipboard.writeText(areas[currentLang].value);
@@ -70,6 +96,7 @@ function insertTab(e, textArea) {
         textArea.value = textArea.value.substring(0, start) + '\t' + textArea.value.substring(end);
         textArea.selectionStart = textArea.selectionEnd = start + 1;
     }
+    unsave();
 }
 
 function insertBrackets(e, textArea) {
@@ -92,6 +119,7 @@ function insertBrackets(e, textArea) {
         textArea.value = textArea.value.substring(0, start) + '()' + textArea.value.substring(end);
         textArea.selectionStart = textArea.selectionEnd = start + 1;
     }
+    unsave();
 }
 
 const lineNumbers = document.getElementById('line-numbers');
@@ -154,7 +182,7 @@ function addTag() {
         }
     }
     input.focus;
-    saved = false;
+    unsave();
 }
 
 function removeTag(index) {
@@ -200,7 +228,7 @@ function setElementType(button, event) {
 function updateCurrentTypeButton() {
     let currentTypeButton = document.getElementById("current-type");
     currentTypeButton.innerText = "Type: " + elementType;
-    saved = false;
+    unsave();
 }
 
 
@@ -348,7 +376,7 @@ function saveDraft(name) {
     }).then(res => res.json())
         .then(data => {
             if (data.success) {
-                saved = true;
+                save();
                 location.href = 'creator.php?draft=' + postname;
             } else {
                 alert('error: ' + data.error);
@@ -460,7 +488,7 @@ function postSnippet() {
     }).then(res => res.json())
         .then(data => {
             if (data.success) {
-                saved = true;
+                save();
                 location.href = "snippet.php?name=" + postname;
             } else {
                 showPostServerError(data.error);
@@ -581,7 +609,7 @@ window.addEventListener('beforeunload', function (e) {
 document.querySelectorAll('form.form-form').forEach(form => {
     form.addEventListener('submit', () => {
         saveInLocalStorage();
-        saved = true;
+        save();
     });
 });
 

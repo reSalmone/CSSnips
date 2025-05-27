@@ -490,27 +490,28 @@ if ($name != '' && !$found) {
                             <div>1</div>
                         </div>
                         <textarea class="input-area" id="html-area"
-                            oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
+                            oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this);" spellcheck="false" placeholder="Html code"><?php
                             if ($found) {
                                 echo htmlspecialchars($html);
                             }
                             ?></textarea>
                         <textarea class="input-area" id="css-area"
-                            oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
+                            oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false" placeholder="Css code"><?php
                             if ($found) {
                                 echo htmlspecialchars($css);
                             }
                             ?></textarea>
                         <textarea class="input-area" id="js-area"
-                            oninput="updateLines(this); displayCode(); saved = false;" onscroll="syncScroll(this);"
+                            oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false" placeholder="JavaScript code"><?php
                             if ($found) {
                                 echo htmlspecialchars($js);
                             }
                             ?></textarea>
                     </div>
+                    <div class="code-unsaved" id="code-unsaved">Unsaved code</div>
                 </div>
             </div>
             <div class="info-container">
@@ -520,7 +521,7 @@ if ($name != '' && !$found) {
                         echo '<textarea class="description-area" id="description-area" oninput="saved = false;">' . $description . '</textarea>';
                     } else {
                         echo '<textarea class="description-area" id="description-area"
-                        oninput="saved = false;">This is my new element</textarea>';
+                        oninput="unsave();">This is my new element</textarea>';
                     } ?>
                 </div>
                 <div class="tags-container">

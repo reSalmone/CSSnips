@@ -68,6 +68,7 @@ async function displayCode() {
                     justify-content: center;
                     height: 100vh;
                     margin: 0;
+                    padding: 10px
                     overflow: hidden;
                 }
                 ${css}
@@ -377,7 +378,9 @@ function saveDraft(name) {
         .then(data => {
             if (data.success) {
                 save();
-                location.href = 'creator.php?draft=' + postname;
+                if (location.search !== "?draft=" + postname) {
+                    location.href = "creator.php?draft=" + postname;
+                }
             } else {
                 alert('error: ' + data.error);
             }
@@ -392,7 +395,9 @@ function deleteDraft(name) {
     }).then(res => res.json())
         .then(data => {
             if (data.success) {
-                console.log(data.id);
+                if (location.search === "?draft=" + name) {
+                    location.href = "creator.php";
+                }
                 document.getElementById("drafts-output-snip-" + data.id).remove();
             } else {
                 showPostServerError(data.error);

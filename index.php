@@ -31,6 +31,7 @@ function splitFileContent($content)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnips - Home</title>
+    <link rel="icon" href="assets/images/icon.png">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="navbar.css"> <!-- Navigation bar [la barra in alto] -->
     <link rel="stylesheet" href="login-signup.css"> <!-- Login and signup -->

@@ -288,18 +288,18 @@ if ($name != '' && !$found) {
                                         <div class="drafts-output-snip-opener"
                                             onclick="location.href='creator.php?draft=<?= urlencode($tuple['file_location']) ?>';">Select
                                             draft</div>
-                                        <button class="drafts-output-delete" onclick="deleteDraft('<?= $draftName ?>')">
-                                            <div class='drafts-output-delete-svg'>
-                                                <svg viewBox='0 0 256 256'>
-                                                    <path
-                                                        d='M197.5 41.6H151.2L148.6 36.5C146.6 32.4 142.6 30 138.2 30H94.5C90.2 30 86.1 32.4 81.4 41.6H35 M46.6 81.4 54.3 204.6C54.8 213.7 62.5 220.9 71.6 220.9H161C170.1 220.9 177.8 213.8 178.3 204.6L186.1 81.4Z'
-                                                        stroke-width='20px' stroke='#FFF' fill='none'></path>
-                                                </svg>
-                                            </div>
-                                        </button>
-                                    <?php } else {
-                                        echo '<div class="drafts-output-snip-opener">Currently selected</div>';
-                                    } ?>
+                                    <?php } else { ?>
+                                        <div class="drafts-output-snip-opener">Currently selected</div>
+                                    <?php } ?>
+                                    <button class="drafts-output-delete" onclick="deleteDraft('<?= $draftName ?>')">
+                                        <div class='drafts-output-delete-svg'>
+                                            <svg viewBox='0 0 256 256'>
+                                                <path
+                                                    d='M197.5 41.6H151.2L148.6 36.5C146.6 32.4 142.6 30 138.2 30H94.5C90.2 30 86.1 32.4 81.4 41.6H35 M46.6 81.4 54.3 204.6C54.8 213.7 62.5 220.9 71.6 220.9H161C170.1 220.9 177.8 213.8 178.3 204.6L186.1 81.4Z'
+                                                    stroke-width='20px' stroke='#FFF' fill='none'></path>
+                                            </svg>
+                                        </div>
+                                    </button>
                                 </div>
                             </div>
                             <?php
@@ -496,16 +496,18 @@ if ($name != '' && !$found) {
                                 echo htmlspecialchars($html);
                             }
                             ?></textarea>
-                        <textarea class="input-area" id="css-area"
-                            oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
-                            onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false" placeholder="Css code"><?php
+                        <textarea class="input-area" id="css-area" oninput="updateLines(this); displayCode(); unsave();"
+                            onscroll="syncScroll(this);"
+                            onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false"
+                            placeholder="Css code"><?php
                             if ($found) {
                                 echo htmlspecialchars($css);
                             }
                             ?></textarea>
-                        <textarea class="input-area" id="js-area"
-                            oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
-                            onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false" placeholder="JavaScript code"><?php
+                        <textarea class="input-area" id="js-area" oninput="updateLines(this); displayCode(); unsave();"
+                            onscroll="syncScroll(this);"
+                            onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false"
+                            placeholder="JavaScript code"><?php
                             if ($found) {
                                 echo htmlspecialchars($js);
                             }

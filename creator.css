@@ -115,7 +115,7 @@
 
 @media (max-width: 768px) {
     .snippet-container {
-        flex-direction: column !important;
+        flex-direction: column-reverse !important;
     }
 
     .output-container {

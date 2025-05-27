@@ -27,7 +27,7 @@
 
 .title {
     color: var(--color4);
-    font-size: 8rem;
+    font-size: 6.5rem;
     margin: 0;
 }
 
@@ -40,20 +40,26 @@
 
 .subtitle {
     color: var(--color4);
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 0;
     font-weight: bold;
 }
 
 .nicon {
     align-self: center;
-    width: 8rem;
-    height: 8rem;
+    width: 6.5rem;
+    height: 6.5rem;
     filter: brightness(0) saturate(100%) invert(90%) sepia(3%) saturate(1327%) hue-rotate(54deg) brightness(109%) contrast(102%);
 }
 
-.data{
+.contest-content-two {
     grid-area:d;
+    display:flex;
+    flex-direction:row;
+    gap:2rem;
+}
+
+.data{
     align-self: center;
     justify-self:start;
     padding-left: 2.5rem;
@@ -92,8 +98,9 @@
 .nicon-target {
     align-self: center;
     justify-self: center;
-    width: 50%;
-    height: 50%;
+    max-height: 12rem;
+    width: auto;
+    display: block;
 
 
 }
@@ -107,7 +114,7 @@
     grid-template: 
             'a a c c'1fr
             'b b c c'0.7fr
-            'd f c c'1fr /1fr 1fr 0.5fr 0.5fr;
+            'd d c c'1fr /1fr 1fr 0.5fr 0.5fr;
 
     box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
     transition: background-color .1s;
@@ -156,7 +163,6 @@
 
 }
 .actions-button {
-    grid-area: f;
     position:relative;
     align-self: center;
     justify-self: center;
@@ -187,8 +193,8 @@
 .actions-svg {
     top: 0;
     left: 0;
-    height: 20px;
-    width: 20px;
+    min-height: 1.8rem;
+    min-width: 1.8rem;
 }
 
 
@@ -228,6 +234,7 @@
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none; 
+    align-items: center;
 }
 .carosello::-webkit-scrollbar {
     display: none; 
@@ -272,7 +279,7 @@
 
 .background-active-challenge-box {
     width: 100%;
-    height: 400%;
+    height: 100%;
     border-radius: 20px;
 }
 
@@ -293,11 +300,11 @@
 
 }
 
-.contest-background-active-challenge {
+.contest-background-button {
     grid-area: c;
     --s: 50px;
     width: 100%;
-    height: 400%;
+    height: 100%;
     border-radius: 20px;
   --color: color-mix(in srgb, var(--color1) 87%, white);
   background-color: color-mix(in srgb, var(--color1) 87%, black);
@@ -319,8 +326,8 @@
     align-self: center;
     z-index: 1;
     border: 4px black;
-    height: 100px;
-    width: 100px;
+    height: 9rem;
+    width: 9rem;
     filter:invert();
 }
 .left {
@@ -333,3 +340,114 @@
     transform: scale(0.95);
 }
 
+
+
+@media (min-width: 750px) and (max-width: 1200px) {
+
+    .active-challenge-box {
+        flex: 0 0 calc(100% / 2 - 1rem);
+        min-width: calc(100% / 2 - 1rem);
+    }
+    
+
+}
+
+@media (max-width:750px){
+    .contest-month {
+        font-size: 4.3em;
+        text-align: center;
+    }
+
+    .contest-box {
+        display: flex;
+        flex-direction: column;
+        row-gap: 2rem;
+    }
+    .contest-content {
+        align-items: center;
+        padding: 1.5rem;
+    
+    }
+    .contest-content-two {
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .contest-content-title {
+        text-align: center;
+        text-justify: center;
+        padding-left: 0rem;
+    }
+
+    .contest-content-subtitle {
+        text-align: center;
+        text-justify: center;
+        padding-left: 0rem;
+        
+    }
+    .data{
+        justify-items: center;
+        padding-left: 0rem;
+
+    }
+    .data .range {
+        width: 20rem;
+    }
+
+    .data-days {
+        text-align: center;
+        text-justify: center;
+        justify-self: center;
+    }
+
+    .create-button {
+        width: 30rem;
+        font-size: 2rem;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+
+    .nicon-target {
+        max-height: 15rem;
+    }
+    .challenge-container {
+        max-height: calc(2 * 38rem);
+    }
+    .carosello {
+        flex-direction: column;
+        overflow-y:auto;
+    }
+    .scroll-button {
+        display: none;
+    }
+    .active-challenge-box {
+        min-height: 30rem;
+        width: 80%;
+    }
+    .title-active-challenge-box {
+        text-align: center;
+        text-justify: center;
+        font-size: 2.5rem;
+        padding:0.5rem;
+    }
+    .subtitle-active-challenge-box {
+        text-align: center;
+        text-justify: center;
+        font-size: 1.8rem;
+
+    }
+
+
+}
+@media (max-width:500px){
+
+    .title-container {
+        flex-direction: column;
+    }
+
+    .contest-content-two {
+        flex-direction: column;
+    }
+}

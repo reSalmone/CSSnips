@@ -52,6 +52,16 @@ $is_challenge_active= false;
     <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
     <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
     <div id="rest" onclick="closeLogin(); closeSignup();">
+        <div class="first-container">
+            <div class="title-container">
+                <img src="assets/images/target.png" class="nicon">
+                <span class="title">Challenges</span>
+            </div>
+            <div class="subtitle-container">
+                <span class="subtitle">Try to be the best CSSniper </span>
+            </div>
+
+        </div>
         <div class="contest-box">
 
             <?php
@@ -75,6 +85,7 @@ $is_challenge_active= false;
                     echo '<div class="contest-content-title">'. $tuple["name"] . '</div>';
                     echo '<div class="contest-content-subtitle">' . $tuple["description"] . '</div>';
                     echo '</div>';?>
+                    <div class="contest-content-two">
                     <div class="data">
                         <?php if($is_challenge_active){
                             echo '<div class="range">';
@@ -105,6 +116,7 @@ $is_challenge_active= false;
                     </button>';
                     }
                     ?>
+                    </div>
                     <!--<div class="data-views-checkmark">
                         <svg viewBox='0 0 256 256'>
                                         <path

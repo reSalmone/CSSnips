@@ -46,12 +46,14 @@ $redirect = 'challenges.php';
                     $datag = new DateTime();
                     $diff = $datag->diff($dataf);
                     $fill = $diff->format('%a') * 3.22;
+                    $name=$tuple["name"];
                     echo'<div class="contest-box" onclick="location.href = \'challenge_selected.php?name='.$tuple["name"].'\' " type="button">
                             <div class="contest-month">Challenge of the Month!</div>';
                     echo '<div class="contest-content">';
                     echo '<div class="contest-content-title">' . $tuple["name"] . '</div>';
                     echo '<div class="contest-content-subtitle">' . $tuple["description"] . '</div>';
                     echo '</div>'; ?>
+                    <div class="contest-content-two">
                     <div class="data">
                         <div class="range">
                             <div class="fill" id="fill" style="width: <?php echo $fill; ?>%;"></div>
@@ -60,7 +62,7 @@ $redirect = 'challenges.php';
                         echo $diff->format('%ad %hh %im left');
                         ?></p>
                     </div>
-                    <button class="actions-button" onclick="location.href ='creator.php'">
+                    <button class="actions-button" onclick="event.stopPropagation(); <?php echo 'location.href =\'creator.php?challenge='.urlencode($name) .'\''?>">
                             <div class='actions-svg'>
                                 <svg  viewBox="0 0 512.000000 512.000000">
                                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
@@ -73,7 +75,7 @@ $redirect = 'challenges.php';
                             </div>
                             <span>Create</span>
                         </button>
-                    <!-- <img src="assets/images/trophy.png" class="nicon-trophy"> -->
+                    </div>
                     <div class="contest-background-target">
                         <?php echo '<img src="'. $tuple["image"].'" class="nicon-target">'?>
                     </div>
@@ -99,8 +101,14 @@ $redirect = 'challenges.php';
                                     <div class="title-active-challenge-box">'.$tuple["name"].'</div>
                                     <div class="subtitle-active-challenge-box">Terminated</div>';
 
-                            #if($tuple["challenge_type"]="Button")
+                            if($tuple["type"]=="Style"){
                                 echo '<img src="'.$tuple["image"].'" class="background-active-challenge-box">';
+                                }
+                            else{
+                                echo'<div class="contest-background-button">';
+                                echo '<img src="'. $tuple["image"].'" class="nicon-target">';
+                                echo '</div>';
+                                }
                                 echo '</div>';
                         }
                     } else {

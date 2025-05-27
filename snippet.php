@@ -150,7 +150,20 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport();">
+    <div class="center-div confirm-delete-center-div" id="confirm-delete-center-div">
+        <div class="confirm-delete-page">
+            <div class="confirm-delete-title-container">
+                <span class="confirm-delete-title">Confirm action</span>
+                <span class="confirm-delete-subtitle">This action is irreversable - this snip will be deleted and will NOT be restored</span>
+            </div>
+            <div class="confirm-delete-actions">
+                <button class="confirm-delete-action-button confirm-delete" onclick="location.href = 'delete.php?name=<?php echo $name ?>'">Delete</button>
+                <button class="confirm-delete-action-button" onclick="closeConfirmDelete();">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport(); closeConfirmDelete();">
         <div class="snippet-page">
             <?php if ($variationOf != null) {
                 $v_creator = null;
@@ -336,8 +349,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                 </div>
                                 <span>Edit snippet</span>
                             </button>
-                            <button class="actions-button" id="actions-important"
-                                onclick="location.href = 'delete.php?name=<?php echo $name ?>'">
+                            <button class="actions-button" id="actions-important" onclick="openConfirmDelete(event);">
                                 <div class='actions-svg'>
                                     <svg viewBox='0 0 256 256'>
                                         <path

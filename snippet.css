@@ -616,12 +616,28 @@
 .info-variations-search-output {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.2rem;
 }
 
+@media (max-width: 768px) {
+    .info-variations-search-output {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+@media (max-width: 600px) {
+    .info-variations-search-output {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+@media (max-width: 425px) {
+    .info-variations-search-output {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+}
+
 .info-variations-search-output .info-variations-output-snip {
-    height: 12rem;
+    height: 18rem;
     padding: 0.6rem;
     border-radius: 10px;
     background-color: var(--color2);
@@ -635,7 +651,7 @@
     background: var(--color4);
     border-radius: 10px;
     width: 100%;
-    height: 80%;
+    height: 85%;
     border: 0;
 }
 
@@ -647,7 +663,7 @@
     justify-content: space-between;
     align-items: center;
     color: var(--color4);
-    font-size: 1rem;
+    font-size: 1.2rem;
     overflow: hidden;
 }
 
@@ -660,8 +676,8 @@
 .info-variations-info-views-svg {
     top: 0;
     left: 0;
-    height: 1.1rem;
-    width: 1.1rem;
+    height: 1.5rem;
+    width: 1.5rem;
     transition: 100ms;
     animation: dislike_effect 400ms ease;
     stroke: var(--color4-placeholder);
@@ -669,7 +685,7 @@
 }
 
 .info-variations-info-text {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: var(--color4);
 }
 
@@ -679,7 +695,7 @@
     gap: 0.6rem;
     align-items: center;
     cursor: pointer;
-    padding: 0.2rem;
+    padding: 0.3rem;
     border-radius: 5px;
 }
 
@@ -688,18 +704,18 @@
 }
 
 .info-variations-info-pfp {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 5px;
     background: var(--color4);
 }
 
 .info-variations-output-snip-opener {
     position: absolute;
-    right: 0.8rem;
-    bottom: 3rem;
+    right: 0.9rem;
+    bottom: 3.4rem;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--color2);
     padding: 0.3rem;
     border-radius: 5px;
@@ -863,4 +879,76 @@
     color: var(--color1);
     padding: 0.6rem;
     cursor: pointer;
+}
+
+.center-div.confirm-delete-center-div {
+    width: 40%;
+}
+
+.confirm-delete-page {
+    backdrop-filter: blur(10px);
+    box-shadow: #00000059 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    background: rgba(0, 0, 0, .5);
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    max-height: 80vh;
+    overflow-y: scroll;
+    animation: appear .5s ease;
+}
+
+.confirm-delete-page::-webkit-scrollbar {
+    width: 6px;
+}
+
+.confirm-delete-page::-webkit-scrollbar-thumb {
+    background: var(--color4);
+    border-radius: 10px;
+}
+
+.confirm-delete-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.confirm-delete-title {
+    color: var(--color4);
+    font-size: 3.1rem;
+    text-align: center;
+}
+
+.confirm-delete-subtitle {
+    color: var(--color4);
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.confirm-delete-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 2.5rem;
+}
+
+.confirm-delete-action-button {
+    outline: 0;
+    border: 0;
+    background: var(--color4);
+    color: var(--color1);
+    border-radius: 100px;
+    flex: 1;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    width: 80%;
+    cursor: pointer;
+}
+
+.confirm-delete {
+    background: var(--color5) !important;
 }

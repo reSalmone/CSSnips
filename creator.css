@@ -1019,6 +1019,17 @@
     padding: 0.6rem
 }
 
+@media (max-width: 1024px) {
+    .drafts-search-output {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 628px) {
+    .drafts-search-output {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
 .drafts-search-output .drafts-output-snip {
     height: 12.5rem;
     padding: 0.6rem;
@@ -1092,9 +1103,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    padding: 0.6rem 0;
-    height: 100%;
-    padding: 0.6rem;
+    padding: 0 0.6rem;
 }
 .drafts-output-delete:hover {
     background: var(--color2-bright);
@@ -1104,13 +1113,13 @@
 }
 
 .drafts-output-delete-svg {
-    top: 0;
-    left: 0;
-    height: 1.1rem;
-    width: 1.1rem;
-    padding: 0.1rem;
+    height: 0.9rem;
+    width: 0.9rem;
     transition: 100ms;
     animation: like_effect 400ms ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .drafts-output-delete-svg path {
     stroke: var(--color4);

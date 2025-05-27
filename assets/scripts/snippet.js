@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function openReport(event) {
+    closeConfirmDelete();
     event.stopPropagation();
     document.getElementById('report-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(30%)';
@@ -178,4 +179,16 @@ function reportFormSubmit(event) {
             console.error('Error:', error);
             closeReport();
         });
+}
+
+function openConfirmDelete(event) {
+    closeReport();
+    event.stopPropagation();
+    document.getElementById('confirm-delete-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+}
+
+function closeConfirmDelete() {
+    document.getElementById('confirm-delete-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
 }

@@ -88,3 +88,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     });
 });
+
+function openInfo(event, info) {
+    if (event != null) {
+        event.stopPropagation();
+    }
+    document.getElementById('info-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+    document.getElementById('info-text').innerText = info;
+}
+
+function closeInfo() {
+    document.getElementById('info-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}

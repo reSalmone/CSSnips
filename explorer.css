@@ -374,3 +374,74 @@
 .page-button:hover {
     background: var(--color2-bright);
 }
+
+.center-div.info-dialog-center-div {
+    width: 40%;
+}
+
+.info-dialog-page {
+    backdrop-filter: blur(10px);
+    box-shadow: #00000059 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    background: rgba(0, 0, 0, .5);
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    max-height: 80vh;
+    overflow-y: scroll;
+    animation: appear .5s ease;
+}
+
+.info-dialog-page::-webkit-scrollbar {
+    width: 6px;
+}
+
+.info-dialog-page::-webkit-scrollbar-thumb {
+    background: var(--color4);
+    border-radius: 10px;
+}
+
+.info-dialog-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.info-dialog-title {
+    color: var(--color4-placeholder);
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.info-dialog-text {
+    color: var(--color4);
+    font-size: 3rem;
+    text-align: center;
+    border-radius: 10px;
+    word-break: break-word;
+}
+
+.info-dialog-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 2.5rem;
+}
+
+.info-dialog-action-button {
+    outline: 0;
+    border: 0;
+    background: var(--color4);
+    color: var(--color1);
+    border-radius: 100px;
+    flex: 1;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    width: 80%;
+    cursor: pointer;
+}

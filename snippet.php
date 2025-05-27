@@ -154,16 +154,30 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
         <div class="confirm-delete-page">
             <div class="confirm-delete-title-container">
                 <span class="confirm-delete-title">Confirm action</span>
-                <span class="confirm-delete-subtitle">This action is irreversable - this snip will be deleted and can NOT be restored</span>
+                <span class="confirm-delete-subtitle">This action is irreversable - this snip will be deleted and can
+                    NOT be restored</span>
             </div>
             <div class="confirm-delete-actions">
-                <button class="confirm-delete-action-button confirm-delete" onclick="location.href = 'delete.php?name=<?php echo $name ?>'">Delete</button>
+                <button class="confirm-delete-action-button confirm-delete"
+                    onclick="location.href = 'delete.php?name=<?php echo $name ?>'">Delete</button>
                 <button class="confirm-delete-action-button" onclick="closeConfirmDelete();">Cancel</button>
             </div>
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport(); closeConfirmDelete();">
+    <div class="center-div info-center-div" id="info-center-div">
+        <div class="info-page">
+            <div class="info-title-container">
+                <span class="info-title">Info</span>
+                <span class="info-text" id="info-text"></span>
+            </div>
+            <div class="info-actions">
+                <button class="info-action-button" onclick="closeInfo();">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport(); closeConfirmDelete(); closeInfo();">
         <div class="snippet-page">
             <?php if ($variationOf != null) {
                 $v_creator = null;
@@ -422,8 +436,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                                 <iframe id="info-variations-output-snip-frame-<?= $va_tuple['id'] ?>"
                                                     class="info-variations-output-preview"></iframe>
                                                 <script id="info-variations-snippet-data-<?= $va_tuple['id'] ?>" type="application/json">
-                                                    <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
-                                                </script>
+                                                                                            <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
+                                                                                        </script>
 
                                                 <script>
                                                     document.addEventListener("DOMContentLoaded", function () {
@@ -468,5 +482,13 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
 <script src="assets/scripts/snippet.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
+<?php if (isset($_GET['info'])) { ?>
+    <script>
+        openInfo(null, "<?= $_GET['info'] ?>");
+        const url = new URL(window.location);
+        url.searchParams.delete('info');
+        window.history.replaceState({}, '', url);
+    </script>
+<?php } ?>
 
 </html>

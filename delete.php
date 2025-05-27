@@ -40,7 +40,7 @@ if (file_exists(__DIR__ . "\\snippets\\" . $name)) {
 
             $path = __DIR__ . "\\snippets\\" . $name;
             unlink($path);
-            header("Location: explorer.php");
+            header("Location: explorer.php?info=Snippet deleted");
             exit();
         } else {
             deleteError('File not found in database (or your\'re not the owner)');

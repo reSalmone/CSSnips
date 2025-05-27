@@ -381,7 +381,7 @@ function saveDraft(name) {
             if (data.success) {
                 save();
                 if (location.search !== "?draft=" + postname) {
-                    location.href = "creator.php?draft=" + postname;
+                    location.href = "creator.php?draft=" + postname + "&info=" + encodeURI("Draft saved");;
                 } else {
                     openInfo(null, "Draft updated")
                 }
@@ -399,7 +399,7 @@ function deleteDraft(name) {
         .then(data => {
             if (data.success) {
                 if (location.search === "?draft=" + name) {
-                    location.href = "creator.php";
+                    location.href = "creator.php?&info=" + encodeURI("Draft deleted");;
                 } else {
                     openInfo(null, "Draft deleted")
                 }
@@ -445,9 +445,8 @@ function saveChanges() {
     }).then(res => res.json())
         .then(data => {
             if (data.success) {
-                localStorage.clear();
-                //tell in some way to snippet that the changes have been made
-                location.href = "snippet.php?name=" + postname;
+                save();
+                location.href = "snippet.php?name=" + postname + "&info=" + encodeURI("Snippet updated");;
             } else {
                 console.log(data.error);
             }
@@ -500,7 +499,7 @@ function postSnippet() {
         .then(data => {
             if (data.success) {
                 save();
-                location.href = "snippet.php?name=" + postname;
+                location.href = "snippet.php?name=" + postname + "&info=" + encodeURI("Snippet posted");
             } else {
                 showPostServerError(data.error);
             }

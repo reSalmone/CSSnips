@@ -180,7 +180,7 @@ if ($dbcon != -1) {
                   $line3 = pg_fetch_array($result3, NULL, PGSQL_ASSOC);
                 }
               } else {
-                echo "<p class='centro'>Non ci sono risultati.</p>";
+                echo "<p class='centro'>No activity.</p>";
               }
               ?>
             </div>

@@ -150,7 +150,7 @@ if ($type != "") {
                         echo '</div>';
                     }
                 } else {
-                    echo '<p class="no-snippets-text" style="display: flex; justify-content: center; align-items: center; height: 100%; text-align: center;">NO SNIPPETS FOUND</p>';
+                    echo '<p class="no-snippets-text" style="display: flex; justify-content: center; align-items: center; height: 100%; text-align: center;">No snippets found</p>';
                 }
                 ?>
             </div>
@@ -161,11 +161,11 @@ if ($type != "") {
                     <section class="profilo-info">
                         <?php
                         if ($username == "" || $type == "") {
-                            $text = "MISSING USERNAME OR TYPE.";
+                            $text = "Missing username or type.";
                         } else if ($type != "activity" && $type != "liked" && $type != "watchlist") {
-                            $text = "INVALID TYPE SPECIFIED";
+                            $text = "Invalid type specified";
                         } else {
-                            $text = "UNABLE TO CONNECT TO THE DATABASE. PLEASE TRY AGAIN LATER.";
+                            $text = "Unable to connect to the database. Please try again later.";
                         }
                         ?>
                         <h2><?php echo $text ?></h2>

@@ -1,6 +1,6 @@
 @import './data.css';
 
-/* Impostazioni generali per il corpo e la tipografia */     
+/* Impostazioni generali per il corpo e la tipografia */
 * {
   font-family: 'Noveo Sans', sans-serif;
 }
@@ -12,9 +12,9 @@ body {
 
 /* Profilo Container */
 .profilo-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .main_var {
@@ -28,10 +28,13 @@ body {
 /* Profilo Info - Centrare il contenuto */
 .profilo-info {
   display: flex;
-  justify-content: center; /* Centra orizzontalmente */
-  align-items: center; /* Centra verticalmente */
+  justify-content: center;
+  /* Centra orizzontalmente */
+  align-items: center;
+  /* Centra verticalmente */
   text-align: center;
-  flex-direction: column; /* Aggiungi questa per disporre le informazioni in verticale */
+  flex-direction: column;
+  /* Aggiungi questa per disporre le informazioni in verticale */
   padding: 20px;
   background-color: var(--color2-brighter);
   border-radius: 10px;
@@ -39,13 +42,15 @@ body {
 }
 
 .profilo-info img.profilo-img {
-  max-width: 150px; /* Imposta una larghezza massima per l'immagine */
+  max-width: 150px;
+  /* Imposta una larghezza massima per l'immagine */
   border-radius: 50%;
   margin-bottom: 20px;
 }
 
 .profilo-info .info-text {
-  max-width: 500px; /* Limita la larghezza del testo */
+  max-width: 500px;
+  /* Limita la larghezza del testo */
 }
 
 .profilo-info p {
@@ -73,22 +78,26 @@ h2 {
 
 /* Stato "non seguito" - blu scuro */
 .follow {
-  background-color: var(--color1); /* blu scuro */
+  background-color: var(--color1);
+  /* blu scuro */
   color: white;
 }
 
 .follow:hover {
-  background-color: var(--color1-brighter); /* celeste più acceso al passaggio */
+  background-color: var(--color1-brighter);
+  /* celeste più acceso al passaggio */
 }
 
 /* Stato "seguito" - celeste chiaro */
 .following {
-  background-color: white; /* celeste chiaro */
+  background-color: white;
+  /* celeste chiaro */
   color: var(--color1);
 }
 
 .following:hover {
-  background-color: grey; /* celeste ancora più chiaro al passaggio */
+  background-color: grey;
+  /* celeste ancora più chiaro al passaggio */
   color: var(--color1);
 }
 
@@ -105,9 +114,12 @@ h2 {
   text-align: center;
 }
 
+
+
 .activity-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colonne uguali */
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 colonne uguali */
   margin-top: 20px;
   gap: 20px;
   background-color: var(--color2-brighter);
@@ -127,8 +139,8 @@ h2 {
   padding: 40px;
   min-height: 150px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-} 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 /* Funzioni - Occupano una riga intera */
 .funzioni-container {
@@ -164,45 +176,45 @@ h2 {
 }
 
 .output-snip {
-    height: 25rem;
-    padding: 0.6rem;
-    border-radius: 10px;
-    background-color: var(--color2);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: relative;
-    width: 100%;
-    min-width: 0;
-    min-height: 0;
-    animation: slide-in 0.5s;
+  height: 25rem;
+  padding: 0.6rem;
+  border-radius: 10px;
+  background-color: var(--color2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  animation: slide-in 0.5s;
 }
 
 .output-preview {
-    background: var(--color4);
-    border-radius: 10px;
-    width: 100%;
-    height: 90%;
-    border: 0;
+  background: var(--color4);
+  border-radius: 10px;
+  width: 100%;
+  height: 90%;
+  border: 0;
 }
 
 .output-snip-opener {
-    position: absolute;
-    right: 1.2rem;
-    bottom: 4.2rem;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: var(--color2);
-    padding: 0.6rem;
-    border-radius: 5px;
+  position: absolute;
+  right: 1.2rem;
+  bottom: 4.2rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--color2);
+  padding: 0.6rem;
+  border-radius: 5px;
 }
 
 .output-snip-opener:hover {
-    background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .output-snip-opener:active {
-    background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /* parte per le finestre di followers e following */
@@ -241,7 +253,8 @@ h2 {
 } */
 
 .list-user {
-  display: flex; /* cambia da block a flex */
+  display: flex;
+  /* cambia da block a flex */
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -256,7 +269,8 @@ h2 {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  text-align: left; /* opzionale */
+  text-align: left;
+  /* opzionale */
 }
 
 .user-name {
@@ -283,41 +297,30 @@ h2 {
 h3 {
   font-family: 'Noveo Sans', sans-serif;
   color: white;
-  font-size: 16px; /* o la misura che vuoi */
+  font-size: 16px;
+  /* o la misura che vuoi */
   font-weight: normal;
   text-align: center;
-  margin: 10px 0; /* un po' di margine verticale, come gli altri elementi */
+  margin: 10px 0;
+  /* un po' di margine verticale, come gli altri elementi */
 }
 
 
-/* parte da finire */
-.recent-activity {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  overflow-x: auto; /* orizzontale di default */
-}
-
-.snippet {
-  min-width: 300px; /* o dimensione adatta ai tuoi contenuti */
-  flex-shrink: 0;
-  border: 1px solid #ccc;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
-
-/* Mobile: imposta layout verticale e scrollbar verticale 
-@media (max-width: 768px) {
-  .recent-activity {
+@media (max-width: 680px) {
+  .activity-container {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 80vh;
   }
 
-  .snippet {
+  .output-snip {
     min-width: unset;
     width: 100%;
   }
-}*/
+
+  .activity-container {
+    grid-template-columns: 1fr;
+    /* una colonna sola per dispositivi piccoli */
+  }
+}

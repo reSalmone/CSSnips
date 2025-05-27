@@ -154,7 +154,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
         <div class="confirm-delete-page">
             <div class="confirm-delete-title-container">
                 <span class="confirm-delete-title">Confirm action</span>
-                <span class="confirm-delete-subtitle">This action is irreversable - this snip will be deleted and will NOT be restored</span>
+                <span class="confirm-delete-subtitle">This action is irreversable - this snip will be deleted and can NOT be restored</span>
             </div>
             <div class="confirm-delete-actions">
                 <button class="confirm-delete-action-button confirm-delete" onclick="location.href = 'delete.php?name=<?php echo $name ?>'">Delete</button>

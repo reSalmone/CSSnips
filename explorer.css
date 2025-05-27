@@ -200,6 +200,12 @@
     overflow: hidden;
 }
 
+.info-right {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+}
+
 .info-views {
     display: flex;
     flex-direction: row;
@@ -215,6 +221,75 @@
     animation: dislike_effect 400ms ease;
     stroke: var(--color4-placeholder);
     will-change: transform;
+}
+
+.info-likes {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+}
+
+.info-likes-checkmark {
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    transition: 100ms;
+    animation: dislike_effect 400ms ease;
+    stroke: var(--color4-placeholder);
+    will-change: transform;
+}
+
+.info-likes-div input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.info-likes-div {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: 100ms;
+}
+
+.info-likes-div input:checked~.info-likes-checkmark path {
+    fill: var(--color5);
+    stroke-width: 0;
+}
+
+.info-likes-div input:checked ~ .info-likes-checkmark {
+    animation: like_effect 400ms ease;
+}
+
+@keyframes like_effect {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes dislike_effect {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .info-text {

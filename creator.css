@@ -141,6 +141,7 @@
     width: 50%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .code-buttons {
@@ -298,6 +299,8 @@
     flex-direction: row;
     justify-content: center;
     display: none;
+    position: absolute;
+    bottom: 0;
 }
 
 .snippet-action-bar {
@@ -347,6 +350,7 @@
     align-items: center;
     gap: 0.6rem;
     overflow: hidden;
+    text-align: center;
 }
 
 .action-button:hover {
@@ -372,6 +376,12 @@
     width: 1.5rem;
     transition: 100ms;
     animation: like_effect 400ms ease;
+}
+
+@media (max-width: 425px) {
+    .action-svg {
+        display: none;
+    }
 }
 
 .action-button:hover .action-svg {
@@ -420,6 +430,7 @@
     color: var(--color4);
     outline: none;
     border: none;
+    border: 2px dashed var(--color4);
 }
 
 .description-area::-webkit-scrollbar {
@@ -1140,4 +1151,149 @@
 .drafts-error {
     color: var(--color4);
     font-size: 1rem;
+}
+
+.center-div.confirm-delete-center-div {
+    width: 40%;
+}
+
+.confirm-delete-page {
+    backdrop-filter: blur(10px);
+    box-shadow: #00000059 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    background: rgba(0, 0, 0, .5);
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    max-height: 80vh;
+    overflow-y: scroll;
+    animation: appear .5s ease;
+}
+
+.confirm-delete-page::-webkit-scrollbar {
+    width: 6px;
+}
+
+.confirm-delete-page::-webkit-scrollbar-thumb {
+    background: var(--color4);
+    border-radius: 10px;
+}
+
+.confirm-delete-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.confirm-delete-title {
+    color: var(--color4);
+    font-size: 3.1rem;
+    text-align: center;
+}
+
+.confirm-delete-subtitle {
+    color: var(--color4);
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.confirm-delete-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 2.5rem;
+}
+
+.confirm-delete-action-button {
+    outline: 0;
+    border: 0;
+    background: var(--color4);
+    color: var(--color1);
+    border-radius: 100px;
+    flex: 1;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    width: 80%;
+    cursor: pointer;
+}
+
+.confirm-delete {
+    background: var(--color5) !important;
+}
+
+.center-div.info-center-div {
+    width: 40%;
+}
+
+.info-page {
+    backdrop-filter: blur(10px);
+    box-shadow: #00000059 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    background: rgba(0, 0, 0, .5);
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    max-height: 80vh;
+    overflow-y: scroll;
+    animation: appear .5s ease;
+}
+
+.info-page::-webkit-scrollbar {
+    width: 6px;
+}
+
+.info-page::-webkit-scrollbar-thumb {
+    background: var(--color4);
+    border-radius: 10px;
+}
+
+.info-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-title {
+    color: var(--color4);
+    font-size: 3.1rem;
+    text-align: center;
+}
+
+.info-text {
+    color: var(--color4);
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 0.6em 1.2em;
+    border: 2px dashed rgba(0, 255, 0, .5);
+    background: rgba(0, 255, 0, .1);
+    border-radius: 10px;
+    width: 100%;
+}
+
+.info-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 2.5rem;
+}
+
+.info-action-button {
+    outline: 0;
+    border: 0;
+    background: var(--color4);
+    color: var(--color1);
+    border-radius: 100px;
+    flex: 1;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    width: 80%;
+    cursor: pointer;
 }

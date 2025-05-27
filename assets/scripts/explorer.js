@@ -38,26 +38,53 @@ function assignIFrame(iframeID, html, css, js) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const els = document.querySelectorAll('.output-snip');
-  const ids = Array.from(els, el => el.dataset.snippetId).map(Number);
+    const els = document.querySelectorAll('.output-snip');
+    const ids = Array.from(els, el => el.dataset.snippetId).map(Number);
 
-  if (!ids.length) return;
+    if (!ids.length) return;
 
-  fetch(`load_snippets.php?ids=${ids.join(',')}`)
-    .then(r => r.json())
-    .then(snippets => {
-      snippets.forEach(s => {
-        const iframeId = 'output-snip-frame-' + s.id;
-        const loaderID = 'output-loader-' + s.id;
-        assignIFrame(iframeId, s.html, s.css, s.js);
-        document.getElementById(loaderID).style.display = "none";
-      });
-    })
-    .catch(err => console.error('Batch load error:', err));
+    fetch(`load_snippets.php?ids=${ids.join(',')}`)
+        .then(r => r.json())
+        .then(snippets => {
+            snippets.forEach(s => {
+                const iframeId = 'output-snip-frame-' + s.id;
+                const loaderID = 'output-loader-' + s.id;
+                assignIFrame(iframeId, s.html, s.css, s.js);
+                document.getElementById(loaderID).style.display = "none";
+            });
+        })
+        .catch(err => console.error('Batch load error:', err));
 });
 
 function updateUrlAndDirect(key, value) {
-  const url = new URL(window.location.href);
-  url.searchParams.set(key, value);
-  window.location.href = url.toString();
+    const url = new URL(window.location.href);
+    url.searchParams.set(key, value);
+    window.location.href = url.toString();
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hearts = document.getElementsByClassName('info-like-checkbox')
+    Array.from(hearts).forEach(heart => {
+        if (heart) {
+        heart.addEventListener('click', function () {
+            const snippet = heart.getAttribute('data-snippet');
+
+            fetch('like.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `snippet=${encodeURIComponent(snippet)}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('info-likes-' + data.id).innerText = data.value;
+                    } else {
+                        alert(data.error);
+                    }
+                });
+        });
+    }
+    });
+});

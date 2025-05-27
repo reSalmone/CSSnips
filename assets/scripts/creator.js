@@ -245,6 +245,8 @@ function randomString(length) {
 function openPost(event) {
     closeDrafts();
     closeLoad();
+    closeConfirmDelete();
+    closeInfo();
     event.stopPropagation();
     document.getElementById('post-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(50%)';
@@ -380,6 +382,8 @@ function saveDraft(name) {
                 save();
                 if (location.search !== "?draft=" + postname) {
                     location.href = "creator.php?draft=" + postname;
+                } else {
+                    openInfo(null, "Draft updated")
                 }
             } else {
                 alert('error: ' + data.error);
@@ -389,7 +393,6 @@ function saveDraft(name) {
 }
 
 function deleteDraft(name) {
-
     fetch("delete-draft.php?name=" + name, {
         method: "GET",
     }).then(res => res.json())
@@ -397,8 +400,11 @@ function deleteDraft(name) {
             if (data.success) {
                 if (location.search === "?draft=" + name) {
                     location.href = "creator.php";
+                } else {
+                    openInfo(null, "Draft deleted")
                 }
                 document.getElementById("drafts-output-snip-" + data.id).remove();
+
             } else {
                 showPostServerError(data.error);
             }
@@ -530,6 +536,8 @@ function closeLoad() {
 function openDrafts(event) {
     closeLoad();
     closePost();
+    closeInfo();
+    closeConfirmDelete();
     event.stopPropagation();
     document.getElementById('drafts-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(30%)';
@@ -537,6 +545,39 @@ function openDrafts(event) {
 
 function closeDrafts() {
     document.getElementById('drafts-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function openConfirmDelete(event) {
+    closeLoad();
+    closePost();
+    closeDrafts();
+    closeInfo();
+    event.stopPropagation();
+    document.getElementById('confirm-delete-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+}
+
+function closeConfirmDelete() {
+    document.getElementById('confirm-delete-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function openInfo(event, info) {
+    closeLoad();
+    closePost();
+    closeDrafts();
+    closeConfirmDelete();
+    if (event != null) {
+        event.stopPropagation();
+    }
+    document.getElementById('info-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+    document.getElementById('info-text').innerText = info;
+}
+
+function closeInfo() {
+    document.getElementById('info-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
 }
 

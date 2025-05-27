@@ -11,6 +11,18 @@ if (isset($_GET['page'])) {
     $page = intval($_GET['page']);
 }
 $pageOffset = ($page - 1) * $pageSize;
+
+$likedSnippets = null;
+if (isset($_SESSION['username'])) {
+    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
+    if ($dbcon != -1) {
+        $q1 = "SELECT * from users where username = $1";
+        $result = pg_query_params($dbcon, $q1, array($_SESSION['username']));
+        if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+            $likedSnippets = explode(',', trim($tuple['likedsnippets'], '{}'));
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -128,15 +140,40 @@ $pageOffset = ($page - 1) * $pageSize;
                                         <div class="info-pfp"></div>
                                         <span><?= htmlspecialchars($tuple['creator']) ?></span>
                                     </div>
-                                    <div class="info-views">
-                                        <div class='data-views-checkmark'>
-                                            <svg viewBox='0 0 256 256'>
-                                                <path
-                                                    d='M31.8 148.4c0-23.1928 28.62-74.2 95.4-74.2s95.4 51.0178 95.4 74.2m-63.6 0a31.8 31.8 90 11-63.6 0 31.8 31.8 90 0163.6 0Z'
-                                                    stroke-width='20px' fill='none'></path>
-                                            </svg>
+                                    <div class="info-right">
+                                        <div class="info-likes">
+                                            <label class="info-likes-div">
+                                                <?php
+                                                if (isset($_SESSION['username'])) {
+                                                    if ($dbcon != -1) {
+                                                        $snippetName = $tuple['file_location'];
+                                                        $checkedAttribute = in_array($snippetName, $likedSnippets) ? 'checked' : '';
+                                                        echo "<input $checkedAttribute type='checkbox' data-snippet='$snippetName' class='info-like-checkbox'>";
+                                                    }
+                                                } else {
+                                                    echo "<input type='checkbox' onclick='event.preventDefault(); event.stopPropagation(); openLogin(event);'>";
+                                                }
+                                                ?>
+                                                <div class='info-likes-checkmark'>
+                                                    <svg viewBox='0 0 256 256'>
+                                                        <path
+                                                            d='M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z'
+                                                            stroke-width='20px' fill='none'></path>
+                                                    </svg>
+                                                </div>
+                                            </label>
+                                            <p class="info-text" id="info-likes-<?= $id ?>"><?= htmlspecialchars($tuple['likes']) ?></p>
                                         </div>
-                                        <p class="info-text"><?= htmlspecialchars($tuple['views']) ?></p>
+                                        <div class="info-views">
+                                            <div class='data-views-checkmark'>
+                                                <svg viewBox='0 0 256 256'>
+                                                    <path
+                                                        d='M31.8 148.4c0-23.1928 28.62-74.2 95.4-74.2s95.4 51.0178 95.4 74.2m-63.6 0a31.8 31.8 90 11-63.6 0 31.8 31.8 90 0163.6 0Z'
+                                                        stroke-width='20px' fill='none'></path>
+                                                </svg>
+                                            </div>
+                                            <p class="info-text"><?= htmlspecialchars($tuple['views']) ?></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

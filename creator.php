@@ -15,13 +15,6 @@ function splitFileContent($content)
     return [$html, $css, $js];
 }
 
-$foundRemoveVariation = false;
-if (isset($_GET['remove-variation'])) {
-    unset($_GET['remove-variation']);
-    unset($_SESSION['variation']);
-    $foundRemoveVariation = true;
-}
-
 $name = null;
 $challengeName = null;
 
@@ -170,9 +163,6 @@ if ($name != '' && !$found) {
     if ($foundChallenge) { //not sure why I'm doing it to challenges aswell
         echo "<script>removeQueryParam('challenge')</script>";
     }
-    if ($foundRemoveVariation) {
-        echo "<script>removeQueryParam('remove-variation')</script>";
-    }
     ?>
 </head>
 
@@ -319,7 +309,34 @@ if ($name != '' && !$found) {
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closePost(); closeLoad(); closeDrafts();">
+    <div class="center-div confirm-delete-center-div" id="confirm-delete-center-div">
+        <div class="confirm-delete-page">
+            <div class="confirm-delete-title-container">
+                <span class="confirm-delete-title">Confirm action</span>
+                <span class="confirm-delete-subtitle">This action is irreversable - this draft will be deleted and can
+                    NOT be restored</span>
+            </div>
+            <div class="confirm-delete-actions">
+                <button class="confirm-delete-action-button confirm-delete"
+                    onclick="deleteDraft('<?= $name ?>')">Delete</button>
+                <button class="confirm-delete-action-button" onclick="closeConfirmDelete();">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="center-div info-center-div" id="info-center-div">
+        <div class="info-page">
+            <div class="info-title-container">
+                <span class="info-title">Info</span>
+            </div>
+            <span class="info-text" id="info-text"></span>
+            <div class="info-actions">
+                <button class="info-action-button" onclick="closeInfo();">Lesgoo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rest" onclick="closeLogin(); closeSignup(); closePost(); closeLoad(); closeDrafts(); closeConfirmDelete(); closeInfo();">
         <div class="snippet-page">
             <?php if (($foundEdit && $found)) { ?>
                 <div class="variation-container">
@@ -413,25 +430,34 @@ if ($name != '' && !$found) {
                         </button>
                     <?php } else { ?>
                         <!--NORMAL BUTTONS-->
-                        <form action="" method="get" class="action-form">
-                            <button class="action-button" id="action-important" type="submit" name="remove-variation"
-                                onclick="localStorage.clear();">
-                                <div class='action-svg'>
-                                    <svg viewBox='0 0 256 256'>
-                                        <path
-                                            d='M127.2 159H127.306M127.2 127.2V95.4M52.8099 201.4H201.5897C217.9519 201.4 228.147 183.6514 219.9023 169.5184L145.5126 41.9922C137.3315 27.9683 117.0685 27.9683 108.8874 41.9922L34.4979 169.5184C26.2536 183.6514 36.448 201.4 52.8099 201.4Z'
-                                            stroke-width='20px' fill='none' stroke-linecap='round'></path>
-                                    </svg>
-                                </div>
-                                <span>Reset snippet</span>
-                            </button>
-                        </form>
+                        <button class="action-button" id="action-important" onclick="location.href = 'creator.php'">
+                            <div class='action-svg'>
+                                <svg viewBox='0 0 256 256'>
+                                    <path
+                                        d='M201.4 143.1C201.4 187.0063 165.8 222.6 121.9 222.6 77.9 222.6 42.4 187.0 42.4 143.1 42.4 99.1 77.9 63.6 121.9 63.6H212M212 63.6 180.2 31.8M212 63.6 180.2 95.4'
+                                        stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                                </svg>
+                            </div>
+                            <span>Reset</span>
+                        </button>
                         <?php
                         $actionSaveName = $foundDraft ? $name : "";
                         $actionSave = isset($_SESSION['username']) ? ("saveDraft('" . $actionSaveName . "');") : "openLogin(event);";
                         $actionPost = isset($_SESSION['username']) ? "openPost(event);" : "openLogin(event);";
                         $actionDrafts = isset($_SESSION['username']) ? "openDrafts(event);" : "openLogin(event);";
                         ?>
+                        <?php if ($foundDraft) { ?>
+                            <button class="action-button" type="button" onclick="openConfirmDelete(event);">
+                                <div class='action-svg'>
+                                    <svg viewBox='0 0 256 256'>
+                                        <path
+                                            d='M197.5 41.6H151.2L148.6 36.5C146.6 32.4 142.6 30 138.2 30H94.5C90.2 30 86.1 32.4 81.4 41.6H35 M46.6 81.4 54.3 204.6C54.8 213.7 62.5 220.9 71.6 220.9H161C170.1 220.9 177.8 213.8 178.3 204.6L186.1 81.4Z'
+                                            stroke-width='20px' fill='none' stroke-linecap='round'></path>
+                                    </svg>
+                                </div>
+                                <span>Delete draft</span>
+                            </button>
+                        <?php } ?>
                         <button class="action-button" type="button" onclick="<?php echo $actionDrafts ?>">
                             <div class='action-svg'>
                                 <svg viewBox='0 0 256 256'>

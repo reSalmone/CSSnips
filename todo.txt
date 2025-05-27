@@ -19,13 +19,13 @@
 
 /add a site-wide footer div
 /make the login/signup/navbar load programmatically
-#make likes and views show better in the explorer (ho deciso di mette solo le views)
+/make likes and views show better in the explorer (ho deciso di mette solo le views)
 /add challenge creator to creator.php and connect it to challenges
 /make a page system to explorer.php
 #add a report system (ho creato la pagina, il sistema non lo creo)
 good-looking code in editors
 
-add delete/draft-delete confirm choice
+/add delete/draft-delete confirm choice
 add EVERY page .php error reader and notification system so you can display them
 /make stuff in explorer.php with ajax
 

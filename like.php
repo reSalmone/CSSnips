@@ -48,9 +48,9 @@ if ($dbcon != -1) {
     $data = pg_query_params($dbcon, $q3, array($snippet));
 
     //get the value
-    $q4 = "SELECT likes FROM snips WHERE file_location = $1";
+    $q4 = "SELECT likes, id FROM snips WHERE file_location = $1";
     $result = pg_query_params($dbcon, $q4, array($snippet));
     $tuple = pg_fetch_array($result, null, PGSQL_ASSOC);
 
-    echo json_encode(['success' => true, 'value' => $tuple['likes']]);
+    echo json_encode(['success' => true, 'value' => $tuple['likes'], 'id' => $tuple['id']]);
 }

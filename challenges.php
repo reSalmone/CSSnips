@@ -150,17 +150,17 @@ function splitFileContent($content){
                                         echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
                                         echo '<span>View code</span>';
                                         echo '</div>';
-                                        echo '<iframe id="output-snip-frame-' . $tuple['id'] . '" class="output-preview"></iframe>';
+                                        echo '<iframe id="output-snip-frame-' . $tuple['id'] . "-" . $i . '" class="output-preview"></iframe>';
                                         /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
                                         and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
-                                        echo '<script id="snippet-data-' . $tuple['id'] . '" type="application/json">';
+                                        echo '<script id="snippet-data-' . $tuple['id'] . "-" . $i . '" type="application/json">';
                                         echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
                                         echo '</script>';
 
                                         echo '<script>
                                             document.addEventListener("DOMContentLoaded", function() {
-                                                const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . '").textContent);
-                                                assignIFrame("output-snip-frame-' . $tuple['id'] . '", data.html, data.css, data.js);
+                                                const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . "-" . $i . '").textContent);
+                                                assignIFrame("output-snip-frame-' . $tuple['id'] . "-" . $i . '", data.html, data.css, data.js);
                                             });
                                         </script>';
                                         echo '<div class="info">';
@@ -232,5 +232,11 @@ function splitFileContent($content){
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
 <script src="assets/scripts/index.js"></script>
-
+<script>
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.slidesnip-object-left').forEach(el => {
+            el.classList.add('slide-in');
+        });
+    });
+</script>
 </html>

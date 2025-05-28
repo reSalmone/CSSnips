@@ -298,7 +298,7 @@
     animation-play-state: running;
 }
 
-.slidesnip-object-left {
+.slidesnip-object-left.slide-in {
     animation: move-left 30s linear infinite;
 }
 

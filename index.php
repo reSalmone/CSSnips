@@ -74,7 +74,7 @@ function splitFileContent($content)
                         &lt;button class="lesgoo" type="button"&gt;<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;My personal button!&lt;/span&gt;<br>
                         &lt;/button&gt;<br><br>
-                        <span class="code-text">start right away!</span>
+                        <span class="code-text">&lt;!--start right away!--&gt;</span>
                     </div>
                 </div>
             </div>

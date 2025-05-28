@@ -220,6 +220,9 @@
 }
 
 .code-text {
+    font-family: monospace !important;
+    font-size: 0.9rem;
+    line-height: 1rem;
     display: inline-block;
     overflow: hidden;
     border-right: .15em solid var(--color4);
@@ -236,10 +239,10 @@
         width: 0
     }
     80% {
-        width: 10em
+        width: 14em
     }
     100% {
-        width: 10em
+        width: 14em
     }
 }
 

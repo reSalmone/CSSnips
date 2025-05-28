@@ -64,7 +64,7 @@ if ($type != "") {
                     $t = " ";
                 }
                 ?>
-                <span class="title1"><?= $username . "'s " . $t . "snippets" ?></span>
+                <span class="title"><?= $username . "'s " . $t . "snippets" ?></span>
             </div>
             <div class="search-output-div">
                 <?php
@@ -176,7 +176,7 @@ if ($type != "") {
             <?php
         }
         ?>
-        <?php include 'footer-code.php'; ?> <!--FOOTER-->
+        <?php include 'footer-code.php'; ?>
     </div>
 </body>
 <script src="assets/scripts/login.js"></script>

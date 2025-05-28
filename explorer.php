@@ -44,6 +44,19 @@ if (isset($_SESSION['username'])) {
 <body>
     <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
     <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
+
+    <div class="center-div info-dialog-center-div" id="info-center-div">
+        <div class="info-dialog-page">
+            <div class="info-dialog-title-container">
+                <span class="info-dialog-title">Info</span>
+                <span class="info-dialog-text" id="info-text"></span>
+            </div>
+            <div class="info-dialog-actions">
+                <button class="info-dialog-action-button" onclick="closeInfo();">Okay</button>
+            </div>
+        </div>
+    </div>
+
     <div id="rest" onclick="closeLogin(); closeSignup();">
         <div class="title-container">
             <span class="title">Explorer</span>
@@ -209,5 +222,12 @@ if (isset($_SESSION['username'])) {
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
 <script src="assets/scripts/explorer.js"></script>
-
+<?php if (isset($_GET['info'])) { ?>
+    <script>
+        openInfo(null, "<?= $_GET['info'] ?>");
+        const url = new URL(window.location);
+        url.searchParams.delete('info');
+        window.history.replaceState({}, '', url);
+    </script>
+<?php } ?>
 </html>

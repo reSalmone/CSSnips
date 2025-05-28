@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function openReport(event) {
     closeConfirmDelete();
+    closeInfo();
     event.stopPropagation();
     document.getElementById('report-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(30%)';
@@ -183,6 +184,7 @@ function reportFormSubmit(event) {
 
 function openConfirmDelete(event) {
     closeReport();
+    closeInfo();
     event.stopPropagation();
     document.getElementById('confirm-delete-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(30%)';
@@ -190,5 +192,21 @@ function openConfirmDelete(event) {
 
 function closeConfirmDelete() {
     document.getElementById('confirm-delete-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function openInfo(event, info) {
+    closeReport();
+    closeConfirmDelete();
+    if (event != null) {
+        event.stopPropagation();
+    }
+    document.getElementById('info-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+    document.getElementById('info-text').innerText = info;
+}
+
+function closeInfo() {
+    document.getElementById('info-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
 }

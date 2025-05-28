@@ -328,10 +328,10 @@ if ($name != '' && !$found) {
         <div class="info-page">
             <div class="info-title-container">
                 <span class="info-title">Info</span>
+                <span class="info-text" id="info-text"></span>
             </div>
-            <span class="info-text" id="info-text"></span>
             <div class="info-actions">
-                <button class="info-action-button" onclick="closeInfo();">Lesgoo</button>
+                <button class="info-action-button" onclick="closeInfo();">Okay</button>
             </div>
         </div>
     </div>
@@ -583,5 +583,11 @@ if (isset($_SESSION['username']) && !$foundEdit && !$foundClone && !$foundVariat
     echo '<script>if (!loadedFromStorage) { openLoad(); }</script>';
 }
 ?>
+<?php if (isset($_GET['info'])) { ?>
+    <script>
+        openInfo(null, "<?= $_GET['info'] ?>");
+        removeQueryParam("info");
+    </script>
+<?php } ?>
 
 </html>

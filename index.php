@@ -63,7 +63,19 @@ function splitFileContent($content)
                     <a href="creator.php" class="snippet-title">Click to start creating</a>
                 </div>
                 <div class="code-box">
-
+                    <div class="code-numbers">
+                        <div class="code-number">1</div>
+                        <div class="code-number">2</div>
+                        <div class="code-number">3</div>
+                        <div class="code-number">4</div>
+                        <div class="code-number">5</div>
+                    </div>
+                    <div class="code-code">
+                        &lt;button class="lesgoo" type="button"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;My personal button!&lt;/span&gt;<br>
+                        &lt;/button&gt;<br><br>
+                        <span class="code-text">start right away!</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,69 +84,77 @@ function splitFileContent($content)
                 <span class="secondary-title">Explore hundreds of open-source elements</span>
                 <span class="secondary-subtitle">Search through them with our tag system</span>
             </div>
+            <form action="explorer.php" method="GET" class="search-form" id="search-form">
+                <div class="search-bar">
+                    <input placeholder="Search for elements / tags / usernames" type="search" class="search-input"
+                        name="search" spellcheck="false">
+                <img src="assets/images/search.png" class="search-icon"
+                        onclick="document.getElementById('search-form').submit();">
+                </div>
+            </form>
             <div class="slideshow-container">
                 <div class="slideshow">
                     <?php for ($i = 0; $i < 3; $i++) { ?>
-                    <div class="slideshow-object-right">
-                        <div class="slideshow-item">button</div>
-                        <div class="slideshow-item">rainbow</div>
-                        <div class="slideshow-item">mac</div>
-                        <div class="slideshow-item">form</div>
-                        <div class="slideshow-item">input</div>
-                        <div class="slideshow-item">grayscale</div>
-                        <div class="slideshow-item">simple</div>
-                        <div class="slideshow-item">input</div>
-                        <div class="slideshow-item">colorful</div>
-                        <div class="slideshow-item">windows</div>
-                    </div>
+                        <div class="slideshow-object-right">
+                            <div class="slideshow-item">button</div>
+                            <div class="slideshow-item">rainbow</div>
+                            <div class="slideshow-item">mac</div>
+                            <div class="slideshow-item">form</div>
+                            <div class="slideshow-item">input</div>
+                            <div class="slideshow-item">grayscale</div>
+                            <div class="slideshow-item">simple</div>
+                            <div class="slideshow-item">input</div>
+                            <div class="slideshow-item">colorful</div>
+                            <div class="slideshow-item">windows</div>
+                        </div>
                     <?php } ?>
                 </div>
                 <div class="slideshow">
                     <?php for ($i = 0; $i < 3; $i++) { ?>
-                    <div class="slideshow-object-left">
-                        <div class="slideshow-item">modern</div>
-                        <div class="slideshow-item">pixel</div>
-                        <div class="slideshow-item">minimal</div>
-                        <div class="slideshow-item">delete</div>
-                        <div class="slideshow-item">red</div>
-                        <div class="slideshow-item">slider</div>
-                        <div class="slideshow-item">hover</div>
-                        <div class="slideshow-item">blue</div>
-                        <div class="slideshow-item">circle</div>
-                        <div class="slideshow-item">add</div>
-                    </div>
+                        <div class="slideshow-object-left">
+                            <div class="slideshow-item">modern</div>
+                            <div class="slideshow-item">pixel</div>
+                            <div class="slideshow-item">minimal</div>
+                            <div class="slideshow-item">delete</div>
+                            <div class="slideshow-item">red</div>
+                            <div class="slideshow-item">slider</div>
+                            <div class="slideshow-item">hover</div>
+                            <div class="slideshow-item">blue</div>
+                            <div class="slideshow-item">circle</div>
+                            <div class="slideshow-item">add</div>
+                        </div>
                     <?php } ?>
                 </div>
                 <div class="slideshow">
                     <?php for ($i = 0; $i < 3; $i++) { ?>
-                    <div class="slideshow-object-right">
-                        <div class="slideshow-item">animated</div>
-                        <div class="slideshow-item">gradient</div>
-                        <div class="slideshow-item">radio</div>
-                        <div class="slideshow-item">text</div>
-                        <div class="slideshow-item">switch</div>
-                        <div class="slideshow-item">bold</div>
-                        <div class="slideshow-item">loader</div>
-                        <div class="slideshow-item">checkbox</div>
-                        <div class="slideshow-item">forza</div>
-                        <div class="slideshow-item">magica</div>
-                    </div>
+                        <div class="slideshow-object-right">
+                            <div class="slideshow-item">animated</div>
+                            <div class="slideshow-item">gradient</div>
+                            <div class="slideshow-item">radio</div>
+                            <div class="slideshow-item">text</div>
+                            <div class="slideshow-item">switch</div>
+                            <div class="slideshow-item">bold</div>
+                            <div class="slideshow-item">loader</div>
+                            <div class="slideshow-item">checkbox</div>
+                            <div class="slideshow-item">forza</div>
+                            <div class="slideshow-item">magica</div>
+                        </div>
                     <?php } ?>
                 </div>
                 <div class="slideshow">
                     <?php for ($i = 0; $i < 3; $i++) { ?>
-                    <div class="slideshow-object-left">
-                        <div class="slideshow-item">tooltip</div>
-                        <div class="slideshow-item">icon</div>
-                        <div class="slideshow-item">green</div>
-                        <div class="slideshow-item">svg</div>
-                        <div class="slideshow-item">download</div>
-                        <div class="slideshow-item">editor</div>
-                        <div class="slideshow-item">2d</div>
-                        <div class="slideshow-item">white</div>
-                        <div class="slideshow-item">space</div>
-                        <div class="slideshow-item">menu</div>
-                    </div>
+                        <div class="slideshow-object-left">
+                            <div class="slideshow-item">tooltip</div>
+                            <div class="slideshow-item">icon</div>
+                            <div class="slideshow-item">green</div>
+                            <div class="slideshow-item">svg</div>
+                            <div class="slideshow-item">download</div>
+                            <div class="slideshow-item">editor</div>
+                            <div class="slideshow-item">2d</div>
+                            <div class="slideshow-item">white</div>
+                            <div class="slideshow-item">space</div>
+                            <div class="slideshow-item">menu</div>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
@@ -158,8 +178,8 @@ function splitFileContent($content)
                             $diff = $datag->diff($dataf);
                             $fill = $diff->format('%a') * 3.22;
                             $name = $tuple["name"];
-                            echo'<div class="activec-box" onclick="location.href = \'challenge_selected.php?name='.$name.'\' " type="button">
-                                    <div class="contest-month">'. $name .'</div>';
+                            echo '<div class="activec-box" onclick="location.href = \'challenge_selected.php?name=' . $name . '\' " type="button">
+                                    <div class="contest-month">' . $name . '</div>';
                             echo '<div class="contest-content">';
                             ?>
                             <div class="data">
@@ -170,34 +190,39 @@ function splitFileContent($content)
                             </div>
                             <button class="actions-button" onclick="location.href ='creator.php'">
                                 <div class='actions-svg'>
-                                    <svg  viewBox="0 0 512.000000 512.000000">
-                                    <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                                    fill="#efffe1" stroke="none">
-                                    <path d="M2305 5113 c-671 -72 -1279 -393 -1707 -903 -301 -358 -488 -764 -571 -1240 -19 -109 -21 -162 -21 -410 0 -248 2 -301 21 -410 94 -540 320 -987 693 -1374 383 -398 866 -650 1430 -749 109 -19 162 -21 410 -21 313 0 407 10 653 73 881 228 1600 947 1828 1828 63 246 73 340 73 653 0 248 -2 301 -21 410 -99 564 -352 1047 -749 1430 
-                                            -386 372 -837 600 -1368 691 -97 17 -172 22 -376 24 -140 2 -273 1 -295 -2z m565 -418 c486 -78 869 -273 1210 -615 298 -297 494 -648 584 -1040 70 -309 70 -651 0 -960 -121 -532 -453 -1006 -931 -1328 -184 -124 -463 -243 -693 -296 -309 -70 -651 -70 -960 0 -532 121 -1006 453 -1328 931 -124 184 -243 463 -296 693 -70 309 -70 651 0 960 90 392 286 743 584 1040 377 378 808 578 1365 634 79 8 372 -4 465 -19z"/>
-                                    <path d="M2470 3748 c-24 -13 -58 -40 -74 -61 l-31 -39 -3 -434 -3 -434 -417 0 c-414 0 -418 0 -462 -22 -24 -13 -57 -40 -74 -61 -26 -32 -31 -49 -34 -105 -5 -88 23 -144 93 -187 l48 -30 424 -3 423 -3 0 -418 0 -418 23 -44 c73 -137 281 -137 354 0 l23 44 0 418 0 418 423 3 424 3 48 30 c70 43 98 99 93 187 -3 56 -8 73 -34 105 -17 21 -50 48 -74 61 -44 22 -48 22 -462 22 l-417 0 -3 434 -3 434 -31 39 c-39 50 -105 83 -164 83 -28 0 -63 -9 -90 -22z"/>
-                                    </g>
+                                    <svg viewBox="0 0 512.000000 512.000000">
+                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#efffe1"
+                                            stroke="none">
+                                            <path
+                                                d="M2305 5113 c-671 -72 -1279 -393 -1707 -903 -301 -358 -488 -764 -571 -1240 -19 -109 -21 -162 -21 -410 0 -248 2 -301 21 -410 94 -540 320 -987 693 -1374 383 -398 866 -650 1430 -749 109 -19 162 -21 410 -21 313 0 407 10 653 73 881 228 1600 947 1828 1828 63 246 73 340 73 653 0 248 -2 301 -21 410 -99 564 -352 1047 -749 1430 
+                                            -386 372 -837 600 -1368 691 -97 17 -172 22 -376 24 -140 2 -273 1 -295 -2z m565 -418 c486 -78 869 -273 1210 -615 298 -297 494 -648 584 -1040 70 -309 70 -651 0 -960 -121 -532 -453 -1006 -931 -1328 -184 -124 -463 -243 -693 -296 -309 -70 -651 -70 -960 0 -532 121 -1006 453 -1328 931 -124 184 -243 463 -296 693 -70 309 -70 651 0 960 90 392 286 743 584 1040 377 378 808 578 1365 634 79 8 372 -4 465 -19z" />
+                                            <path
+                                                d="M2470 3748 c-24 -13 -58 -40 -74 -61 l-31 -39 -3 -434 -3 -434 -417 0 c-414 0 -418 0 -462 -22 -24 -13 -57 -40 -74 -61 -26 -32 -31 -49 -34 -105 -5 -88 23 -144 93 -187 l48 -30 424 -3 423 -3 0 -418 0 -418 23 -44 c73 -137 281 -137 354 0 l23 44 0 418 0 418 423 3 424 3 48 30 c70 43 98 99 93 187 -3 56 -8 73 -34 105 -17 21 -50 48 -74 61 -44 22 -48 22 -462 22 l-417 0 -3 434 -3 434 -31 39 c-39 50 -105 83 -164 83 -28 0 -63 -9 -90 -22z" />
+                                        </g>
                                     </svg>
                                 </div>
                                 <span>Create</span>
                             </button>
-                            </div>
-                            <div class="contest-background-target">
-                                <?php echo '<img src="'. $tuple["image"].'" class="nicon-target">'?>
-                            </div>
-                            <?php
-                            echo '</div>';
-                             }}else {echo '<p>Error connecting to databse</p>';} ?>
-                </div>
-                <img src="assets/images/up-arrow.png" class="activec-arrow">
-                <div class="activec-container">
-                    <span class="activec-box-title">Challenge Snips</span>
-                    <div class="activec-snips-box">
-                        <div class="slidesnip">
-                            <?php for ($i = 0; $i < 3; $i++) { ?>
+                        </div>
+                        <div class="contest-background-target">
+                            <?php echo '<img src="' . $tuple["image"] . '" class="nicon-target">' ?>
+                        </div>
+                        <?php
+                        echo '</div>';
+                        }
+                    } else {
+                        echo '<p>Error connecting to databse</p>';
+                    } ?>
+            </div>
+            <img src="assets/images/up-arrow.png" class="activec-arrow">
+            <div class="activec-container">
+                <span class="activec-box-title">Challenge Snips</span>
+                <div class="activec-snips-box">
+                    <div class="slidesnip">
+                        <?php for ($i = 0; $i < 3; $i++) { ?>
                             <div class="slidesnip-object-left">
                                 <div class="search-output">
-                                <?php
+                                    <?php
                                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
                                         $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
                                         $result2 = pg_query($dbcon, $q2);
@@ -207,12 +232,12 @@ function splitFileContent($content)
                                                 $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
                                 
                                                 list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-                                                
+                                
                                                 echo '<div class="output-snip">';
                                                 echo '<div class= "snip-info">';
-                                                $snip_likes=$tuple['challenge_likes'];
-                                                $challenge_name=$tuple['challenge_of'];
-                                                $snip_name=$tuple['id'];
+                                                $snip_likes = $tuple['challenge_likes'];
+                                                $challenge_name = $tuple['challenge_of'];
+                                                $snip_name = $tuple['id'];
                                                 echo '</div>';
                                                 echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
                                                 echo '<span>View code</span>';
@@ -248,20 +273,21 @@ function splitFileContent($content)
                                     } else {
                                         echo '<p>Error connecting to databse</p>';
                                     }
-                                ?>
+                                    ?>
                                 </div>
                             </div>
-                            <?php } ?>
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
-        <?php include 'footer-code.php'; ?> <!--FOOTER-->
+    </div>
+    <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
 <script src="assets/scripts/title-wave2.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
 <script src="assets/scripts/index.js"></script>
+
 </html>

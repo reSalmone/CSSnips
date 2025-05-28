@@ -74,9 +74,9 @@
 #first-container-canvas {
     position: absolute;
     left: 0;
-    bottom: -40%;
+    bottom: -10rem;
     /*make it stick out of the parent*/
-    height: 40%;
+    height: 10rem;
     width: 100%;
 }
 
@@ -98,8 +98,19 @@
     border-radius: 20px;
     overflow: hidden;
     animation: none;
-    height: 60vh;
+    height: 20rem;
 }
+
+@media (max-width: 628px) {
+    .snippet {
+        width: 60%;
+    }
+
+    .second-container {
+        padding-top: 10rem;
+    }
+}
+
 
 .snippet:has(.snippet-title:hover) {
     animation: select-creator 1s ease;
@@ -154,7 +165,96 @@
     background: var(--color1);
     height: 100%;
     width: 40%;
+    display: flex;
+    flex-direction: row;
 }
+
+.code-numbers {
+    width: 2rem;
+    background: var(--color1-dark);
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.6rem;
+}
+
+.code-number {
+    width: 100%;
+    text-align: center;
+    color: var(--color4-placeholder);
+    font-size: 0.9rem;
+    line-height: 1rem;
+}
+
+.code-code {
+    font-family: monospace !important;
+    color: var(--color4);
+    padding: 0.6rem;
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1rem;
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+.code-code::-webkit-scrollbar {
+    background: var(--color1);
+    width: 0.6rem;
+    height: 0.6rem;
+}
+
+.code-code::-webkit-scrollbar-thumb {
+    background: var(--color2-brighter);
+    border-radius: 3.1rem;
+}
+
+.code-code::-webkit-scrollbar-thumb:hover {
+    background: var(--color2-bright);
+}
+
+.code-code::-webkit-scrollbar-thumb:active {
+    background: var(--color2-brighter);
+}
+
+.code-code::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+.code-text {
+    display: inline-block;
+    overflow: hidden;
+    border-right: .15em solid var(--color4);
+    white-space: nowrap;
+    margin: 0 auto;
+    animation:
+        typing 5s steps(24, end) infinite,
+        blink-caret 1s step-end infinite;
+    max-width: fit-content;
+}
+
+@keyframes typing {
+    0% {
+        width: 0
+    }
+    80% {
+        width: 10em
+    }
+    100% {
+        width: 10em
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--color4)
+    }
+}
+
 
 .third-container {
     width: 100%;
@@ -163,7 +263,7 @@
     align-items: center;
     justify-content: center;
     background: var(--color5);
-    gap: 100px;
+    gap: 50px;
     padding-top: 10%;
     padding-bottom: 10%;
 }
@@ -179,6 +279,52 @@
     color: var(--color4);
     font-size: 1.9rem;
     margin: 0;
+}
+
+.search-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    position: relative;
+    align-items: center;
+}
+
+.search-bar .search-input {
+    width: 100%;
+    height: 4.3rem;
+    border-radius: 50px;
+    border: 2px solid var(--color4);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding: 0.8rem 0.9rem;
+    background-color: transparent;
+    text-decoration-color: var(--color4);
+    color: var(--color4);
+    font-size: 1.5rem;
+    padding-left: 1.9rem;
+    padding-right: 6.5rem;
+    background: var(--color1-brighter);
+}
+
+.search-bar .search-input::placeholder {
+    color: var(--color4-placeholder);
+}
+
+.search-bar .search-icon {
+    position: absolute;
+    right: 1.9rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    filter: brightness(0) invert(1);
+    user-select: none;
 }
 
 .slideshow-container {
@@ -205,7 +351,8 @@
     padding: 10px;
 }
 
-.slideshow-object-left, .slideshow-object-right {
+.slideshow-object-left,
+.slideshow-object-right {
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -218,12 +365,14 @@
 .slideshow-object-left {
     animation: move-left 30s linear infinite;
 }
+
 .slideshow-object-right {
     animation: move-right 30s linear infinite;
 
 }
 
-.slideshow:hover .slideshow-object-left, .slideshow:hover .slideshow-object-right {
+.slideshow:hover .slideshow-object-left,
+.slideshow:hover .slideshow-object-right {
     animation-play-state: paused;
 }
 
@@ -231,14 +380,17 @@
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-100%);
     }
 }
+
 @keyframes move-right {
     0% {
         transform: translateX(-100%);
     }
+
     100% {
         transform: translateX(0);
     }
@@ -248,7 +400,8 @@
     display: flex;
     align-items: center;
     height: 100%;
-    background: var(--color1-brighter);;
+    background: var(--color1-brighter);
+    ;
     border-radius: 5px;
     color: var(--color4);
     margin: 0;
@@ -317,10 +470,10 @@
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 
-.activec-box:hover{
+.activec-box:hover {
     background-color: color-mix(in srgb, var(--color2) 90%, black);
     transform: translateY(4px);
-    transition:transform .2s;
+    transition: transform .2s;
 }
 
 .contest-month {
@@ -339,12 +492,12 @@
     flex-wrap: wrap;
     align-items: center;
     justify-items: center;
-    gap:2rem;
-    
+    gap: 2rem;
+
 }
 
 .actions-button {
-    position:relative;
+    position: relative;
     align-self: center;
     justify-self: center;
     z-index: 1;
@@ -361,11 +514,13 @@
     align-items: center;
     gap: 1rem;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
-    
+
 }
+
 .actions-button:hover {
     background: var(--color5-darker);
 }
+
 .actions-button:active {
     background: var(--color5-darker);
 }
@@ -378,9 +533,9 @@
 }
 
 
-.data{
+.data {
     align-self: center;
-    justify-self:center;
+    justify-self: center;
 
 }
 
@@ -396,8 +551,8 @@
 
 .data .range .fill {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     background-color: var(--color6);
     height: 100%;
     border-radius: 0.25rem;
@@ -423,14 +578,14 @@
 .contest-background-target {
     --s: 3.1rem;
     width: 100%;
-  height: 100%;
-  --color: color-mix(in srgb, var(--color1) 87%, white);
-  background-color: color-mix(in srgb, var(--color1) 87%, black);
-  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
-      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
-  background-size: var(--s) var(--s);
+    height: 100%;
+    --color: color-mix(in srgb, var(--color1) 87%, white);
+    background-color: color-mix(in srgb, var(--color1) 87%, black);
+    background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
+    background-size: var(--s) var(--s);
 
-    display:grid;
+    display: grid;
     align-items: center;
     justify-items: center;
 
@@ -574,39 +729,44 @@
     background: rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width:1200px){
+@media (max-width:1200px) {
 
-.activec {
-    height: 90%;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-.activec-container {
-    width: 80%;
-}
-.contest-content {
-    gap:15px;
-}
-.nicon-target {
-    align-self: center;
-    justify-self: center;
-    width: 40%;
-    height: 90%;
-}
-.contest-background-target {
-  height: 15rem;
-}
-.activec-arrow {
-    transform: rotate(90deg);
-}
+    .activec {
+        height: 90%;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .activec-container {
+        width: 80%;
+    }
+
+    .contest-content {
+        gap: 15px;
+    }
+
+    .nicon-target {
+        align-self: center;
+        justify-self: center;
+        width: 40%;
+        height: 90%;
+    }
+
+    .contest-background-target {
+        height: 15rem;
+    }
+
+    .activec-arrow {
+        transform: rotate(90deg);
+    }
 }
 
-@media (max-width:750px){
+@media (max-width:750px) {
 
-.contest-content {
-    flex-direction: column;
-}
+    .contest-content {
+        flex-direction: column;
+    }
 
 
 }

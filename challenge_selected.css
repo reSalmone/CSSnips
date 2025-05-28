@@ -149,7 +149,6 @@
 }
 
 .nicon-target {
-    max-height: 30rem;
     max-height: 15rem;
     width: auto;
     display: block;
@@ -164,7 +163,6 @@
 .data .range {
     position: relative;
     background-color: var(--color4);
-    width: 45rem;
     width: 35rem;
     height: 1rem;
     border-radius: 0.25rem;
@@ -331,8 +329,6 @@
 
 
 .data-like-save-container input:checked~.like-svg path {
-    fill: var(--color5);
-    stroke-width: 0;
     fill: var(--color6);
     stroke:var(--color6-dark);
     
@@ -408,7 +404,7 @@
     background: rgba(0, 0, 0, 0.2);
 }
 
-@media (min-width: 910px) and (max-width: 1200px) {
+
 @media (min-width: 700px) and (max-width: 1200px) {
 
     .search-output {
@@ -418,7 +414,6 @@
 
 }
 
-@media (max-width:910px){
 @media (max-width:700px){
     .contest-info-box {
         display: flex;
@@ -473,7 +468,6 @@
     }
 
     .nicon-target {
-        max-height: 30rem;
         max-height: 15rem;
     }
 
@@ -499,5 +493,3 @@
         align-items: center;
     }
 }
-
-

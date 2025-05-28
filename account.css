@@ -41,13 +41,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.profilo-info img.profilo-img {
-  max-width: 150px;
-  /* Imposta una larghezza massima per l'immagine */
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
 .profilo-info .info-text {
   max-width: 500px;
   /* Limita la larghezza del testo */

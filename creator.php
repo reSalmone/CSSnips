@@ -571,9 +571,9 @@ if ($name != '' && !$found) {
                 <div class="description-container">
                     <span class="description-title">Add a description</span>
                     <?php if (($found && $foundEdit || $found && $foundDraft)) {
-                        echo '<textarea class="description-area" id="description-area" oninput="saved = false;">' . $description . '</textarea>';
+                        echo '<textarea class="description-area" id="description-area" oninput="saved = false;" spellcheck="false">' . $description . '</textarea>';
                     } else {
-                        echo '<textarea class="description-area" id="description-area"
+                        echo '<textarea class="description-area" id="description-area" spellcheck="false"
                         oninput="unsave();">This is my new element</textarea>';
                     } ?>
                 </div>

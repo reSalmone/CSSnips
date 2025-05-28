@@ -16,5 +16,7 @@
 .nbutton:active{
 	background: #00cccc;
 }</style></head>
-<body><button class=nbutton>Click me</button><script></script></body>
+<body><button class="nbutton">
+	Click me
+</button><script></script></body>
 </html>

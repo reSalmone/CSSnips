@@ -2,19 +2,19 @@
 <!DOCTYPE html>
 <html>
 <head><style>.nbutton {
-	background: #00cc00;
+	background: #bb00ff;
 	padding: 10px 20px;
 	font-size: 20px;
 	color: #fff;
 	outline: 0;
-	border: 5px solid #00ff00;
+	border: 5px solid #9900ff;
     border-radius: 10px;
 }
 .nbutton:hover {
-	background: #00bb00;
+	background: #cc00ff;
 }
 .nbutton:active{
-	background: #00cc00;
+	background: #dd00ff;
 }</style></head>
 <body><button class="nbutton">
 	Click me

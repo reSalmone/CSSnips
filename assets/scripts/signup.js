@@ -88,6 +88,38 @@ function submitSignupForm(event, redirect) {
     }
 }
 
+function checkNameAvailability(input) {
+    let checkname = input.value;
+
+    fetch('checkusername.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `name=${encodeURIComponent(checkname)}`
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayAvailability(data.success, null);
+            } else {
+                displayAvailability(data.success, data.error);
+            }
+        })
+}
+
+function displayAvailability(available, error) {
+    let username = document.getElementById('username-input');
+    if (available) {
+        hideError(username);
+        username.style.border = "2px solid rgb(100, 255, 100)";
+    } else {
+        hideError(username);
+        showError(username, error);
+        username.style.border = "2px solid rgb(255, 100, 100)";
+    }
+}
+
 function isValidEmail(email) {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 }
@@ -110,6 +142,7 @@ function closeSignup() {
     resetErrorForAllForms();
     document.getElementById('signup-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
+    document.getElementById('username-input').style.border = "";
 }
 
 function showSignupServerError(error) {

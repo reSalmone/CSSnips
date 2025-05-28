@@ -76,7 +76,7 @@
 }
 
 .search-output-div {
-    width: 90%;
+    width: 80%;
     background: var(--color2);
     border-radius: 11px;
     padding: 0 1.2rem;
@@ -156,7 +156,7 @@
 }
 
 .search-output .output-snip {
-    height: 25rem;
+    height: 20rem;
     padding: 0.6rem;
     border-radius: 10px;
     background-color: var(--color2-brighter);
@@ -189,7 +189,7 @@
 }
 
 .search-output .info {
-    height: 10%;
+    flex-grow: 1;
     width: 100%;
     display: flex;
     flex-direction: row;

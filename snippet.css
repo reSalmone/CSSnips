@@ -633,6 +633,11 @@
 }
 @media (max-width: 425px) {
     .info-variations-search-output {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+@media (max-width: 375px) {
+    .info-variations-search-output {
         grid-template-columns: repeat(1, 1fr) !important;
     }
 }

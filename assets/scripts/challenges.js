@@ -4,6 +4,7 @@ const SlideRight=document.getElementById('s-right');
 
 SlideLeft.addEventListener('click',()=>{Carosello.scrollLeft -=500;});
 SlideRight.addEventListener('click',()=>{Carosello.scrollLeft +=500;});SlideRight.addEventListener('click',()=>{Carosello.scrollLeft +=500;});
+SlideRight.addEventListener('click',()=>{Carosello.scrollLeft +=500;});
 
 
 

@@ -2,6 +2,18 @@
 //qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
 session_start();
 $redirect = 'challenges.php';
+
+function splitFileContent($content){
+    preg_match('/<style>(.*?)<\/style>/s', $content, $matchesCss);
+    preg_match('/<body>(.*?)<script>/s', $content, $matchesHtml);
+    preg_match('/<script>(.*?)<\/script>/s', $content, $matchesJs);
+
+    $css = isset($matchesCss[1]) ? trim($matchesCss[1]) : '';
+    $html = isset($matchesHtml[1]) ? trim($matchesHtml[1]) : '';
+    $js = isset($matchesJs[1]) ? trim($matchesJs[1]) : '';
+
+    return [$html, $css, $js];
+}
 ?>
 
 <!DOCTYPE html>
@@ -87,6 +99,98 @@ $redirect = 'challenges.php';
                 echo '<p>Error connecting to databse</p>';
             }
         ?>
+        <div class="mid-container">
+            <div id="id-leaderboard-container" class="leaderboard-container">
+                <div class="contest-month">Leaderboard</div>
+                <div id="id-user-output" class="user-output">
+                    <?php
+                    $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
+                    if ($dbcon != -1) { //se la connessione è correttamente stabilita
+                        $users_query = "SELECT * FROM users_with_likes WHERE user_challenge_likes >= 0 ORDER BY user_challenge_likes DESC;";
+                        $users_list = pg_query($dbcon, $users_query);
+                        while ($tuple_user = pg_fetch_array($users_list, NULL, PGSQL_ASSOC)) {
+                            echo'<div class="user-box">
+                                    <div class="user-info-box">
+                                    
+                                        <div class="user-name-box">'.$tuple_user["username"].'</div>
+                                    </div>
+                                    <div class="user-challenge-likes-box">'.$tuple_user["user_challenge_likes"]." votes".'</div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<p>Error connecting to databse</p>';
+                    }
+                    ?>
+                </div>
+                    
+            </div>
+            <div class="activec-snips-box">
+                <div class="contest-month">Snips</div>
+                <div class="slidesnip">
+                    <?php for ($i = 0; $i < 3; $i++) { ?>
+                    <div class="slidesnip-object-left">
+                        <div class="search-output">
+                        <?php
+                            if ($dbcon != -1) { //se la connessione è correttamente stabilita
+                                $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
+                                $result2 = pg_query($dbcon, $q2);
+                                while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
+                                    $fileLocation = $tuple['file_location'];
+                                    if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
+                                        $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
+                        
+                                        list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
+                                        
+                                        echo '<div class="output-snip">';
+                                        echo '<div class= "snip-info">';
+                                        $snip_likes=$tuple['challenge_likes'];
+                                        $challenge_name=$tuple['challenge_of'];
+                                        $snip_name=$tuple['id'];
+                                        echo '</div>';
+                                        echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
+                                        echo '<span>View code</span>';
+                                        echo '</div>';
+                                        echo '<iframe id="output-snip-frame-' . $tuple['id'] . '" class="output-preview"></iframe>';
+                                        /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
+                                        and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
+                                        echo '<script id="snippet-data-' . $tuple['id'] . '" type="application/json">';
+                                        echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+                                        echo '</script>';
+
+                                        echo '<script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . '").textContent);
+                                                assignIFrame("output-snip-frame-' . $tuple['id'] . '", data.html, data.css, data.js);
+                                            });
+                                        </script>';
+                                        echo '<div class="info">';
+                                        echo '<div class="info-creator">';
+                                        echo '<div class="info-pfp"></div>';
+                                        echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
+                                        echo '</div>';
+                                        echo '<div class="info-views">';
+                                        echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
+                                        echo '<p class="info-subtext"> views</p>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                    } else {
+                                        echo 'Your server files aren\' synched with the database: file \'' . $fileLocation . '\' is missing';
+                                    }
+                                }
+                            } else {
+                                echo '<p>Error connecting to databse</p>';
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+
+        </div>
+
+
         <div class="other-challenges">
             <div class="contest-month">Other Challenges</div>
             <div class="challenge-container">
@@ -127,5 +231,6 @@ $redirect = 'challenges.php';
 <script src="assets/scripts/challenges.js"></script>
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
+<script src="assets/scripts/index.js"></script>
 
 </html>

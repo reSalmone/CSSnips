@@ -196,8 +196,209 @@
     min-height: 1.8rem;
     min-width: 1.8rem;
 }
+/*MID PART  Leaderboard  Snip in scorrimento*/
+.mid-container {
+    width: 95%;
+    height: 38rem;
+    display: flex;
+    flex-direction: row;
+    margin-top: 5%;
+    gap: 2rem;
+}
+
+.leaderboard-container {
+    background: var(--color2);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
+    align-items: center;
+}
+.user-output {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    overflow-y:auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding: 1.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+.user-output::-webkit-scrollbar {
+    display: none; 
+}
+
+.user-box {
+    background: var(--color1-brighter);
+    overflow: hidden;
+    border-radius: 20px;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+.user-info-box{
+    display: flex;
+    flex-direction: row;
+    gap:2rem;
+}
+
+.user-name-box{
+    color: var(--color4);
+    font-size: 2em;
+    font-weight: bold;
+}
+.user-challenge-likes-box{
+    color: var(--color4);
+    font-size: 2em;
+    font-weight: bold;
+}
 
 
+
+
+.activec-snips-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--color2);
+    cursor: pointer;
+    border-radius: 20px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
+}
+
+
+.slidesnip {
+    width: 100%;
+    height: 100%;
+    background: var(--color2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.slidesnip-object-left {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0.5rem;
+    animation-play-state: running;
+}
+
+.slidesnip-object-left {
+    animation: move-left 30s linear infinite;
+}
+
+@keyframes move-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+.search-output {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+
+.search-output .output-snip {
+    height: 26rem;
+    width: 22rem;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color1-brighter);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+}
+
+.search-output .output-preview {
+    background: var(--color4);
+    border-radius: 10px;
+    width: 100%;
+    height: 90%;
+    border: 0;
+}
+
+.search-output .info {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color4);
+    font-size: 1.5rem;
+    overflow: hidden;
+}
+
+.info-views {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
+
+.info-subtext {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--color4-placeholder);
+}
+
+.info-creator {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.info-pfp {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background: var(--color4);
+}
+
+.output-snip-opener {
+    position: absolute;
+    right: 20px;
+    bottom: 70px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--color2);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.output-snip-opener:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.output-snip-opener:active {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+
+/* END MID PART*/
 .other-challenges{
     display: flex;
     flex-direction: column;
@@ -353,6 +554,18 @@
 }
 
 @media (max-width:750px){
+    .mid-container{
+        height: 78rem;
+        flex-direction: column;
+    }
+    .leaderboard-container {
+        height: 50%;
+    }
+    .activec-snips-box {
+        height: 50%;
+    }
+
+
     .contest-month {
         font-size: 4.3em;
         text-align: center;

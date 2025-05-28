@@ -150,6 +150,7 @@
 
 .nicon-target {
     max-height: 30rem;
+    max-height: 15rem;
     width: auto;
     display: block;
 }
@@ -164,6 +165,7 @@
     position: relative;
     background-color: var(--color4);
     width: 45rem;
+    width: 35rem;
     height: 1rem;
     border-radius: 0.25rem;
     box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
@@ -331,6 +333,9 @@
 .data-like-save-container input:checked~.like-svg path {
     fill: var(--color5);
     stroke-width: 0;
+    fill: var(--color6);
+    stroke:var(--color6-dark);
+    
 }
 
 
@@ -404,6 +409,7 @@
 }
 
 @media (min-width: 910px) and (max-width: 1200px) {
+@media (min-width: 700px) and (max-width: 1200px) {
 
     .search-output {
         grid-template-columns: repeat(2, 1fr); /* due colonne su tablet */
@@ -413,6 +419,7 @@
 }
 
 @media (max-width:910px){
+@media (max-width:700px){
     .contest-info-box {
         display: flex;
         flex-direction: column;
@@ -467,6 +474,7 @@
 
     .nicon-target {
         max-height: 30rem;
+        max-height: 15rem;
     }
 
     .search-output {

@@ -32,6 +32,7 @@
     --color5-placeholder: color-mix(in srgb, var(--color5) 75%, transparent);
 
     --color6: #68ee89;
+    --color6-dark: color-mix(in srgb, var(--color6) 40%, black);
     --color6-placeholder: color-mix(in srgb, var(--color6) 75%, transparent);
 
     box-sizing: border-box;

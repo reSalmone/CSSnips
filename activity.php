@@ -41,15 +41,15 @@ if ($type != "") {
     <link rel="stylesheet" href="activity.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
     <link rel="stylesheet" href="login-signup.css">
-    <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="checkbox.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="snippet-loader.css">
 </head>
 
 <body>
-    <?php include 'navbar-code.php'; ?> <!--NAVBAR-->
-    <?php include 'login-signup-code.php'; ?> <!--LOGIN AND SIGNUP-->
+    <?php include 'navbar-code.php'; ?> 
+    <?php include 'login-signup-code.php'; ?>
     <div id="rest" onclick="closeLogin(); closeSignup();">
         <?php
         if ($username != '' && $type != '' && $dbcon != -1 && ($type == "activity" || $type == "liked" || $type == "watchlist")) {

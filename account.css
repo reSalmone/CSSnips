@@ -1,6 +1,5 @@
 @import './data.css';
 
-/* Impostazioni generali per il corpo e la tipografia */
 * {
   font-family: 'Noveo Sans', sans-serif;
 }
@@ -10,7 +9,6 @@ body {
   color: white;
 }
 
-/* Profilo Container */
 .profilo-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -25,16 +23,12 @@ body {
   border-radius: 10px;
 }
 
-/* Profilo Info - Centrare il contenuto */
 .profilo-info {
   display: flex;
   justify-content: center;
-  /* Centra orizzontalmente */
   align-items: center;
-  /* Centra verticalmente */
   text-align: center;
   flex-direction: column;
-  /* Aggiungi questa per disporre le informazioni in verticale */
   padding: 20px;
   background-color: var(--color2-brighter);
   border-radius: 10px;
@@ -43,7 +37,6 @@ body {
 
 .profilo-info .info-text {
   max-width: 500px;
-  /* Limita la larghezza del testo */
 }
 
 .profilo-info p {
@@ -59,7 +52,6 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* BUTTON PER ACCOUNT2 */
 #follow-btn {
   padding: 10px 20px;
   font-size: 16px;
@@ -69,50 +61,38 @@ h2 {
   transition: all 0.3s ease;
 }
 
-/* Stato "non seguito" - blu scuro */
 .follow {
   background-color: var(--color1);
-  /* blu scuro */
   color: white;
 }
 
 .follow:hover {
   background-color: var(--color1-brighter);
-  /* celeste più acceso al passaggio */
 }
 
-/* Stato "seguito" - celeste chiaro */
 .following {
   background-color: white;
-  /* celeste chiaro */
   color: var(--color1);
 }
 
 .following:hover {
   background-color: grey;
-  /* celeste ancora più chiaro al passaggio */
   color: var(--color1);
 }
 
-
-/* Recent Activity - Display in row */
 .centro {
   width: 100%;
   text-align: center;
 }
-
 
 .recent-activity {
   margin-top: 40px;
   text-align: center;
 }
 
-
-
 .activity-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* 3 colonne uguali */
   margin-top: 20px;
   gap: 20px;
   background-color: var(--color2-brighter);
@@ -121,7 +101,6 @@ h2 {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 
 .activity-container-nosnippets {
   display: flex;
@@ -135,7 +114,6 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Funzioni - Occupano una riga intera */
 .funzioni-container {
   margin-top: 40px;
 }
@@ -210,8 +188,6 @@ h2 {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* parte per le finestre di followers e following */
-/* Lista followers/following */
 .list-container {
   max-height: 0;
   overflow: hidden;
@@ -222,32 +198,13 @@ h2 {
   padding: 0 20px;
 }
 
-/* Quando la lista è visibile */
 .list-container.active {
   max-height: 200px;
   overflow-y: auto;
 }
 
-/* .list-user {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  margin: 10px auto;
-  padding: 12px 20px;
-  background-color: white;
-  color: var(--color2);
-  border-radius: 30px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-} */
-
 .list-user {
   display: flex;
-  /* cambia da block a flex */
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -263,7 +220,6 @@ h2 {
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   text-align: left;
-  /* opzionale */
 }
 
 .user-name {
@@ -276,7 +232,6 @@ h2 {
   height: 24px;
   margin-left: 10px;
 }
-
 
 .list-user:hover {
   background-color: #f0f0f0;
@@ -291,13 +246,10 @@ h3 {
   font-family: 'Noveo Sans', sans-serif;
   color: white;
   font-size: 16px;
-  /* o la misura che vuoi */
   font-weight: normal;
   text-align: center;
   margin: 10px 0;
-  /* un po' di margine verticale, come gli altri elementi */
 }
-
 
 @media (max-width: 680px) {
   .activity-container {
@@ -314,6 +266,5 @@ h3 {
 
   .activity-container {
     grid-template-columns: 1fr;
-    /* una colonna sola per dispositivi piccoli */
   }
 }

@@ -71,12 +71,12 @@
 .search-results-right {
     justify-content: flex-end;
 }
-/*attenzioneeeeeeeeeeeeeeeee*/
+
 .search-results-text {
     color: var(--color4);
     font-size: 1.9rem;
 }
-/*attenzioneeeeeeeeeeeeeeeee*/
+
 .search-results-subtext {
     color: var(--color4-placeholder);
     font-size: 1.9rem;

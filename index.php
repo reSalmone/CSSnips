@@ -88,7 +88,7 @@ function splitFileContent($content)
                 <div class="search-bar">
                     <input placeholder="Search for elements / tags / usernames" type="search" class="search-input"
                         name="search" spellcheck="false">
-                <img src="assets/images/search.png" class="search-icon"
+                    <img src="assets/images/search.png" class="search-icon"
                         onclick="document.getElementById('search-form').submit();">
                 </div>
             </form>
@@ -219,62 +219,60 @@ function splitFileContent($content)
                 <span class="activec-box-title">Challenge Snips</span>
                 <div class="activec-snips-box">
                     <div class="slidesnip">
-                        <?php for ($i = 0; $i < 3; $i++) { ?>
+                        <?php for ($i = 0; $i < 2; $i++) { ?>
                             <div class="slidesnip-object-left">
-                                <div class="search-output">
-                                    <?php
-                                    if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                                        $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
-                                        $result2 = pg_query($dbcon, $q2);
-                                        while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
-                                            $fileLocation = $tuple['file_location'];
-                                            if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
-                                                $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
-                                
-                                                list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-                                
-                                                echo '<div class="output-snip">';
-                                                echo '<div class= "snip-info">';
-                                                $snip_likes = $tuple['challenge_likes'];
-                                                $challenge_name = $tuple['challenge_of'];
-                                                $snip_name = $tuple['id'];
-                                                echo '</div>';
-                                                echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
-                                                echo '<span>View code</span>';
-                                                echo '</div>';
-                                                echo '<iframe id="output-snip-frame-' . $tuple['id'] . '" class="output-preview"></iframe>';
-                                                /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
-                                                and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
-                                                echo '<script id="snippet-data-' . $tuple['id'] . '" type="application/json">';
-                                                echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-                                                echo '</script>';
+                                <?php
+                                if ($dbcon != -1) { //se la connessione è correttamente stabilita
+                                    $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
+                                    $result2 = pg_query($dbcon, $q2);
+                                    while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
+                                        $fileLocation = $tuple['file_location'];
+                                        if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
+                                            $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
+                            
+                                            list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
+                            
+                                            echo '<div class="output-snip">';
+                                            echo '<div class= "snip-info">';
+                                            $snip_likes = $tuple['challenge_likes'];
+                                            $challenge_name = $tuple['challenge_of'];
+                                            $snip_name = $tuple['id'];
+                                            echo '</div>';
+                                            echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
+                                            echo '<span>View code</span>';
+                                            echo '</div>';
+                                            echo '<iframe id="output-snip-frame-' . $tuple['id'] . "-" . $i . '" class="output-preview"></iframe>';
+                                            /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
+                                            and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
+                                            echo '<script id="snippet-data-' . $tuple['id'] . "-" . $i . '" type="application/json">';
+                                            echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+                                            echo '</script>';
 
-                                                echo '<script>
+                                            echo '<script>
                                                     document.addEventListener("DOMContentLoaded", function() {
-                                                        const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . '").textContent);
-                                                        assignIFrame("output-snip-frame-' . $tuple['id'] . '", data.html, data.css, data.js);
+                                                        const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . "-" . $i . '").textContent);
+                                                        assignIFrame("output-snip-frame-' . $tuple['id'] . "-" . $i . '", data.html, data.css, data.js);
                                                     });
                                                 </script>';
-                                                echo '<div class="info">';
-                                                echo '<div class="info-creator">';
-                                                echo '<div class="info-pfp"></div>';
-                                                echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
-                                                echo '</div>';
-                                                echo '<div class="info-views">';
-                                                echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
-                                                echo '<p class="info-subtext"> views</p>';
-                                                echo '</div>';
-                                                echo '</div>';
-                                                echo '</div>';
-                                            } else {
-                                                echo 'Your server files aren\' synched with the database: file \'' . $fileLocation . '\' is missing';
-                                            }
+                                            echo '<div class="info">';
+                                            echo '<div class="info-creator">';
+                                            echo '<div class="info-pfp"></div>';
+                                            echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
+                                            echo '</div>';
+                                            echo '<div class="info-views">';
+                                            echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
+                                            echo '<p class="info-subtext"> views</p>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        } else {
+                                            echo 'Your server files aren\' synched with the database: file \'' . $fileLocation . '\' is missing';
                                         }
-                                    } else {
-                                        echo '<p>Error connecting to databse</p>';
                                     }
-                                    ?>
-                                </div>
+                                } else {
+                                    echo '<p>Error connecting to databse</p>';
+                                }
+                                ?>
                             </div>
                         <?php } ?>
                     </div>
@@ -289,5 +287,12 @@ function splitFileContent($content)
 <script src="assets/scripts/login.js"></script>
 <script src="assets/scripts/signup.js"></script>
 <script src="assets/scripts/index.js"></script>
+<script>
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.slidesnip-object-left').forEach(el => {
+            el.classList.add('slide-in');
+        });
+    });
+</script>
 
 </html>

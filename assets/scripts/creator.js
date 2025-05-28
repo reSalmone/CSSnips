@@ -433,16 +433,18 @@ function saveDraft(name) {
 
 }
 
-function deleteDraft(name) {
+function deleteDraft(name, silent) {
     fetch("delete-draft.php?name=" + name, {
         method: "GET",
     }).then(res => res.json())
         .then(data => {
             if (data.success) {
-                if (location.search === "?draft=" + name) {
-                    location.href = "creator.php?&info=" + encodeURI("Draft deleted");;
-                } else {
-                    openInfo(null, "Draft deleted")
+                if (!silent) {
+                    if (location.search === "?draft=" + name) {
+                        location.href = "creator.php?&info=" + encodeURI("Draft deleted");;
+                    } else {
+                        openInfo(null, "Draft deleted")
+                    }
                 }
                 document.getElementById("drafts-output-snip-" + data.id).remove();
 
@@ -494,7 +496,7 @@ function saveChanges() {
         });
 }
 
-function postSnippet() {
+function postSnippet(name) {
     const html = document.getElementById("html-area").value;
     const css = document.getElementById("css-area").value;
     const js = document.getElementById("js-area").value;
@@ -540,6 +542,9 @@ function postSnippet() {
         .then(data => {
             if (data.success) {
                 save();
+                if (name != '') {
+                    deleteDraft(name, true);
+                }
                 location.href = "snippet.php?name=" + postname + "&info=" + encodeURI("Snippet posted");
             } else {
                 showPostServerError(data.error);

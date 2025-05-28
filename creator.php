@@ -227,9 +227,12 @@ if ($name != '' && !$found) {
                     <div id="post-tags-list"></div>
                 </div>
             </div>
+            <?php if ($foundDraft) { ?>
+                <span class="post-info-delete-draft">This draft will be deleted automatically when posting the snipped</span>
+            <?php } ?>
             <div class="post-actions">
                 <button class="post-action-button" onclick="closePost();">Cancel</button>
-                <button class="post-action-button" onclick="postSnippet();">Post</button>
+                <button class="post-action-button" onclick="postSnippet('<?php if ($foundDraft) { echo $name; } ?>');">Post</button>
             </div>
         </div>
     </div>

@@ -87,20 +87,21 @@ if ($type != "") {
                 $totalPages = ceil($totalResults / $pageSize);
                 if ($totalResults > 0) {
                     echo '<div class="search-results">
-                            <div class="search-results-left">
-                                <p class="search-results-subtext">Page </p>
-                                <p class="search-results-text"><?= $page ?></p>
-                                <p class="search-results-subtext"> of </p>
-                                <p class="search-results-text"><?= $totalPages ?></p>
-                            </div>
-                            <div class="search-results-right">
-                                <p class="search-results-subtext">Showing </p>
-                                <p class="search-results-text"><?= pg_num_rows($resultPage) ?></p>
-                                <p class="search-results-subtext"> out of </p>
-                                <p class="search-results-text"><?= ($totalResults) ?></p>
-                                <p class="search-results-subtext"> results</p>
-                            </div>
-                        </div>';
+    <div class="search-results-left">
+        <p class="search-results-subtext">Page </p>
+        <p class="search-results-text">' . $page . '</p>
+        <p class="search-results-subtext"> of </p>
+        <p class="search-results-text">' . $totalPages . '</p>
+    </div>
+    <div class="search-results-right">
+        <p class="search-results-subtext">Showing </p>
+        <p class="search-results-text">' . pg_num_rows($resultPage) . '</p>
+        <p class="search-results-subtext"> out of </p>
+        <p class="search-results-text">' . $totalResults . '</p>
+        <p class="search-results-subtext"> results</p>
+    </div>
+</div>';
+
                     if (pg_num_rows($resultPage) > 0) {
                         echo '<div class="search-output">';
                         while ($tuple = pg_fetch_assoc($resultPage)) {

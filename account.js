@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!confirmUnfollow) return;
     }
 
-    fetch('account2_follow_action.php', {
+    fetch('account_follow_action.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

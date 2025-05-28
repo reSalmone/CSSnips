@@ -44,7 +44,7 @@
                     <div class="display-checkbox"></div>
                     <label class="checkbox-label remember" for="checkbox">Remember me</label>
                 </label>
-                <a class="form-forgot-password" href="">Forgot password?</a>
+                <p class="form-forgot-password">Forgot password?</>
             </div>
             <button type="submit" class="form-button" id="login-submit">
                 <span id="login-submit-text">Login</span>

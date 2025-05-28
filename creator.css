@@ -425,8 +425,6 @@
     flex-direction: row;
     justify-content: center;
     display: none;
-    position: absolute;
-    bottom: 0;
 }
 
 .snippet-action-bar {

@@ -139,17 +139,16 @@ Object.keys(areas).forEach(type => {
         Array.from(lineNumbers.children).forEach(n => {
             n.style.color = "var(--color4-placeholder)";
         });
-        if (lineNumber < lineNumbers.children.length) {
+        if (lineNumber > 0 && lineNumber < lineNumbers.children.length) {
             lineNumbers.children[lineNumber].style.color = "var(--color4)";
         }
     });
-
     areas[type].addEventListener('input', () => updateCursor(areas[type]));
     areas[type].addEventListener('click', () => updateCursor(areas[type]));
     areas[type].addEventListener('keyup', () => updateCursor(areas[type]));
 });
 
-function updateCursor(area) {
+async function updateCursor(area) {
     const caretPosition = area.selectionStart;
     const textBeforeCaret = area.value.substring(0, caretPosition);
 
@@ -159,16 +158,17 @@ function updateCursor(area) {
     updateLines(area);
 }
 
-function updateLines(area) {
+async function updateLines(area) {
     const lines = area.value.split('\n').length;
+
     lineNumbers.innerHTML = '';
     for (let i = 1; i <= lines; i++) {
         const line = document.createElement('div');
         line.textContent = i;
         lineNumbers.appendChild(line);
 
-        if (writingLine == i - 1) {
-            line.style.background = "rgba(255, 255, 255, 0.025)"
+        if (writingLine === i - 1) {
+            line.style.background = "rgba(255, 255, 255, 0.05)";
         }
     }
 }
@@ -197,6 +197,9 @@ function switchLang(lang) {
         updateLines(areas[lang]);
         syncScroll(areas[lang]);
     }
+
+    writingLine = -1;
+    updateCursor(areas[lang]);
 }
 
 let tags = [];

@@ -143,6 +143,8 @@
     color: #ffffff;
     font-size: 0.9rem;
     text-align: left;
+    cursor: pointer;
+    user-select: none;
 }
 
 .form-switch-form {

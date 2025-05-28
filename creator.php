@@ -537,14 +537,14 @@ if ($name != '' && !$found) {
                         <div class="line-numbers" id="line-numbers">
                             <div>1</div>
                         </div>
-                        <textarea class="input-area" id="html-area"
+                        <textarea class="input-area" id="html-area" wrap="off"
                             oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this);" spellcheck="false" placeholder="Html code"><?php
                             if ($found) {
                                 echo htmlspecialchars($html);
                             }
                             ?></textarea>
-                        <textarea class="input-area" id="css-area" oninput="updateLines(this); displayCode(); unsave();"
+                        <textarea class="input-area" id="css-area"  wrap="off" oninput="updateLines(this); displayCode(); unsave();"
                             onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false"
                             placeholder="Css code"><?php
@@ -552,7 +552,7 @@ if ($name != '' && !$found) {
                                 echo htmlspecialchars($css);
                             }
                             ?></textarea>
-                        <textarea class="input-area" id="js-area" oninput="updateLines(this); displayCode(); unsave();"
+                        <textarea class="input-area" id="js-area"  wrap="off" oninput="updateLines(this); displayCode(); unsave();"
                             onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false"
                             placeholder="JavaScript code"><?php

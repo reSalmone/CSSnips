@@ -223,6 +223,7 @@
     outline: none;
     overflow: scroll;
     color: var(--color4);
+    white-space: pre;
 }
 
 .input-area::placeholder {

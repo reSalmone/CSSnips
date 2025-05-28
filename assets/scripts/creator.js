@@ -48,6 +48,68 @@ function copyToClipboard() {
     }
 }
 
+async function formatArea(area, tab) {
+    const lines = area.value.split(/\r?\n/);
+    const voidElements = new Set([
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img',
+        'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+    ]);
+    const stack = [];
+    let inMultiLineTag = false;
+    let currentTagName = '';
+
+    const formatted = lines.map(raw => {
+        const trimmed = raw.trim();
+        if (trimmed === '') return '';
+
+        const closeMatch = trimmed.match(/^<\/(\w+)/);
+        if (closeMatch) {
+            if (stack.length && stack[stack.length - 1] === closeMatch[1].toLowerCase()) {
+                stack.pop();
+            }
+            const indent = tab.repeat(stack.length);
+            return indent + trimmed;
+        }
+
+        if (inMultiLineTag) {
+            const indent = tab.repeat(stack.length);
+            if (trimmed.endsWith('>')) {
+                inMultiLineTag = false;
+                if (!trimmed.endsWith('/>') && !voidElements.has(currentTagName)) {
+                    stack.push(currentTagName);
+                }
+            }
+            return indent + trimmed;
+        }
+
+        const openMatch = trimmed.match(/^<([a-zA-Z0-9]+)(\s|>)/);
+        if (openMatch) {
+            const tagName = openMatch[1].toLowerCase();
+            const isSelfClosing = trimmed.endsWith('/>');
+            const isSingleLine = new RegExp(`^<${tagName}(\\s[^>]*?)?>.*<\\/${tagName}>$`).test(trimmed);
+
+            if (!trimmed.endsWith('>')) {
+                inMultiLineTag = true;
+                currentTagName = tagName;
+                return tab.repeat(stack.length) + trimmed;
+            }
+
+            if (isSingleLine || isSelfClosing || voidElements.has(tagName)) {
+                return tab.repeat(stack.length) + trimmed;
+            }
+
+            const indent = tab.repeat(stack.length);
+            stack.push(tagName);
+            return indent + trimmed;
+        }
+
+        return tab.repeat(stack.length) + trimmed;
+    });
+
+    area.value = formatted.join('\n');
+    area.focus();
+}
+
 
 async function displayCode() {
     const html = document.getElementById('html-area').value;
@@ -96,8 +158,8 @@ function insertTab(e, textArea) {
         const start = textArea.selectionStart;
         const end = textArea.selectionEnd;
 
-        textArea.value = textArea.value.substring(0, start) + '\t' + textArea.value.substring(end);
-        textArea.selectionStart = textArea.selectionEnd = start + 1;
+        textArea.value = textArea.value.substring(0, start) + '    ' + textArea.value.substring(end);
+        textArea.selectionStart = textArea.selectionEnd = start + 4;
     }
     unsave();
 }

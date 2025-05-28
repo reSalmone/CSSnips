@@ -228,11 +228,14 @@ if ($name != '' && !$found) {
                 </div>
             </div>
             <?php if ($foundDraft) { ?>
-                <span class="post-info-delete-draft">This draft will be deleted automatically when posting the snipped</span>
+                <span class="post-info-delete-draft">This draft will be deleted automatically when posting the
+                    snipped</span>
             <?php } ?>
             <div class="post-actions">
                 <button class="post-action-button" onclick="closePost();">Cancel</button>
-                <button class="post-action-button" onclick="postSnippet('<?php if ($foundDraft) { echo $name; } ?>');">Post</button>
+                <button class="post-action-button" onclick="postSnippet('<?php if ($foundDraft) {
+                    echo $name;
+                } ?>');">Post</button>
             </div>
         </div>
     </div>
@@ -533,10 +536,18 @@ if ($name != '' && !$found) {
                         </div>
                     </div>
                     <div class="code-div" id="code-div">
-                        <button class="copy-button" onclick="copyToClipboard();">
-                            <img src="copy.png" class="copy-icon">
-                            <span id="copy-span">Copy</span>
-                        </button>
+                        <div class="code-actions">
+                            <svg viewBox='0 0 256 256' class="code-actions-svg">
+                                <path d='M42.4 63.6H212M42.4 127.2H212M42.4 190.8H212' stroke-width='20px' fill='none'
+                                    stroke-linecap='round'></path>
+                            </svg>
+                            <button class="code-actions-button" onclick="copyToClipboard();">
+                                <span id="copy-span">Copy</span>
+                            </button>
+                            <button class="code-actions-button" onclick="formatArea(areas[currentLang], '    ');">
+                                <span id="copy-span">Format</span>
+                            </button>
+                        </div>
                         <div class="line-numbers" id="line-numbers">
                             <div>1</div>
                         </div>
@@ -547,16 +558,16 @@ if ($name != '' && !$found) {
                                 echo htmlspecialchars($html);
                             }
                             ?></textarea>
-                        <textarea class="input-area" id="css-area"  wrap="off" oninput="updateLines(this); displayCode(); unsave();"
-                            onscroll="syncScroll(this);"
+                        <textarea class="input-area" id="css-area" wrap="off"
+                            oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false"
                             placeholder="Css code"><?php
                             if ($found) {
                                 echo htmlspecialchars($css);
                             }
                             ?></textarea>
-                        <textarea class="input-area" id="js-area"  wrap="off" oninput="updateLines(this); displayCode(); unsave();"
-                            onscroll="syncScroll(this);"
+                        <textarea class="input-area" id="js-area" wrap="off"
+                            oninput="updateLines(this); displayCode(); unsave();" onscroll="syncScroll(this);"
                             onkeydown="insertTab(event, this); insertBrackets(event, this);" spellcheck="false"
                             placeholder="JavaScript code"><?php
                             if ($found) {

@@ -79,7 +79,7 @@ if (isset($_SESSION['username'])) {
                     onclick="document.getElementById('search-form').submit();">
             </div>
         </form>
-        <div class="search-output-div">
+        <div class="search-output-div" id="search-output">
             <?php
             $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
             if ($dbcon != -1) { //se la connessione è correttamente stabilita
@@ -231,4 +231,8 @@ if (isset($_SESSION['username'])) {
         window.history.replaceState({}, '', url);
     </script>
 <?php } ?>
+<?php if ($search != '') { ?>
+    <script>location.hash = "#search-output";</script>
+<?php } ?>
+
 </html>

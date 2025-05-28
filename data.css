@@ -15,8 +15,9 @@
     /*inutile pe adesso - se se trova uno bello usa il 3 come colori del blocco codice e cazzi*/
     --color3: #071E22;
     /* #5C0029 violetto dark - #3d3d3d grigio - #632340 violetto */
-    --color3-bright: color-mix(in srgb, var(--color3) 90%, white);
-    --color3-brighter: color-mix(in srgb, var(--color3) 80%, white);
+    --color3-bright: color-mix(in srgb, var(--color3) 95%, white);
+    --color3-brighter: color-mix(in srgb, var(--color3) 90%, white);
+    --color3-brighterer: color-mix(in srgb, var(--color3) 85%, white);
     --color3-darker: color-mix(in srgb, var(--color3) 90%, black);
 
     --color4: #efffe1;

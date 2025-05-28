@@ -574,8 +574,9 @@
 .nicon-target {
     align-self: center;
     justify-self: center;
-    width: 60%;
-    height: 70%;
+    max-height: 12rem;
+    width: auto;
+    display: block;
 }
 
 .contest-background-target {
@@ -741,10 +742,7 @@
     }
 
     .nicon-target {
-        align-self: center;
-        justify-self: center;
-        width: 40%;
-        height: 90%;
+        max-height: 10rem;
     }
 
     .contest-background-target {

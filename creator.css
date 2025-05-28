@@ -122,6 +122,7 @@
         width: 100% !important;
         height: 50% !important;
     }
+
     .code-container {
         width: 100% !important;
         height: 50% !important;
@@ -135,6 +136,129 @@
     outline: 0;
     border: 0;
 }
+
+.frame-actions {
+    position: absolute;
+    right: calc(50% + 0.5rem);
+    top: 0.5rem;
+    border-radius: 5px;
+    z-index: 1;
+    padding: 0.3rem 0.3rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .frame-actions {
+        top: calc(50% + 0.5rem);
+        right: 0.5rem;
+    }
+}
+
+.frame-actions-color {
+    font-size: 0.9rem;
+    color: var(--color1);
+}
+
+.frame-actions-select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+#frame-actions-select-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.frame-actions-select {
+    border-radius: 5px;
+    background: transparent;
+    border: 2px solid #d9ddce;
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+}
+
+/*----------------------SNIPPET THEME SWITCH----------------------*/
+.frame-actions-switch {
+    --color-dark: #041214;
+    --color-darkGray: #25373a;
+    --color-gray: #99978b;
+    --color-offwhite: #d9ddce;
+    --color-white: #faffec;
+    --shadow-color: var(--color-dark);
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 2.5rem;
+    height: fit-content;
+    background: var(--color-dark);
+    border-radius: 50px;
+    padding: 0.2rem;
+    transition: 0.5s;
+    user-select: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.frame-actions-switch .svg {
+    width: 0.8rem;
+    transition: 0.3s;
+    position: absolute;
+}
+
+.frame-actions-switch .moon {
+    fill: var(--color-gray);
+    opacity: 0;
+    left: 0.3rem;
+}
+
+.frame-actions-switch .sun {
+    fill: var(--color-gray);
+    opacity: 1;
+    right: 0.3rem;
+}
+
+.frame-actions-switch .circle {
+    appearance: none;
+    position: relative;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    left: 0.01rem;
+    background: var(--color-darkGray);
+    border: 1px solid var(--color-darkGray);
+    transition: 0.5s;
+}
+
+.frame-actions-switch:has(.circle:checked) {
+    background: var(--color-offwhite);
+}
+
+.frame-actions-switch .circle:checked {
+    left: calc(100% - 0.9rem);
+    background: var(--color-white);
+    border-color: var(--color-white);
+}
+
+.frame-actions-switch:has(.circle:checked)>.sun {
+    opacity: 0;
+}
+
+.frame-actions-switch:has(.circle:checked)>.moon {
+    opacity: 1;
+}
+
 
 .code-container {
     height: 100%;
@@ -233,23 +357,25 @@
     padding-bottom: 1.2rem;
     background: var(--color3-darker);
     width: 5%;
-    color: var(--color4);
-    text-align: right;
+    color: var(--color4-placeholder);
     user-select: none;
-    padding-right: 0.6rem;
     overflow: hidden;
 }
 
 .line-numbers div {
     line-height: 1rem;
     font-size: 0.9rem;
+    width: 100%;
+    padding: 0 0.3rem;
+    text-align: center;
 }
 
 .input-area {
     line-height: 1rem;
     padding-top: 1.2rem;
     padding-left: 0.6rem;
-    padding-bottom: 0.6rem; /*1.2 - the height of the x scrollbar under it = 0.6 bitch*/
+    padding-bottom: 0.6rem;
+    /*1.2 - the height of the x scrollbar under it = 0.6 bitch*/
     background-color: var(--color3);
     border: 0;
     resize: none;
@@ -870,7 +996,8 @@
     border-radius: 10px;
     width: 100%;
     background-color: rgba(255, 0, 0, 0.1);
-    border: 2px dashed rgba(255, 0, 0, 0.6);    margin: 1.2rem 0;
+    border: 2px dashed rgba(255, 0, 0, 0.6);
+    margin: 1.2rem 0;
     padding: 0.8rem 0.9rem;
     color: var(--color5);
     text-overflow: ellipsis;
@@ -1047,6 +1174,7 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
 @media (max-width: 628px) {
     .drafts-search-output {
         grid-template-columns: repeat(1, 1fr);
@@ -1129,9 +1257,11 @@
     padding: 0 0.6rem;
     height: 100%;
 }
+
 .drafts-output-delete:hover {
     background: var(--color2-bright);
 }
+
 .drafts-output-delete:active {
     background: var(--color2-brighter);
 }
@@ -1145,6 +1275,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .drafts-output-delete-svg path {
     stroke: var(--color4);
 }

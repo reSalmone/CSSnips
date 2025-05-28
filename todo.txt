@@ -23,10 +23,10 @@
 /add challenge creator to creator.php and connect it to challenges
 /make a page system to explorer.php
 #add a report system (ho creato la pagina, il sistema non lo creo)
-good-looking code in editors
+#good-looking code in editors (non je la faccio è troppo complesso)
 
 /add delete/draft-delete confirm choice
-add EVERY page .php error reader and notification system so you can display them
+/add EVERY page .php error reader and notification system so you can display them
 /make stuff in explorer.php with ajax
 
 /aggiungi controlli su info varie del post di uno snippet
@@ -37,13 +37,8 @@ il sistema di post/save changes fa cagare - prova a salvare tutta la roba da pos
 /make login system ajax, but reload the page is login is successful
 /aggiungi un controllo a creator.php: pija la challenge solo se non è terminata - non può essere sia challenge che variation
 aggiungi sitewide icon
-
-
-//SO STRAFATTO -----------------------------------------------------------------------------------------
-per adesso l'edit sovrascrive il localStorage, la strat sento che è di creare un sistema di
-snippet temporanei con id quando - non loggato (ti salva questo id nella sessione così non ti perdi tutto se ritorni) o loggato, 
-ti crei un nuovo snippet. Ora quando apri il creator, se hai un id in session te manda a creator.php?id=x, se non ne
-hai uno te ne crea uno da capo. Questo evita il problema che l'editor sovrascriva il Localstorage: non salviamo le
-robe nel localStorage (magari sto id al posto della session): la roba viene salvata in uno snippet temporaneo (lo elimini quando 
-posti).
-//-----------------------------------------------------------------------------------------------------
+sostituisci le immagini della navbar/login/signup con svg
+aggiungi una dark mode nello snippet che magari viene salvata come scelta nello snippet
+rendi explorer search con ajax così inputtando trova l'elemento giusto e ti updata tutto (so cazzi fra)
+implementa magari forgot password (anche no)
+/aggiungi color editor nel creator

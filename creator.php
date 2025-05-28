@@ -139,6 +139,7 @@ if ($name != '' && !$found) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnip - Create</title>
+    <link rel="icon" href="assets/images/icon.png">
     <link rel="stylesheet" href="creator.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
     <link rel="stylesheet" href="navbar.css">
@@ -336,7 +337,8 @@ if ($name != '' && !$found) {
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closePost(); closeLoad(); closeDrafts(); closeConfirmDelete(); closeInfo();">
+    <div id="rest"
+        onclick="closeLogin(); closeSignup(); closePost(); closeLoad(); closeDrafts(); closeConfirmDelete(); closeInfo();">
         <div class="snippet-page">
             <?php if (($foundEdit && $found)) { ?>
                 <div class="variation-container">
@@ -499,6 +501,26 @@ if ($name != '' && !$found) {
                 <iframe id="output" class="output-container">
 
                 </iframe>
+                <div class="frame-actions">
+                    <span class="frame-actions-color" id="frame-actions-color">#112343</span>
+                    <label class="frame-actions-switch" for="switch">
+                        <input id="switch" type="checkbox" class="circle" onchange="updateSnippetThemeS(this);">
+                        <svg viewBox='0 0 256 256' class="moon svg">
+                            <path
+                                d='M127.2 233.2C185.7 233.2 233.2 185.7 233.2 127.2 233.2 122.2 225.8 121.4 223.3 125.6 211.2 145.6 189.3 159 164.3 159 126.2 159 95.4 128.1 95.4 90.1 95.4 65.0 108.7 43.1 128.7 31.0 132.9 28.5 132.1 21.2 127.2 21.2 68.6 21.2 21.2 68.6 21.2 127.2 21.2 185.7 68.6 233.2 127.2 233.2Z'
+                                stroke-width='20px' stroke-linecap='round'></path>
+                        </svg>
+                        <svg viewBox='0 0 256 256' class="sun svg">
+                            <path
+                                d='M190.8 127.2C190.8 162.3 162.3 190.8 127.2 190.8 92.0 190.8 63.6 162.3 63.6 127.2 63.6 92.0 92.0 63.6 127.2 63.6 162.3 63.6 190.8 92.0 190.8 127.2ZM127.2 13.2C131.5 13.2 135.1 16.8 135.1 21.2V31.8C135.1 36.1 131.5 39.7 127.2 39.7 122.8 39.7 119.2 36.1 119.2 31.8V21.2C119.2 16.8 122.8 13.2 127.2 13.2ZM13.2 127.2C13.2 122.8 16.8 119.2 21.2 119.2H31.8C36.1 119.2 39.7 122.8 39.7 127.2 39.7 131.5 36.1 135.1 31.8 135.1H21.2C16.8 135.1 13.2 131.5 13.2 127.2ZM214.6 127.2C214.6 122.8 218.2 119.2 222.6 119.2H233.2C237.5 119.2 241.1 122.8 241.1 127.2 241.1 131.5 237.5 135.1 233.2 135.1H222.6C218.2 135.1 214.6 131.5 214.6 127.2ZM127.2 214.6C131.5 214.6 135.1 218.2 135.1 222.6V233.2C135.1 237.5 131.5 241.1 127.2 241.1 122.8 241.1 119.2 237.5 119.2 233.2V222.6C119.2 218.2 122.8 214.6 127.2 214.6ZM46.6 46.6C49.7 43.5 54.7 43.5 57.8 46.6L62.0 50.7C65.1 53.8 65.1 58.9 62.0 62.0 58.9 65.1 53.8 65.1 50.7 62.0L46.6 57.8C43.5 54.7 43.5 49.7 46.6 46.6ZM207.7 46.6C210.8 49.7 210.8 54.7 207.7 57.8L203.6 62.0C200.5 65.1 195.4 65.1 192.3 62.0 189.2 58.9 189.2 53.8 192.3 50.7L196.5 46.6C199.6 43.5 204.6 43.5 207.7 46.6ZM192.3 192.3C195.4 189.2 200.5 189.2 203.6 192.3L207.7 196.5C210.8 199.6 210.8 204.6 207.7 207.7 204.6 210.8 199.6 210.8 196.5 207.7L192.3 203.6C189.2 200.5 189.2 195.4 192.3 192.3ZM62.0 192.3C65.1 195.4 65.1 200.5 62.0 203.6L57.8 207.7C54.7 210.8 49.7 210.8 46.6 207.7 43.5 204.6 43.5 199.6 46.6 196.5L50.7 192.3C53.8 189.2 58.9 189.2 62.0 192.3Z'
+                                stroke-width='20px' stroke-linecap='round'></path>
+                        </svg>
+                    </label>
+                    <div class="frame-actions-select-wrapper">
+                        <input type="color" id="frame-actions-select-color" oninput="updateSnippetThemeC(this)">
+                        <div class="frame-actions-select" onclick="openColorPicker();"></div>
+                    </div>
+                </div>
                 <div class="code-container">
                     <div class="code-buttons">
                         <div class="lang-buttons-container">
@@ -507,7 +529,7 @@ if ($name != '' && !$found) {
                             <button class="lang-button" id="js-button" onclick="switchLang('js')">Js</button>
                         </div>
                     </div>
-                    <div class="code-div">
+                    <div class="code-div" id="code-div">
                         <button class="copy-button" onclick="copyToClipboard();">
                             <img src="copy.png" class="copy-icon">
                             <span id="copy-span">Copy</span>

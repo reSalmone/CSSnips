@@ -82,6 +82,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnip - View snip</title>
+    <link rel="icon" href="assets/images/icon.png">
     <link rel="stylesheet" href="snippet.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
     <link rel="stylesheet" href="navbar.css">

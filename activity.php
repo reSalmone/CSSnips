@@ -38,6 +38,7 @@ if ($type != "") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnips - Explorer</title>
+    <link rel="icon" href="assets/images/icon.png">
     <link rel="stylesheet" href="activity.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
     <link rel="stylesheet" href="login-signup.css">

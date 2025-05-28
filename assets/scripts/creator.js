@@ -1,6 +1,7 @@
 var currentLang = "html";
 var saved = true;
 let elementType = "button";
+let frameColor = "var(--color1)";
 
 const areas = {
     html: document.getElementById('html-area'),
@@ -70,6 +71,7 @@ async function displayCode() {
                     margin: 0;
                     padding: 10px
                     overflow: hidden;
+                    color: ${frameColor}
                 }
                 ${css}
               </style>
@@ -124,6 +126,38 @@ function insertBrackets(e, textArea) {
 }
 
 const lineNumbers = document.getElementById('line-numbers');
+let writingLine = 0;
+
+Object.keys(areas).forEach(type => {
+    areas[type].addEventListener('mousemove', (e) => {
+        let style = getComputedStyle(areas[type]);
+        let lineHeight = parseFloat(style.lineHeight);
+        let rect = areas[type].getBoundingClientRect();
+        let y = e.clientY - rect.top;
+        let lineNumber = Math.floor(y / lineHeight) - 1;
+
+        Array.from(lineNumbers.children).forEach(n => {
+            n.style.color = "var(--color4-placeholder)";
+        });
+        if (lineNumber < lineNumbers.children.length) {
+            lineNumbers.children[lineNumber].style.color = "var(--color4)";
+        }
+    });
+
+    areas[type].addEventListener('input', () => updateCursor(areas[type]));
+    areas[type].addEventListener('click', () => updateCursor(areas[type]));
+    areas[type].addEventListener('keyup', () => updateCursor(areas[type]));
+});
+
+function updateCursor(area) {
+    const caretPosition = area.selectionStart;
+    const textBeforeCaret = area.value.substring(0, caretPosition);
+
+    const line = textBeforeCaret.split('\n').length - 1;
+    writingLine = line;
+
+    updateLines(area);
+}
 
 function updateLines(area) {
     const lines = area.value.split('\n').length;
@@ -132,6 +166,10 @@ function updateLines(area) {
         const line = document.createElement('div');
         line.textContent = i;
         lineNumbers.appendChild(line);
+
+        if (writingLine == i - 1) {
+            line.style.background = "rgba(255, 255, 255, 0.025)"
+        }
     }
 }
 
@@ -712,6 +750,69 @@ function restoreLocalStorage() {
         tags = localTags.split(',');
         renderTags();
     }
+}
+
+function updateSnippetThemeC(s) {
+    document.getElementById("output").style.background = s.value;
+    let color = document.getElementById("frame-actions-color");
+    color.style.color = s.value;
+    let colorText = getColor(color);
+    if (isColorLight(getColor(color))) {
+        color.style.color = "#041214";
+        color.innerText = colorText;
+        frameColor = "#041214";
+        displayCode();
+    } else {
+        color.style.color = "#d9ddce";
+        color.innerText = colorText;
+        frameColor = "#d9ddce";
+        displayCode();
+    }
+}
+
+function openColorPicker() {
+    document.getElementById("frame-actions-select-color").click();
+}
+
+function isColorLight(hexColor) {
+    hexColor = hexColor.replace('#', '');
+    if (hexColor.length === 3) {
+        hexColor = hexColor.split('').map(c => c + c).join('');
+    }
+    const r = parseInt(hexColor.substring(0, 2), 16);
+    const g = parseInt(hexColor.substring(2, 4), 16);
+    const b = parseInt(hexColor.substring(4, 6), 16);
+
+    const brightness = (0.299 * r + 0.587 * g + 0.114 * b);
+    return brightness > 128;
+}
+
+function updateSnippetThemeS(s) {
+    if (s.checked) {
+        document.getElementById("output").style.background = "#041214";
+        let color = document.getElementById("frame-actions-color");
+        color.style.color = "#efffe1"
+        color.innerText = "#041214";
+        frameColor = "#efffe1";
+        displayCode();
+    } else {
+        document.getElementById("output").style.background = "#efffe1"
+        let color = document.getElementById("frame-actions-color");
+        color.style.color = "#041214"
+        color.innerText = "#efffe1";
+        frameColor = "#041214";
+        displayCode();
+    }
+}
+
+function getColor(element) {
+    const bgColor = getComputedStyle(element).color;
+    const rgb = bgColor.match(/\d+/g);
+    const hex = rgb.slice(0, 3).map(x => {
+        const hexPart = parseInt(x).toString(16);
+        return hexPart.padStart(2, '0');
+    }).join('');
+    return "#" + hex;
 }
 
 switchLang("html");

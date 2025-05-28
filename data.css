@@ -1,6 +1,7 @@
 * {
     font-family: "Noveo Sans";
     --color1: #071E22;
+    --colortest: #041214;
     --color1-bright: color-mix(in srgb, var(--color1) 95%, white);
     --color1-brighter: color-mix(in srgb, var(--color1) 90%, white);
     --color1-dark: color-mix(in srgb, var(--color1) 80%, black);

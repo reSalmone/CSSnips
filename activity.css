@@ -39,12 +39,23 @@
     margin-bottom: 6.5rem;
     display: flex;
     flex-direction: column;
+    position: relative; /* Aggiunto per il posizionamento assoluto del figlio */
+    min-height: 100px; /* Altezza minima garantita */
 }
 
 .no-snippets-text {
     color: var(--color4);
     font-size: 1.9rem;
     padding-bottom: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color4);
+    font-size: 1.9rem;
+    width: 100%;
+    padding: 20px;
+    margin: 0;
 }
 
 .search-results {

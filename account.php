@@ -118,34 +118,68 @@ if ($dbcon != -1) {
 
         <var class="main_var">
           <section class="profilo-info">
-            <div class="avatar-box">
-              <img src="<?= $avatar_url ?>" alt="Avatar" class="avatar-img">
-            </div>
-            <div class="info-text">
-              <h2><?= htmlspecialchars($real_username) ?></h2>
-              <p><strong>Email:</strong> <?= htmlspecialchars($email) ?></p>
-              <p><strong>Bio:</strong> <?= htmlspecialchars($bio) ?></p>
-              <?php
-              if ($username != $target_username && $target_username != '' && $username != '') {
-                $is_following = false;
-                $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
-                $lista = $line2["following"];
-                $lista = trim($lista, '{}');
-                $elements = explode(',', $lista);
+            <div class="profile-card">
+              <div class="profile-header">
+                <div class="avatar-wrapper">
+                  <img src="<?= $avatar_url ?>" alt="Avatar" class="avatar-img">
+                  <?php if ($username != $target_username && $target_username != '' && $username != '') {
+                    $is_following = false;
+                    $line2 = pg_fetch_array($result2, NULL, PGSQL_ASSOC);
+                    $lista = $line2["following"];
+                    $lista = trim($lista, '{}');
+                    $elements = explode(',', $lista);
 
-                foreach ($elements as $item) {
-                  if (strtolower(trim($item)) == strtolower($target_username)) {
-                    $is_following = true;
-                  }
-                }
-                ?>
-                <button id="follow-btn" class="<?php echo $is_following ? 'following' : 'follow' ?>"
-                  onclick="toggleFollow('<?php echo htmlspecialchars($target_username) ?>', <?php echo $is_following ? 'true' : 'false' ?>)">
-                  <?php echo $is_following ? 'Following' : 'Follow' ?>
-                </button>
-                <?php
-              }
-              ?>
+                    foreach ($elements as $item) {
+                      if (strtolower(trim($item)) == strtolower($target_username)) {
+                        $is_following = true;
+                      }
+                    }
+                    ?>
+                    <button id="follow-btn" class="<?php echo $is_following ? 'following' : 'follow' ?>"
+                      onclick="toggleFollow('<?php echo htmlspecialchars($target_username) ?>', <?php echo $is_following ? 'true' : 'false' ?>)">
+                      <?php echo $is_following ? 'Following' : 'Follow' ?>
+                    </button>
+                  <?php } ?>
+                </div>
+
+                <div class="profile-main">
+                  <h2 class="profile-username"><?= htmlspecialchars($real_username) ?></h2>
+                  <div class="profile-meta">
+                    <?php if (!empty($email)) { ?>
+                      <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16">
+                          <path fill="currentColor"
+                            d="M4,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4M12,11L20,6H4L12,11M4,18H20V8.37L12,13.36L4,8.37V18Z" />
+                        </svg>
+                        <span><?= htmlspecialchars($email) ?></span>
+                      </div>
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+
+              <?php if (!empty($bio)){ ?>
+                <div class="profile-bio">
+                  <h3 class="bio-title">About</h3>
+                  <p class="bio-content"><?= htmlspecialchars($bio) ?></p>
+                </div>
+              <?php } ?>
+
+              <div class="profile-stats">
+                <div class="stat-item"
+                  onclick="location.href='activity.php?username=<?= urlencode($target_username ?: $username) ?>&type=activity'">
+                  <span class="stat-number"><?= htmlspecialchars($numero_codici) ?></span>
+                  <span class="stat-label">Snippets</span>
+                </div>
+                <div class="stat-item" onclick="toggleList('followers')">
+                  <span class="stat-number"><?= htmlspecialchars($numero_followers ?? 0) ?></span>
+                  <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat-item" onclick="toggleList('following')">
+                  <span class="stat-number"><?= htmlspecialchars($numero_following ?? 0) ?></span>
+                  <span class="stat-label">Following</span>
+                </div>
+              </div>
             </div>
           </section>
 

@@ -1,3 +1,4 @@
+/* ===== BASE STYLES (tuoi originali) ===== */
 @import './data.css';
 
 * {
@@ -23,72 +24,61 @@ body {
   border-radius: 10px;
 }
 
+/* ===== NUOVA SEZIONE PROFILO (versione migliorata) ===== */
 .profilo-info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  flex-direction: column;
-  padding: 20px;
   background-color: var(--color2-brighter);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
 }
-.avatar-box {
+
+.profile-card {
+  padding: 25px;
+}
+
+.profile-header {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
   margin-bottom: 20px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .avatar-img {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--color4);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.avatar-img:hover {
-  transform: scale(1.05);
-}
-
-.profilo-info h2 {
-  font-size: 28px;
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: var(--color4);
-}
-
-.profilo-info p {
-  margin: 6px 0;
-  font-size: 16px;
-  color: #ddd;
-}
-
-.profilo-info .info-text {
-  max-width: 500px;
-}
-
-/*.profilo-info p {
-  margin: 10px 0;
-}
-
-h2 {
-  color: white;
-}
-
-.profilo-info h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-*/
 #follow-btn {
-  padding: 10px 20px;
-  font-size: 16px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 15px;
   border-radius: 20px;
   border: none;
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#follow-btn .btn-icon {
+  font-size: 12px;
 }
 
 .follow {
@@ -98,9 +88,11 @@ h2 {
 
 .follow:hover {
   background-color: var(--color1-brighter);
+  transform: translateY(-2px);
 }
 
 .following {
+  background-color: rgba(255, 255, 255, 0.9);
   background-color: white;
   color: var(--color1);
 }
@@ -110,11 +102,111 @@ h2 {
   color: var(--color1);
 }
 
-.centro {
-  width: 100%;
-  text-align: center;
+.profile-main {
+  flex-grow: 1;
 }
 
+.profile-username {
+  font-size: 24px;
+  margin: 5px 0 10px;
+  color: white;
+  font-weight: 700;
+}
+
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+  min-height: 24px; /* Altezza fissa per mantenere il layout */
+}
+
+/* Se vuoi nascondere completamente la sezione meta quando vuota */
+.profile-meta:empty {
+  display: none;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #bbb;
+}
+
+.meta-icon {
+  opacity: 0.8;
+  width: 16px;
+  height: 16px;
+}
+
+.profile-bio {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px auto; /* Centratura orizzontale */
+  max-width: 80%; /* Larghezza contenuta */
+  text-align: center; /* Allineamento testo al centro */
+}
+
+.profile-bio {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px auto; /* Centratura orizzontale */
+  max-width: 80%; /* Larghezza contenuta */
+  text-align: center; /* Allineamento testo al centro */
+}
+
+.bio-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color4);
+  margin-bottom: 8px;
+  text-align: center; /* Titolo centrato */
+}
+
+.bio-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ddd;
+  margin: 0;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  margin-top: 20px; /* Aggiunto per separare dalla bio */
+}
+
+.stat-item {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+}
+
+.stat-number {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color4);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===== ALTRE SEZIONI (tue originali - mantenute intatte) ===== */
 .recent-activity {
   margin-top: 40px;
   text-align: center;
@@ -142,6 +234,11 @@ h2 {
   min-height: 150px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.centro {
+  width: 100%;
+  text-align: center;
 }
 
 .funzioni-container {
@@ -191,6 +288,7 @@ h2 {
   animation: slide-in 0.5s;
 }
 
+
 .output-preview {
   background: var(--color4);
   border-radius: 10px;
@@ -231,36 +329,6 @@ h2 {
 .list-container.active {
   max-height: 200px;
   overflow-y: auto;
-}
-
-/*.list-user {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 300px;
-  margin: 10px auto;
-  padding: 12px 20px;
-  background-color: white;
-  color: var(--color2);
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  text-align: left;
-}*/
-
-.user-name {
-  flex: 1;
-  text-align: left;
-}
-
-.user-icon {
-  width: 24px;
-  height: 24px;
-  margin-left: 10px;
 }
 
 .list-user {
@@ -316,6 +384,15 @@ h3 {
   margin: 10px 0;
 }
 
+.user-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+}
+
+
+
+/* ===== MEDIA QUERIES (combinate) ===== */
 @media (max-width: 680px) {
   .activity-container {
     flex-direction: column;
@@ -331,5 +408,24 @@ h3 {
 
   .activity-container {
     grid-template-columns: 1fr;
+  }
+  
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .profile-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  #follow-btn {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 10px;
   }
 }

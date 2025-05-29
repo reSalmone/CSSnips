@@ -142,15 +142,23 @@ $is_challenge_active= false;
                         $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
                         $result2 = pg_query($dbcon, $q2);
                         echo '<div class="search-output">';
-                        $rank=1;
+                        $rank=0;
                         while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
+                            $rank = $rank+1;
                             $fileLocation = $tuple['file_location'];
                             if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
                                 $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
                 
                                 list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-                                
-                                echo '<div class="output-snip">';
+                                if($rank==1){
+                                    echo '<div class="output-snip" style="border: 4px solid gold;">';
+                                }else if($rank== 2){
+                                    echo '<div class="output-snip" style="border: 4px solid silver;">';
+                                }else if($rank== 3){
+                                    echo '<div class="output-snip" style="border: 4px solid sienna;">';
+                                }else{
+                                    echo '<div class="output-snip">';
+                                }
                                 echo '<div class= "snip-info">';
                                 $snip_likes=$tuple['challenge_likes'];
                                 $challenge_name=$tuple['challenge_of'];
@@ -208,7 +216,7 @@ $is_challenge_active= false;
                                     }
                                 }
                                 echo '</div>';
-                                $rank = $rank+1;
+                                
                                 echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
                                 echo '<span>View code</span>';
                                 echo '</div>';

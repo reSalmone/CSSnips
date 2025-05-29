@@ -108,11 +108,21 @@ function splitFileContent($content){
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
                         $users_query = "SELECT * FROM users_with_likes WHERE user_challenge_likes >= 0 ORDER BY user_challenge_likes DESC;";
                         $users_list = pg_query($dbcon, $users_query);
+                        $rank=0;
                         while ($tuple_user = pg_fetch_array($users_list, NULL, PGSQL_ASSOC)) {
-                            echo'<div class="user-box">
-                                    <div class="user-info-box">
-                                    
-                                        <div class="user-name-box">'.$tuple_user["username"].'</div>
+                            $rank+=1;
+                                    if ($rank == 1) {
+                                        echo '<div class="user-box" style="border: 4px solid gold;">';
+                                    }else if ($rank == 2) {
+                                        echo '<div class="user-box" style="border: 4px solid silver;">';
+                                    }else if ($rank == 3) {
+                                        echo '<div class="user-box" style="border: 4px solid sienna;">';
+                                    }else {
+                                        echo '<div class="user-box">';
+                                    }
+                                    echo '<div class="user-info-box">';
+
+                                        echo'<div class="user-name-box">'.$rank."° ".$tuple_user["username"].'</div>
                                     </div>
                                     <div class="user-challenge-likes-box">'.$tuple_user["user_challenge_likes"]." votes".'</div>';
                             echo '</div>';

@@ -150,11 +150,11 @@ $is_challenge_active= false;
                                 $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
                 
                                 list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-                                if($rank==1){
+                                if($rank==1 &&!$is_challenge_active){
                                     echo '<div class="output-snip" style="border: 4px solid gold;">';
-                                }else if($rank== 2){
+                                }else if($rank== 2 &&!$is_challenge_active){
                                     echo '<div class="output-snip" style="border: 4px solid silver;">';
-                                }else if($rank== 3){
+                                }else if($rank== 3 &&!$is_challenge_active){
                                     echo '<div class="output-snip" style="border: 4px solid sienna;">';
                                 }else{
                                     echo '<div class="output-snip">';

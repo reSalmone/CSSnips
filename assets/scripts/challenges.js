@@ -16,6 +16,7 @@ const scrollSpeed = 0.3;
 
 Leaderboard_container.addEventListener('mouseenter', () => {
     scrolling = false;
+    cancelAnimationFrame(autoScroll);
 });
 Leaderboard_container.addEventListener('mouseleave', () => {
     scrolling = true;

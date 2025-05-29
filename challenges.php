@@ -224,6 +224,7 @@ function splitFileContent($content){
                                 echo '<img src="'. $tuple["image"].'" class="nicon-target">';
                                 echo '</div>';
                                 }
+                                echo '<div class="active-challenge-info">'.$tuple["description"].'</div>';
                                 echo '</div>';
                         }
                     } else {

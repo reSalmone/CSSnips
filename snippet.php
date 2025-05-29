@@ -47,7 +47,7 @@ $variationOf = null;
 $challengeOf = null;
 
 $found = false;
-if (isset($_GET['name']) && file_exists(filename: $filePath)) {
+if ($name != '' && file_exists(filename: $filePath)) {
     $found = true;
     $content = file_get_contents($filePath);
     list($html, $css, $js) = splitFileContent($content);
@@ -442,8 +442,8 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                                 <iframe id="info-variations-output-snip-frame-<?= $va_tuple['id'] ?>"
                                                     class="info-variations-output-preview"></iframe>
                                                 <script id="info-variations-snippet-data-<?= $va_tuple['id'] ?>" type="application/json">
-                                                                                            <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
-                                                                                        </script>
+                                                                                                                                    <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
+                                                                                                                                </script>
 
                                                 <script>
                                                     document.addEventListener("DOMContentLoaded", function () {
@@ -479,6 +479,48 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                             </div>
                         </div>
                     <?php } ?>
+                    <div class="comments-container">
+                        <div class="comments-title-container">
+                            <span class="comments-title">Comments</span>
+                        </div>
+                        <div class="comments-add-comment">
+                            <form id="comments-form">
+                                <input type="text" placeholder="Add a comment...">
+                            </form>
+                        </div>
+                        <div class="comments-output"></div>
+                            <?php
+                                $co_q1 = "SELECT * FROM comments WHERE post_name = $1 AND child_of IS NULL ORDER BY likes DESC";
+                                $co_result = pg_query_params($dbcon, $co_q1, array($name));
+                                echo '<p class="comments-search-results">' . pg_num_rows($co_result) . ' comments</p>';
+                                if (pg_num_rows($co_result) > 0) {
+                                    echo '<div class="comments-search-output">';
+                                    while ($co_tuple = pg_fetch_array($co_result, null, PGSQL_ASSOC)) { ?>
+                                    
+                                        <div class="comment">
+                                            <div class="comment-username-div">
+                                                <span class="comment-username"><?= $co_tuple['creator'] ?></span>
+                                                <span class="comment-date"><?= $co_tuple['created_at'] ?></span>
+                                            </div>
+                                            <div class="comment-content-div">
+                                                <span class="comment-content"><?php echo htmlspecialchars($co_tuple['content']); ?></span>
+                                            </div>
+                                            <div class="comment-actions-div">
+                                                <input type="checkbox" class="comment-like">
+                                                <span class="comment-likes"><?= $co_tuple['likes'] ?></span>
+                                                <button class="comment-reply">Reply</button>
+                                                <?php if (isset($_SESSION['username']) && $co_tuple['creator'] == $_SESSION['username']) { ?>
+                                                    <button class="comment-delete">Delete</button>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+
+                                    <?php }
+                                    echo '</div>';
+                                }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
@@ -496,5 +538,23 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
         window.history.replaceState({}, '', url);
     </script>
 <?php } ?>
+<!--<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch('load-comments.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `name=${encodeURIComponent(checkname)}`
+        })
+            .then(response => response.json())
+            .then(data => {
+                displayNameAvailability(data.success);
+                if (data.success) {
+                    hidePostServerError();
+                }
+            });
+    });
+</script>-->
 
 </html>

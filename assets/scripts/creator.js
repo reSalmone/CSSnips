@@ -449,14 +449,14 @@ function checkNameAvailability() {
     })
         .then(response => response.json())
         .then(data => {
-            displayAvailability(data.success);
+            displayNameAvailability(data.success);
             if (data.success) {
                 hidePostServerError();
             }
         });
 }
 
-function displayAvailability(available) {
+function displayNameAvailability(available) {
     if (available) {
         document.getElementById('post-name-check-success').style.display = 'block';
         document.getElementById('post-name-check-failure').style.display = 'none';

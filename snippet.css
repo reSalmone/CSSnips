@@ -219,7 +219,7 @@
     padding-bottom: 1.2rem;
     background: var(--color3-darker);
     width: 5%;
-    color: var(--color4);
+    color: var(--color4-placeholder);
     text-align: right;
     user-select: none;
     padding-right: 0.6rem;
@@ -1057,4 +1057,83 @@
     padding: 0.6rem;
     width: 80%;
     cursor: pointer;
+}
+
+
+
+
+.comments-container {
+    background: var(--color2-brighter);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 1.2rem;
+    border-radius: 10px;
+    gap: 0.6rem;
+}
+
+.comments-title {
+    color: var(--color4);
+    font-size: 3.1rem;
+    text-align: center;
+}
+
+.comments-output {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.2rem;
+}
+
+.comments-search-results {
+    color: var(--color4);
+    font-size: 1.2rem;
+}
+
+.comments-search-output {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+.comment-username-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.comment-username {
+    font-size: 1.2rem;
+    color: var(--color4);
+}
+
+.comment-username {
+    font-size: 0.9rem;
+    color: var(--color4-placeholder);
+}
+
+.comment-content-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.comment-content {
+    
+}
+
+.comment-actions-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 }

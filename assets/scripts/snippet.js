@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function openReport(event) {
     closeConfirmDelete();
     closeInfo();
+    closeConfirmDeleteComment();
     event.stopPropagation();
     document.getElementById('report-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(30%)';
@@ -185,6 +186,7 @@ function reportFormSubmit(event) {
 function openConfirmDelete(event) {
     closeReport();
     closeInfo();
+    closeConfirmDeleteComment();
     event.stopPropagation();
     document.getElementById('confirm-delete-center-div').style.display = 'block';
     document.getElementById('rest').style.filter = 'brightness(30%)';
@@ -198,6 +200,7 @@ function closeConfirmDelete() {
 function openInfo(event, info) {
     closeReport();
     closeConfirmDelete();
+    closeConfirmDeleteComment();
     if (event != null) {
         event.stopPropagation();
     }
@@ -209,4 +212,102 @@ function openInfo(event, info) {
 function closeInfo() {
     document.getElementById('info-center-div').style.display = 'none';
     document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+function openConfirmDeleteComment(event, commentId) {
+    closeReport();
+    closeConfirmDelete();
+    closeInfo();
+    if (event != null) {
+        event.stopPropagation();
+    }
+    document.getElementById('confirm-delete-comment-center-div').style.display = 'block';
+    document.getElementById('rest').style.filter = 'brightness(30%)';
+    document.getElementById('confirm-delete-comment').addEventListener('click', function () {
+        deleteComment(commentId);
+    });
+}
+
+function closeConfirmDeleteComment() {
+    document.getElementById('confirm-delete-comment-center-div').style.display = 'none';
+    document.getElementById('rest').style.filter = 'brightness(100%)';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hearts = document.getElementsByClassName('comment-like-checkbox')
+    Array.from(hearts).forEach(heart => {
+        if (heart) {
+            heart.addEventListener('click', function () {
+                const snippet = heart.getAttribute('data-snippet');
+
+                fetch('like-comment.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `comment=${encodeURIComponent(snippet)}`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('comment-likes-text-' + data.id).innerText = data.value;
+                        } else {
+                            alert(data.error);
+                        }
+                    });
+            });
+        }
+    });
+});
+
+function replyToComment(commentId, commentUser) {
+    document.getElementById("child-of-input").value = commentId;
+    document.getElementById("replying-to").style.display = "flex";
+    document.getElementById("replying-to-text").innerText = commentUser;
+    location.href = "#comments";
+    document.getElementById("comment-area").focus();
+}
+
+function replyRemove() {
+    document.getElementById("child-of-input").value = -1;
+    document.getElementById("replying-to").style.display = "none";
+}
+
+function postComment(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    fetch('upload-comment.php', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.href = "snippet.php?name=" + event.target.snippet.value + "&info=Comment sent#comments";
+            } else {
+                openInfo(event, data.error);
+            }
+        })
+        .catch(error => {
+            openInfo(event, error + ' [this is a programming error, please send this error to the staff providing enough context]');
+        })
+}
+
+function deleteComment(commentId) {
+    fetch('delete-comment.php?id=' + commentId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('info', 'Comment deleted');
+                url.hash = 'comments';
+                window.location.href = url.href;
+            } else {
+                openInfo(null, data.error);
+            }
+        })
+        .catch(error => {
+            openInfo(null, error + ' [this is a programming error, please send this error to the staff providing enough context]');
+        })
 }

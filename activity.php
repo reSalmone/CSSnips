@@ -49,7 +49,7 @@ if ($type != "") {
 </head>
 
 <body>
-    <?php include 'navbar-code.php'; ?> 
+    <?php include 'navbar-code.php'; ?>
     <?php include 'login-signup-code.php'; ?>
     <div id="rest" onclick="closeLogin(); closeSignup();">
         <?php
@@ -107,6 +107,7 @@ if ($type != "") {
                         echo '<div class="search-output">';
                         while ($tuple = pg_fetch_assoc($resultPage)) {
                             $id = (int) $tuple['id'];
+                            $avatar_url = "https://robohash.org/" . urlencode($tuple['creator']) . ".png?set=set1&bgset=bg1";
                             ?>
                             <div class="output-snip" data-snippet-id="<?= $id ?>">
                                 <div class="output-snip-opener"
@@ -118,7 +119,9 @@ if ($type != "") {
                                 </iframe>
                                 <div class="info">
                                     <div class="info-creator" onclick="location.href = 'account.php?username=<?= $tuple['creator'] ?>'">
-                                        <div class="info-pfp"></div>
+                                        <div class="info-pfp">
+                                            <img src="<?= $avatar_url ?>" alt='Avatar' class='avatar-img'>
+                                        </div>
                                         <span><?= htmlspecialchars($tuple['creator']) ?></span>
                                     </div>
                                     <div class="info-views">

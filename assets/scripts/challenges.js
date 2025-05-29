@@ -40,3 +40,19 @@ function autoScroll() {
 
 autoScroll();
 
+
+function mostraOverlay(el,event) {
+  const overlay = el.querySelector('.active-challenge-info');
+  overlay.style.opacity = '1';
+  overlay.style.pointerEvents = 'auto';
+}
+
+function nascondiOverlay(el,event) {
+    if (event.relatedTarget && el.contains(event.relatedTarget)) return;
+  const overlay = el.querySelector('.active-challenge-info');
+  overlay.style.opacity = '0';
+  overlay.style.pointerEvents = 'none';
+}
+
+
+console.log("text");

@@ -442,6 +442,7 @@
 }
 
 .active-challenge-box {
+    position: relative;
     background: var(--color4);
     overflow: hidden;
     border-radius: 20px;
@@ -478,6 +479,7 @@
 
 }
 
+
 .active-challenge-info {
     position: absolute;
     top: 50%;
@@ -491,7 +493,11 @@
     justify-content: center;
     padding: 2rem;
     font-size: 1.6rem;
+    pointer-events:none;
+    opacity: 0;
+
 }
+
 
 
 .background-active-challenge-box {

@@ -212,7 +212,7 @@ function splitFileContent($content){
                         $q1 = "SELECT * FROM challenges WHERE date_end < CURRENT_DATE;";
                         $result = pg_query($dbcon, $q1);
                         while ($tuple = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
-                            echo'<div class="active-challenge-box" onclick="location.href =\'challenge_selected.php?name='.$tuple["name"].'\'">
+                            echo'<div class="active-challenge-box" onclick="location.href =\'challenge_selected.php?name='.$tuple["name"].'\'" onmouseenter="mostraOverlay(this,event)" onmouseleave="nascondiOverlay(this,event)">
                                     <div class="title-active-challenge-box">'.$tuple["name"].'</div>
                                     <div class="subtitle-active-challenge-box">Terminated</div>';
 

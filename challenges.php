@@ -112,9 +112,9 @@ function splitFileContent($content){
                         $color_rank="";
                         while ($tuple_user = pg_fetch_array($users_list, NULL, PGSQL_ASSOC)) {
                             $rank+=1;
-                            if ($rank == 1) $color_rank="style='border: 4px solid gold;'";
-                            elseif ($rank == 2) $color_rank= "style='border: 4px solid silver;'";
-                            elseif ($rank == 3) $color_rank="style='border: 4px solid sienna;'";
+                            if ($rank == 1) $color_rank="style='border: 2px solid gold; box-shadow: 0px 0px 15px gold;'";
+                            elseif ($rank == 2) $color_rank= "style='border: 2px solid silver; box-shadow: 0px 0px 15px silver;'";
+                            elseif ($rank == 3) $color_rank="style='border: 2px solid sienna; box-shadow: 0px 0px 15px sienna;'";
                             else $color_rank= "";
         ?>                    
                             <div class="user-box" <?=$color_rank?>>
@@ -224,7 +224,7 @@ function splitFileContent($content){
                             $image_old=$tuple_old["image"];
                             $type_old=$tuple_old["type"];
         ?>
-                            <div class="active-challenge-box" onclick="location.href =\'challenge_selected.php?name='.$name_old.'\'" onmouseenter="mostraOverlay(this,event)" onmouseleave="nascondiOverlay(this,event)">
+                            <div class="active-challenge-box" onclick="location.href ='challenge_selected.php?name=<?=$name_old?>'" onmouseenter="mostraOverlay(this,event)" onmouseleave="nascondiOverlay(this,event)">
                                 <div class="title-active-challenge-box"><?=$name_old?></div>
                                 <div class="subtitle-active-challenge-box">Terminated</div>
                                 <!-- CONTROLLO SE LA CHALLENGE è STYLE O BUTTON -->

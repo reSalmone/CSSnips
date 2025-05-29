@@ -53,6 +53,3 @@ function nascondiOverlay(el,event) {
   overlay.style.opacity = '0';
   overlay.style.pointerEvents = 'none';
 }
-
-
-console.log("text");

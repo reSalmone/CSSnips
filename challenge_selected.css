@@ -87,7 +87,7 @@
     font-size: 5.5rem;
     font-weight: bold;
     padding: 1.5rem 1.5rem 1.5rem 2.5rem;
-    background-color: color-mix(in srgb, var(--color2) 75%, black);
+    background-color: var(--color2-dark);
     z-index: 1;
     text-justify: center;
 }
@@ -106,14 +106,14 @@
 }
 
 .contest-content-title{
-    color: color-mix(in srgb, var(--color2-darker) 30%, black);
+    color: color-mix(in srgb, var(--color1-brighter) 85%, black);
     font-size: 2.6rem;
     font-weight: bold;
 
 }
 
 .contest-content-subtitle{
-    color: color-mix(in srgb, var(--color2) 30%, black);
+    color: color-mix(in srgb, var(--color1-brighter) 85%, black);
     font-size: 1.7rem;
     font-weight: bold;
 
@@ -164,7 +164,6 @@
     width: 25rem;
     height: 1rem;
     border-radius: 0.25rem;
-    box-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 
 .data .range .fill {
@@ -184,7 +183,6 @@
     font-weight: bold;
     padding: 0.75rem;
     justify-self: start;
-    text-shadow: rgba(0, 0, 0, 0.394) 0px 5px 15px;
 }
 
 .create-button {
@@ -273,14 +271,24 @@
 .info-views {
     display: flex;
     flex-direction: row;
-    gap: 0.1rem;
+    gap: 0.4rem;
+    align-items: center;
 }
 
-.info-subtext {
+.info-text {
     font-size: 1.8rem;
-    font-style: italic;
-    color: var(--color4-placeholder);
+    color: var(--color4);
 }
+
+.data-views-checkmark {
+    top: 0;
+    left: 0;
+    height: 1.8rem;
+    width: 1.8rem;
+    transition: 100ms;
+    stroke: var(--color4-placeholder);
+}
+
 
 .info-creator {
     display: flex;
@@ -306,7 +314,7 @@
 }
 
 .info-like {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: var(--color4);
 }
 .data-like-save-container input {
@@ -342,8 +350,8 @@
 }
 
 .like-svg {
-    height: 35px;
-    width: 35px;
+    height: 2rem;
+    width: 2rem;
     transition: 100ms;
     animation: dislike_effect 400ms ease;
     stroke: var(--color4);

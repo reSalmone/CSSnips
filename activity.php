@@ -57,6 +57,8 @@ if ($type != "") {
             ?>
             <div class="title-container">
                 <?php
+                $avatar_url = "https://robohash.org/" . urlencode($username) . ".png?set=set1&bgset=bg1";
+                echo "<img src=" . $avatar_url . " alt='Avatar' class='avatar-img'>";
                 if ($type == 'watchlist') {
                     $t = "saved ";
                 } else if ($type == "liked") {

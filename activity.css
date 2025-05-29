@@ -14,11 +14,21 @@
     gap: 10px;
 }
 
+.title-container img.avatar-img {
+    width: 100px;   /* o 80px, regola come preferisci */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    align-self: center;  /* centra l’immagine nella colonna */
+}
+
+
 .title {
     color: var(--color4);
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .search-output-div {

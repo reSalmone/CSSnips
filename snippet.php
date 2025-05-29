@@ -14,6 +14,30 @@ function splitFileContent($content)
     return [$html, $css, $js];
 }
 
+function timeAgo($past, DateTime $now = null): string
+{
+    $past = $past instanceof DateTime
+        ? $past
+        : new DateTime($past);
+    $now = $now ?: new DateTime;
+    $diff = $now->diff($past);
+    $d = $diff->days;
+    $h = $diff->h;
+    $m = $diff->i;
+    $s = $diff->s;
+
+    if ($d > 0) {
+        return sprintf('%dd %02dh %02dm %02ds ago', $d, $h, $m, $s);
+    }
+    if ($h > 0) {
+        return sprintf('%dh %02dm %02ds ago', $h, $m, $s);
+    }
+    if ($m > 0) {
+        return sprintf('%dm %02ds ago', $m, $s);
+    }
+    return sprintf('%ds ago', $s);
+}
+
 function capitalizeProper($str)
 {
     if (empty($str))
@@ -166,6 +190,19 @@ if ($name != '' && file_exists(filename: $filePath)) {
         </div>
     </div>
 
+    <div class="center-div confirm-delete-center-div" id="confirm-delete-comment-center-div">
+        <div class="confirm-delete-page">
+            <div class="confirm-delete-title-container">
+                <span class="confirm-delete-title">Confirm action</span>
+                <span class="confirm-delete-subtitle">Are you sure you want to delete this comment</span>
+            </div>
+            <div class="confirm-delete-actions">
+                <button class="confirm-delete-action-button confirm-delete" id="confirm-delete-comment">Delete</button>
+                <button class="confirm-delete-action-button" onclick="closeConfirmDeleteComment();">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <div class="center-div info-center-div" id="info-center-div">
         <div class="info-page">
             <div class="info-title-container">
@@ -178,7 +215,7 @@ if ($name != '' && file_exists(filename: $filePath)) {
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport(); closeConfirmDelete(); closeInfo();">
+    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport(); closeConfirmDelete(); closeInfo(); closeConfirmDeleteComment();">
         <div class="snippet-page">
             <?php if ($variationOf != null) {
                 $v_creator = null;
@@ -442,8 +479,8 @@ if ($name != '' && file_exists(filename: $filePath)) {
                                                 <iframe id="info-variations-output-snip-frame-<?= $va_tuple['id'] ?>"
                                                     class="info-variations-output-preview"></iframe>
                                                 <script id="info-variations-snippet-data-<?= $va_tuple['id'] ?>" type="application/json">
-                                                                                                                                    <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
-                                                                                                                                </script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </script>
 
                                                 <script>
                                                     document.addEventListener("DOMContentLoaded", function () {
@@ -479,52 +516,137 @@ if ($name != '' && file_exists(filename: $filePath)) {
                             </div>
                         </div>
                     <?php } ?>
-                    <div class="comments-container">
+                    <div class="comments-container" id="comments">
                         <div class="comments-title-container">
                             <span class="comments-title">Comments</span>
                         </div>
-                        <div class="comments-add-comment">
-                            <form id="comments-form">
-                                <input type="text" placeholder="Add a comment...">
-                            </form>
-                        </div>
+                        <form class="comments-form" id="comments-form" onsubmit="postComment(event);">
+                            <div class="comment-form-reply" id="replying-to">
+                                <span class="comment-form-reply-text">Replying to</span>
+                                <span class="comment-form-reply-user" id="replying-to-text"></span>
+                                <button type="button" class="comment-form-reply-remove"
+                                    onclick="replyRemove();">Remove</button>
+                            </div>
+                            <div class="comment-form-div">
+                                <input type="hidden" name="snippet" value="<?= htmlspecialchars($name) ?>">
+                                <input type="hidden" name="childOf" id="child-of-input" value="-1">
+                                <textarea spellcheck="false" placeholder="Add a comment..." name="content"
+                                    class="comments-form-input" id="comment-area"></textarea>
+                                <button type="submit" class="comments-form-button" onclick="postComment();">Send</button>
+                            </div>
+                        </form>
                         <div class="comments-output"></div>
-                            <?php
-                                $co_q1 = "SELECT * FROM comments WHERE post_name = $1 AND child_of IS NULL ORDER BY likes DESC";
-                                $co_result = pg_query_params($dbcon, $co_q1, array($name));
-                                echo '<p class="comments-search-results">' . pg_num_rows($co_result) . ' comments</p>';
-                                if (pg_num_rows($co_result) > 0) {
-                                    echo '<div class="comments-search-output">';
-                                    while ($co_tuple = pg_fetch_array($co_result, null, PGSQL_ASSOC)) { ?>
-                                    
-                                        <div class="comment">
-                                            <div class="comment-username-div">
-                                                <span class="comment-username"><?= $co_tuple['creator'] ?></span>
-                                                <span class="comment-date"><?= $co_tuple['created_at'] ?></span>
-                                            </div>
-                                            <div class="comment-content-div">
-                                                <span class="comment-content"><?php echo htmlspecialchars($co_tuple['content']); ?></span>
-                                            </div>
-                                            <div class="comment-actions-div">
-                                                <input type="checkbox" class="comment-like">
-                                                <span class="comment-likes"><?= $co_tuple['likes'] ?></span>
-                                                <button class="comment-reply">Reply</button>
-                                                <?php if (isset($_SESSION['username']) && $co_tuple['creator'] == $_SESSION['username']) { ?>
-                                                    <button class="comment-delete">Delete</button>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
+                        <?php
+                        $co_q1 = "SELECT * FROM comments WHERE post_name = $1 ORDER BY likes DESC, created_at DESC";
+                        $co_result = pg_query_params($dbcon, $co_q1, array($name));
 
-                                    <?php }
-                                    echo '</div>';
-                                }
+                        $comments = [];
+                        $childrenMap = [];
+
+                        while ($co_tuple = pg_fetch_assoc($co_result)) {
+                            $id = $co_tuple['id'];
+
+                            $comments[$id] = $co_tuple;
+                            if ($co_tuple['child_of'] === null) {
+                                $childrenMap[null][] = $id;
+                            } else {
+                                $childrenMap[$co_tuple['child_of']][] = $id;
+                            }
+                        }
+
+                        function renderComment($id, $comments, $childrenMap, $dbcon, $depth = 0, $parentCreator = null)
+                        {
+                            $co_tuple = $comments[$id];
+                            $commentId = $co_tuple['id'];
                             ?>
-                        </div>
+                            <div
+                                class="comment <?= $depth > 0 ? 'reply' : '' ?> <?= $depth == 1 ? 'reply-to-parent' : '' ?> <?= $depth > 1 ? 'reply-to-reply' : '' ?>">
+                                <div class="comment-top-div">
+                                    <div class="comment-top-left">
+                                        <div class="comment-username-container"
+                                            onclick="location.href = 'account.php?username=<?= $co_tuple['creator'] ?>'">
+                                            <div class="comment-pfp"></div>
+                                            <span class="comment-username"><?= $co_tuple['creator'] ?></span>
+                                        </div>
+                                        <?php if ($parentCreator != null) { ?>
+                                            <div class="comment-reply-container">
+                                                <span class="comment-info-text">Replying to</span>
+                                                <span class="comment-text"><?= $parentCreator ?></span>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <span class="comment-info-text"
+                                        id="comment-date-top"><?php echo timeAgo($co_tuple['created_at']); ?></span>
+                                </div>
+                                <div class="comment-rest-div">
+                                    <div class="comment-content-div">
+                                        <span class="comment-content"><?= htmlspecialchars($co_tuple['content']) ?></span>
+                                    </div>
+                                    <div class="comment-actions-div">
+                                        <div class="comment-actions-left">
+                                            <div class="comment-likes">
+                                                <label class="comment-likes-div">
+                                                    <?php
+                                                    if (isset($_SESSION['username'])) {
+                                                        $q1 = "SELECT * from users where username = $1";
+                                                        $result = pg_query_params($dbcon, $q1, array($_SESSION['username']));
+                                                        if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+                                                            $likedComments = explode(',', trim($tuple['likedcomments'], '{}'));
+                                                            $checkedAttribute = in_array($commentId, $likedComments) ? 'checked' : '';
+                                                            echo "<input $checkedAttribute type='checkbox' data-snippet='$commentId' class='comment-like-checkbox'>";
+                                                        }
+                                                    } else {
+                                                        echo "<input type='checkbox' onclick='event.preventDefault(); event.stopPropagation(); openLogin(event);'>";
+                                                    }
+                                                    ?>
+                                                    <div class='comment-likes-checkmark'>
+                                                        <svg viewBox='0 0 256 256'>
+                                                            <path
+                                                                d='M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z'
+                                                                stroke-width='20px' fill='none'></path>
+                                                        </svg>
+                                                    </div>
+                                                </label>
+                                                <p class="comment-likes-text" id="comment-likes-text-<?= $commentId ?>">
+                                                    <?= htmlspecialchars($co_tuple['likes']) ?>
+                                                </p>
+                                            </div>
+                                            <button class="comment-action-button"
+                                                onclick="replyToComment('<?= $commentId ?>', '<?= $co_tuple['creator'] ?>')">Reply</button>
+                                            <?php if (isset($_SESSION['username']) && $co_tuple['creator'] == $_SESSION['username']) { ?>
+                                                <button type="button" class="comment-action-button"
+                                                    onclick="openConfirmDeleteComment(event, <?= $commentId ?>);">Delete</button>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="comment-actions-right">
+                                            <span class="comment-info-text"
+                                                id="comment-date-bottom"><?php echo timeAgo($co_tuple['created_at']); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+
+                            if (isset($childrenMap[$id])) {
+                                foreach ($childrenMap[$id] as $childId) {
+                                    renderComment($childId, $comments, $childrenMap, $dbcon, ((int) $depth + 1), $co_tuple['creator']);
+                                }
+                            }
+                        }
+
+                        echo '<p class="comments-search-results">' . count($comments) . ' comments</p>';
+                        echo '<div class="comments-search-output">';
+                        foreach ($childrenMap[null] as $rootId) {
+                            renderComment($rootId, $comments, $childrenMap, $dbcon);
+                        }
+                        echo '</div>';
+                        ?>
                     </div>
                 </div>
-            <?php endif; ?>
-        </div>
-        <?php include 'footer-code.php'; ?> <!--FOOTER-->
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
 <script src="assets/scripts/snippet.js"></script>
@@ -538,23 +660,14 @@ if ($name != '' && file_exists(filename: $filePath)) {
         window.history.replaceState({}, '', url);
     </script>
 <?php } ?>
-<!--<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        fetch('load-comments.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `name=${encodeURIComponent(checkname)}`
-        })
-            .then(response => response.json())
-            .then(data => {
-                displayNameAvailability(data.success);
-                if (data.success) {
-                    hidePostServerError();
-                }
+<script>
+    window.addEventListener('hashchange', () => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
             });
+        });
     });
-</script>-->
+</script>
 
 </html>

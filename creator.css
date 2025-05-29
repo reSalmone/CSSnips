@@ -583,7 +583,6 @@
     overflow: auto;
     color: var(--color4);
     outline: none;
-    border: none;
     border: 2px dashed var(--color4);
 }
 

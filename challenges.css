@@ -357,6 +357,14 @@
     flex-direction: row;
     gap: 6px;
 }
+.data-views-checkmark {
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    transition: 100ms;
+    stroke: var(--color4-placeholder);
+}
 
 .info-subtext {
     font-size: 1.3rem;

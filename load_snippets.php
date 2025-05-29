@@ -14,7 +14,6 @@ if ($dbcon != -1) {
         exit;
     }
 
-    //check if the snippets are in the database
     $placeholders = [];
     foreach ($idList as $i => $_) {
         $placeholders[] = '$' . ($i + 1);
@@ -30,7 +29,6 @@ if ($dbcon != -1) {
         exit;
     }
 
-    //for each row split the file
     $snippets = [];
     while ($row = pg_fetch_assoc($res)) {
         $id = (int) $row['id'];

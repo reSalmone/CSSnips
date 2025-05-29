@@ -61,7 +61,7 @@
         <form class="form-form" onsubmit="submitSignupForm(event, '<?= urlencode($redirect) ?>');" novalidate>
             <div class="form-input-and-error-container">
                 <div class="form-input-container">
-                    <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false" id="username-input" oninput="checkNameAvailability(this);" autocomplete="off">
+                    <input type="text" class="form-input" placeholder="Username" name="username" spellcheck="false" id="username-input" oninput="checkUsernameAvailability(this);" autocomplete="off">
                     <img src="assets/images/user.png" class="form-icon">
                 </div>
                 <div class="form-error-box">

@@ -88,7 +88,7 @@ function submitSignupForm(event, redirect) {
     }
 }
 
-function checkNameAvailability(input) {
+function checkUsernameAvailability(input) {
     let checkname = input.value;
 
     fetch('checkusername.php', {

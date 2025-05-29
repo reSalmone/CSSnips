@@ -1,7 +1,10 @@
 <?php
 //qua in pratica con session_start() pija le info dell'ultima sessione da un file che si è salvato
 session_start();
-$redirect = 'explorer.php';
+if (isset($_SERVER['REQUEST_URI'])) {
+    $redirect = $_SERVER['REQUEST_URI'];
+}
+
 
 $search = $_GET['search'] ?? '';
 

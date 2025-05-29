@@ -112,15 +112,19 @@ if ($dbcon != -1) {
 
     <?php
     if ($found && $esiste) {
+      $avatar_url = "https://robohash.org/" . urlencode($real_username) . ".png?set=set1&bgset=bg1";
       ?>
       <main class="profilo-container">
 
         <var class="main_var">
           <section class="profilo-info">
+            <div class="avatar-box">
+              <img src="<?= $avatar_url ?>" alt="Avatar" class="avatar-img">
+            </div>
             <div class="info-text">
-              <?php echo "<h2>" . htmlspecialchars($real_username) . "</h2>" ?>
-              <?php echo "<p>Email:" . htmlspecialchars($email) . "</p>" ?>
-              <?php echo "<p>Bio:" . htmlspecialchars($bio) . "</p>" ?>
+              <h2><?= htmlspecialchars($real_username) ?></h2>
+              <p><strong>Email:</strong> <?= htmlspecialchars($email) ?></p>
+              <p><strong>Bio:</strong> <?= htmlspecialchars($bio) ?></p>
               <?php
               if ($username != $target_username && $target_username != '' && $username != '') {
                 $is_following = false;
@@ -128,7 +132,7 @@ if ($dbcon != -1) {
                 $lista = $line2["following"];
                 $lista = trim($lista, '{}');
                 $elements = explode(',', $lista);
-            
+
                 foreach ($elements as $item) {
                   if (strtolower(trim($item)) == strtolower($target_username)) {
                     $is_following = true;
@@ -189,15 +193,18 @@ if ($dbcon != -1) {
 
           <?php $a = $target_username == '' ? $username : $target_username; ?>
           <section class="funzioni-container">
-            <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=activity'">
+            <div class="funzione-box"
+              onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=activity'">
               <div class="funzione-text">Activity</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_codici) ?></div>
             </div>
-            <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=liked'">
+            <div class="funzione-box"
+              onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=liked'">
               <div class="funzione-text">Likes</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_liked ?? 0) ?></div>
             </div>
-            <div class="funzione-box" onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=watchlist'">
+            <div class="funzione-box"
+              onclick="location.href = 'activity.php?username=<?php echo urlencode($a); ?>&type=watchlist'">
               <div class="funzione-text">Saved</div>
               <div class="funzione-count"><?php echo htmlspecialchars($numero_saved ?? 0) ?></div>
             </div>
@@ -212,15 +219,16 @@ if ($dbcon != -1) {
                 $lista = $line8["followers"];
                 $lista = trim($lista, '{}');
                 $elements = explode(',', $lista);
-            
+
                 if (empty($lista) || $lista === '') {
                   echo "<h3>no followers.</h3>";
                 } else {
                   foreach ($elements as $item) {
                     $clean_item = htmlspecialchars(trim($item));
+                    $avatar_url = "https://robohash.org/" . urlencode($clean_item) . ".png?set=set1&bgset=bg1";
                     echo "<div class='list-user' onclick=\"location.href = 'account.php?username=$clean_item'\"> 
                       <span class='user-name'>$clean_item</span>
-                      <img src='assets/images/omino.png' class='user-icon'>
+                      <img src='$avatar_url' alt='Avatar' class='avatar-img'>
                     </div>";
                   }
                 }
@@ -240,15 +248,16 @@ if ($dbcon != -1) {
                 $lista = $line10["following"];
                 $lista = trim($lista, '{}');
                 $elements = explode(',', $lista);
-            
+
                 if (empty($lista) || $lista === '') {
                   echo "<h3>no following.</h3>";
                 } else {
                   foreach ($elements as $item) {
                     $clean_item = htmlspecialchars(trim($item));
+                    $avatar_url = "https://robohash.org/" . urlencode($clean_item) . ".png?set=set1&bgset=bg1";
                     echo "<div class='list-user' onclick=\"location.href = 'account.php?username=$clean_item'\"> 
                       <span class='user-name'>$clean_item</span>
-                      <img src='assets/images/omino.png' class='user-icon'>
+                      <img src='$avatar_url' alt='Avatar' class='avatar-img'>
                     </div>";
                   }
                 }

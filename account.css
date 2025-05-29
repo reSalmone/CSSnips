@@ -34,12 +34,42 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.avatar-box {
+  margin-bottom: 20px;
+}
+
+.avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color4);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.avatar-img:hover {
+  transform: scale(1.05);
+}
+
+.profilo-info h2 {
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--color4);
+}
+
+.profilo-info p {
+  margin: 6px 0;
+  font-size: 16px;
+  color: #ddd;
+}
 
 .profilo-info .info-text {
   max-width: 500px;
 }
 
-.profilo-info p {
+/*.profilo-info p {
   margin: 10px 0;
 }
 
@@ -51,7 +81,7 @@ h2 {
   font-size: 24px;
   margin-bottom: 20px;
 }
-
+*/
 #follow-btn {
   padding: 10px 20px;
   font-size: 16px;
@@ -203,7 +233,7 @@ h2 {
   overflow-y: auto;
 }
 
-.list-user {
+/*.list-user {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -220,7 +250,7 @@ h2 {
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   text-align: left;
-}
+}*/
 
 .user-name {
   flex: 1;
@@ -231,6 +261,41 @@ h2 {
   width: 24px;
   height: 24px;
   margin-left: 10px;
+}
+
+.list-user {
+  display: flex;
+  justify-content: flex-start; /* testo e immagine vicini */
+  align-items: center;
+  width: 100%;
+  max-width: 300px; /* o altra larghezza fissa */
+  height: 50px; /* altezza fissa uguale per tutti */
+  margin: 10px auto;
+  padding: 0 20px;
+  background-color: white;
+  color: var(--color2);
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  gap: 15px; /* spazio tra testo e immagine */
+}
+
+.list-user img.avatar-img {
+  height: 40px;  /* immagine leggermente più piccola del div */
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0; /* non si riduca */
+}
+
+.user-name {
+  flex: 1;
+  text-align: left;
+  line-height: 50px; /* centrato verticalmente */
 }
 
 .list-user:hover {

@@ -169,6 +169,12 @@
     gap: 0.6rem;
     align-items: center;
     cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 10px;
+}
+
+.info-creator:hover {
+    background: rgb(0, 0, 0, 0.1);
 }
 
 .info-pfp {

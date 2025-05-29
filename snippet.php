@@ -234,10 +234,15 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                         </div>
                     </div>
                     <div class="code-div">
-                        <button class="copy-button" onclick="copyToClipboard();">
-                            <img src="copy.png" class="copy-icon">
-                            <span id="copy-span">Copy</span>
-                        </button>
+                        <div class="code-actions">
+                            <svg viewBox='0 0 256 256' class="code-actions-svg">
+                                <path d='M42.4 63.6H212M42.4 127.2H212M42.4 190.8H212' stroke-width='20px' fill='none'
+                                    stroke-linecap='round'></path>
+                            </svg>
+                            <button class="code-actions-button" onclick="copyToClipboard();">
+                                <span id="copy-span">Copy</span>
+                            </button>
+                        </div>
                         <div class="line-numbers" id="line-numbers">
                         </div>
                         <pre style="margin:0" class="input-area" id="html-area"
@@ -337,7 +342,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                         stroke-width='20px' fill='none'></path>
                                 </svg>
                             </div>
-                            <span>Clone</span>
+                            <span>Clone snippet</span>
                         </button>
                         <?php if ($variationOf == null) { ?>
                             <button class="actions-button"
@@ -385,7 +390,7 @@ if (isset($_GET['name']) && file_exists(filename: $filePath)) {
                                         stroke-width='20px' stroke='#FFF' fill='none' stroke-linecap='round'></path>
                                 </svg>
                             </div>
-                            <span>Report</span>
+                            <span>Report snippet</span>
                         </button>
                     </div>
                 </div>

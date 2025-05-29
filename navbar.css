@@ -100,6 +100,12 @@
     font-size: 1.2rem;
 }
 
+@media (max-width: 375px) {
+    .nbutton span {
+        font-size: 1rem;
+    }
+}
+
 
 .dropdown-content {
     position: absolute;

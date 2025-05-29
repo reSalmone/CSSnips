@@ -161,7 +161,7 @@ if ($name != '' && !$found) {
     if ($foundVariation) {
         echo "<script>removeQueryParam('variation')</script>";
     }
-    if ($foundChallenge) { //not sure why I'm doing it to challenges aswell
+    if ($foundChallenge) {
         echo "<script>removeQueryParam('challenge')</script>";
     }
     ?>
@@ -228,7 +228,7 @@ if ($name != '' && !$found) {
                 </div>
             </div>
             <?php if ($foundDraft) { ?>
-                <span class="post-info-delete-draft">This draft will be deleted automatically when posting the
+                <span class="post-info-text">This draft will be deleted automatically when posting the
                     snipped</span>
             <?php } ?>
             <div class="post-actions">
@@ -446,7 +446,7 @@ if ($name != '' && !$found) {
                                         stroke-width='20px' fill='none' stroke-linecap='round'></path>
                                 </svg>
                             </div>
-                            <span>Reset</span>
+                            <span>Reset snippet</span>
                         </button>
                         <?php
                         $actionSaveName = $foundDraft ? $name : "";
@@ -508,7 +508,7 @@ if ($name != '' && !$found) {
 
                 </iframe>
                 <div class="frame-actions">
-                    <span class="frame-actions-color" id="frame-actions-color">#112343</span>
+                    <span class="frame-actions-color" id="frame-actions-color"></span>
                     <label class="frame-actions-switch" for="switch">
                         <input id="switch" type="checkbox" class="circle" onchange="updateSnippetThemeS(this);">
                         <svg viewBox='0 0 256 256' class="moon svg">

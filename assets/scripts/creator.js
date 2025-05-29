@@ -49,65 +49,103 @@ function copyToClipboard() {
 }
 
 async function formatArea(area, tab) {
-    const lines = area.value.split(/\r?\n/);
-    const voidElements = new Set([
-        'area', 'base', 'br', 'col', 'embed', 'hr', 'img',
-        'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'
-    ]);
-    const stack = [];
-    let inMultiLineTag = false;
-    let currentTagName = '';
+    if (currentLang == "html") {
+        const lines = area.value.split(/\r?\n/);
+        const voidElements = new Set([
+            'area', 'base', 'br', 'col', 'embed', 'hr', 'img',
+            'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+        ]);
+        const stack = [];
+        let inMultiLineTag = false;
+        let currentTagName = '';
 
-    const formatted = lines.map(raw => {
-        const trimmed = raw.trim();
-        if (trimmed === '') return '';
+        const formatted = lines.map(raw => {
+            const trimmed = raw.trim();
+            if (trimmed === '') return '';
 
-        const closeMatch = trimmed.match(/^<\/(\w+)/);
-        if (closeMatch) {
-            if (stack.length && stack[stack.length - 1] === closeMatch[1].toLowerCase()) {
-                stack.pop();
-            }
-            const indent = tab.repeat(stack.length);
-            return indent + trimmed;
-        }
-
-        if (inMultiLineTag) {
-            const indent = tab.repeat(stack.length);
-            if (trimmed.endsWith('>')) {
-                inMultiLineTag = false;
-                if (!trimmed.endsWith('/>') && !voidElements.has(currentTagName)) {
-                    stack.push(currentTagName);
+            const closeMatch = trimmed.match(/^<\/(\w+)/);
+            if (closeMatch) {
+                if (stack.length && stack[stack.length - 1] === closeMatch[1].toLowerCase()) {
+                    stack.pop();
                 }
+                const indent = tab.repeat(stack.length);
+                return indent + trimmed;
             }
-            return indent + trimmed;
+
+            if (inMultiLineTag) {
+                const indent = tab.repeat(stack.length);
+                if (trimmed.endsWith('>')) {
+                    inMultiLineTag = false;
+                    if (!trimmed.endsWith('/>') && !voidElements.has(currentTagName)) {
+                        stack.push(currentTagName);
+                    }
+                }
+                return indent + trimmed;
+            }
+
+            const openMatch = trimmed.match(/^<([a-zA-Z0-9]+)(\s|>)/);
+            if (openMatch) {
+                const tagName = openMatch[1].toLowerCase();
+                const isSelfClosing = trimmed.endsWith('/>');
+                const isSingleLine = new RegExp(`^<${tagName}(\\s[^>]*?)?>.*<\\/${tagName}>$`).test(trimmed);
+
+                if (!trimmed.endsWith('>')) {
+                    inMultiLineTag = true;
+                    currentTagName = tagName;
+                    return tab.repeat(stack.length) + trimmed;
+                }
+
+                if (isSingleLine || isSelfClosing || voidElements.has(tagName)) {
+                    return tab.repeat(stack.length) + trimmed;
+                }
+
+                const indent = tab.repeat(stack.length);
+                stack.push(tagName);
+                return indent + trimmed;
+            }
+
+            return tab.repeat(stack.length) + trimmed;
+        });
+
+        area.value = formatted.join('\n');
+        area.focus();
+        unsave();
+    } else if (currentLang == "css") {
+        const raw = area.value;
+        const lines = raw.split(/\r?\n/);
+        let formatted = '';
+        let indentLevel = 0;
+        const indent = () => tab.repeat(indentLevel);
+        let previousLineWasClosingBrace = false;
+
+        for (let line of lines) {
+            const trimmed = line.trim();
+
+            if (trimmed === '') {
+                if (previousLineWasClosingBrace) {
+                    formatted += '\n';
+                }
+                continue;
+            }
+
+            if (trimmed.startsWith('}')) {
+                indentLevel--;
+            }
+
+            formatted += indent() + trimmed + '\n';
+
+            if (trimmed.endsWith('{')) {
+                indentLevel++;
+                previousLineWasClosingBrace = false;
+            } else {
+                previousLineWasClosingBrace = trimmed === '}';
+            }
         }
 
-        const openMatch = trimmed.match(/^<([a-zA-Z0-9]+)(\s|>)/);
-        if (openMatch) {
-            const tagName = openMatch[1].toLowerCase();
-            const isSelfClosing = trimmed.endsWith('/>');
-            const isSingleLine = new RegExp(`^<${tagName}(\\s[^>]*?)?>.*<\\/${tagName}>$`).test(trimmed);
-
-            if (!trimmed.endsWith('>')) {
-                inMultiLineTag = true;
-                currentTagName = tagName;
-                return tab.repeat(stack.length) + trimmed;
-            }
-
-            if (isSingleLine || isSelfClosing || voidElements.has(tagName)) {
-                return tab.repeat(stack.length) + trimmed;
-            }
-
-            const indent = tab.repeat(stack.length);
-            stack.push(tagName);
-            return indent + trimmed;
-        }
-
-        return tab.repeat(stack.length) + trimmed;
-    });
-
-    area.value = formatted.join('\n');
-    area.focus();
+        area.value = formatted.trim();
+        area.focus();
+        unsave();
+    }
 }
 
 
@@ -192,19 +230,20 @@ let writingLine = 0;
 
 Object.keys(areas).forEach(type => {
     areas[type].addEventListener('mousemove', (e) => {
-        let style = getComputedStyle(areas[type]);
-        let lineHeight = parseFloat(style.lineHeight);
-        let rect = areas[type].getBoundingClientRect();
-        let y = e.clientY - rect.top;
-        let lineNumber = Math.floor(y / lineHeight) - 1;
+    const area = areas[type];
+    const style = getComputedStyle(area);
+    const lineHeight = parseFloat(style.lineHeight);
+    const rect = area.getBoundingClientRect();
+    const y = e.clientY - rect.top + area.scrollTop;
+    const lineNumber = Math.floor(y / lineHeight) - 1;
 
-        Array.from(lineNumbers.children).forEach(n => {
-            n.style.color = "var(--color4-placeholder)";
-        });
-        if (lineNumber > 0 && lineNumber < lineNumbers.children.length) {
-            lineNumbers.children[lineNumber].style.color = "var(--color4)";
-        }
+    Array.from(lineNumbers.children).forEach(n => {
+        n.style.color = "var(--color4-placeholder)";
     });
+    if (lineNumber >= 0 && lineNumber < lineNumbers.children.length) {
+        lineNumbers.children[lineNumber].style.color = "var(--color4)";
+    }
+});
     areas[type].addEventListener('input', () => updateCursor(areas[type]));
     areas[type].addEventListener('click', () => updateCursor(areas[type]));
     areas[type].addEventListener('keyup', () => updateCursor(areas[type]));
@@ -230,7 +269,7 @@ async function updateLines(area) {
         lineNumbers.appendChild(line);
 
         if (writingLine === i - 1) {
-            line.style.background = "rgba(255, 255, 255, 0.05)";
+            line.style.background = "rgba(255, 255, 255, 0.1)";
         }
     }
 }
@@ -707,8 +746,7 @@ function assignIFrame(iframeID, html, css, js) {
                     justify-content: center;
                     height: 100vh;
                     margin: 0;
-                    border: 0;
-                    outline: 0;
+                    padding: 10px
                     overflow: hidden;
                 }
                 ${css}
@@ -887,6 +925,7 @@ function getColor(element) {
 
 switchLang("html");
 displayCode();
+updateSnippetThemeS(document.getElementById("switch"));
 
 var loadedFromStorage = false;
 if (localStorage.getItem("unsaved-html")) {

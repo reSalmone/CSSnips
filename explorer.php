@@ -5,7 +5,7 @@ $redirect = 'explorer.php';
 
 $search = $_GET['search'] ?? '';
 
-$pageSize = 9;
+$pageSize = 12;
 $page = 1;
 if (isset($_GET['page'])) {
     $page = intval($_GET['page']);
@@ -60,7 +60,7 @@ if (isset($_SESSION['username'])) {
 
     <div id="rest" onclick="closeLogin(); closeSignup();">
         <div class="title-container">
-            <span class="title">Explorer</span>
+            <span class="title" id="wave">Explorer</span>
             <?php if ($search == '') { ?>
                 <span class="subtitle">Search for the perfect snippet to include in your project</span>
             <?php } else { ?>
@@ -234,5 +234,16 @@ if (isset($_SESSION['username'])) {
 <?php if ($search != '') { ?>
     <script>location.hash = "#search-output";</script>
 <?php } ?>
+<script>
+    const waveElement = document.getElementById("wave");
+    const text = waveElement.textContent;
+    waveElement.innerHTML = "";
 
+    [...text].forEach((char, i) => {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.style.animationDelay = `${i * 0.1}s`;
+      waveElement.appendChild(span);
+    });
+</script>
 </html>

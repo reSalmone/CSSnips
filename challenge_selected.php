@@ -156,10 +156,10 @@ $is_challenge_active= false;
                                 $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
                                 list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
                                 $snip_likes=$tuple['challenge_likes'];
-
                                 $snip_name=$tuple['id'];
                                 $snip_creator=$tuple['creator'];
                                 $snip_views=$tuple['views'];
+                                $avatar = "https://robohash.org/" . urlencode($snip_creator) . ".png?set=set1&bgset=bg1";
 
                                 if ($rank == 1 &&!$is_challenge_active) $color_rank="style='border: 2px solid gold; box-shadow: 0px 0px 15px gold; '";
                                 elseif ($rank == 2 &&!$is_challenge_active) $color_rank= "style='border: 2px solid silver; box-shadow: 0px 0px 15px silver;'";
@@ -247,7 +247,9 @@ $is_challenge_active= false;
                                 </script>
                                 <div class="info">
                                     <div class="info-creator">
-                                        <div class="info-pfp"></div>
+                                        <div class="avatar-div">
+                                            <img src="<?= $avatar ?>" alt="Avatar" class="avatar-img">
+                                        </div>
                                         <span><?= htmlspecialchars($snip_creator)?></span>
                                     </div>
                                 <div class="info-views">

@@ -153,6 +153,7 @@ function splitFileContent($content){
                                         $snip_name=$tuple['id'];
                                         $snip_views=$tuple['views'];
                                         $snip_creator=$tuple['creator'];
+                                        $avatar = "https://robohash.org/" . urlencode($snip_creator) . ".png?set=set1&bgset=bg1";
         ?>
                                         <div class="output-snip">
                                             <div class= "snip-info">
@@ -176,7 +177,9 @@ function splitFileContent($content){
                                             </script>
                                             <div class="info">
                                                 <div class="info-creator">
-                                                    <div class="info-pfp"></div>
+                                                    <div class="avatar-div">
+                                                        <img src="<?= $avatar ?>" alt="Avatar" class="avatar-img">
+                                                    </div>
                                                     <span><?=htmlspecialchars($snip_creator)?></span>
                                                 </div>
                                                 <div class="info-views">

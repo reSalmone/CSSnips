@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $result = pg_query_params($conn, $query, array($newUsername, $newBio, $oldUsername));
 
   if ($result) {
-    // Aggiorna lo username anche nella sessione, se è cambiato
     $_SESSION["username"] = $newUsername;
     echo "Account aggiornato con successo.";
   } else {

@@ -171,11 +171,11 @@ if ($dbcon != -1) {
                   <span class="stat-number"><?= htmlspecialchars($numero_codici) ?></span>
                   <span class="stat-label">Snippets</span>
                 </div>
-                <div class="stat-item" onclick="toggleList('followers')">
+                <div class="stat-item">
                   <span class="stat-number"><?= htmlspecialchars($numero_followers ?? 0) ?></span>
                   <span class="stat-label">Followers</span>
                 </div>
-                <div class="stat-item" onclick="toggleList('following')">
+                <div class="stat-item">
                   <span class="stat-number"><?= htmlspecialchars($numero_following ?? 0) ?></span>
                   <span class="stat-label">Following</span>
                 </div>
@@ -204,7 +204,7 @@ if ($dbcon != -1) {
                     <iframe id="output-snip-frame-<?= $id ?>" class="output-preview">
                     </iframe>
                     <div class="info">
-                      <div class="info-creator" onclick="location.href = 'account.php?username=<?= $utente ?>'">
+                      <div class="info-creator" onclick="location.href = 'account.php?username=<?= $real_username ?>'">
                         <div class="info-pfp">
                           <img src="<?= $avatar_url ?>" alt="Avatar" class="avatar-img">
                         </div>

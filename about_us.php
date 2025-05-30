@@ -10,13 +10,12 @@ $redirect = 'index.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnips - About Us</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="navbar.css"> <!-- Navigation bar [la barra in alto] -->
-    <link rel="stylesheet" href="login-signup.css"> <!-- Login and signup -->
-    <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="css/navbar.css"> <!-- Navigation bar [la barra in alto] -->
+    <link rel="stylesheet" href="css/login-signup.css"> <!-- Login and signup -->
+    <link rel="stylesheet" href="css/checkbox.css"> <!-- Checkbox figa nel login -->
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css"> <!-- Font -->
-    <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="about_us.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/about_us.css">
 
 </head>
 
@@ -55,7 +54,7 @@ Together, we’re an unlikely but tight-knit team, capable of building serious p
 
     <?php include 'footer-code.php'; ?> <!--FOOTER-->
 </body>
-<script src="assets/scripts/login.js"></script>
-<script src="assets/scripts/signup.js"></script>
-<script src="assets/scripts/index.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/signup.js"></script>
+<script src="scripts/index.js"></script>
 </html>

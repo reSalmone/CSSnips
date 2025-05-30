@@ -36,13 +36,13 @@ if ($dbcon != -1) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account settings</title>
   <link rel="icon" href="assets/images/icon.png">
-  <link rel="stylesheet" href="account_settings.css">
+  <link rel="stylesheet" href="css/account_settings.css">
   <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
-  <link rel="stylesheet" href="navbar.css">
-  <link rel="stylesheet" href="login-signup.css">
-  <link rel="stylesheet" href="checkbox.css">
-  <link rel="stylesheet" href="footer.css">
-  <script src="account_settings.js"></script>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/login-signup.css">
+  <link rel="stylesheet" href="css/checkbox.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <script src="scripts/account_settings.js"></script>
 </head>
 
 <body>

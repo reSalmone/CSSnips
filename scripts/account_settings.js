@@ -13,7 +13,7 @@ function validateEmail() {
   emailInput.classList.remove("error");
   errorSpan.textContent = "";
 
-  fetch("update_email.php", {
+  fetch("handlers/update_email.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: "email=" + encodeURIComponent(email)
@@ -62,7 +62,7 @@ function validatePassword() {
 
   if (!valid) return false;
 
-  fetch("update_password.php", {
+  fetch("handlers/update_password.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: "password=" + encodeURIComponent(passwordVal)
@@ -90,7 +90,7 @@ function updateAccount() {
     return false;
   }
 
-  fetch("update_account.php", {
+  fetch("handlers/update_account.php", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `username=${encodeURIComponent(username)}&bio=${encodeURIComponent(bio)}`

@@ -24,13 +24,13 @@ function splitFileContent($content){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnip - Challenges</title>
     <link rel="icon" href="assets/images/icon.png">
-    <link rel="stylesheet" href="data.css">
+    <link rel="stylesheet" href="css/data.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
-    <link rel="stylesheet" href="login-signup.css">
-    <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
-    <link rel="stylesheet" href="challenges.css">
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="css/login-signup.css">
+    <link rel="stylesheet" href="css/checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="css/challenges.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
 
 </head>
 
@@ -270,10 +270,10 @@ function splitFileContent($content){
 </body>
 
 <!--SCRIPTS-->
-<script src="assets/scripts/challenges.js"></script>
-<script src="assets/scripts/login.js"></script>
-<script src="assets/scripts/signup.js"></script>
-<script src="assets/scripts/index.js"></script>
+<script src="scripts/challenges.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/signup.js"></script>
+<script src="scripts/index.js"></script>
 <script>
     window.addEventListener('load', () => {
         document.querySelectorAll('.slidesnip-object-left').forEach(el => {

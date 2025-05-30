@@ -440,7 +440,7 @@ function checkNameAvailability() {
         return;
     }
 
-    fetch('checkname.php', {
+    fetch('handlers/checkname.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -515,7 +515,7 @@ function saveDraft(name) {
         formData.append("postChallenge", postChallengeName.textContent);
     }
 
-    fetch("upload-draft.php", {
+    fetch("handlers/upload-draft.php", {
         method: "POST",
         body: formData
     }).then(res => res.json())
@@ -535,7 +535,7 @@ function saveDraft(name) {
 }
 
 function deleteDraft(name, silent) {
-    fetch("delete-draft.php?name=" + name, {
+    fetch("handlers/delete-draft.php?name=" + name, {
         method: "GET",
     }).then(res => res.json())
         .then(data => {
@@ -583,7 +583,7 @@ function saveChanges() {
     formData.append("postDescription", postDescription);
     formData.append("postTags", JSON.stringify(postTags));
 
-    fetch("upload-changes.php", {
+    fetch("handlers/upload-changes.php", {
         method: "POST",
         body: formData
     }).then(res => res.json())
@@ -636,7 +636,7 @@ function postSnippet(name) {
         formData.append("postChallenge", postChallengeName.textContent);
     }
 
-    fetch("upload.php", {
+    fetch("handlers/upload.php", {
         method: "POST",
         body: formData
     }).then(res => res.json())
@@ -771,7 +771,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!ids.length) return;
 
-    fetch(`load_snippets.php?ids=${ids.join(',')}&draft=true`)
+    fetch(`handlers/load_snippets.php?ids=${ids.join(',')}&draft=true`)
         .then(r => r.json())
         .then(snippets => {
             snippets.forEach(s => {

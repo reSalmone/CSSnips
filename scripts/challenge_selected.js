@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         element.addEventListener('click', function () {
             const snippet = element.getAttribute('data-snippet');
 
-            fetch('like_snip.php', {
+            fetch('handlers/like_snip.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'

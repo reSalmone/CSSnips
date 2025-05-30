@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!ids.length) return;
 
-    fetch(`load_snippets.php?ids=${ids.join(',')}`)
+    fetch(`handlers/load_snippets.php?ids=${ids.join(',')}`)
         .then(r => r.json())
         .then(snippets => {
             snippets.forEach(s => {
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         heart.addEventListener('click', function () {
             const snippet = heart.getAttribute('data-snippet');
 
-            fetch('like.php', {
+            fetch('handlers/like.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'

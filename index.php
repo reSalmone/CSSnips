@@ -32,12 +32,12 @@ function splitFileContent($content)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnips - Home</title>
     <link rel="icon" href="assets/images/icon.png">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="navbar.css"> <!-- Navigation bar [la barra in alto] -->
-    <link rel="stylesheet" href="login-signup.css"> <!-- Login and signup -->
-    <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css"> <!-- Navigation bar [la barra in alto] -->
+    <link rel="stylesheet" href="css/login-signup.css"> <!-- Login and signup -->
+    <link rel="stylesheet" href="css/checkbox.css"> <!-- Checkbox figa nel login -->
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css"> <!-- Font -->
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="css/footer.css">
 
 </head>
 
@@ -286,10 +286,10 @@ function splitFileContent($content)
     <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
-<script src="assets/scripts/title-wave2.js"></script>
-<script src="assets/scripts/login.js"></script>
-<script src="assets/scripts/signup.js"></script>
-<script src="assets/scripts/index.js"></script>
+<script src="scripts/title-wave2.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/signup.js"></script>
+<script src="scripts/index.js"></script>
 <script>
     window.addEventListener('load', () => {
         document.querySelectorAll('.slidesnip-object-left').forEach(el => {

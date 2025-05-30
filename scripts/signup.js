@@ -64,7 +64,7 @@ function submitSignupForm(event, redirect) {
         document.getElementById("signup-submit-loader").style.display = "block";
         const formData = new FormData(form);
 
-        fetch('signup.php?redirect=' + redirect, {
+        fetch('handlers/signup.php?redirect=' + redirect, {
             method: 'POST',
             body: formData,
         })
@@ -91,7 +91,7 @@ function submitSignupForm(event, redirect) {
 function checkUsernameAvailability(input) {
     let checkname = input.value;
 
-    fetch('checkusername.php', {
+    fetch('handlers/checkusername.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

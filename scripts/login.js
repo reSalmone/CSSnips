@@ -29,7 +29,7 @@ function submitLoginForm(event, redirect) {
         document.getElementById("login-submit-loader").style.display = "block";
         const formData = new FormData(form);
 
-        fetch('login.php?redirect=' + redirect, {
+        fetch('handlers/login.php?redirect=' + redirect, {
             method: 'POST',
             body: formData,
         })

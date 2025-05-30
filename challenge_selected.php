@@ -39,13 +39,13 @@ $is_challenge_active= false;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnip - Challenge</title>
     <link rel="icon" href="assets/images/icon.png">
-    <link rel="stylesheet" href="data.css">
+    <link rel="stylesheet" href="css/data.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
-    <link rel="stylesheet" href="challenge_selected.css">
-    <link rel="stylesheet" href="login-signup.css">
-    <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="css/challenge_selected.css">
+    <link rel="stylesheet" href="css/login-signup.css">
+    <link rel="stylesheet" href="css/checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
 
 </head>
 
@@ -281,10 +281,10 @@ $is_challenge_active= false;
         <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
-<script src="assets/scripts/challenge_selected.js"></script>
-<script src="assets/scripts/login.js"></script>
-<script src="assets/scripts/signup.js"></script>
-<script src="assets/scripts/explorer.js"></script>
+<script src="scripts/challenge_selected.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/signup.js"></script>
+<script src="scripts/explorer.js"></script>
 </html>
 
 

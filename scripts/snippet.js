@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         heart.addEventListener('click', function () {
             const snippet = heart.getAttribute('data-snippet');
 
-            fetch('like.php', {
+            fetch('handlers/like.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
         heart.addEventListener('click', function () {
             const snippet = heart.getAttribute('data-snippet');
 
-            fetch('save.php', {
+            fetch('handlers/save.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
             heart.addEventListener('click', function () {
                 const snippet = heart.getAttribute('data-snippet');
 
-                fetch('like-comment.php', {
+                fetch('handlers/like-comment.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -277,7 +277,7 @@ function postComment(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    fetch('upload-comment.php', {
+    fetch('handlers/upload-comment.php', {
         method: 'POST',
         body: formData,
     })
@@ -295,7 +295,7 @@ function postComment(event) {
 }
 
 function deleteComment(commentId) {
-    fetch('delete-comment.php?id=' + commentId)
+    fetch('handlers/delete-comment.php?id=' + commentId)
         .then(response => response.json())
         .then(data => {
             if (data.success) {

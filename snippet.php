@@ -109,12 +109,12 @@ $avatar = "https://robohash.org/" . urlencode($creator) . ".png?set=set1&bgset=b
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnip - View snip</title>
     <link rel="icon" href="assets/images/icon.png">
-    <link rel="stylesheet" href="snippet.css">
+    <link rel="stylesheet" href="css/snippet.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="stylesheet" href="login-signup.css">
-    <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/login-signup.css">
+    <link rel="stylesheet" href="css/checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <body>
@@ -186,7 +186,7 @@ $avatar = "https://robohash.org/" . urlencode($creator) . ".png?set=set1&bgset=b
             </div>
             <div class="confirm-delete-actions">
                 <button class="confirm-delete-action-button confirm-delete"
-                    onclick="location.href = 'delete.php?name=<?php echo $name ?>'">Delete</button>
+                    onclick="location.href = 'handlers/delete.php?name=<?php echo $name ?>'">Delete</button>
                 <button class="confirm-delete-action-button" onclick="closeConfirmDelete();">Cancel</button>
             </div>
         </div>
@@ -666,9 +666,9 @@ $avatar = "https://robohash.org/" . urlencode($creator) . ".png?set=set1&bgset=b
     <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
-<script src="assets/scripts/snippet.js"></script>
-<script src="assets/scripts/login.js"></script>
-<script src="assets/scripts/signup.js"></script>
+<script src="scripts/snippet.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/signup.js"></script>
 <?php if (isset($_GET['info'])) { ?>
     <script>
         openInfo(null, "<?= $_GET['info'] ?>");

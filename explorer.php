@@ -36,13 +36,13 @@ if (isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSSnips - Explorer</title>
     <link rel="icon" href="assets/images/icon.png">
-    <link rel="stylesheet" href="explorer.css">
+    <link rel="stylesheet" href="css/explorer.css">
     <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
-    <link rel="stylesheet" href="login-signup.css">
-    <link rel="stylesheet" href="checkbox.css"> <!-- Checkbox figa nel login -->
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="snippet-loader.css">
+    <link rel="stylesheet" href="css/login-signup.css">
+    <link rel="stylesheet" href="css/checkbox.css"> <!-- Checkbox figa nel login -->
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/snippet-loader.css">
 </head>
 
 <body>
@@ -226,9 +226,9 @@ if (isset($_SESSION['username'])) {
         <?php include 'footer-code.php'; ?> <!--FOOTER-->
     </div>
 </body>
-<script src="assets/scripts/login.js"></script>
-<script src="assets/scripts/signup.js"></script>
-<script src="assets/scripts/explorer.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/signup.js"></script>
+<script src="scripts/explorer.js"></script>
 <?php if (isset($_GET['info'])) { ?>
     <script>
         openInfo(null, "<?= $_GET['info'] ?>");

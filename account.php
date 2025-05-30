@@ -93,16 +93,16 @@ if ($dbcon != -1) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profilo Utente</title>
   <link rel="icon" href="assets/images/icon.png">
-  <link rel="stylesheet" href="account.css">
+  <link rel="stylesheet" href="css/account.css">
   <link rel="stylesheet" href="assets/NoveoSans-Book/style.css">
-  <link rel="stylesheet" href="navbar.css">
-  <link rel="stylesheet" href="login-signup.css">
-  <link rel="stylesheet" href="checkbox.css">
-  <link rel="stylesheet" href="footer.css">
-  <script src="account.js"></script>
-  <script src="assets/scripts/login.js"></script>
-  <script src="assets/scripts/signup.js"></script>
-  <script src="assets/scripts/explorer.js"></script>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/login-signup.css">
+  <link rel="stylesheet" href="css/checkbox.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <script src="scripts/account.js"></script>
+  <script src="scripts/login.js"></script>
+  <script src="scripts/signup.js"></script>
+  <script src="scripts/explorer.js"></script>
 </head>
 
 <body>
@@ -335,7 +335,7 @@ if ($dbcon != -1) {
   pg_close($dbcon);
   ?>
 </body>
-<script src="assets/scripts/login.js"></script>
-<script src="assets/scripts/signup.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/signup.js"></script>
 
 </html>

@@ -1103,10 +1103,11 @@
     flex-direction: column;
     gap: 0.3rem;
     width: 80%;
-    padding: 0.3rem;
+    padding: 0.5rem;
     border-radius: 10px;
     background: var(--color2);
     height: fit-content;
+    transition: .1s;
 }
 
 .comment-form-div {
@@ -1162,6 +1163,34 @@
     max-height: 12rem;
     overflow-y: auto;
     font-size: 0.9rem;
+    transition: .1s;
+
+}
+
+.comments-form-input:focus {
+    border: 2px solid var(--color4);
+}
+
+.comments-form-input::-webkit-scrollbar {
+    width: 0.6rem;
+    height: 0.6rem;
+}
+
+.comments-form-input::-webkit-scrollbar-thumb {
+    background: var(--color2);
+    border-radius: 3.1rem;
+}
+
+.comments-form-input::-webkit-scrollbar-thumb:hover {
+    background: var(--color2-bright);
+}
+
+.comments-form-input::-webkit-scrollbar-thumb:active {
+    background: var(--color2-brighter);
+}
+
+.comments-form-input::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 .comments-form-button {

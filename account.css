@@ -349,16 +349,16 @@ body {
 }
 
 .info-pfp img.avatar-img {
-  height: 30px;
-  width: 30px;
+  height: 1.8rem;
+  width: 1.8rem;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
 }
 
 .list-user img.avatar-img {
-  height: 40px;
-  width: 40px;
+  height: 2.5rem;
+  width: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -461,13 +461,4 @@ h3 {
     transform: none;
     margin-top: 10px;
   }
-
-  .info-pfp img.avatar-img {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
 }

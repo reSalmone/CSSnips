@@ -17,6 +17,6 @@
     background: #00cc00;
 }</style></head>
 <body><button class="nbutton">
-	Click me
+    Click me
 </button><script></script></body>
 </html>

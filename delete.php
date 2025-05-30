@@ -32,6 +32,18 @@ if (file_exists(__DIR__ . "\\snippets\\" . $name)) {
                 deleteError('Error during save removal from all users removal: ' . pg_last_error($dbcon));
             }
 
+            $q2 = "UPDATE drafts SET variation_of = NULL WHERE variation_of = $1";
+            $data = pg_query_params($dbcon, $q2, array($name));
+            if (!$data) {
+                deleteError('Error during update of drafts that are a variation of this snippet: ' . pg_last_error($dbcon));
+            }
+
+            $q2 = "UPDATE snips SET variation_of = NULL WHERE variation_of = $1";
+            $data = pg_query_params($dbcon, $q2, array($name));
+            if (!$data) {
+                deleteError('Error during update of snippets that are a variation of this snippet: ' . pg_last_error($dbcon));
+            }
+
             $q2 = "DELETE FROM snips WHERE file_location = $1";
             $data = pg_query_params($dbcon, $q2, array($name));
             if (!$data) {
@@ -53,7 +65,7 @@ if (file_exists(__DIR__ . "\\snippets\\" . $name)) {
 function deleteError($error)
 {
     global $name;
-    header("Location: snippet.php?name=" . $name);
+    header("Location: snippet.php?name=" . $name . "&info=" . $error);
     exit;
 }
 ?>

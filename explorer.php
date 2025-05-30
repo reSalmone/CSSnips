@@ -142,6 +142,7 @@ if (isset($_SESSION['username'])) {
                     if (pg_num_rows($resultPage) > 0) {
                         echo '<div class="search-output">';
                         while ($tuple = pg_fetch_assoc($resultPage)) {
+                            $avatar = "https://robohash.org/" . urlencode($tuple['creator']) . ".png?set=set1&bgset=bg1";
                             $id = (int) $tuple['id'];
                             ?>
                             <div class="output-snip" data-snippet-id="<?= $id ?>">
@@ -154,7 +155,9 @@ if (isset($_SESSION['username'])) {
                                 </iframe>
                                 <div class="info">
                                     <div class="info-creator" onclick="location.href = 'account.php?username=<?= $tuple['creator'] ?>'">
-                                        <div class="info-pfp"></div>
+                                        <div class="avatar-div">
+                                                <img src="<?= $avatar ?>" alt="Avatar" class="avatar-img">
+                                            </div>
                                         <span><?= htmlspecialchars($tuple['creator']) ?></span>
                                     </div>
                                     <div class="info-right">

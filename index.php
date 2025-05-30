@@ -228,6 +228,7 @@ function splitFileContent($content)
                                     while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
                                         $fileLocation = $tuple['file_location'];
                                         if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
+                                            $avatar = "https://robohash.org/" . urlencode($tuple['creator']) . ".png?set=set1&bgset=bg1";
                                             $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
                             
                                             list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
@@ -255,9 +256,11 @@ function splitFileContent($content)
                                                     });
                                                 </script>';
                                             echo '<div class="info">';
-                                            echo '<div class="info-creator">';
-                                            echo '<div class="info-pfp"></div>';
-                                            echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
+                                            echo '<div class="info-creator">'; ?>
+                                            <div class="avatar-div">
+                                                <img src="<?= $avatar ?>" alt="Avatar" class="avatar-img">
+                                            </div>
+                                            <?php echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
                                             echo '</div>';
                                             echo '<div class="info-views">';
                                             echo '<p class="info-text">' . htmlspecialchars($tuple['views']);

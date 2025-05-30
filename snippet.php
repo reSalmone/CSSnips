@@ -97,6 +97,8 @@ if ($name != '' && file_exists(filename: $filePath)) {
         }
     }
 }
+
+$avatar = "https://robohash.org/" . urlencode($creator) . ".png?set=set1&bgset=bg1";
 ?>
 
 <!DOCTYPE html>
@@ -215,17 +217,20 @@ if ($name != '' && file_exists(filename: $filePath)) {
         </div>
     </div>
 
-    <div id="rest" onclick="closeLogin(); closeSignup(); closeReport(); closeConfirmDelete(); closeInfo(); closeConfirmDeleteComment();">
+    <div id="rest"
+        onclick="closeLogin(); closeSignup(); closeReport(); closeConfirmDelete(); closeInfo(); closeConfirmDeleteComment();">
         <div class="snippet-page">
             <?php if ($variationOf != null) {
                 $v_creator = null;
                 $v_type = null;
+                $v_avatar = null;
 
                 $v_q1 = "SELECT * from snips where file_location = $1";
                 $v_result = pg_query_params($dbcon, $v_q1, array($variationOf));
                 if ($v_tuple = pg_fetch_array($v_result, null, PGSQL_ASSOC)) {
                     $v_creator = $v_tuple['creator'];
                     $v_type = $v_tuple['element_type'];
+                    $v_avatar = "https://robohash.org/" . urlencode($v_creator) . ".png?set=set1&bgset=bg1";
                 }
                 ?>
 
@@ -233,7 +238,9 @@ if ($name != '' && file_exists(filename: $filePath)) {
                     <span class="variation-subtext">Variation of <a href="snippet.php?name=<?= $variationOf ?>"
                             class="variation-text"><?= $v_type ?></a> by</span>
                     <div class="variation-user" onclick="location.href = 'account.php?username=<?= $v_creator ?>'">
-                        <div class="variation-pfp"></div>
+                        <div class="avatar-div">
+                            <img src="<?= $v_avatar ?>" alt="Avatar" class="variation-avatar-img">
+                        </div>
                         <span class="variation-text"><?= $v_creator ?></span>
                     </div>
                 </div>
@@ -296,7 +303,9 @@ if ($name != '' && file_exists(filename: $filePath)) {
                     <div class="data-left">
                         <span class="data-subtext"><?php echo capitalizeProper($type) . ' by '; ?></span>
                         <div class="data-user" onclick="location.href = 'account.php?username=<?= $creator ?>'">
-                            <div class="data-pfp"></div>
+                            <div class="avatar-div">
+                                <img src="<?= $avatar ?>" alt="Avatar" class="creator-avatar-img">
+                            </div>
                             <span class="data-text"><?php echo $creator; ?></span>
                         </div>
                     </div>
@@ -466,6 +475,7 @@ if ($name != '' && file_exists(filename: $filePath)) {
                                     while ($va_tuple = pg_fetch_array($va_result, null, PGSQL_ASSOC)) {
                                         $va_fileLocation = $va_tuple['file_location'];
                                         if (file_exists(__DIR__ . "\\snippets\\" . $va_fileLocation)) {
+                                            $va_avatar = "https://robohash.org/" . urlencode($va_tuple['creator']) . ".png?set=set1&bgset=bg1";
                                             $va_fileContent = file_get_contents(__DIR__ . "\\snippets\\" . $va_fileLocation); //search for the file in the server
                         
                                             list($va_html, $va_css, $va_js) = splitFileContent($va_fileContent); //split file content into html, css, js
@@ -479,8 +489,8 @@ if ($name != '' && file_exists(filename: $filePath)) {
                                                 <iframe id="info-variations-output-snip-frame-<?= $va_tuple['id'] ?>"
                                                     class="info-variations-output-preview"></iframe>
                                                 <script id="info-variations-snippet-data-<?= $va_tuple['id'] ?>" type="application/json">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?= json_encode(['html' => $va_html, 'css' => $va_css, 'js' => $va_js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </script>
 
                                                 <script>
                                                     document.addEventListener("DOMContentLoaded", function () {
@@ -491,7 +501,9 @@ if ($name != '' && file_exists(filename: $filePath)) {
                                                 <div class="info-variations-info">
                                                     <div class="info-variations-info-creator"
                                                         onclick="location.href = 'account.php?username=<?= $va_tuple['creator'] ?>'">
-                                                        <div class="info-variations-info-pfp"></div>
+                                                        <div class="avatar-div">
+                                                            <img src="<?= $va_avatar ?>" alt="Avatar" class="info-variations-avatar-img">
+                                                        </div>
                                                         <span><?= $va_tuple['creator'] ?></span>
                                                     </div>
                                                     <div class="info-variations-info-views">
@@ -554,22 +566,25 @@ if ($name != '' && file_exists(filename: $filePath)) {
                             }
                         }
 
-                        function renderComment($id, $comments, $childrenMap, $dbcon, $depth = 0, $parentCreator = null)
+                        function renderComment($id, $comments, $childrenMap, $dbcon, $depth = 0, $parentCreator = null, $parentId = null)
                         {
                             $co_tuple = $comments[$id];
                             $commentId = $co_tuple['id'];
+                            $c_avatar = "https://robohash.org/" . urlencode($co_tuple['creator']) . ".png?set=set1&bgset=bg1";
                             ?>
-                            <div
-                                class="comment <?= $depth > 0 ? 'reply' : '' ?> <?= $depth == 1 ? 'reply-to-parent' : '' ?> <?= $depth > 1 ? 'reply-to-reply' : '' ?>">
+                            <div class="comment <?= $depth > 0 ? 'reply' : '' ?> <?= $depth == 1 ? 'reply-to-parent' : '' ?> <?= $depth > 1 ? 'reply-to-reply' : '' ?>"
+                                id="comment-<?= $commentId ?>">
                                 <div class="comment-top-div">
                                     <div class="comment-top-left">
                                         <div class="comment-username-container"
                                             onclick="location.href = 'account.php?username=<?= $co_tuple['creator'] ?>'">
-                                            <div class="comment-pfp"></div>
+                                            <div class="avatar-div">
+                                                <img src="<?= $c_avatar ?>" alt="Avatar" class="comment-avatar-img">
+                                            </div>
                                             <span class="comment-username"><?= $co_tuple['creator'] ?></span>
                                         </div>
                                         <?php if ($parentCreator != null) { ?>
-                                            <div class="comment-reply-container">
+                                            <div class="comment-reply-container" onclick="highlightReply(<?= $parentId ?>)">
                                                 <span class="comment-info-text">Replying to</span>
                                                 <span class="comment-text"><?= $parentCreator ?></span>
                                             </div>
@@ -629,15 +644,17 @@ if ($name != '' && file_exists(filename: $filePath)) {
 
                             if (isset($childrenMap[$id])) {
                                 foreach ($childrenMap[$id] as $childId) {
-                                    renderComment($childId, $comments, $childrenMap, $dbcon, ((int) $depth + 1), $co_tuple['creator']);
+                                    renderComment($childId, $comments, $childrenMap, $dbcon, ((int) $depth + 1), $co_tuple['creator'], $commentId);
                                 }
                             }
                         }
 
                         echo '<p class="comments-search-results">' . count($comments) . ' comments</p>';
                         echo '<div class="comments-search-output">';
-                        foreach ($childrenMap[null] as $rootId) {
-                            renderComment($rootId, $comments, $childrenMap, $dbcon);
+                        if (!empty($childrenMap[null])) {
+                            foreach ($childrenMap[null] as $rootId) {
+                                renderComment($rootId, $comments, $childrenMap, $dbcon);
+                            }
                         }
                         echo '</div>';
                         ?>

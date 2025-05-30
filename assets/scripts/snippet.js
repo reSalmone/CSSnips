@@ -311,3 +311,10 @@ function deleteComment(commentId) {
             openInfo(null, error + ' [this is a programming error, please send this error to the staff providing enough context]');
         })
 }
+
+function highlightReply(commentId) {
+    let comment = document.getElementById("comment-" + commentId);
+    comment.style.animation = 'none';
+    comment.offsetHeight;
+    comment.style.animation = "highlight 2s ease"
+}

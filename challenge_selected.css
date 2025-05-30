@@ -56,7 +56,7 @@
 
 .contest-box {
     margin-top: 5%;
-    background: var(--color2);
+    background: var(--color1-brighter);
     width: 95%;
     border-radius: 20px;
     display: flex;
@@ -90,6 +90,7 @@
     background-color: var(--color2-dark);
     z-index: 1;
     text-justify: center;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 5px 15px;
 }
 
 .contest-content {
@@ -106,14 +107,14 @@
 }
 
 .contest-content-title{
-    color: color-mix(in srgb, var(--color1-brighter) 85%, black);
+    color: var(--color4);
     font-size: 2.6rem;
     font-weight: bold;
 
 }
 
 .contest-content-subtitle{
-    color: color-mix(in srgb, var(--color1-brighter) 85%, black);
+    color:  var(--color4);
     font-size: 1.7rem;
     font-weight: bold;
 
@@ -151,6 +152,11 @@
     width: auto;
     display: block;
 }
+
+.nicon-target-two {
+    height: 30rem;
+}
+
 
 .data{
     justify-self: center;

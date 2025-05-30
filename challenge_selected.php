@@ -76,10 +76,13 @@ $is_challenge_active= false;
                     $is_challenge_active= $datag<=$dataf;
                     $challenge_description=$tuple["description"];
                     $challenge_title="";
+                    $challenge_target="";
+                    $challenge_type=$tuple["type"];
                     if($is_challenge_active){
                         $challenge_title="Challenge of the Month!";
                     }else{
                         $challenge_title=$name." Challenge!";
+                        if($challenge_type="Button") $challenge_target="-two";
                     };
         ?>
                     <div class="contest-info-box">
@@ -129,7 +132,7 @@ $is_challenge_active= false;
         ?>
                         </div>
                         <div class="contest-background-target">
-                            <img src="<?=$tuple["image"]?>" class="nicon-target">
+                            <img src="<?=$tuple["image"]?>" class="nicon-target<?=$challenge_target?>">
                         </div>
                     </div>
         <?php

@@ -106,7 +106,7 @@ function splitFileContent($content){
                 <div id="id-user-output" class="user-output">
         <?php
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                        $users_query = "SELECT * FROM users_with_likes WHERE user_challenge_likes >= 0 ORDER BY user_challenge_likes DESC;";
+                        $users_query = "SELECT * FROM users_with_likes WHERE user_challenge_likes > 0 ORDER BY user_challenge_likes DESC;";
                         $users_list = pg_query($dbcon, $users_query);
                         $rank=0;
                         $color_rank="";
@@ -216,7 +216,7 @@ function splitFileContent($content){
                 <div id="s-carosello" class="carosello">
         <?php
                     if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                        $q1 = "SELECT * FROM challenges WHERE date_end < CURRENT_DATE;";
+                        $q1 = "SELECT * FROM challenges WHERE date_end < CURRENT_DATE ORDER BY date_end DESC;";
                         $result_old = pg_query($dbcon, $q1);
                         while ($tuple_old = pg_fetch_array($result_old, NULL, PGSQL_ASSOC)) {
                             $name_old=$tuple_old["name"];
@@ -236,7 +236,7 @@ function splitFileContent($content){
                                 }else{
                                 ?>
                                     <div class="contest-background-button">
-                                        <img src="<?=$image_old?>" class="nicon-target">
+                                        <img src="<?=$image_old?>" class="nicon-target-two">
                                     </div>
                                 <?php 
                                 } 

@@ -110,17 +110,25 @@ function splitFileContent($content){
                         $users_list = pg_query($dbcon, $users_query);
                         $rank=0;
                         $color_rank="";
+                        
                         while ($tuple_user = pg_fetch_array($users_list, NULL, PGSQL_ASSOC)) {
                             $rank+=1;
+                            $users_name= $tuple_user["username"];
+                            $avatar = "https://robohash.org/" . urlencode($users_name) . ".png?set=set1&bgset=bg1";
                             if ($rank == 1) $color_rank="style='border: 2px solid gold; box-shadow: 0px 0px 15px gold;'";
                             elseif ($rank == 2) $color_rank= "style='border: 2px solid silver; box-shadow: 0px 0px 15px silver;'";
                             elseif ($rank == 3) $color_rank="style='border: 2px solid sienna; box-shadow: 0px 0px 15px sienna;'";
                             else $color_rank= "";
         ?>                    
-                            <div class="user-box" <?=$color_rank?>>
+                            <div class="user-box" <?=$color_rank?> onclick="location.href = 'account.php?username=<?=$users_name?>'">
                                 <div class="user-info-box">
-                                    <!--INSERIRE IMMAGINE PROFILO -->
-                                    <div class="user-name-box"><?=$rank?>° <?=$tuple_user["username"]?></div>
+                                    <div class="user-name-box"><?=$rank?>° </div>
+                                    <div class="info-creator">
+                                        <div class="avatar-div">
+                                            <img src="<?= $avatar ?>" alt="Avatar" class="avatar-img">
+                                        </div>
+                                    </div>
+                                    <div class="user-name-box"><?=$users_name?></div>
                                 </div>
                                 <div class="user-challenge-likes-box"><?=$tuple_user["user_challenge_likes"]?> votes</div>
                             </div>

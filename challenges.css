@@ -251,17 +251,17 @@
 .user-info-box{
     display: flex;
     flex-direction: row;
-    gap:2rem;
+    gap:1rem;
 }
 
 .user-name-box{
     color: var(--color4);
-    font-size: 2em;
+    font-size: 1.6rem;
     font-weight: bold;
 }
 .user-challenge-likes-box{
     color: var(--color4);
-    font-size: 2em;
+    font-size: 1.6rem;
     font-weight: bold;
 }
 

@@ -768,3 +768,12 @@
 
 
 }
+
+.avatar-img {
+    height: 1.8rem;
+    width: 1.8rem;
+    border-radius: 5px;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: block;
+}

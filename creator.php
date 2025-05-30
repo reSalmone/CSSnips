@@ -17,6 +17,8 @@ function splitFileContent($content)
 
 $name = null;
 $challengeName = null;
+$variationName = null;
+$variationAvatar = null;
 
 $foundEdit = false;
 $foundClone = false;
@@ -43,9 +45,11 @@ if (isset($_GET['challenge'])) {
     setcookie('challengeCookie', '', 0, '/');
 } else if (isset($_GET['variation'])) {
     $name = $_GET['variation'];
+    $variationName = $_GET['variation'];
     $foundVariation = true;
 } else if (isset($_COOKIE['variationCookie'])) {
-    $name = $_COOKIE['variationCookie'];
+    $name = $_GET['variation'];
+    $variationName = $_COOKIE['variationCookie'];
     $foundVariation = true;
     setcookie('variationCookie', '', 0, '/');
 }
@@ -100,6 +104,7 @@ if ($name != '') {
             if ($tuple = pg_fetch_array($result, null, PGSQL_ASSOC)) {
                 $found = true;
                 $creator = $tuple['creator'];
+                $variationAvatar = "https://robohash.org/" . urlencode($tuple['creator']) . ".png?set=set1&bgset=bg1";
                 if ($foundDraft) {
                     $type = $tuple['type'];
                 } else {
@@ -110,6 +115,7 @@ if ($name != '') {
 
                 if ($foundDraft && isset($tuple['variation_of'])) {
                     $foundVariation = true;
+                    $variationName = $tuple['variation_of'];
                 }
                 if ($foundDraft && isset($tuple['challenge_of'])) {
                     $foundChallenge = true;
@@ -119,7 +125,7 @@ if ($name != '') {
 
                 if ($foundEdit && (!isset($_SESSION['username']) || ($foundEdit && isset($_SESSION['username']) && $creator != $_SESSION['username']))) {
                     //maybe make a system that EVERY page can have it's own errors sent to it and here send back a permission error
-                    header('Location: snippet.php?name=' . $name);
+                    header('Location: snippet.php?name=' . $name . "&info=You aren't allowed to edit this snippet");
                     exit;
                 }
             }
@@ -179,20 +185,23 @@ if ($name != '' && !$found) {
             <iframe id="post-preview"></iframe>
             <div class="post-server-error-container" id="post-server-error"></div>
             <div class="post-info">
-                <?php if ($foundVariation && $found) {
-                    echo '<div class="post-variation-container">';
-                    echo '<span class="post-variation-subtext">Posting as variation of <span class="post-variation-text">' . $type . '</span> by</span>';
-                    echo '<div class="post-variation-user" onclick="location.href = \'account.php?username=' . $creator . '\'">';
-                    echo '<div class="post-variation-pfp"></div>';
-                    echo '<span class="post-variation-text">' . $creator . '</span>';
-                    echo '</div>';
-                    echo '</div>';
-                } else if ($foundChallenge && $foundC) {
-                    echo '<div class="post-variation-container">';
-                    echo '<span class="post-variation-subtext">Posting snippet for challenge <span class="post-variation-text">' . $challengeName . '</span></span>';
-                    echo '</div>';
-                }
-                ?>
+                <?php if ($foundVariation && $found) { ?>
+                    <div class="post-variation-container">
+                        <span class="post-variation-subtext">Posting as variation of <span
+                                class="post-variation-text"><?= $type ?></span> by</span>
+                        <div class="post-variation-user" onclick="location.href = 'account.php?username=<?= $creator ?>'">
+                            <div class="avatar-div">
+                                <img src="<?= $variationAvatar ?>" alt="Avatar" class="variation-avatar-img">
+                            </div>
+                            <span class="post-variation-text"><?= $creator ?></span>
+                        </div>
+                    </div>
+                <?php } else if ($foundChallenge && $foundC) { ?>
+                        <div class="post-variation-container">
+                            <span class="post-variation-subtext">Posting snippet for challenge <span
+                                    class="post-variation-text"><?= $challengeName ?></span></span>
+                        </div>
+                <?php } ?>
                 <div class="post-name-container">
                     <div class="post-name-title-container">
                         <span class="post-info-title">Snippet's name</span>
@@ -363,13 +372,16 @@ if ($name != '' && !$found) {
                 </div>
             <?php } else if ($foundVariation && $found) { ?>
                     <div class="variation-container">
-                        <span class="variation-subtext">Creating a variation of <a href="snippet.php?name=<?php echo $name ?>"
+                        <span class="variation-subtext">Creating a variation of <a
+                                href="snippet.php?name=<?php echo $variationName ?>"
                                 class="variation-text"><?php echo $type ?></a> by</span>
                         <div class="variation-user" onclick="location.href = 'account.php?username=<?= $creator ?>'">
-                            <div class="variation-pfp"></div>
+                            <div class="avatar-div">
+                                <img src="<?= $variationAvatar ?>" alt="Avatar" class="variation-avatar-img">
+                            </div>
                             <span class="variation-text"><?php echo $creator ?></span>
                         </div>
-                        <span id="variation-name" hidden><?php echo $name ?></span>
+                        <span id="variation-name" hidden><?php echo $variationName ?></span>
                         <?php
                         $locationAfter = $foundDraft ? "creator.php?clone=$name" : "snippet.php?name=$name";
                         ?>

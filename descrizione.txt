@@ -83,7 +83,6 @@ SCRIPTS: Contiene i vari file js
     index.js
     login.js
     signup.js
-    sidebar.js
     snippet.js
     title-wave.js – Versione beta delle onde nella home
     title-wave2.js – Animazione delle onde nella home

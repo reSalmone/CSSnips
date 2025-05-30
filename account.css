@@ -1,4 +1,3 @@
-/* ===== BASE STYLES (tuoi originali) ===== */
 @import './data.css';
 
 * {
@@ -24,7 +23,6 @@ body {
   border-radius: 10px;
 }
 
-/* ===== NUOVA SEZIONE PROFILO (versione migliorata) ===== */
 .profilo-info {
   background-color: var(--color2-brighter);
   border-radius: 12px;
@@ -118,10 +116,9 @@ body {
   flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 10px;
-  min-height: 24px; /* Altezza fissa per mantenere il layout */
+  min-height: 24px;
 }
 
-/* Se vuoi nascondere completamente la sezione meta quando vuota */
 .profile-meta:empty {
   display: none;
 }
@@ -144,18 +141,18 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 15px;
   border-radius: 8px;
-  margin: 20px auto; /* Centratura orizzontale */
-  max-width: 80%; /* Larghezza contenuta */
-  text-align: center; /* Allineamento testo al centro */
+  margin: 20px auto;
+  max-width: 80%;
+  text-align: center;
 }
 
 .profile-bio {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 15px;
   border-radius: 8px;
-  margin: 20px auto; /* Centratura orizzontale */
-  max-width: 80%; /* Larghezza contenuta */
-  text-align: center; /* Allineamento testo al centro */
+  margin: 20px auto;
+  max-width: 80%;
+  text-align: center;
 }
 
 .bio-title {
@@ -164,7 +161,7 @@ body {
   letter-spacing: 1px;
   color: var(--color4);
   margin-bottom: 8px;
-  text-align: center; /* Titolo centrato */
+  text-align: center;
 }
 
 .bio-content {
@@ -179,7 +176,7 @@ body {
   justify-content: space-around;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 15px;
-  margin-top: 20px; /* Aggiunto per separare dalla bio */
+  margin-top: 20px;
 }
 
 .stat-item {
@@ -206,7 +203,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* ===== ALTRE SEZIONI (tue originali - mantenute intatte) ===== */
 .recent-activity {
   margin-top: 40px;
   text-align: center;
@@ -333,11 +329,11 @@ body {
 
 .list-user {
   display: flex;
-  justify-content: flex-start; /* testo e immagine vicini */
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-  max-width: 300px; /* o altra larghezza fissa */
-  height: 50px; /* altezza fissa uguale per tutti */
+  max-width: 300px;
+  height: 50px;
   margin: 10px auto;
   padding: 0 20px;
   background-color: white;
@@ -349,21 +345,29 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   text-align: left;
-  gap: 15px; /* spazio tra testo e immagine */
+  gap: 15px;
+}
+
+.info-pfp img.avatar-img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .list-user img.avatar-img {
-  height: 40px;  /* immagine leggermente più piccola del div */
+  height: 40px;
   width: 40px;
   border-radius: 50%;
   object-fit: cover;
-  flex-shrink: 0; /* non si riduca */
+  flex-shrink: 0;
 }
 
 .user-name {
   flex: 1;
   text-align: left;
-  line-height: 50px; /* centrato verticalmente */
+  line-height: 50px;
 }
 
 .list-user:hover {
@@ -373,6 +377,38 @@ body {
 
 .list-user:last-child {
   border-bottom: none;
+}
+
+.info {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color4);
+    font-size: 1.2rem;
+    overflow: hidden;
+}
+
+.info-pfp {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 5px;
+}
+
+.info-creator {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 10px;
+}
+
+.info-creator:hover {
+    background: rgb(0, 0, 0, 0.1);
 }
 
 h3 {
@@ -390,9 +426,6 @@ h3 {
   margin-left: 10px;
 }
 
-
-
-/* ===== MEDIA QUERIES (combinate) ===== */
 @media (max-width: 680px) {
   .activity-container {
     flex-direction: column;
@@ -428,4 +461,13 @@ h3 {
     transform: none;
     margin-top: 10px;
   }
+
+  .info-pfp img.avatar-img {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 }

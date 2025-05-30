@@ -204,8 +204,10 @@ if ($dbcon != -1) {
                     <iframe id="output-snip-frame-<?= $id ?>" class="output-preview">
                     </iframe>
                     <div class="info">
-                      <div class="info-creator">
-                        <div class="info-pfp"></div>
+                      <div class="info-creator" onclick="location.href = 'account.php?username=<?= $utente ?>'">
+                        <div class="info-pfp">
+                          <img src="<?= $avatar_url ?>" alt="Avatar" class="avatar-img">
+                        </div>
                         <span><?= htmlspecialchars($line3['creator']) ?></span>
                       </div>
                       <div class="info-views">

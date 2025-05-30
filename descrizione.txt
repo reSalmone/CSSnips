@@ -1,77 +1,89 @@
-Struttura delle cartelle
-
-CSSnips-main (1)/
-└── CSSnips-main/
+Struttura delle cartelle:
+CSSnips/
     ├── assets/
-    │   └── NoveoSans-Book/
-    │       └── style.css
+    │   ├── NoveoSans-Book/
+    │   │   └── style.css
+    │   └── images/
+    │       └── [...immagini varie...]
     ├── css/
-    │   └── [...file CSS...]
+    │   └── [...file css...]
     ├── handlers/
-    │   └── [...file PHP backend...]
+    │   └── [...file php backend...]
     ├── scripts/
-    │   └── [...file JS...]
-    └── [...file PHP principali...]
+    │   └── [...file js...]
+    └── [...pagine php...]
 
-📁 CSSNIPS-MAIN (1)/CSSNIPS-MAIN
-Contiene i file principali dell’applicazione web.
 
-    about_us.php – Pagina informativa "Chi siamo".
-    account.php – Visualizzazione e gestione del profilo utente.
-    account_settings.php – Impostazioni account dell’utente.
-    activity.php – Mostra le attività recenti dell’utente.
-    challenges.php – Elenco delle sfide disponibili.
-    challenge_selected.php – Dettagli di una sfida selezionata.
-    creator.php – Interfaccia per creare contenuti/snippet.
-    explorer.php – Esplora contenuti e snippet.
-    footer-code.php – Codice riutilizzabile per il footer.
-    index.php – Home page dell’applicazione.
-    login-signup-code.php – Codice condiviso tra login e registrazione.
-    navbar-code.php – Codice per la barra di navigazione.
-    snippet.php – Visualizzazione e gestione di uno snippet.
 
-📁 ASSETS/NOVEOSANS-BOOK
-Contiene stili collegati ai font.
+CSSNIPS: Contiene i file principali del sito
+    about_us.php – Pagina informativa su di noi :)
+    account.php – Visualizzazione e gestione del profilo utente
+    account_settings.php – Impostazioni account dell’utente
+    activity.php – Mostra i snippets recenti dell’utente
+    challenges.php – Elenco delle challenges disponibili
+    challenge_selected.php – Dettagli di una challenge selezionata
+    creator.php – Interfaccia per creare snippet
+    explorer.php – Esplora snippets
+    footer-code.php – Codice da inserire per il footer
+    index.php – Home page
+    login-signup-code.php – Codice da inserire per login e signup
+    navbar-code.php – Codice da inserire barra di navigazione
+    snippet.php – Visualizzazione e gestione di uno snippet
 
-    style.css – Foglio di stile per il font NoveoSans.
 
-📁 CSS
-Contiene tutti i file CSS che definiscono l’aspetto grafico delle varie sezioni.
+NOVEOSANS-BOOK: Contiene css collegato ai font
+    style.css – css per il font :/
 
-    about_us.css – Stile della pagina "Chi siamo".
-    account.css, account_settings.css – Stili del profilo utente e impostazioni.
-    activity.css – Stile per la pagina delle attività.
-    challenges.css, challenge_selected.css – Aspetto grafico delle sfide.
-    checkbox.css – Stili personalizzati per le checkbox.
-    creator.css – Stile per la sezione di creazione.
-    data.css – Stile generico, probabilmente per dati e tabelle.
-    explorer.css – Layout della sezione esplora.
-    footer.css, navbar.css – Aspetto di footer e navbar.
-    index.css – Stile della homepage.
-    login-signup.css – CSS per login e registrazione.
-    snippet-loader.css – Stili per elementi di caricamento.
-    snippet.css – Stile visivo degli snippet.
 
-📁 HANDLERS
-Contiene file PHP che gestiscono operazioni lato server (autenticazione, like, upload...).
+IMAGES: Contiente le varie immagini usate nel progetto
 
-    account_follow_action.php – Gestione follow/unfollow.
-    checkname.php, checkusername.php – Verifica nome e username.
-    delete-*.php – File per eliminare commenti, draft, like, ecc.
-    like.php, like-comment.php, like_snip.php – Gestione dei like.
-    load_snippets.php – Carica snippet dal database.
-    login.php, logout.php, signup.php – Login, logout e registrazione.
-    save.php, update_*.php, upload.php* – Salvataggio e aggiornamenti.
 
-📁 SCRIPTS
-Contiene file JavaScript che gestiscono le funzionalità interattive dell’app.
+CSS: Contiene tutti i file css del progetto
+    vabbe qua dentro onesto è piuttosto chiaro cosa sia cosa, scrivo solo cosa non è ovvio
 
-    account.js, account_settings.js – Interazione con il profilo utente.
-    challenges.js, challenge_selected.js – Logica delle sfide.
-    creator.js, explorer.js – Script per creare ed esplorare contenuti.
-    index.js – Script generali della home.
-    login.js, signup.js – Script per login e registrazione.
-    sidebar.js – Gestione della barra laterale.
-    snippet.js – Gestione snippet e interazioni.
-    title-wave.js, title-wave2.js – Effetti animati nei titoli.
+    about_us.css
+    account.css
+    account_settings.css
+    activity.css
+    challenges.css
+    challenge_selected.css
+    checkbox.css - css per la checkbox remember me del login
+    creator.css
+    data.css
+    explorer.css
+    footer.css
+    navbar.css
+    index.css
+    login-signup.css
+    snippet-loader.css - css per l'animazione di caricamento degli snippet/drafts (prima che la promise riempia il contenuto della iframe)
+    snippet.css
 
+
+HANDLERS: Contiene file php che gestiscono operazioni lato server
+    account_follow_action.php – Gestione follow/unfollow
+    checkname.php - Verifica dinamica del nome dello snippet durante il post
+    checkusername.php – Verifica dinamica dell'username nella registrazione
+    delete.php, delete-draft.php, delete-comment.php – Gestiscono l'eliminazione di oggetti [snippets, drafts, commenti]
+    like.php, like-comment.php, like_snip.php – Gestione dei like [snippet, commenti, snippet nelle challenges]
+    load_snippets.php – Carica snippet/draft dal database
+    login.php, logout.php, signup.php – Login, logout e signup
+    save.php - Gestione del save (nei preferiti)
+    update_*.php - Gestione di cambiamenti a username, password ed email
+    upload.php, upload-comments.php, upload-draft.php – Salvataggio [snippet, commenti, drafts]
+    upload-changes.php - Aggiornamento di uno snippet (salvataggio modifiche)
+
+
+SCRIPTS: Contiene i vari file js
+    account.js
+    account_settings.js
+    challenges.js
+    challenge_selected.js
+    creator.js
+    explorer.js
+    index.js
+    login.js
+    signup.js
+    sidebar.js
+    snippet.js
+    title-wave.js – Versione beta delle onde nella home
+    title-wave2.js – Animazione delle onde nella home

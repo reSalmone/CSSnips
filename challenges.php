@@ -50,7 +50,7 @@ function splitFileContent($content){
         <?php
             $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
             if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                $q1 = "SELECT * FROM challenges WHERE date_end >= CURRENT_DATE;";
+                $q1 = "SELECT * FROM challenges;";
                 $result = pg_query($dbcon, $q1);
 
                 if ($tuple = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
@@ -154,8 +154,8 @@ function splitFileContent($content){
                                 $result2 = pg_query($dbcon, $q2);
                                 while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
                                     $fileLocation = $tuple['file_location'];
-                                    if (file_exists(__DIR__ . "/../snippets/" . $fileLocation)) {
-                                        $fileContent = file_get_contents(filename: __DIR__ . "/../snippets/" . $fileLocation); //search for the file in the server
+                                    if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
+                                        $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
                                         list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
                                         $snip_likes=$tuple['challenge_likes'];
                                         $challenge_name=$tuple['challenge_of'];

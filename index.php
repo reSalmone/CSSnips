@@ -170,7 +170,7 @@ function splitFileContent($content)
                     <?php
                     $dbcon = pg_connect("host=localhost port=5432 dbname=postgres user=postgres password=alfonzo1") or -1;
                     if ($dbcon != -1) {
-                        $q1 = "SELECT * FROM challenges WHERE date_end >= CURRENT_DATE;";
+                        $q1 = "SELECT * FROM challenges;";
                         $result = pg_query($dbcon, $q1);
                         if ($tuple = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
                             $dataf = new DateTime($tuple['date_end']);
@@ -218,69 +218,77 @@ function splitFileContent($content)
             <div class="activec-container">
                 <span class="activec-box-title">Challenge Snips</span>
                 <div class="activec-snips-box">
-                    <div class="slidesnip">
-                        <?php for ($i = 0; $i < 2; $i++) { ?>
-                            <div class="slidesnip-object-left">
-                                <?php
-                                if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                                    $challengeNameForSnips = $tuple['challenge_of'] ?? null;
-                                    $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$challengeNameForSnips' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
-                                    $result2 = pg_query($dbcon, $q2);
-                                    while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
-                                        $fileLocation = $tuple['file_location'];
-                                        if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
-                                            $avatar = "https://robohash.org/" . urlencode($tuple['creator']) . ".png?set=set1&bgset=bg1";
-                                            $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
-                            
-                                            list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
-                            
-                                            echo '<div class="output-snip">';
-                                            echo '<div class= "snip-info">';
-                                            $snip_likes = $tuple['challenge_likes'];
-                                            $challenge_name = $tuple['challenge_of'];
-                                            $snip_name = $tuple['id'];
-                                            echo '</div>';
-                                            echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
-                                            echo '<span>View code</span>';
-                                            echo '</div>';
-                                            echo '<iframe id="output-snip-frame-' . $tuple['id'] . "-" . $i . '" class="output-preview"></iframe>';
-                                            /*here the strat is to create a js snippet containing the json data of the file divided into html css and js
-                                            and then retrieve it with another script that finds the first one and parses it into a js json object, to then place it inside the iframe*/
-                                            echo '<script id="snippet-data-' . $tuple['id'] . "-" . $i . '" type="application/json">';
-                                            echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-                                            echo '</script>';
+    <div class="slidesnip">
+        <?php for ($i = 0; $i < 2; $i++) { ?>
+            <div class="slidesnip-object-left">
+                <?php
+                if ($dbcon != -1) {
+                    // 1. Separazione delle query per ottenere il nome della challenge
+                    $q_challenge = "SELECT name FROM challenges ORDER BY date_end DESC LIMIT 1";
+                    $result_challenge = pg_query($dbcon, $q_challenge);
+                    if ($challenge_row = pg_fetch_array($result_challenge, NULL, PGSQL_ASSOC)) {
+                        $challengeName = $challenge_row['name'];
+                        
+                        // 2. Usiamo il nome della challenge ottenuto separatamente
+                        $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$challengeName' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
+                        $result2 = pg_query($dbcon, $q2);
+                        while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
+                            $fileLocation = $tuple['file_location'];
+                            if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
+                                $avatar = "https://robohash.org/" . urlencode($tuple['creator']) . ".png?set=set1&bgset=bg1";
+                                $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation);
 
-                                            echo '<script>
-                                                    document.addEventListener("DOMContentLoaded", function() {
-                                                        const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . "-" . $i . '").textContent);
-                                                        assignIFrame("output-snip-frame-' . $tuple['id'] . "-" . $i . '", data.html, data.css, data.js);
-                                                    });
-                                                </script>';
-                                            echo '<div class="info">';
-                                            echo '<div class="info-creator">'; ?>
-                                            <div class="avatar-div">
-                                                <img src="<?= $avatar ?>" alt="Avatar" class="avatar-img">
-                                            </div>
-                                            <?php echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
-                                            echo '</div>';
-                                            echo '<div class="info-views">';
-                                            echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
-                                            echo '<p class="info-subtext"> views</p>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                        } else {
-                                            echo 'Your server files aren\' synched with the database: file \'' . $fileLocation . '\' is missing';
-                                        }
-                                    }
-                                } else {
-                                    echo '<p>Error connecting to databse</p>';
-                                }
-                                ?>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
+                                list($html, $css, $js) = splitFileContent($fileContent);
+
+                                echo '<div class="output-snip">';
+                                echo '<div class= "snip-info">';
+                                $snip_likes = $tuple['challenge_likes'];
+                                $challenge_name = $tuple['challenge_of'];
+                                $snip_name = $tuple['id'];
+                                echo '</div>';
+                                echo '<div class="output-snip-opener" onclick="location.href = \'snippet.php?name=' . $fileLocation . '\';">';
+                                echo '<span>View code</span>';
+                                echo '</div>';
+                                echo '<iframe id="output-snip-frame-' . $tuple['id'] . "-" . $i . '" class="output-preview"></iframe>';
+                                
+                                echo '<script id="snippet-data-' . $tuple['id'] . "-" . $i . '" type="application/json">';
+                                echo json_encode(['html' => $html, 'css' => $css, 'js' => $js], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+                                echo '</script>';
+
+                                echo '<script>
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const data = JSON.parse(document.getElementById("snippet-data-' . $tuple['id'] . "-" . $i . '").textContent);
+                                            assignIFrame("output-snip-frame-' . $tuple['id'] . "-" . $i . '", data.html, data.css, data.js);
+                                        });
+                                    </script>';
+                                echo '<div class="info">';
+                                echo '<div class="info-creator">'; ?>
+                                <div class="avatar-div">
+                                    <img src="<?= $avatar ?>" alt="Avatar" class="avatar-img">
+                                </div>
+                                <?php echo '<span>' . htmlspecialchars($tuple['creator']) . '</span>';
+                                echo '</div>';
+                                echo '<div class="info-views">';
+                                echo '<p class="info-text">' . htmlspecialchars($tuple['views']);
+                                echo '<p class="info-subtext"> views</p>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                            } else {
+                                echo 'Your server files aren\' synched with the database: file \'' . $fileLocation . '\' is missing';
+                            }
+                        }
+                    } else {
+                        echo '<p>No active challenge found</p>';
+                    }
+                } else {
+                    echo '<p>Error connecting to databse</p>';
+                }
+                ?>
+            </div>
+        <?php } ?>
+    </div>
+</div>
             </div>
         </div>
     </div>

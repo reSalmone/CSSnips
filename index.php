@@ -223,7 +223,8 @@ function splitFileContent($content)
                             <div class="slidesnip-object-left">
                                 <?php
                                 if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                                    $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
+                                    $challengeNameForSnips = $tuple['challenge_of'] ?? null;
+                                    $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$challengeNameForSnips' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
                                     $result2 = pg_query($dbcon, $q2);
                                     while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
                                         $fileLocation = $tuple['file_location'];

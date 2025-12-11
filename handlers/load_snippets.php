@@ -32,9 +32,9 @@ if ($dbcon != -1) {
     $snippets = [];
     while ($row = pg_fetch_assoc($res)) {
         $id = (int) $row['id'];
-        $path = __DIR__ . '/snippets/' . $row['file_location'];
+        $path = __DIR__ . '/../snippets/' . $row['file_location'];
         if (isset($_GET['draft'])) {
-            $path = __DIR__ . '/drafts/' . $row['file_location'];
+            $path = __DIR__ . '/../drafts/' . $row['file_location'];
         }
         if (!file_exists($path))
             continue;

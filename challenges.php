@@ -59,7 +59,7 @@ function splitFileContent($content){
                     $datag = new DateTime();
                     $diff = $datag->diff($dataf);
                     $fill = $diff->format('%a') * 3.22;
-                    $name=$tuple["name"];
+                    $name = $tuple["name"];
                     $description=$tuple["description"];
                     $image=$tuple["image"];
         ?>
@@ -149,12 +149,13 @@ function splitFileContent($content){
                         <div class="search-output">
         <?php
                             if ($dbcon != -1) { //se la connessione è correttamente stabilita
-                                $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$name' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
+                                $challengeNameForSnips = $name ?? '';
+                                $q2 = "SELECT * FROM snips_with_likes WHERE challenge_of='$challengeNameForSnips' AND challenge_likes IS NOT NULL ORDER BY challenge_likes DESC";
                                 $result2 = pg_query($dbcon, $q2);
                                 while ($tuple = pg_fetch_array($result2, NULL, PGSQL_ASSOC)) {
                                     $fileLocation = $tuple['file_location'];
-                                    if (file_exists(__DIR__ . "\\snippets\\" . $fileLocation)) {
-                                        $fileContent = file_get_contents(filename: __DIR__ . "\\snippets\\" . $fileLocation); //search for the file in the server
+                                    if (file_exists(__DIR__ . "/../snippets/" . $fileLocation)) {
+                                        $fileContent = file_get_contents(filename: __DIR__ . "/../snippets/" . $fileLocation); //search for the file in the server
                                         list($html, $css, $js) = splitFileContent($fileContent); //split file content into html, css, js
                                         $snip_likes=$tuple['challenge_likes'];
                                         $challenge_name=$tuple['challenge_of'];
